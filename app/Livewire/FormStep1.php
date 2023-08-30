@@ -20,8 +20,6 @@ class FormStep1 extends Component
 
     public $stepId;
 
-    protected $listeners = ['save'];
-
     protected $rules = [
         'classId' => 'required|min:2',
     ];

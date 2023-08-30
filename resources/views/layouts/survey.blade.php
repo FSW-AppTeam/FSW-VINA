@@ -23,12 +23,15 @@
 
     <!-- Tailwind -->
     {{--  @vite('resources/css/app.css')--}}
+
+    @livewireStyles
 </head>
 <body>
 
-<main class="py-4">
-    @yield('content')
-</main>
+    <main class="py-4">
+        @yield('content')
+    </main>
 
+@livewireScripts
 </body>
 </html>

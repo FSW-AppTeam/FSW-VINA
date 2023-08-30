@@ -21,19 +21,13 @@ class FormStep2 extends Component
 
     public $stepId;
 
-//    public string $route;
-
     public $jsonQuestion;
-
 
     public function save(): void
     {
-//        dd('hier 223');
-
         $this->validate();
 
 //        $this->success = true;
-
 //        $this->reset('title', 'body');
 
         \Session::put([

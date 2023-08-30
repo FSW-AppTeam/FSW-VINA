@@ -16,17 +16,22 @@
 
             @switch($stepId)
                 @case(1)
-                    <h1>hier form comp 1</h1>
+                    <h1>comp 1</h1>
                     <livewire:form-step-1 :jsonQuestion="$jsonQuestion" :stepId="$stepId"/>
                     @break
                 @case(2)
-                    <h1>hier form comp 2</h1>
+                    <h1>comp 2</h1>
                     <livewire:form-step-2 :jsonQuestion="$jsonQuestion" :stepId="$stepId"/>
                     @break
                 @case(3)
-                    <h1>hier form comp 3</h1>
+                    <h1>comp 3</h1>
                     <livewire:form-step-3 :jsonQuestion="$jsonQuestion" :stepId="$stepId"/>
                     @break
+
+                @default
+                    <h1>comp 1</h1>
+                    <livewire:form-step-1 :jsonQuestion="$jsonQuestion" :stepId="$stepId"/>
+                @break
             @endswitch
     </div>
 

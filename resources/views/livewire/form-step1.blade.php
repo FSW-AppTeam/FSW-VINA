@@ -9,7 +9,7 @@
             @csrf
 
             <div class="card">
-                <div class="card-header">{{ $jsonQuestion->question_title }}</div>
+                <div class="card-header">{{ ucfirst($jsonQuestion->question_title) }}</div>
                 <div class="card-body pb-5">
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -31,14 +31,13 @@
                     <span class="mt-2 text-sm text-red-600">{{ $message }}</span>
                     @enderror
 
-
                 </div>
 
                 <div class="card-footer">
                     @if($stepId != 1)
-                        <button class="btn btn-secondary float-start" name="form1"><-</button>
+                        <input class="btn btn-secondary float-start" wire:click="$parent.setStepIdDown()" type="button" value="<-" name="back-btn"/>
                     @endif
-                    <button class="btn btn-secondary float-end" name="form1">-></button>
+                    <button class="btn btn-secondary float-end">-></button>
                 </div>
 
 

@@ -8,7 +8,7 @@
             @csrf
 
             <div class="card">
-                <div class="card-header">{{ $jsonQuestion->question_title }}</div>
+                <div class="card-header">{{ ucfirst($jsonQuestion->question_title)  }}</div>
 
                 <div class="card-body">
                     @if ($errors->any())
@@ -22,19 +22,14 @@
                         </div>
                     @endif
 
+                        <div for="student-name" class="pb-1 col-10 text-center">{{ $jsonQuestion->question_content }}</div>
                     <div class="form-group">
-                        <p>{{ $jsonQuestion->question_content }}</p>
 
-
-
-                        <div class="d-flex flex-row text-center">
+                        <div class="d-flex flex-row p-5">
                             @livewire('students')
-{{--                            @foreach ($jsonQuestion->students as $student)--}}
-{{--                                <div class="p-2" style="margin-right: 1rem" id="{{ $student['id'] }}">{{ $student['name'] }}</div>--}}
-{{--                            @endforeach--}}
                         </div>
 
-                        <div class="active-student" id="">Henk M</div>
+                        <div class="active-student p-2" id="active-student"></div>
 
                         <div class="col border-end d-flex justify-content-center align-items-center row">
                             @foreach ($jsonQuestion->question_answer as $index => $answer)
@@ -47,9 +42,9 @@
 
                 <div class="card-footer">
                     @if($stepId != 1)
-                        <button class="btn btn-secondary float-start" name="form3" wire:click="$parent.setStepIdDown()"><-</button>
+                        <input class="btn btn-secondary float-start" wire:click="$parent.setStepIdDown()" type="button" value="<-" name="back-btn"/>
                     @endif
-                    <button class="btn btn-secondary float-end" name="form3">-></button>
+                    <button class="btn btn-secondary float-end" >-></button>
                 </div>
 
             </div>
@@ -57,7 +52,6 @@
 
     </div>
 </div>
-
 
 
 

@@ -6,9 +6,6 @@
             dump(Session::all());
         @endphp
 
-{{--        {{ dd('hier',  $jsonQuestion->question_title) }}--}}
-
-
         <form method="POST" name="form1" wire:submit="save" :jsonQuestion="$jsonQuestion">
             @csrf
 

@@ -17,9 +17,11 @@ class CreateSurvey extends Component
 
     public $jsonQuestion;
 
-    public $student;
+    protected $listeners = [
+        'postAdded' => '$refresh',
+        'setStepIdUp' => 'setStepIdUp'
+    ];
 
-    protected $listeners = ['postAdded' => '$refresh', 'setStepIdUp' => 'setStepIdUp'];
 
     public function refreshComponent(): void
     {
@@ -33,16 +35,16 @@ class CreateSurvey extends Component
 
     public function update()
     {
-        session()->flash('message', 'UPDATED!!! updated successfully!');
+        session()->flash('message', 'UPDATED!!! survey!');
 
-        $this->getJsonQuestion($this->stepId);
+//        $this->getJsonQuestion($this->stepId);
     }
 
     public function mount()
     {
         $this->getJsonQuestion($this->stepId);
 
-        session()->flash('message', 'Post mounted!');
+        session()->flash('message', 'Survey mounted!');
     }
 
     public function setStepIdUp()
