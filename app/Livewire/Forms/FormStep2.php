@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\SurveyStudent;
-use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class FormStep2 extends Component
@@ -43,16 +42,21 @@ class FormStep2 extends Component
             ]);
         }
 
-        $this->dispatch('setStepIdUp');
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
         $this->name = old('student-name') ?? \Session::get('step2-student-name') ?? "";
+
+//        $this->dispatch('getJsonQuestion', 2);
+        dump('form step 2 mounted!!');
+
+        session()->flash('message', 'Form Step 2 mounted -- ' . $this->stepId);
     }
 
     public function render()
     {
-        return view('livewire.form-step2');
+        return view('livewire.forms.form-step2');
     }
 }

@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\Reactive;
-use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class FormStep1 extends Component
@@ -18,6 +16,7 @@ class FormStep1 extends Component
 
     public $jsonQuestion;
 
+//    #[Reactive]
     public $stepId;
 
     protected $rules = [
@@ -32,6 +31,10 @@ class FormStep1 extends Component
     public function mount(): void
     {
         $this->classId = old('classId') ?? \Session::get('step1-student-class-code') ?? "";
+
+        dump('form step 1 mounted!!');
+
+        session()->flash('message', 'Form Step 1 mounted -- ' . $this->stepId);
     }
 
     public function save(): void
@@ -43,18 +46,19 @@ class FormStep1 extends Component
             'step1' => true
         ]);
 
-        $this->dispatch('setStepIdUp');
+        $this->dispatch('set-step-id-up');
 
 //        $this->reset('title', 'body');
     }
 
     public function update()
     {
+        $this->dispatch('getJsonQuestion', 1);
         session()->flash('message', 'UPDATED!!!');
     }
 
     public function render()
     {
-        return view('livewire.form-step1');
+        return view('livewire.forms.form-step1');
     }
 }

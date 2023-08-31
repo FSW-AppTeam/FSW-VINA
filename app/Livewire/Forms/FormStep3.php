@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswers;
-use App\Models\SurveyStudent;
-use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class FormStep3 extends Component
@@ -56,7 +54,7 @@ class FormStep3 extends Component
 
         }
 
-        $this->dispatch('setStepIdUp');
+        $this->dispatch('set-step-id-up');
 
 
 //        $this->reset('name', 'body');
@@ -75,6 +73,6 @@ class FormStep3 extends Component
 
     public function render()
     {
-        return view('livewire.form-step3');
+        return view('livewire.forms.form-step3');
     }
 }

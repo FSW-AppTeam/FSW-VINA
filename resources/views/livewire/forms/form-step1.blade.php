@@ -33,17 +33,7 @@
 
                 </div>
 
-                <div class="card-footer">
-                    @if($stepId != 1)
-                        <input class="btn btn-secondary float-start" wire:click="$parent.setStepIdDown()" type="button" value="<-" name="back-btn"/>
-                    @endif
-                    <button class="btn btn-secondary float-end">-></button>
-                </div>
-
-
-                {{--            <div wire:loading>--}}
-                {{--                <svg>...</svg> <!-- SVG loading spinner -->--}}
-                {{--            </div>--}}
+                @livewire('forms.form-buttons', ['stepId' => $stepId])
 
             </div>
         </form>
