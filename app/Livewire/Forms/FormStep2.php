@@ -2,12 +2,17 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyStudent;
 use Livewire\Component;
 
 class FormStep2 extends Component
 {
+    public PostForm $form;
+
     public string $name = '';
+
+    public $stepId;
+
+    public $jsonQuestion;
 
     protected $rules = [
         'name' => 'required|min:2',
@@ -18,38 +23,21 @@ class FormStep2 extends Component
         'name.min' => 'Je naam is minimaal 2 karakters.',
     ];
 
-    public $stepId;
-
-    public $jsonQuestion;
-
     public function save(): void
     {
         $this->validate();
+//        $this->reset('name', 'title');
 
-//        $this->success = true;
-//        $this->reset('title', 'body');
-
-        \Session::put([
-            'step2-student-name' => $this->name,
-            'step2' => true
-        ]);
-
-        if (\Session::has('step1-student-class-code')) {
-            SurveyStudent::firstOrCreate([
-                'survey_id' => 1,
-                'name' => $this->name,
-                'class_id' => \Session::get('step1-student-class-code'),
-            ]);
+        if (\Session::has('survey-student-class-id')) {
+            $this->form->createStudent(1, $this->name, \Session::get('survey-student-class-id'));
+            $this->dispatch('set-step-id-up');
         }
-
-        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->name = old('student-name') ?? \Session::get('step2-student-name') ?? "";
+        $this->name = old('student-name') ?? \Session::get('student-name') ?? "";
 
-//        $this->dispatch('getJsonQuestion', 2);
         dump('form step 2 mounted!!');
 
         session()->flash('message', 'Form Step 2 mounted -- ' . $this->stepId);

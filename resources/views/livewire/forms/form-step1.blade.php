@@ -1,44 +1,14 @@
-<div>
+<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
 
-    <div>
-        @php
-            dump(Session::all());
-        @endphp
-        <form method="POST" name="form1" wire:submit="save">
-            @csrf
-
-            <div class="card">
-                <div class="card-header">{{ ucfirst($jsonQuestion->question_title) }}</div>
-                <div class="card-body pb-5">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-
-                    <div class="form-group">
-                        <label for="student-class-code" class="pb-1">{{ $jsonQuestion->question_content }}</label>
-                        <input type="text" wire:model="classId" class="form-control" name="student-class-code">
-                    </div>
-
-                    @error('student-class-code')
-                    <span class="mt-2 text-sm text-red-600">{{ $message }}</span>
-                    @enderror
-
-                </div>
-
-                @livewire('forms.form-buttons', ['stepId' => $stepId])
-
-            </div>
-        </form>
+    <div class="form-group">
+        <label for="student-class-code" class="pb-1">{{ $jsonQuestion->question_content }}
+        <input type="text" wire:model="classId" class="form-control" name="student-class-code">
+        </label>
     </div>
 
-    {{--  <button wire:click="$parent.setStepIdUp()">Parent stepid Up </button>--}}
+    @error('student-class-code')
+    <span class="mt-2 text-sm text-red-600">{{ $message }}</span>
+    @enderror
 
-</div>
+</x-layouts.form>

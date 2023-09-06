@@ -2,73 +2,50 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
 use Livewire\Component;
 
 class FormStep3 extends Component
 {
-    public string $name = '';
+    public PostForm $form;
 
-    protected $rules = [
-        'name' => 'required|min:2',
-    ];
-
-    protected $messages = [
-        'name.required' => 'Naam is verplicht',
-        'name.min' => 'Je naam is minimaal 2 karakters.',
-    ];
+    public int|null $age;
 
     public $stepId;
 
-//    public string $route;
-
     public $jsonQuestion;
+
+    protected $rules = [
+        'age' => 'required',
+    ];
+
+    protected $messages = [
+        'age.required' => 'Leeftijd is verplicht',
+    ];
+
 
     public function save(): void
     {
         $this->validate();
 
-//        $this->success = true;
+        if (\Session::has('survey-student-class-id')) {
+            $this->form->createAnswer([$this->age], $this->jsonQuestion, $this->stepId);
 
-        \Session::put([
-            'step3-student-name' => $this->name,
-            'step3' => true
-        ]);
-
-        if (\Session::has('step1-student-class-code')) {
-            $answer = SurveyAnswers::firstOrCreate([
-                'survey_id' => 1,
-                'name' => $this->name,
-                'class_id' => \Session::get('step1-student-class-code'),
+            \Session::put([
+                'student-age' => $this->age
             ]);
 
-
-//            'class_id',
-//        'student_id',
-//        'survey_id',
-//        'question_id',
-//        'question_type',
-//        'question_title',
-//        'question_answer',
-//
-
+            $this->dispatch('set-step-id-up');
         }
-
-        $this->dispatch('set-step-id-up');
-
-
-//        $this->reset('name', 'body');
-
-//        if ($validator->passes()) {
-//            return response()->json(['success'=>'Added new records.']);
-//        }
-//        return response()->json(['error'=>$validator->errors()]);
-
     }
 
     public function mount(): void
     {
-        $this->name = old('name') ?? \Session::get('step1-student-name') ?? "";
+//        $this->age = old('age');
+//        session()->flush();
+
+        $this->age = old('age') ?? session()->get('student-age');
+
+        dump('form step 3 mounted!!');
     }
 
     public function render()

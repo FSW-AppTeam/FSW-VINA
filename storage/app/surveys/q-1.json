@@ -4,7 +4,7 @@
     "question_type": "text",
     "question_title": "Klascode ",
     "question_content": "Vul de code in die op het scherm staat:",
-    "question_answer": "",
+    "question_answer_options": "",
     "question_options": {
         "extra_text": ""
     }

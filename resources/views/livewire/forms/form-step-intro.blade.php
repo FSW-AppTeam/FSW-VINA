@@ -1,9 +1,12 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
 
     <div class="form-group">
-        <label for="student-name" class="pb-1">{{ $jsonQuestion->question_content }}
-            <input type="text" wire:model="name" class="form-control" name="student-name">
-        </label>
+        <label value="" />
+            <div name="intro-text">
+                {{ $jsonQuestion->question_title }}
+                {{ $jsonQuestion->question_content }}
+            </div>
+
 
         <br/>
         <p>
@@ -12,7 +15,3 @@
     </div>
 
 </x-layouts.form>
-
-
-
-

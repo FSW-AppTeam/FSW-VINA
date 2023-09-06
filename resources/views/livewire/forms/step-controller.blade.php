@@ -7,6 +7,7 @@
 
     @php
         dump(json_encode($jsonQuestion));
+         dump(Session::all());
     @endphp
 
     @if(isset($activeStep))

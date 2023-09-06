@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('question_id');
             $table->string('question_type');
             $table->string('question_title');
-            $table->json('question_answer')->nullable();
+            $table->json('student_answer')->nullable();
             $table->timestamps();
         });
     }

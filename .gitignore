@@ -18,5 +18,5 @@ yarn-error.log
 /.idea
 /.vscode
 
-!storage/app/surveys
+!storage/app/surveys/
 !public/storage/app/surveys

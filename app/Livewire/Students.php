@@ -18,6 +18,6 @@ class Students extends Component
 
     public function mount()
     {
-        $this->classId = \Session::get('step1-student-class-code');
+        $this->classId = \Session::get('survey-student-class-id');
     }
 }

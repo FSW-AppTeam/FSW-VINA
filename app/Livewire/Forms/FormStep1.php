@@ -30,7 +30,9 @@ class FormStep1 extends Component
 
     public function mount(): void
     {
-        $this->classId = old('classId') ?? \Session::get('step1-student-class-code') ?? "";
+        $this->classId = old('classId') ?? \Session::get('survey-student-class-id') ?? "";
+
+//        session()->flush();
 
         dump('form step 1 mounted!!');
 
@@ -42,7 +44,7 @@ class FormStep1 extends Component
        $this->validate();
 
         \Session::put([
-            'step1-student-class-code' => $this->classId,
+            'survey-student-class-id' => $this->classId,
             'step1' => true
         ]);
 
@@ -59,6 +61,7 @@ class FormStep1 extends Component
 
     public function render()
     {
-        return view('livewire.forms.form-step1');
+        return view('livewire.forms.form-step1')
+            ->layout('layouts.form');
     }
 }
