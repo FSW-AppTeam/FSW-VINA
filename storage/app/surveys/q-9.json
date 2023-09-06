@@ -1,0 +1,20 @@
+{
+    "survey_id": 1,
+    "question_id": 9,
+    "question_type": "int",
+    "question_title": "Godsdienst",
+    "question_content": "Reken je jezelf tot een godsdienst? Zo ja, welke?",
+    "question_answer_options": [
+        {"id": 1, "value": "Geen godsdienst"},
+        {"id": 2, "value": "Rooms Katholiek"},
+        {"id": 3, "value": "Protestants"},
+        {"id": 4, "value": "Moslim"},
+        {"id": 5, "value": "Joods"},
+        {"id": 6, "value": "Anders, namelijk"}
+    ],
+    "question_options": {
+        "question_answer_id": 1,
+        "extra_text": "",
+        "question_custom_input_title": "Godsdienst (ander)"
+    }
+}

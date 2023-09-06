@@ -1,0 +1,12 @@
+{
+    "survey_id": 1,
+    "question_id": 10,
+    "question_type": "json",
+    "question_title": "Eigen vrienden - basis",
+    "question_content": "Met welke klasgenoten ga jij het beste om?",
+    "question_answer_options": [],
+    "question_options": {
+        "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+        "pop-up-text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+    }
+}

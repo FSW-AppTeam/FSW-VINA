@@ -1,0 +1,16 @@
+{
+    "survey_id": 1,
+    "question_id": 7,
+    "question_type": "int",
+    "question_title": "Tijd in klas",
+    "question_content": "Hoe lang zit je al in deze klas?",
+    "question_answer_options": [
+        {"id": 1, "value": "Minder dan een jaar"},
+        {"id": 2, "value": "1 tot 2 jaar"},
+        {"id": 3, "value": "2 tot 3 jaar"},
+        {"id": 4, "value": "3 tot 4 jaar"}
+    ],
+    "question_options": {
+        "question_answer_id": 2
+    }
+}
