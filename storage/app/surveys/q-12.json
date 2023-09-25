@@ -1,0 +1,12 @@
+{
+    "survey_id": 1,
+    "question_id": 12,
+    "question_type": "json",
+    "question_title": "Vrienden van klasgenoten",
+    "question_content": "Met wie gaat de volgende klasgenoot het beste om?",
+    "question_options": {
+        "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+        "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+        "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+    }
+}

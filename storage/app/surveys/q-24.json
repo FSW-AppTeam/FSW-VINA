@@ -1,0 +1,19 @@
+{
+    "survey_id": 1,
+    "question_id": 24,
+    "question_type": "int",
+    "question_title": "Polarisatie in klas",
+    "question_content": "In mijn klas denken mensen heel verschillend over migratie",
+    "question_answer_options": [
+        {"id": 1, "value": "Helemaal oneens"},
+        {"id": 2, "value": "Oneens"},
+        {"id": 3, "value": "Beetje oneens"},
+        {"id": 4, "value": "Niet eens, niet oneens"},
+        {"id": 5, "value": "Beetje eens"},
+        {"id": 6, "value": "Eens"},
+        {"id": 7, "value": "Helemaal eens"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+    }
+}

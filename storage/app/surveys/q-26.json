@@ -1,0 +1,10 @@
+{
+    "survey_id": 1,
+    "question_id": 26,
+    "question_type": "text",
+    "question_title": "Einde",
+    "question_content": "Heeft u nog opmerkingen over de vragenlijst?",
+    "question_options": {
+        "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!"
+    }
+}
