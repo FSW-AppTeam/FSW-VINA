@@ -20,7 +20,7 @@
             <div class="col border-end d-flex justify-content-center align-items-center row">
                 @foreach ($jsonQuestion->question_answer_options as $index => $answer)
                     <button type="button" class="btn btn-secondary" style="width: 100%;margin: 10px"
-                            id="{{ $index }}">{{ $answer }}</button>
+                            id="{{ $index }}">{{ $answer->value }}</button>
                 @endforeach
             </div>
         </div>

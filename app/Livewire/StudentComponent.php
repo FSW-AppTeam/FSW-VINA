@@ -14,10 +14,19 @@ class StudentComponent extends Component
 
     public $name;
 
+    protected $listeners = [
+        'set-toggle-view-student' => 'setToggleView',
+    ];
+
     public function setStudent($id): void
     {
       $this->showDiv = false;
       $this->dispatch('set-selected-student-id', $id, $this->name);
+    }
+
+    public function setToggleView(): void
+    {
+        $this->showDiv = true;
     }
 
     public function render()

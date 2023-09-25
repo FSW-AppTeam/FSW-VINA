@@ -27,16 +27,16 @@ class SurveyStudent extends Model
 //        $h = new Hashids\Hashids('this is my salt');
     }
 
-//    /**
-//     *  Setup model event hooks
-//     */
-//    public static function boot(): void
-//    {
-//        parent::boot();
-//
-////        self::creating(function ($model) {
-////            $model->uuid = Str::uuid()->toString();
-////        });
-//    }
+    /**
+     *  Setup model event hooks
+     */
+    public static function boot(): void
+    {
+        parent::boot();
+
+//        self::creating(function ($model) {
+//            $model->uuid = Str::uuid()->toString();
+//        });
+    }
 
 }

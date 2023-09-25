@@ -9,3 +9,228 @@
 
 // Bootstrap icons
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@import 'animate.css';
+
+
+.modal.fade .modal-dialog {
+    //transition: transform 0.2s ease-out;
+    transform: scaleZ(2) scale(2);
+}
+
+
+//.modal.fade .modal-dialog {
+//    transform: scale(2);
+//}
+//
+//.modal.fade .modal-dialog {
+//    transform: translate3d(0, 100vh, 0);
+//}
+
+
+.modal.show .modal-dialog {
+    transform: translate3d(0, -10vh, 0);
+}
+
+datalist {
+    //display: contents;
+}
+
+body {
+    background-color: lightgrey;
+}
+
+form {
+    //overflow: hidden;
+}
+
+.btn {
+    font-size: 1rem;
+    //color: #5d5d5d;
+}
+
+#scope-form-step13, #scope-form-step14 {
+    .col {
+        .image-box {
+            position: relative;
+            background-color: #e7e7e7;
+            margin-right: -10px;
+            margin-top: -10px;
+            height: 92%;
+        }
+    }
+}
+
+.btn-circle {
+    background-color: #7238ad;
+    color: white;
+    border: orange solid 4px;
+
+    &.btn-xl {
+        width: 100px;
+        height: 100px;
+        //padding: 13px 18px;
+        border-radius: 60px;
+        font-size: 15px;
+        text-align: center;
+        //padding: 10px;
+    }
+
+    &.btn-sm {
+        width: 80px;
+        height: 80px;
+        border-radius: 60px;
+        font-size: 14px;
+        text-align: center;
+        padding: 10px;
+    }
+}
+
+.block-student-active {
+    position: relative;
+    top: 30px;
+    width: 100px;
+    margin-bottom: -70px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.block-students-vertical {
+    display: inline-flex;
+    position: relative;
+    top: -100px;
+    left: 110px;
+
+    .btn-circle.btn-xl.fadeOut {
+        opacity: 0.5;
+        margin-right: 10px;
+    }
+}
+
+
+// from step 15
+.btn {
+    &.press-buttons-inline {
+        width: 100%;
+        margin-bottom: 10px;
+        background-color: #ededed;
+        padding: 22px 15px 22px 15px;
+        border: none;
+        border-radius: 0;
+
+        font-size: 1rem;
+        color: #5d5d5d;
+
+        &:hover {
+            background-color: #c2c0c0;
+        }
+    }
+}
+
+#set-square-area {
+    height: 50px;
+    background-color: #fbfbfb;
+    border: solid 1px #c2c0c0;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.my-element {
+    //display: inline-block;
+    //margin: 0 0.5rem;
+
+    animation: bounce; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
+}
+
+.my-element2 {
+    animation-name: slideOutUpd;
+    animation-duration: 3s;
+    animation-direction: normal;
+    //animation-delay           : 0s, 3s;
+    //animation-iteration-count : infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+
+    overflow: visible;
+
+    //position: relative;
+    //z-index: 9999;
+    //top: -50px;
+}
+
+
+.my-bounce-left {
+    animation-name: bounceOutLeftD;
+    animation-duration: 1s;
+    //animation-delay: 1s;
+    //animation-iteration-count : 1;
+}
+
+//
+//@keyframes slideOutUpd {
+//    from { }
+//    to   { top: 20px;}
+//}
+
+@keyframes slideOutUpd {
+    0% {
+    }
+    100% {
+        transform: translateY(-500px)
+    }
+}
+
+.set-answer-btn {
+    animation: fadeOut 2000ms forwards;
+}
+
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+
+@keyframes bounceOutLeftD {
+    from {
+        opacity: 1;
+        //transform: translate3d(0, 0, 0);
+        left: 20px;
+    }
+
+    to {
+        opacity: 0;
+        //transform: translate3d(-200px, 0, 0);
+        left: 100px;
+    }
+}
+
+
+.bounce-out-left-btn {
+    //animation: bounceOutLeft    1.5s forwards;
+    //animation: bounceOutLeft 1s ease-in forwards;
+
+    animation-name: bounceOutLeft;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes bounceOutLeft {
+    20% {
+        opacity: 1;
+        transform: translate3d(10px, 0, 0) scaleX(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(-2000px, 0, 0) scaleX(2);
+    }
+}
+

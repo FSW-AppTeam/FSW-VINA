@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
 use Livewire\Component;
 
 class FormStep8 extends Component

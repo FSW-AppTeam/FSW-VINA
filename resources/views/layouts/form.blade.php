@@ -13,6 +13,6 @@
 {{ $slot }}
 
 @yield('content')
-@livewireScripts
+{{--@livewireScripts--}}
 </body>
 </html>

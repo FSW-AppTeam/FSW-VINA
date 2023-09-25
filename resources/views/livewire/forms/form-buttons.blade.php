@@ -3,7 +3,7 @@
         @if($stepId !== 0 && $stepId !== 1)
             <input class="btn btn-secondary float-start mb-2" wire:click="$dispatchTo('forms.step-controller', 'set-step-id-down')" type="button" value="<-" name="back-btn"/>
         @endif
-        <button class="btn btn-secondary float-end mb-2">-></button>
+        <button class="btn btn-secondary float-end mb-2" type="submit">-></button>
     </div>
 
     {{--            <div wire:loading>--}}

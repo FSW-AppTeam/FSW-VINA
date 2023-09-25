@@ -1,17 +1,27 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
 
-    <div class="form-group">
-        <label value="" />
-            <div name="intro-text">
-                {{ $jsonQuestion->question_title }}
-                {{ $jsonQuestion->question_content }}
-            </div>
+    <div class="container mt-3">
+        <h5>Hartelijk welkom!</h5>
+
+        <h1 class="animate__animated animate__fadeInTopLeft">Hier animatie</h1>
 
 
-        <br/>
-        <p>
-            {{ $jsonQuestion->question_options->extra_text }}
-        </p>
+
+        <p class="lh-sm mt-3">Het invullen van deze vragenlijst duurt ongeveer 10-15 minuten.</p>
+
+        <p class="lh-sm">Jouw antwoorden worden uiteraard anoniem verwerkt en strikt vertrouwelijk behandeld. Bovendien mag je elke vraag onbeantwoord laten als je die liever niet invult. Je mag ook op elk moment stoppen met de vragenlijst.</p>
+
+        <p class="lh-sm">Voor vragen of opmerkingen over deze vragenlijst kunt je contact opnemen met dr. Tobias Stark, de projectleider: t.h.stark@uu.nl   </p>
+
+        <p><b>Door hieronder op de peil te klikken ga je akkoord met het volgende:</b></p>
+
+        <ul>
+            <li>Ik ben geïnformeerd over het onderzoek.</li>
+            <li>Ik heb de schriftelijke informatie gelezen en begrepen.</li>
+            <li>Ik weet wie ik kan benaderen om benaderen om vragen te stellen over het onderzoek.</li>
+            <li>Ik heb de gelegenheid gekregen om over mijn deelname aan het onderzoek na te denken en mijn deelname is geheel vrijwillig.</li>
+            <li>Ik stem in met het gebruik van mijn antwoorden voor wetenschappelijk onderzoek.</li>
+        </ul>
     </div>
 
 </x-layouts.form>

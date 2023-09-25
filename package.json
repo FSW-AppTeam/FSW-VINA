@@ -7,6 +7,7 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
+        "@types/jquery": "^3.5.18",
         "autoprefixer": "^10.4.15",
         "axios": "^1.1.2",
         "bootstrap": "^5.2.3",
@@ -16,5 +17,9 @@
         "sass": "^1.56.1",
         "tailwindcss": "^3.3.3",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "animate.css": "^4.1.1",
+        "livewire": "^0.6.1"
     }
 }

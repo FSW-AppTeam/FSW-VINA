@@ -2,13 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Dualnets</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>
+    {{--    <link rel="preconnect" href="https://fonts.bunny.net">--}}
+    {{--    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>--}}
 
     <!-- Styles -->
     {{--        <style>--}}
@@ -18,20 +18,50 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @livewireStyles
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss'])
+    @vite([ 'resources/js/app.js'])
 
     <!-- Tailwind -->
     {{--  @vite('resources/css/app.css')--}}
+    @stack('styles')
 
-    @livewireStyles
 </head>
 <body>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
+<h1>Layout here</h1>
+
+<main class="py-4 animate__animated animate__fadeIn animate__slow">
+    @yield('content')
+</main>
+
+
+@push('scripts')
+@endpush
 
 @livewireScripts
+
+{{--@livewireScriptConfig--}}
+
+
+{{--<script>--}}
+
+{{--  console.log(window.Livewire);--}}
+
+{{--    document.addEventListener('livewire:initialized', () => {--}}
+{{--        // Livewire.dispatchTo('dashboard', 'post-created', { postId: 2 })--}}
+
+{{--        console.log('yes init');--}}
+
+
+{{--        // let component = Livewire.first();--}}
+
+{{--        Livewire.on('post-created', ({ postId }) => {--}}
+
+{{--        })--}}
+{{--    });--}}
+{{--</script>--}}
+
 </body>
 </html>

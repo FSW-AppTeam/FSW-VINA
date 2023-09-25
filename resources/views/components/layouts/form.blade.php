@@ -1,34 +1,28 @@
 <div>
-    <h1>LAYOUT slot</h1>
+{{--    <h1>LAYOUT slot</h1>--}}
 
-{{--    <div>--}}
-{{--                @php--}}
-{{--                    dump(Session::all());--}}
-{{--                @endphp--}}
-        <form method="POST"  wire:submit="save">
-            @csrf
+    <form method="POST" wire:submit.prevent="save">
+        @csrf
 
-            <div class="card">
-                <div class="card-header">{{ ucfirst($jsonQuestion->question_title) }}</div>
-                <div class="card-body pb-5">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+        <div class="card">
+            <div class="card-header">{{ ucfirst($jsonQuestion->question_title) }}</div>
+            <div class="card-body pb-5">
 
-                    {{ $slot }}
+                @if ($errors->getMessages())
+                    <div class="alert alert-danger p-2 text-center">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
 
-                </div>
-
-                @livewire('forms.form-buttons', ['stepId' => $stepId])
+                {{ $slot }}
 
             </div>
-        </form>
-    </div>
 
+            @livewire('forms.form-buttons', ['stepId' => $stepId])
+
+        </div>
+    </form>
 </div>
+

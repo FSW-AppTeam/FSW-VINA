@@ -2,7 +2,7 @@
     @if ($showDiv)
         <button type="button"
                 wire:click="setStudent({{$id}})"
-                class="p-3">
+                class=" btn-circle btn-xl  ">
             {{$name}}
         </button>
     @endif
