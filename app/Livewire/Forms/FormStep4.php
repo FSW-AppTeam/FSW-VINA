@@ -2,33 +2,61 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
+use Closure;
 use Livewire\Component;
 
 class FormStep4 extends Component
 {
     public PostForm $form;
 
-    public int $gender;
+    public int|null $gender;
 
     public $stepId;
 
     public $jsonQuestion;
 
-    protected $rules = [
-        'gender' => 'required',
+    public $firstRequired = true;
+
+    protected $messages = [];
+
+    public $setPage = true;
+
+    protected $listeners = [
+        'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
     ];
 
-    protected $messages = [
-        'gender.required' => 'Geslacht is verplicht',
-    ];
+    public function rules(): array
+    {
+        $this->messages['gender.required'] = $this->jsonQuestion->question_options->error_empty_text;
+
+        return [
+            'gender' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+                    if ($this->firstRequired && empty($value)) {
+                        $this->firstRequired = false;
+                        $fail($this->messages['gender.required']);
+                    } else {
+                        $this->setPage = false;
+                    }
+                }
+            ],
+
+        ];
+    }
+
+    public function setAnswerBlockAnswerId(int $id): void
+    {
+        $this->gender = $id;
+    }
 
     public function save(): void
     {
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-             $this->form->createAnswer([$this->gender], $this->jsonQuestion, $this->stepId);
+             $this->form->createAnswer([$this->gender ?? 0], $this->jsonQuestion, $this->stepId);
+
+            \Session::put('student-gender', $this->gender);
 
             $this->dispatch('set-step-id-up');
         }
@@ -36,7 +64,7 @@ class FormStep4 extends Component
 
     public function mount(): void
     {
-        $this->gender = old('gender') ?? \Session::get('student-gender') ?? $this->jsonQuestion->question_options->question_answer_id;
+        $this->gender = old('gender') ?? \Session::get('student-gender') ?? null;
     }
 
     public function render()

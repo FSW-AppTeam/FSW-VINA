@@ -11,6 +11,7 @@ class FormStep12 extends Component
     public $basicTitle = "";
     public array $friends = [];
     public array $selectedFriendsIds = [];
+
     public array $students = [];
     public array $startFriend = [];
 
@@ -24,6 +25,11 @@ class FormStep12 extends Component
 
     protected array $messages = [];
 
+    public $setPage = true;
+
+    public $index = 0;
+    public $friendsList = [];
+
     protected $listeners = [
         'set-selected-student-id-comp' => 'setSelectedStudentId',
         'remove-selected-student-id' => 'removeSelectedStudentId',
@@ -31,9 +37,24 @@ class FormStep12 extends Component
 
     public function setSelectedStudentId(int $id, string $name): void
     {
-        $this->friends[] = ['id' => $id, 'name' => $name ];
-
+        $this->friends[] = ['id' => $id, 'name' => $name];
         $this->selectedFriendsIds[] = $id;
+        $this->friendsList = [];
+        $index = -1;
+
+        foreach ($this->friends as $key => $friend){
+            if($key % 5 === 0){
+                $index++;
+            }
+
+            if(isset($this->friendsList[$index])){
+                if (count($this->friendsList[$index]) < 5){
+                    $this->friendsList[$index][] = $friend;
+                }
+            } else {
+                $this->friendsList[$index][] = $friend;
+            }
+        }
     }
 
     public function removeSelectedStudentId(int $id): void
@@ -43,32 +64,36 @@ class FormStep12 extends Component
         if(is_int($key)){
             array_splice($this->friends, $key, 1);
             array_splice($this->selectedFriendsIds, $key, 1);
+
+            $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
+        }
+
+        foreach ($this->friendsList as $index => $friendList){
+            $key = array_search($id, array_column($friendList, 'id'));
+
+            if(is_int($key)){
+                array_splice($this->friendsList[$index], $key, 1);
+            }
         }
     }
 
     public function rules(): array
     {
         $this->messages['friends.required'] = $this->jsonQuestion->question_options->error_empty_text;
-        $this->messages['friends.min'] = $this->jsonQuestion->question_options->error_one_text;
 
         return [
             'friends' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['friends.required']);
-                        }
-
-                        if (count($value) === 1) {
-                            $fail($this->messages['friends.min']);
-                        }
+                        $fail($this->messages['friends.required']);
                     }
+//                    else {
+//                        $this->setPage = false;
+//                    }
                 },
                 'array'
-            ],
-
+            ]
         ];
     }
 
@@ -80,19 +105,24 @@ class FormStep12 extends Component
             $answer = [
                 'id' => $this->startFriend['id'],
                 'value' => array_column($this->friends, 'id'),
-                ] ;
+            ];
 
             $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-friends-frequent' => $this->friends]);
 
             if(array_key_exists(2, $this->students)){
-                $this->startFriend = $this->students[1];
+                $this->startFriend = $this->students[0];
                 $this->studentCounter ++;
+
+                foreach ($this->selectedFriendsIds as $id){
+                    $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
+                }
 
                 $this->friends = [];
                 $this->selectedFriendsIds = [];
                 $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+                $this->friendsList = [];
 
                 array_shift($this->students);
             } else {
@@ -112,22 +142,25 @@ class FormStep12 extends Component
 
         if(empty($this->friends)){
             $this->startFriend = $this->students[0];
+            array_shift($this->students);
         }
-    }
 
-    public function boot(){
-//        echo('boot student here');
-    }
+       shuffle($this->friends);
+       shuffle($this->students);
 
-    public function update(){
-//        dump('update student here');
-//        $this->students =  array_shift($this->students);
+        $index = -1;
+        foreach ($this->friends as $key => $friend){
+            if($key % 5 === 0){
+                $index++;
+            }
+
+            $this->friendsList[$index][] = $friend;
+            $this->selectedFriendsIds[] = $friend['id'];
+        }
     }
 
     public function render()
     {
-//        dump('render view formstep12!!!');
-
-        return view('livewire.forms.form-step12')->with(['selectedFriendsIds' => $this->selectedFriendsIds]);
+        return view('livewire.forms.form-step12');
     }
 }

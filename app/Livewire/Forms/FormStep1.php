@@ -9,15 +9,11 @@ class FormStep1 extends Component
 {
     public $classId = '';
 
-    public $inputData;
-
-    #[Locked]
-    public $lockedId;
-
     public $jsonQuestion;
 
-//    #[Reactive]
     public $stepId;
+
+    public $setPage = true;
 
     protected $rules = [
         'classId' => 'required|min:2',
@@ -25,18 +21,12 @@ class FormStep1 extends Component
 
     protected $messages = [
         'classId.required' => 'De klas code is verplicht.',
-        'classId.min' => 'De :attribute is minimaal 2 karakters.',
+        'classId.min' => 'De :attribute moet minimaal 2 karakters zijn.',
     ];
 
     public function mount(): void
     {
         $this->classId = old('classId') ?? \Session::get('survey-student-class-id') ?? "";
-
-//        session()->flush();
-
-        dump('form step 1 mounted!!');
-
-        session()->flash('message', 'Form Step 1 mounted -- ' . $this->stepId);
     }
 
     public function save(): void
@@ -61,7 +51,6 @@ class FormStep1 extends Component
 
     public function render()
     {
-        return view('livewire.forms.form-step1')
-            ->layout('layouts.form');
+        return view('livewire.forms.form-step1');
     }
 }

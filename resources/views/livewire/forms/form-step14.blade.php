@@ -2,7 +2,7 @@
     <div id="scope-form-step14">
 
         @if (count($flagsSelected) >= 4)
-            <div class="alert alert-danger">
+            <div class="notification alert alert-danger text-center">
             <p>Je kan maximaal 4 landen opgeven!</p>
             </div>
         @endif
@@ -13,15 +13,15 @@
 
             <div class="text-center block-student-active">
                 <div id="{{$startStudent['id']}}"
-                        class="p-3 btn-circle btn-xl " >
+                        class="p-3 btn-circle btn-xl title" >
                     {{$startStudent['name']}}
                 </div>
             </div>
 
-            <div class="text-center block-students-vertical">
+            <div class="text-center block-students-vertical line-students">
                 @foreach($students as $student)
                     <div id="{{$student['id']}}"
-                         class="p-3 btn-circle btn-xl fadeOut">
+                         class="p-3 btn-circle btn-xl fadeOut title">
                         {{$student['name']}}
                     </div>
                 @endforeach

@@ -2,33 +2,54 @@
 
 namespace App\Livewire\Forms;
 
+use Closure;
 use Livewire\Component;
 
 class FormStep9 extends Component
 {
     public PostForm $form;
 
-    public int $religion;
-    public string $newReligion = "";
+    public int|null $religion;
+    public string $newReligion;
 
     public $stepId;
 
     public $jsonQuestion;
 
-    protected $rules = [
-        'religion' => 'required',
+    protected $messages = [];
+
+    public $setPage = true;
+
+    public $firstRequired = true;
+
+    protected $listeners = [
+        'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
     ];
 
-    protected $messages = [
-        'religion.required' => 'Godsdienst is verplicht',
-    ];
+    public function rules(): array
+    {
+        $this->messages['religion.required'] = $this->jsonQuestion->question_options->error_empty_text;
+
+        return [
+            'religion' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+                    if ($this->firstRequired && empty($value)) {
+                        $this->firstRequired = false;
+                        $fail($this->messages['religion.required']);
+                    } else {
+                        $this->setPage = false;
+                    }
+                }
+            ],
+        ];
+    }
 
     public function save(): void
     {
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->religion], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer([$this->religion ?? null], $this->jsonQuestion, $this->stepId);
 
             if(!empty($this->newReligion)){
                 $this->jsonQuestion->question_title = $this->jsonQuestion->question_options->question_custom_input_title;
@@ -36,7 +57,8 @@ class FormStep9 extends Component
                 $this->form->createAnswer([$this->newReligion], $this->jsonQuestion, $this->stepId);
             }
 
-            \Session::put(['student-religion' => $this->religion]);
+            \Session::put(['student-religion' => $this->religion ?? null]);
+            \Session::put(['student-religion-different' => $this->newReligion ?? ""]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -44,7 +66,23 @@ class FormStep9 extends Component
 
     public function mount(): void
     {
-        $this->religion = old('religion') ?? \Session::get('student-religion') ?? $this->jsonQuestion->question_options->question_answer_id;
+        $this->religion = old('religion') ?? \Session::get('student-religion') ?? null;
+
+
+        if($this->religion === 6){
+//            dd(\Session::get('student-religion-different'));
+
+        $this->newReligion = old('newReligion') ?? \Session::get('student-religion-different') ?? "";
+        }
+    }
+
+    public function setAnswerBlockAnswerId(int $id, string $newReligion = null): void
+    {
+        $this->religion = $id;
+
+        if(!is_null($newReligion)){
+            $this->newReligion = $newReligion;
+        }
     }
 
     public function render()

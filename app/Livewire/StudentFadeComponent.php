@@ -16,29 +16,32 @@ class StudentFadeComponent extends Component
     public $selectedFriendsIds;
 
     protected $listeners = [
-        'set-toggle-view-student-fade' => 'disableShowFade',
+        'set-disable-student-fade-btn' => 'disableShowFade',
         'set-toggle-remove-student' => 'removeStudent',
         'set-refresh' => '$refresh',
         'set-show-fade-true' => 'setShowFadeTrue',
     ];
 
-    public function setShowFadeFalse()
+    public function setShowFadeFalse(): void
     {
         $this->showFade = false;
     }
 
-    public function setShowFadeTrue($id)
+    public function setShowFadeTrue($id): void
     {
         if($id === $this->id){
-            dump('hier showfade?' . $this->id);
             $this->showFade = true;
+
+            dd($this->id);
         }
+
+
     }
 
     public function setStudent($id): void
     {
         $this->showFade = true;
-        $this->dispatch('set-selected-student-id-comp', $id, $this->name)->component(FormStep12::class);
+        $this->dispatch('set-selected-student-id-comp', $id, $this->name);
     }
 
     public function removeStudent($id): void
@@ -62,8 +65,6 @@ class StudentFadeComponent extends Component
     }
     public function render()
     {
-//        dump('render fade componnetn  = ' . $this->showFade);
-
        return view('livewire.student-fade-component');
     }
 }

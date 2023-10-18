@@ -10,6 +10,6 @@
         {"id": 3, "value": "Niveau 4"}
     ],
     "question_options": {
-        "question_answer_id": 2
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
     }
 }

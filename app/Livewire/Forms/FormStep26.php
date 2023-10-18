@@ -22,6 +22,10 @@ class FormStep26 extends Component
         $this->answerText = $val;
     }
 
+    protected $rules = [
+        'answerText' => 'string',
+    ];
+
     public function save(): void
     {
         $this->validate();
@@ -37,7 +41,7 @@ class FormStep26 extends Component
 
     public function mount(): void
     {
-        $this->answerText = old('answerText') ?? \Session::get('end-survey-answer') ?? [];
+        $this->answerText = old('answerText') ?? \Session::get('end-survey-answer') ?? "";
     }
 
     public function render()

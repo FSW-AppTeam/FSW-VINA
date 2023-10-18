@@ -77,7 +77,7 @@ class FormStep25 extends Component
         if (\Session::has('survey-student-class-id')) {
             $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
+            \Session::put(['student-polarisation-society' => $this->answerSelected]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -85,7 +85,7 @@ class FormStep25 extends Component
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-immigration-own-behaviour') ?? [];
+        $this->answerSelected = old('answerSelected') ?? \Session::get('student-polarisation-society') ?? [];
     }
 
     public function render()

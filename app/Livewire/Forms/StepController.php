@@ -2,10 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyStudent;
 use File;
-use Illuminate\Support\Facades\Storage;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class StepController extends Component
@@ -14,10 +11,7 @@ class StepController extends Component
 
     public $jsonQuestion;
 
-    public $stepId = 23;
-    public $success = false;
-
-    public $studentId;
+    public $stepId = 0;
 
     public $steps;
 
@@ -28,7 +22,7 @@ class StepController extends Component
         'set-refresh-stepper'  => '$refresh'
     ];
 
-    public function next()
+    public function next(bool $skip = false)
     {
         $currentIndex = array_search($this->activeStep, $this->steps);
         $this->activeStep = ($currentIndex + 1) >= count($this->steps) ? $this->steps[$currentIndex] : $this->steps[$currentIndex + 1];
@@ -37,7 +31,7 @@ class StepController extends Component
     public function back()
     {
         $currentIndex = array_search($this->activeStep, $this->steps);
-        $this->activeStep = ($currentIndex - 1) < 0 ? $this->steps[$currentIndex] : $this->steps[$currentIndex -1];
+        $this->activeStep = ($currentIndex - 1) < 0 ? $this->steps[$currentIndex] : $this->steps[$currentIndex - 1];
     }
 
     public function refreshComponent(): void
@@ -68,29 +62,29 @@ class StepController extends Component
 
         $this->steps = [
             'forms.form-step-intro',
-//            'forms.form-step1',
-//            'forms.form-step2',
-//            'forms.form-step3',
-//            'forms.form-step4',
-//            'forms.form-step5',
-//            'forms.form-step6',
-//            'forms.form-step7',
-//            'forms.form-step8',
-//            'forms.form-step9',
-//            'forms.form-step10',
-//            'forms.form-step11',
-//            'forms.form-step12',
-//            'forms.form-step13',
-//            'forms.form-step14',
-//            'forms.form-step15',
-//            'forms.form-step16',
-//            'forms.form-step17',
-//            'forms.form-step18',
-//            'forms.form-step19',
-//            'forms.form-step20',
-//            'forms.form-step21',
-//            'forms.form-step22',
-//            'forms.form-step23',
+            'forms.form-step1',
+            'forms.form-step2',
+            'forms.form-step3',
+            'forms.form-step4',
+            'forms.form-step5',
+            'forms.form-step6',
+            'forms.form-step7',
+            'forms.form-step8',
+            'forms.form-step9',
+            'forms.form-step10',
+            'forms.form-step11',
+            'forms.form-step12',
+            'forms.form-step13',
+            'forms.form-step14',
+            'forms.form-step15',
+            'forms.form-step16',
+            'forms.form-step17',
+            'forms.form-step18',
+            'forms.form-step19',
+            'forms.form-step20',
+            'forms.form-step21',
+            'forms.form-step22',
+            'forms.form-step23',
             'forms.form-step24',
             'forms.form-step25',
             'forms.form-step26',
@@ -102,11 +96,10 @@ class StepController extends Component
 //        $this->getJsonQuestion($this->stepId);
         $this->getJsonIntro();
 
-//        dump('Steps mounted!!' . $this->stepId);
-
-        session()->flash('message', 'Survey mounted -- ' . $this->stepId);
+//        session()->flash('message', 'Survey mounted -- ' . $this->stepId);
     }
 
+//    not using, maybe future
     protected function setFormSteps(): void
     {
         $steps = [];
@@ -121,10 +114,6 @@ class StepController extends Component
                 $steps[] = 'forms.' . $name;
             }
         }
-
-//        dump($steps);
-//        dump($files);
-//        dump($this->steps);
     }
 
     public function setStepIdUp(): void
@@ -138,6 +127,12 @@ class StepController extends Component
     {
         $this->back();
         $this->stepId --;
+
+        if(\Session::get('student-origin-country') === 1 || is_null(\Session::get('student-origin-country')) && ($this->stepId === 7)){  // skip question 8
+            $this->back();
+            $this->stepId --;
+        }
+
         $this->getJsonQuestion($this->stepId);
     }
 

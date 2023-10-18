@@ -23,7 +23,21 @@ class AnswerBtnBlock extends Component
 
     public function render()
     {
+//        if(in_array($this->id, $this->answerSelected)){
+//            $this->showBtn = !$this->showBtn;
+//        }
+
         return view('livewire.partials.answer-btn-block');
+    }
+
+    public function boot()
+    {
+//        dump(" boot answeBtnBlock called -- ");
+    }
+
+    public function updated()
+    {
+          dump("updated here");
     }
 
     public function setAnswer(int $id): void
@@ -35,20 +49,29 @@ class AnswerBtnBlock extends Component
 
     public function setShowBtnFalse(int $id)
     {
-        if($this->id === $id) {
-            $this->showBtn = false;
-        }
+//        dump("setShowBtnFalse this->id " . $this->id . " id " . $id);
+//        dump($this->answerSelected);
+//        if($this->id === $id) {
+//            $this->showBtn = false;
+//        }
     }
 
     public function mount()
     {
-        if(in_array($this->id, $this->answerSelected)){
-            $this->showBtn = !$this->showBtn;
-        }
+//        dump("mount this->id " . $this->id . " id " );
+//        dump($this->answerSelected);
+
+//        if(in_array($this->id, $this->answerSelected)){
+//            $this->showBtn = !$this->showBtn;
+//        }
     }
 
     public function activateBtn(int $id): void
     {
+
+//        dump("activateBtn - activateBtn ----- ");
+
+
         if ($this->id === $id) {
             $this->showBtn = true;
         }

@@ -1,5 +1,6 @@
 <div>
     <button
+        data-answer-btn
         type="button"
         class="btn btn-outline-secondary press-buttons-inline @if(!$showBtn) invisible @endif"
         id="{{ $id }}"

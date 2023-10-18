@@ -43,12 +43,9 @@ class FormStep18 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
-                        $this->firstRequired = false;
-
-                        if (empty($value)) {
+                        if ($this->firstRequired && empty($value)) {
+                            $this->firstRequired = false;
                             $fail($this->messages['answer_id.required']);
-                        }
                     }
                 },
                 'array'
@@ -76,14 +73,14 @@ class FormStep18 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $answer = [
-                'id'    => $this->startStudent['id'],
-                'value' => $this->answerSelected['id'],
-            ];
+                $answer = [
+                    'id' => $this->startStudent['id'],
+                    'value' => $this->answerSelected['id'] ?? [],
+                ];
 
-            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
+                $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+                \Session::put(['student-good-knowing-student' => $this->answerSelected]);
 
             if(array_key_exists(0, $this->students)){
                 $this->startStudent = $this->students[0];
@@ -106,7 +103,7 @@ class FormStep18 extends Component
         $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
         $this->students = $this->form->getStudentsSelfFriendsSelected();
 
-//        shuffle($this->students);
+        shuffle($this->students);
 
         $this->startStudent = $this->students[0];
 //

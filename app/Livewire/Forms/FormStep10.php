@@ -8,8 +8,8 @@ use Livewire\Component;
 class FormStep10 extends Component
 {
     public PostForm $form;
-
     public array $friends = [];
+    public array $selectedFriendsIds = [];
 
     public int $stepId;
 
@@ -17,18 +17,40 @@ class FormStep10 extends Component
 
     public $firstRequired = true;
 
-    protected array $messages = [
+    public $setPage = true;
 
-    ];
+    public $index = 0;
+
+    public $friendsList = [];
+
+    protected array $messages = [];
 
     protected $listeners = [
-        'set-selected-student-id' => 'setSelectedStudentId',
+        'set-selected-student-id-comp' => 'setSelectedStudentId',
         'remove-selected-student-id' => 'removeSelectedStudentId',
     ];
 
     public function setSelectedStudentId(int $id, string $name): void
     {
-        $this->friends[] = ['id' => $id, 'name' => $name ];
+        $this->friends[] = ['id' => $id, 'name' => $name];
+        $this->selectedFriendsIds[] = $id;
+
+        $this->friendsList = [];
+        $index = -1;
+
+        foreach ($this->friends as $key => $friend){
+            if($key % 5 === 0){
+                $index++;
+            }
+
+            if(isset($this->friendsList[$index])){
+                if (count($this->friendsList[$index]) < 5){
+                    $this->friendsList[$index][] = $friend;
+                }
+            } else {
+                $this->friendsList[$index][] = $friend;
+            }
+        }
     }
 
     public function removeSelectedStudentId(int $id): void
@@ -37,29 +59,32 @@ class FormStep10 extends Component
 
         if(is_int($key)){
             array_splice($this->friends, $key, 1);
+            array_splice($this->selectedFriendsIds, $key, 1);
+
+            $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
         }
 
-        $this->dispatch('set-toggle-view-student');
+        foreach ($this->friendsList as $index => $friendList){
+            $key = array_search($id, array_column($friendList, 'id'));
+
+            if(is_int($key)){
+                array_splice($this->friendsList[$index], $key, 1);
+            }
+        }
     }
 
     public function rules(): array
     {
         $this->messages['friends.required'] = $this->jsonQuestion->question_options->error_empty_text;
-        $this->messages['friends.min'] = $this->jsonQuestion->question_options->error_one_text;
 
         return [
             'friends' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['friends.required']);
-                        }
-
-                        if (count($value) === 1) {
-                            $fail($this->messages['friends.min']);
-                        }
+                        $fail($this->messages['friends.required']);
+                    } else {
+                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -80,22 +105,20 @@ class FormStep10 extends Component
         }
     }
 
-//    public function boot(): void
-//    {
-//        $this->withValidator(function ($validator) {
-//            $validator->after(function ($validator) {
-//                if (empty($this->friends)) {
-//                    $validator->errors()->add('title', 'yes empty Titles cannot start with quotations');
-//                }
-//            });
-//        });
-//    }
-
     public function mount(): void
     {
         $this->friends = old('friends') ?? \Session::get('student-own-friends-basic') ?? [];
 
-        dump('form step 10 mounted!');
+//      array to build the list for the view
+        $index = -1;
+        foreach ($this->friends as $key => $friend){
+            if($key % 5 === 0){
+                $index++;
+            }
+
+            $this->friendsList[$index][] = $friend;
+            $this->selectedFriendsIds[] = $friend['id'];
+        }
     }
 
     public function render()

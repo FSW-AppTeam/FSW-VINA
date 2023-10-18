@@ -2,24 +2,23 @@
     <div id="scope-form-step13">
 
         @if (count($flagsSelected) >= 4)
-            <div class="alert alert-danger">
+            <div class="notification alert alert-danger text-center text-center">
             <p>Je kan maximaal 4 landen opgeven!</p>
             </div>
         @endif
 
-        <div for="question-title" class="pb-1 col-10 ">{{ $jsonQuestion->question_content }}</div>
+            <h6 class="pb-3 mt-4">{{ $jsonQuestion->question_content }}</h6>
 
         <div class="container text-center mt-4" >
             <div style="display: inline-flex">
 
             @for($x = 0; $x <= 3; $x++)
                 @if(isset($flagsSelected[$x]))
-                        {{$flagsSelected[$x]['id']}}
+{{--                        {{$flagsSelected[$x]['id']}}--}}
 
                     <img src="{{ asset('flags/'.$flagsSelected[$x]['image'].'.jpg') }}"
                          style="height: 54px; width: 80px; margin: 5px; display: inline-block; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);"
                          type="button"
-{{--                         :key="items-{{ now()}}"--}}
                          wire:click="removeSelectedFlagId({{$flagsSelected[$x]['id'] }}, '{{$flagsSelected[$x]['country']}}')"
                          id="{{$flagsSelected[$x]['id']}}"
                          alt="{{$flagsSelected[$x]['image']}}"
@@ -67,7 +66,7 @@
                 </div>
             </div>
 
-        <div class="container mt-4">
+        <div class="container">
             <div class="row row-cols-2 justify-content-center text-center p-5">
                 @foreach ($jsonQuestion->question_answer_options as $index => $answer)
                     <livewire:partials.flag-image :id="$answer->id" :image="$answer->flag" :country="ucfirst($answer->value)" :flags-selected="$flagsSelected" wire:key="flag-key-{{ $answer->id . now() }}"/>

@@ -1,0 +1,40 @@
+{
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
+    "file": "assets/bootstrap-icons-4d4572ef.woff",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
+    "file": "assets/bootstrap-icons-bacd70af.woff2",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
+  },
+  "resources/fonts/bahnschrift/bahnschrift.eot": {
+    "file": "assets/bahnschrift-785d2d75.eot",
+    "src": "resources/fonts/bahnschrift/bahnschrift.eot"
+  },
+  "resources/fonts/bahnschrift/bahnschrift.svg": {
+    "file": "assets/bahnschrift-9bbad1ea.svg",
+    "src": "resources/fonts/bahnschrift/bahnschrift.svg"
+  },
+  "resources/fonts/bahnschrift/bahnschrift.ttf": {
+    "file": "assets/bahnschrift-b9d48901.ttf",
+    "src": "resources/fonts/bahnschrift/bahnschrift.ttf"
+  },
+  "resources/fonts/bahnschrift/bahnschrift.woff": {
+    "file": "assets/bahnschrift-2e494a5c.woff",
+    "src": "resources/fonts/bahnschrift/bahnschrift.woff"
+  },
+  "resources/fonts/bahnschrift/bahnschrift.woff2": {
+    "file": "assets/bahnschrift-b03e119a.woff2",
+    "src": "resources/fonts/bahnschrift/bahnschrift.woff2"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-ce05abac.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-e20aa416.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  }
+}

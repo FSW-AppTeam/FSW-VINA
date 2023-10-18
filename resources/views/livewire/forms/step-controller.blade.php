@@ -1,6 +1,6 @@
-<div>
-    {{ $activeStep }}
-    {{ $stepId }}
+<div class="">
+{{--    {{ $activeStep }}--}}
+{{--    {{ $stepId }}--}}
 
 {{--    @php--}}
 {{--        dump(json_encode($jsonQuestion));--}}
@@ -8,6 +8,6 @@
 {{--    @endphp--}}
 
     @if(isset($activeStep))
-        @livewire($activeStep, key($activeStep), ['jsonQuestion' => $jsonQuestion, 'stepId' => $stepId])
+        @livewire($activeStep, key('step-controller-id-'.$stepId), ['jsonQuestion' => $jsonQuestion, 'stepId' => $stepId])
     @endif
 </div>

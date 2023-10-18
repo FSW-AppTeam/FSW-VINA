@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use Closure;
 use Livewire\Component;
 
 class FormStep3 extends Component
@@ -14,24 +15,39 @@ class FormStep3 extends Component
 
     public $jsonQuestion;
 
-    protected $rules = [
-        'age' => 'required',
-    ];
+    public $firstRequired = true;
 
-    protected $messages = [
-        'age.required' => 'Leeftijd is verplicht',
-    ];
+    public $setPage = true;
 
+    protected $messages = [];
+
+    public function rules(): array
+    {
+        $this->messages['age.numeric'] = $this->jsonQuestion->question_options->error_empty_text;
+
+        return [
+            'age' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+                    if ($this->firstRequired && empty($value)) {
+                        $this->firstRequired = false;
+                        $fail($this->messages['age.numeric']);
+                    } else {
+                        $this->setPage = false;
+                    }
+                }
+            ],
+        ];
+    }
 
     public function save(): void
     {
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->age], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer([$this->age ?? null], $this->jsonQuestion, $this->stepId);
 
             \Session::put([
-                'student-age' => $this->age
+                'student-age' => $this->age ?? null
             ]);
 
             $this->dispatch('set-step-id-up');
@@ -40,12 +56,7 @@ class FormStep3 extends Component
 
     public function mount(): void
     {
-//        $this->age = old('age');
-//        session()->flush();
-
-        $this->age = old('age') ?? session()->get('student-age');
-
-        dump('form step 3 mounted!!');
+        $this->age = old('age') ?? \Session::get('student-age') ?? null;
     }
 
     public function render()

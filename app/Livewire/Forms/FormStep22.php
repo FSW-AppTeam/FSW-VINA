@@ -24,11 +24,16 @@ class FormStep22 extends Component
     public $basicTitle = "";
     public array $students = [];
     public array $startStudent = [];
-    public array $startStudentSecond = [];
+    public array $startStudentRelation = [];
+
+    public array $studentRelationIds = [];
+    public array $shadowStudents = [];
 
     public int $studentCounter = 1;
 
     public int $answerId;
+
+    public const SELF_ID_TEXT = 'Jou';
 
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
@@ -39,17 +44,14 @@ class FormStep22 extends Component
 
     public function rules(): array
     {
-        $this->messages['answer_id.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['answer_selected.required'] = $this->jsonQuestion->question_options->error_empty_text;
 
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['answer_id.required']);
-                        }
+                        $fail($this->messages['answer_selected.required']);
                     }
                 },
                 'array'
@@ -67,7 +69,7 @@ class FormStep22 extends Component
 
     public function removeSelectedSquare(int $id): void
     {
-        if(in_array($id, $this->answerSelected)){
+        if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
     }
@@ -78,28 +80,69 @@ class FormStep22 extends Component
 
         if (\Session::has('survey-student-class-id')) {
             $answer = [
-                'id'    => $this->startStudent['id'],
-                'value' => $this->answerSelected['id'],
+                'id' => $this->startStudent['id'],
+                'relation_id' => $this->startStudentRelation['id'],
+                'value' => $this->answerSelected['id'] ?? [],
             ];
 
             $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+            \Session::put(['student-connection-relation-student' => $this->answerSelected]);
 
-            if(array_key_exists(1, $this->students)){
-                $this->startStudent = $this->students[0];
-                $this->startStudentSecond = $this->students[1];
-                $this->studentCounter ++;
+            if (array_key_exists(1, $this->studentRelationIds)) {
+
+//                array_shift($this->shadowStudents);
+                array_shift($this->studentRelationIds);
+
+                $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
+                $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);
+                $this->studentCounter++;
                 $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
-
                 $this->answerSelected = [];
-                array_shift($this->students);
-                array_shift($this->students);
+
+
+//                dump(count($this->studentRelationIds));
+//                dump($this->studentRelationIds);
+
+
             } else {
                 $this->dispatch('set-step-id-up');
             }
         }
     }
+
+    public function getStudentById(int $id)
+    {
+        $key = array_search($id, array_column($this->students, 'id'));
+
+        if (is_int($key)) {
+            $this->students[$key]['name'] = substr($this->students[$key]['name'], 0, 15);
+
+            return $this->students[$key];
+        }
+
+        return null;
+    }
+
+    public function boot() {
+//        $questionSet = $this->form->getStudentsFriendsRelationsSelected();
+//
+//        $this->students = $questionSet['students'];
+//        $this->studentRelationIds = $questionSet['relations'];
+//        $this->shadowStudents = $this->studentRelationIds;
+//
+//
+//        if (!empty($this->students)) {
+//            $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
+//            $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);
+//
+//            // shifts the student shadow
+////            array_shift($this->studentRelationIds);
+//
+////            shuffle($this->studentRelationIds);
+//        }
+    }
+
 
     public function mount(): void
     {
@@ -107,22 +150,31 @@ class FormStep22 extends Component
 
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
-        $this->students = $this->form->getStudentsFriendsRelationsSelected();
 
-//        dd($this->students);
+        $questionSet = $this->form->getStudentsFriendsRelationsSelected();
 
-//        shuffle($this->students);
+        $this->students = $questionSet['students'];
+        $this->studentRelationIds = $questionSet['relations'];
+        $this->shadowStudents = $this->studentRelationIds;
 
-        $this->startStudent = $this->students[0];
-        $this->startStudentSecond = $this->students[1];
 
-        // shifts the student shadow
-        array_shift($this->students);
-        array_shift($this->students);
+        if (!empty($this->students)) {
+            $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
+            $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);
+
+            // shifts the student shadow
+//            array_shift($this->studentRelationIds);
+
+//            shuffle($this->studentRelationIds);
+//            array_shift($this->shadowStudents);
+        }
     }
 
     public function render()
     {
-        return view('livewire.forms.form-step22');
+        return view('livewire.forms.form-step22')->with([
+            'selfStudentId' => $this->form->getStudent()->id,
+            'selfText' => self::SELF_ID_TEXT
+        ]);
     }
 }

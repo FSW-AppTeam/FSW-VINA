@@ -6,6 +6,6 @@
     "question_content": "Hoe oud ben je?",
     "question_answer_options": [],
     "question_options": {
-        "extra_text": ""
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
     }
 }

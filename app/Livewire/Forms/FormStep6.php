@@ -2,42 +2,54 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
+use Closure;
 use Livewire\Component;
 
 class FormStep6 extends Component
 {
     public PostForm $form;
-
-    public int $originCountry;
-    public string $newCountry = "";
+    public int|null $classTime;
 
     public $stepId;
 
     public $jsonQuestion;
 
-    protected $rules = [
-        'originCountry' => 'required',
+    public $setPage = true;
+
+    public $firstRequired = true;
+
+    protected $messages = [];
+
+    protected $listeners = [
+        'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
     ];
 
-    protected $messages = [
-        'originCountry.required' => 'Herkomstland is verplicht',
-    ];
+    public function rules(): array
+    {
+        $this->messages['classTime.required'] = $this->jsonQuestion->question_options->error_empty_text;
+
+        return [
+            'classTime' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+                    if ($this->firstRequired && empty($value)) {
+                        $this->firstRequired = false;
+                        $fail($this->messages['classTime.required']);
+                    } else {
+                        $this->setPage = false;
+                    }
+                }
+            ],
+        ];
+    }
 
     public function save(): void
     {
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->originCountry], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer([$this->classTime ?? null], $this->jsonQuestion, $this->stepId);
 
-            if(!empty($this->newCountry)){
-                $this->jsonQuestion->question_title = $this->jsonQuestion->question_options->question_custom_input_title;
-                $this->jsonQuestion->question_type = 'text';
-                $this->form->createAnswer([$this->newCountry], $this->jsonQuestion, $this->stepId);
-            }
-
-            \Session::put(['student-origin-country' => $this->originCountry]);
+            \Session::put(['student-class-time' => $this->classTime ?? null]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -45,7 +57,12 @@ class FormStep6 extends Component
 
     public function mount(): void
     {
-        $this->originCountry = old('originCountry') ?? \Session::get('student-origin-country') ?? $this->jsonQuestion->question_options->question_answer_id;
+        $this->classTime = old('classTime') ?? \Session::get('student-class-time') ?? null;
+    }
+
+    public function setAnswerBlockAnswerId(int $id): void
+    {
+        $this->classTime = $id;
     }
 
     public function render()

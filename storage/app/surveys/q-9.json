@@ -15,6 +15,7 @@
     "question_options": {
         "question_answer_id": 1,
         "extra_text": "",
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
         "question_custom_input_title": "Godsdienst (ander)"
     }
 }

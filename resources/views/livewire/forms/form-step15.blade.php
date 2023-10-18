@@ -2,20 +2,20 @@
     <div id="scope-form-step15">
 
         <div class="container text-center">
-            <h5 class="py-3">{{ $jsonQuestion->question_content }}</h5>
+            <h6 class="py-3">{{ $jsonQuestion->question_content }}</h6>
         </div>
 
         <div class="text-center mb-5">
             <div class="block-student-active ">
                 <div id="{{$startStudent['id']}}"
-                     class="p-3 btn-circle btn-xl" data-start-student>
+                     class="p-3 btn-circle btn-xl title @if(strlen($startStudent['name']) > 8) circle-text @endif" data-start-student>
                     {{$startStudent['name']}}
                 </div>
 
                 <div class="block-students-vertical">
                     @foreach($students as $student)
                         <div id="{{$student['id']}}"
-                             class="p-3 btn-circle btn-xl fadeOut ">
+                             class="p-3 btn-circle btn-xl fadeOut studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
                             {{$student['name']}}
                         </div>
                     @endforeach
@@ -23,25 +23,16 @@
             </div>
         </div>
 
-{{--        <div class="container-sm my-5 px-5 my-element2">--}}
-{{--            <h2>Layout hier </h2>--}}
-{{--            <p>Eu eu deserunt clita eos veniam justo placerat eiusmod. Imperdiet culpa stet facilisis zzril. Voluptate--}}
-{{--                iriure cupiditat ad cum gubergren luptatum tempor zzril.--}}
-{{--                Vulputate lobortis minim consetetur eum blandit liber blandit cillum augue. Officia exerci--}}
-{{--                consequat.</p>--}}
-{{--        </div>--}}
-
-
         <div class="container-sm">
             <div class="row justify-content-center align-items-center text-center">
-                <div class="col-10 col-lg-8">
+                <div class="col-11 col-lg-8">
                     @if(!empty($answerSelected))
                         <button type="button" data-start-square
 {{--                             wire:click="removeSelectedSquare({{$answerSelected['id']}})"--}}
                              wire:click="$dispatch('set-square-animation');"
                              id="{{$answerSelected['id']}}"
                              class="btn btn-outline-secondary press-buttons-inline rounded"
-                             style="height: 50px; border: solid 2px orange;padding-top: 12px;">
+                             style="height: 50px; border: solid 2px orange;padding-top: 10px;">
                             {{$answerSelected['value']}}
                         </button>
                     @else
@@ -51,11 +42,10 @@
             </div>
         </div>
 
-
         <div class="form-group mt-5">
             <div class="container-sm">
             <div class="row justify-content-center align-items-center">
-                <div class="col-10 col-lg-8">
+                <div class="col-11 col-lg-8">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
                         <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="{{ $answer->id . now() }}" />
                     @endforeach

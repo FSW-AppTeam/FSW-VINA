@@ -12,8 +12,6 @@ class FormStepIntro extends Component
 
     public function mount(): void
     {
-        dump('form step mounted!!');
-
         session()->flash('message', 'Form Step intro mounted');
     }
 

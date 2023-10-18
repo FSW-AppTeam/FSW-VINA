@@ -43,12 +43,9 @@ class FormStep20 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['answer_id.required']);
-                        }
+                        $fail($this->messages['answer_id.required']);
                     }
                 },
                 'array'
@@ -66,7 +63,7 @@ class FormStep20 extends Component
 
     public function removeSelectedSquare(int $id): void
     {
-        if(in_array($id, $this->answerSelected)){
+        if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
     }
@@ -77,17 +74,17 @@ class FormStep20 extends Component
 
         if (\Session::has('survey-student-class-id')) {
             $answer = [
-                'id'    => $this->startStudent['id'],
-                'value' => $this->answerSelected['id'],
+                'id' => $this->startStudent['id'],
+                'value' => $this->answerSelected['id'] ?? [],
             ];
 
             $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-good-knowing-student' => $this->answerSelected]);
 
-            if(array_key_exists(0, $this->students)){
+            if (array_key_exists(0, $this->students)) {
                 $this->startStudent = $this->students[0];
-                $this->studentCounter ++;
+                $this->studentCounter++;
                 $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
 
                 $this->answerSelected = [];

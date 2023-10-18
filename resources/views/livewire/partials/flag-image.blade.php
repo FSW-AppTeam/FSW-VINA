@@ -1,4 +1,3 @@
-
 <div class="col">
     @if ($showFlag)
         <div class="col image-box p-2">

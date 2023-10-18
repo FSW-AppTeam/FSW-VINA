@@ -16,7 +16,7 @@
                 <div class="card-header">{{ $jsonQuestion->question_title }}</div>
                 <div class="card-body pb-5">
                     @if ($errors->any())
-                        <div class="alert alert-danger">
+                        <div class="notification alert alert-danger text-center">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>

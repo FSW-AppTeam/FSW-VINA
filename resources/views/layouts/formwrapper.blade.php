@@ -1,13 +1,11 @@
 <div>
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
 
+    <h1> form wrapper</h1>
     <div>
         @php
             dump(Session::all());
         @endphp
-
-{{--        {{ dd('hier',  $jsonQuestion->question_title) }}--}}
-
 
         <form method="POST" name="form1" wire:submit="save" :jsonQuestion="$jsonQuestion">
             @csrf
@@ -16,7 +14,7 @@
                 <div class="card-header">{{ $jsonQuestion->question_title }}</div>
                 <div class="card-body pb-5">
                     @if ($errors->any())
-                        <div class="alert alert-danger">
+                        <div class="notification alert alert-danger text-center">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>

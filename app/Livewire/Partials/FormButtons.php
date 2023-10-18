@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Forms;
+namespace App\Livewire\Partials;
 
 use Livewire\Component;
 
@@ -10,6 +10,6 @@ class FormButtons extends Component
 
     public function render()
     {
-        return view('livewire.forms.form-buttons');
+        return view('livewire.partials.form-buttons');
     }
 }

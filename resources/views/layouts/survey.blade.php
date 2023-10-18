@@ -2,13 +2,10 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, maximum-scale=1, minimum-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">{{-- Chrome --}}
+    <meta name="apple-mobile-web-app-capable" content="yes">{{-- Safari --}}
     <title>Dualnets</title>
-
-    <!-- Fonts -->
-    {{--    <link rel="preconnect" href="https://fonts.bunny.net">--}}
-    {{--    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>--}}
 
     <!-- Styles -->
     {{--        <style>--}}
@@ -18,50 +15,40 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @livewireStyles
+{{--    @livewireStyles--}}
     <!-- Scripts -->
     @vite(['resources/sass/app.scss'])
-    @vite([ 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 
     <!-- Tailwind -->
     {{--  @vite('resources/css/app.css')--}}
     @stack('styles')
 
 </head>
-<body>
+<body >
 
-<h1>Layout here</h1>
-
-<main class="py-4 animate__animated animate__fadeIn animate__slow">
-    @yield('content')
-</main>
-
-
-@push('scripts')
-@endpush
+{{--<h1>Layout here</h1>--}}
+    <main class="">
+        @yield('content')
+    </main>
 
 @livewireScripts
 
 {{--@livewireScriptConfig--}}
+</body>
+</html>
+
+
 
 
 {{--<script>--}}
-
-{{--  console.log(window.Livewire);--}}
-
-{{--    document.addEventListener('livewire:initialized', () => {--}}
-{{--        // Livewire.dispatchTo('dashboard', 'post-created', { postId: 2 })--}}
-
-{{--        console.log('yes init');--}}
-
-
-{{--        // let component = Livewire.first();--}}
-
-{{--        Livewire.on('post-created', ({ postId }) => {--}}
-
-{{--        })--}}
+{{--    $("#button").on('touchstart click', function(event) {--}}
+{{--        if (event.type === "touchstart") {--}}
+{{--            $(this).off('click');--}}
+{{--            console.log("Only touch event is fired");--}}
+{{--        } else if (event.type === "click") {--}}
+{{--            $(this).off('touchstart');--}}
+{{--            console.log("Only click event is fired");--}}
+{{--        }--}}
 {{--    });--}}
 {{--</script>--}}
-
-</body>
-</html>
