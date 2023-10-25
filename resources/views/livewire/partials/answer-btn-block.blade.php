@@ -1,0 +1,9 @@
+<div>
+    <button
+        data-answer-btn
+        type="button"
+        class="btn btn-outline-secondary press-buttons-inline @if(!$showBtn) invisible @endif"
+        id="{{ $id }}"
+        wire:click="$dispatch('set-block-btn-animation', {event:event});"
+    >{{ $value }}</button>
+</div>

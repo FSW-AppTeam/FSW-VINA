@@ -1,0 +1,11 @@
+{
+    "survey_id": 1,
+    "question_id": 0,
+    "question_type": "text",
+    "question_title": "",
+    "question_content": "Hartelijk welkom!\n\nHet invullen van deze vragenlijst duurt ongeveer 10-15 minuten.\n\nJouw antwoorden worden uiteraard anoniem verwerkt en strikt vertrouwelijk behandeld. Bovendien mag je elke vraag onbeantwoord laten als je die liever niet invult. Je mag ook op elk moment stoppen met de vragenlijst.\n\nVoor vragen of opmerkingen over deze vragenlijst kunt je contact opnemen met dr. Tobias Stark, de projectleider: t.h.stark@uu.nl  ",
+    "question_answer_options": "",
+    "question_options": {
+        "extra_text": "Door hieronder op de peil te klikken ga je akkoord met het volgende: "
+    }
+}

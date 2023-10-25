@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Bahnschrift';
+    src: url('../fonts/bahnschrift/bahnschrift.eot');
+    src: url('../fonts/bahnschrift/bahnschrift.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bahnschrift/bahnschrift.woff2') format('woff2'),
+         url('../fonts/bahnschrift/bahnschrift.woff') format('woff'),
+         url('../fonts/bahnschrift/bahnschrift.ttf') format('truetype'),
+         url('../fonts/bahnschrift/bahnschrift.svg#Bahnschrift') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

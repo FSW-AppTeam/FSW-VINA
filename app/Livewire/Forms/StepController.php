@@ -1,0 +1,148 @@
+<?php
+
+namespace App\Livewire\Forms;
+
+use File;
+use Livewire\Component;
+
+/**
+ * Controlling the pages from the survey
+ */
+class StepController extends Component
+{
+    public $activeStep = 'forms.form-step-intro';
+
+    public $jsonQuestion;
+
+    public $stepId = 0;
+
+    public $steps;
+
+    protected $listeners = [
+        'postAdded' => '$refresh',
+        'set-step-id-up' => 'setStepIdUp',
+        'set-step-id-down' => 'setStepIdDown',
+        'set-refresh-stepper'  => '$refresh'
+    ];
+
+    public function next(bool $skip = false)
+    {
+        $currentIndex = array_search($this->activeStep, $this->steps);
+        $this->activeStep = ($currentIndex + 1) >= count($this->steps) ? $this->steps[$currentIndex] : $this->steps[$currentIndex + 1];
+    }
+
+    public function back()
+    {
+        $currentIndex = array_search($this->activeStep, $this->steps);
+        $this->activeStep = ($currentIndex - 1) < 0 ? $this->steps[$currentIndex] : $this->steps[$currentIndex - 1];
+    }
+
+    public function refreshComponent(): void
+    {
+        $this->update = !$this->update;
+    }
+
+    public function getJsonQuestion(int $i): void
+    {
+        if(file_exists(storage_path("app/surveys/q-$i.json"))){
+            $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-$i.json")), FALSE);
+        }
+    }
+
+    public function getJsonIntro(): void
+    {
+        $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-intro.json")), FALSE);
+    }
+
+    public function getJsonOutro(int $i): void
+    {
+        $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-outro.json")), FALSE);
+    }
+
+    public function booted()
+    {
+        $this->steps = [
+            'forms.form-step-intro',
+            'forms.form-step1',
+            'forms.form-step2',
+            'forms.form-step3',
+            'forms.form-step4',
+            'forms.form-step5',
+            'forms.form-step6',
+            'forms.form-step7',
+            'forms.form-step8',
+            'forms.form-step9',
+            'forms.form-step10',
+            'forms.form-step11',
+            'forms.form-step12',
+            'forms.form-step13',
+            'forms.form-step14',
+            'forms.form-step15',
+            'forms.form-step16',
+            'forms.form-step17',
+            'forms.form-step18',
+            'forms.form-step19',
+            'forms.form-step20',
+            'forms.form-step21',
+            'forms.form-step22',
+            'forms.form-step23',
+            'forms.form-step24',
+            'forms.form-step25',
+            'forms.form-step26',
+            'forms.form-step27',
+            'forms.form-step28',
+            'forms.form-step29',
+            'forms.form-step30',
+            'forms.form-step31',
+            'forms.form-step32',
+        ];
+    }
+
+    public function mount()
+    {
+//        $this->getJsonQuestion($this->stepId);
+        $this->getJsonIntro();
+    }
+
+//    not using, maybe future
+    protected function setFormSteps(): void
+    {
+        $steps = [];
+        $path = resource_path('views/livewire/forms');
+        $files = File::allFiles($path);
+
+        foreach ($files as $file){
+         $name = $file->getFilenameWithoutExtension(); // remove .php
+         $name = substr($name, 0, -6); // remove .blade
+
+            if(str_starts_with($name, 'form-step')){
+                $steps[] = 'forms.' . $name;
+            }
+        }
+    }
+
+    public function setStepIdUp(): void
+    {
+        $this->next();
+        $this->stepId ++;
+        $this->getJsonQuestion($this->stepId);
+    }
+
+    public function setStepIdDown(): void
+    {
+        $this->back();
+        $this->stepId --;
+
+        if(\Session::get('student-origin-country') === 1 || is_null(\Session::get('student-origin-country')) && ($this->stepId === 7)){  // skip question 8
+            $this->back();
+            $this->stepId --;
+        }
+
+        $this->getJsonQuestion($this->stepId);
+    }
+
+    public function render()
+    {
+        return view('livewire.forms.step-controller');
+    }
+}
