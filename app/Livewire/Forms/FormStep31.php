@@ -2,60 +2,38 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
 use Livewire\Component;
 
 class FormStep31 extends Component
 {
     public PostForm $form;
 
-    public string $name = '';
-
-    protected $rules = [
-//        'name' => 'required|min:2',
-    ];
-
-    protected $messages = [
-        'name.required' => 'Naam is verplicht',
-        'name.min' => 'Je naam is minimaal 2 karakters.',
-    ];
-
     public $stepId;
 
     public $jsonQuestion;
 
-    public $answerValues;
+    public $answerText = "";
+
+    protected $rules = [
+        'answerText' => 'string',
+    ];
 
     public function save(): void
     {
-//        $this->validate();
+        $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-             $this->form->createAnswer($this->answerValues, $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer([strip_tags($this->answerText)], $this->jsonQuestion, $this->stepId);
+
+            \Session::put(['student-end-survey-answer' => $this->answerText]);
 
             $this->dispatch('set-step-id-up');
         }
-
-
-//        $this->reset('name', 'body');
-
-//        if ($validator->passes()) {
-//            return response()->json(['success'=>'Added new records.']);
-//        }
-//        return response()->json(['error'=>$validator->errors()]);
-
     }
 
     public function mount(): void
     {
-        $this->name = old('name') ?? \Session::get('step1-student-name') ?? "";
-
-        $this->answerValues = [
-            ['id' => 2, 'value' => 4],
-            ['id' => 5, 'value' => 2],
-            ['id' => 6, 'value' => 3],
-        ];
-
+        $this->answerText = old('answerText') ?? \Session::get('student-end-survey-answer') ?? "";
     }
 
     public function render()

@@ -111,7 +111,7 @@ class FormStep12 extends Component
 
             \Session::put(['student-friends-frequent' => $this->friends]);
 
-            if(array_key_exists(2, $this->students)){
+            if(array_key_exists(1, $this->students)){
                 $this->startFriend = $this->students[0];
                 $this->studentCounter ++;
 
@@ -144,9 +144,6 @@ class FormStep12 extends Component
             $this->startFriend = $this->students[0];
             array_shift($this->students);
         }
-
-       shuffle($this->friends);
-       shuffle($this->students);
 
         $index = -1;
         foreach ($this->friends as $key => $friend){

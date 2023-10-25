@@ -14,6 +14,7 @@
     ],
     "question_options": {
         "extra_text": "Je mag meerdere antwoorden aanvinken.",
+        "error_text": "Je kan maximaal 4 landen opgeven!",
         "error_empty_text": "Je hebt geen etniciteit aangeklikt, je mag zo veel etniciteiten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
         "error_one_text": ""
     }

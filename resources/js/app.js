@@ -1,41 +1,41 @@
 import './bootstrap';
 
 import * as bootstrap from 'bootstrap';
-// import alert from "bootstrap/js/src/alert.js";
 
 window.bootstrap = bootstrap;
 
 const Livewire = window.Livewire;
 
+// :hover fix ios
+document.addEventListener("click", x=>0);
 
-// import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
-// import Clipboard from '@ryangjchandler/alpine-clipboard'
-// Alpine.plugin(Clipboard)
-//
-// Livewire.start();
+
 
 //
-// const resizeOps = () => {
-//     // document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + "px");
+// // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+// let vh = (window.innerHeight * 0.01) + 1;
+// // Then we set the value in the --vh custom property to the root of the document
+// document.documentElement.style.setProperty('--vh', `${vh}px`);
 //
-//     let body_window = document.getElementById('layout-wrapper');
-//     body_window.style.setProperty("height",  window.innerHeight * 0.01 + "px");
+// // Quick address bar hide on devices like the iPhone
+// //---------------------------------------------------
+// function quickHideAddressBar() {
+//     setTimeout(function() {
+//         if(window.pageYOffset !== 0) return;
+//         window.scrollTo(0, window.pageYOffset + 1);
+//     }, 100);
+// }
 //
-//
-//     // let vh = window.innerHeight * 0.01;
-//     // document.documentElement.style.setProperty('--vh', `${vh}px`);
-// };
-//
-// resizeOps();
-// window.addEventListener("resize", resizeOps);
+// quickHideAddressBar();
+
 
 
 
 const appHeight = () => {
     const doc = document.documentElement
-    doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`);
 }
-window.addEventListener('resize', appHeight)
+window.addEventListener('resize', appHeight);
 appHeight();
 
 
@@ -46,48 +46,38 @@ if (window.TouchEvent) {
     mobileDevice = true;
 }
 
+/* iOS re-orientation fix */
+// if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+//     /* iOS hides Safari address bar */
+//     window.addEventListener("load",function() {
+//         setTimeout(function() {
+//             window.scrollTo(0, 1);
+//         }, 1000);
+//     });
+// }
+
 // document.addEventListener('touchstart', onDocumentTouchStart, false);
 
 function onDocumentTouchStart(event) {
     if (event.touches[0]) {
-        alert("touched");
+        // alert('resize touchstart');
 
-        alert(event.touches[0].target.id);
-        console.log(event.touches[0]);
+        // alert(event.touches[0].target.id);
+        // console.log(event.touches[0]);
     }
 }
-
-
-function eventHandler(e) {
-    if( e.target == e.currentTarget ) {
-        alert("error - browsers should never activate this!");
-        return; //error - browsers should never activate this!
-    }
-}
-
 
 document.addEventListener('livewire:initialized', (e) => {
-
-    // addEventListener("touchend", (event) => {
-    //     alert("touched")
-    // }, false);
-
-    // object.ontouchstart = myScript;
-
 
     // block answer buttons
     document.addEventListener('select-answer-block', (ev) => {
         ev.preventDefault();
-        // let blockBtn = ev.currentTarget.activeElement;
-
         let blockBtn = ev.detail.event.target;
-
 
         if(blockBtn.firstElementChild !== null){
             blockBtn.firstElementChild.checked = true;
 
             const countryName = blockBtn.lastElementChild.innerText;
-
             const setAnswerButtonBlock = new CustomEvent("set-answer-block-answer-id", {
                 detail: {
                     id: blockBtn.firstElementChild.id,
@@ -101,8 +91,6 @@ document.addEventListener('livewire:initialized', (e) => {
         // document.removeEventListener('select-answer-block', ()=>{});
     });
 
-
-
     document.addEventListener('set-modal-flag', event => {
         // const options = {keyboard:false};
         const countryModal = new bootstrap.Modal(document.getElementById('countryModal'), {});
@@ -112,8 +100,6 @@ document.addEventListener('livewire:initialized', (e) => {
                 let input = document.getElementById('countryDataList');
                 input.value = '';
                 input.focus();
-
-                // input.dispatchEvent(new KeyboardEvent('keydown', {'key': 'ArrowDown'}));
 
                 let btn = document.getElementById('country-set-btn');
                 let countryVar = "";
@@ -137,44 +123,58 @@ document.addEventListener('livewire:initialized', (e) => {
                     countryModal.hide();
                 }, {once: true})
             }
-            , 500);
+            ,500);
     })
 
 
-    const dwight_animation2 = (e) => {
-        // const element = document.querySelector('.my-element');
-        const element = e.currentTarget.activeElement;
+    // Flag animation question 14
+    let shadowPositionXFlag = -90;
+    let indexFlag = 0;
 
-        console.log(element);
+    document.addEventListener('set-animation-flag-student', (ev) => {
+        let studentShadowList = document.querySelector('[data-student-list]');
+        let shadowList = document.querySelectorAll('.student-shadow-flex');
 
-        element.style.setProperty('--animate-duration', '1s');
-        // element.style.setProperty('transform', 'translate3d(100%, 0, 0)');
-        element.style.setProperty('--animate-transform', 'translate3d(100%, 0, 0)');
+        shadowList[indexFlag].animate([
+            {opacity: 1, transform: `translate3d(10px, 0, 0) scaleX(1)`},
+            {opacity: 0, transform: `translate3d(-2000px, 0, 0) scaleX(2)`}
+        ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
 
-        element.classList.add('animate__animated', 'animate__backOutUp');
+        if(shadowList[(indexFlag + 1)] !== undefined){
+            shadowList[(indexFlag + 1)].animate([
+                {opacity: 1}
+            ], {duration: 300, easing: 'ease', fill: 'forwards', delay: 800});
+        }
 
-        element.addEventListener('animationend', () => {
-            // alert('yes done! ');
-        });
-    }
+        studentShadowList.animate([
+            {transform: 'translateX(' + shadowPositionXFlag + 'px)'}
+        ], {duration: 400, easing: 'ease', fill: 'forwards', delay: 500});
+
+        shadowPositionXFlag -= 90;
+        indexFlag++;
+    });
+    // end Flag animation question 14
 
 
-    let shadowPositionX = -247;
+    let shadowPositionX = -200;
     let index = 0;
 
     // Livewire.dispatchTo('dashboard', 'post-created', { postId: 2 })
     // let component = Livewire.first();
 
     document.addEventListener('set-block-btn-animation', (ev) => {
+        ev.preventDefault();
+
         let setSquareArea = document.querySelector('#set-square-area');
         if(setSquareArea === null) return; // wrong btn block pressed
 
         let squareTop = setSquareArea.getBoundingClientRect().top;
-        let blockBtn = ev.currentTarget.activeElement;
-
+        let blockBtn = ev.detail.event.target;
         let blockBtnTop = blockBtn.getBoundingClientRect().top;
         let studentBtn = document.querySelector('[data-start-student]');
         let studentShadowList = document.querySelector('[data-student-list]');
+
+        blockBtn.style.setProperty('background-color', '#c2c0c0');
 
         blockBtn.addEventListener('transitionend', (e) => {
             const setBlockBtn = new CustomEvent("set-answer-button-block", {
@@ -218,11 +218,12 @@ document.addEventListener('livewire:initialized', (e) => {
                                 {opacity: 1}
                             ], {duration: 300, easing: 'ease', fill: 'forwards', delay: 800});
                         }
+
                         studentShadowList.animate([
                             {transform: 'translateX(' + shadowPositionX + 'px)'}
                         ], {duration: 400, easing: 'ease', fill: 'forwards', delay: 500});
 
-                        shadowPositionX -= 250;
+                        shadowPositionX -= 208;
                         index++;
 
                         if(studentBtn !== null){
@@ -235,9 +236,20 @@ document.addEventListener('livewire:initialized', (e) => {
                     }
                 }
 
-                // last animation
+                // animation used in step 15 and more
                 setTimeout(() => {
                     dispatchEvent(new Event('set-save-answer'));
+
+                    if(blockBtn !== null) {
+                        blockBtn.animate([
+                            {opacity: 0, transform: `translateY(0)`},
+                        ], {duration: 100, fill: 'forwards'});
+
+                        blockBtn.animate([
+                            {opacity: 1},
+                        ], {duration: 100, easing: 'ease-in', fill: 'forwards', delay: 200});
+                    }
+
                 }, 100);
 
             }, 1200);
@@ -246,21 +258,23 @@ document.addEventListener('livewire:initialized', (e) => {
         }, {once: true});
 
 
-        // answer buttons
+        // answer buttonsblock animation from of question 15
         blockBtn.animate([
-            {transform: `translateY(${(squareTop - blockBtnTop) - 5}px)`},
-        ], {duration: 500, easing: 'ease-in', fill: 'forwards'});
+            {transform: `translateY(${(squareTop - blockBtnTop) - 10 }px)`},
+        ], {duration: 400, easing: 'ease-in', fill: 'forwards'});
 
         blockBtn.animate([
             {opacity: 0},
-        ], {duration: 500, easing: 'ease', fill: 'forwards', delay: 400});
+        ], {duration: 100, easing: 'ease-in', fill: 'forwards', delay: 450});
 
     });
 
 
     // callback from button
     document.addEventListener('set-square-animation', (e) => {
-        let blockBtn = e.currentTarget.activeElement;
+        e.preventDefault();
+
+        let blockBtn = e.detail.event.target;
 
         blockBtn.animate([
             {opacity: 0}

@@ -66,6 +66,8 @@ class FormStep23 extends Component
         if(in_array($id, $this->answerSelected)){
             $this->answerSelected = [];
         }
+
+        $this->dispatch('refreshAnswerBtnBlock')->component(AnswerBtnBlock::class);
     }
 
     public function save(): void

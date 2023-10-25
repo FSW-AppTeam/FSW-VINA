@@ -1,8 +1,8 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-    <div id="scope-form-step16">
+    <div id="scope-form-step16" class="set-fade-in">
 
         <div class="container text-center">
-            <h6 class="pt-4 px-5">{{ $jsonQuestion->question_content }}</h6>
+            <h6 class="mt-3 mb-2">{{ $jsonQuestion->question_content }}</h6>
         </div>
 
         <div class="container-sm mt-4">
@@ -10,7 +10,7 @@
                 <div class="col-11 col-lg-8">
                     @if(!empty($answerSelected))
                         <button type="button" data-start-square
-                             wire:click="$dispatch('set-square-animation');"
+                             wire:click="$dispatch('set-square-animation', {event:event})"
                              id="{{$answerSelected['id']}}"
                              class="btn btn-outline-secondary press-buttons-inline rounded"
                              style="height: 50px; border: solid 2px orange;padding-top: 10px;">
@@ -23,12 +23,12 @@
             </div>
         </div>
 
-        <div class="form-group mt-5">
+        <div class="form-group mt-3 mb-4">
             <div class="container-sm">
             <div class="row justify-content-center align-items-center">
                 <div class="col-11 col-lg-8">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
-                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="{{ $answer->id . now() }}" />
+                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="form-step-{{ $answer->id }}" />
                     @endforeach
                 </div>
             </div>

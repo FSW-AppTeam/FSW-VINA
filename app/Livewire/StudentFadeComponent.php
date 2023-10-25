@@ -2,9 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Livewire\Forms\FormStep12;
 use Livewire\Component;
-
 
 class StudentFadeComponent extends Component
 {
@@ -31,11 +29,7 @@ class StudentFadeComponent extends Component
     {
         if($id === $this->id){
             $this->showFade = true;
-
-            dd($this->id);
         }
-
-
     }
 
     public function setStudent($id): void

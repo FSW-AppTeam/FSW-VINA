@@ -34,19 +34,17 @@ class FormStep1 extends Component
        $this->validate();
 
         \Session::put([
-            'survey-student-class-id' => $this->classId,
+            'survey-student-class-id' => strtolower($this->classId),
             'step1' => true
         ]);
 
         $this->dispatch('set-step-id-up');
-
-//        $this->reset('title', 'body');
     }
 
     public function update()
     {
         $this->dispatch('getJsonQuestion', 1);
-        session()->flash('message', 'UPDATED!!!');
+//        session()->flash('message', 'UPDATED!!!');
     }
 
     public function render()

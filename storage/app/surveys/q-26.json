@@ -1,10 +1,20 @@
 {
     "survey_id": 1,
     "question_id": 26,
-    "question_type": "text",
-    "question_title": "Einde",
-    "question_content": "Heeft u nog opmerkingen over de vragenlijst?",
+    "question_type": "int",
+    "question_title": "Polarisatie in klas 2",
+    "question_content": "Ik voel me sterk verbonden met mijn klas",
+    "question_answer_options": [
+        {"id": 1, "value": "Helemaal oneens"},
+        {"id": 2, "value": "Oneens"},
+        {"id": 3, "value": "Beetje oneens"},
+        {"id": 4, "value": "Niet eens, niet oneens"},
+        {"id": 5, "value": "Beetje eens"},
+        {"id": 6, "value": "Eens"},
+        {"id": 7, "value": "Helemaal eens"}
+    ],
     "question_options": {
-        "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!"
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+        "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
     }
 }

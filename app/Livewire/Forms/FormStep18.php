@@ -58,7 +58,6 @@ class FormStep18 extends Component
     {
         $this->answerSelected = ['id' => $id, 'value' => $val];
 
-        $this->dispatch('set-show-btn-false', $id)->component(AnswerBtnBlock::class);
     }
 
     public function removeSelectedSquare(int $id): void
@@ -103,12 +102,14 @@ class FormStep18 extends Component
         $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
         $this->students = $this->form->getStudentsSelfFriendsSelected();
 
-        shuffle($this->students);
+        if(!empty($this->students)){
+            shuffle($this->students);
 
-        $this->startStudent = $this->students[0];
+            $this->startStudent = $this->students[0];
 //
 //        // shifts the student shadow
-        array_shift($this->students);
+            array_shift($this->students);
+        }
     }
 
     public function render()

@@ -12,7 +12,7 @@ class FormStepIntro extends Component
 
     public function mount(): void
     {
-        session()->flash('message', 'Form Step intro mounted');
+//        session()->flash('message', 'Form Step intro mounted');
     }
 
     public function save(): void

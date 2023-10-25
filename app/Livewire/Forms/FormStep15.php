@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use App\Livewire\Partials\AnswerBtnBlock;
-use App\Livewire\Partials\FlagImage;
 use Closure;
 use Livewire\Component;
 
@@ -22,7 +20,9 @@ class FormStep15 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
+
     public array $students = [];
+
     public array $startStudent = [];
 
     public int $studentCounter = 1;
@@ -43,12 +43,11 @@ class FormStep15 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['answer_id.required']);
-                        }
+                        $fail($this->messages['answer_id.required']);
+                    } else {
+                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -60,8 +59,6 @@ class FormStep15 extends Component
     public function setAnswerButtonSquare(int $id, string $val): void
     {
         $this->answerSelected = ['id' => $id, 'value' => $val];
-
-        $this->dispatch('set-show-btn-false', $id)->component(AnswerBtnBlock::class);
     }
 
     public function removeSelectedSquare(int $id): void
@@ -76,14 +73,16 @@ class FormStep15 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $answer = [
-                'id'    => $this->startStudent['id'],
-                'value' => $this->answerSelected['id'],
-            ];
+            if(!empty($this->answerSelected)){
+                $answer = [
+                    'id'    => $this->startStudent['id'],
+                    'value' => $this->answerSelected['id'],
+                ];
 
-            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
+                $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+                \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+            }
 
             if(array_key_exists(2, $this->students)){
                 $this->startStudent = $this->students[0];

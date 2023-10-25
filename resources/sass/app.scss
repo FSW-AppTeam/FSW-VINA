@@ -82,7 +82,26 @@ html, body {
     height: calc(var(--vh, 1vh) * 100 - 90px  );
     border: none;
     border-radius: 0;
+    background-color: white;
 }
+
+//
+//.module_container {
+//  height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+//  height: calc(var(--vh, 1vh) * 100);
+//  margin: 0;
+//  padding: 0;
+//  width: 100%;
+//
+//  background-color: green;
+//}
+//
+//.footer {
+//    position: absolute;
+//    bottom: 15px;
+//}
+
+
 
 .card-body {
     padding-bottom: 0;
@@ -97,13 +116,16 @@ form {
     //overflow: hidden;
 }
 
+ul {
+    line-height: 22px;
+}
+
 button {
     touch-action: manipulation;
 }
 
 .btn {
     font-size: 0.9rem;
-    //color: #5d5d5d;
 }
 
 h6, .h6 {
@@ -117,6 +139,7 @@ p {
 .card-footer {
     background-color: white;
     border-top: none;
+    margin-bottom: 15px;
 
     .btn {
         width: 5rem !important;
@@ -147,8 +170,6 @@ p {
     }
 }
 
-
-
 .btn-circle {
     background-color: #43277c;
     color: white;
@@ -163,20 +184,20 @@ p {
         border-radius: 60px;
         font-size: 0.8rem;
         text-align: center;
+        margin-bottom: -2px;
 
         &.start-friend-btn-v2 {
             background-color: #dca351;
             color: black;
             border-color: #401985;
-
         }
 
         &.title {
-            //padding-top: 2.3rem !important;
+            padding-top: 28px !important;
         }
 
         &.circle-text {
-            padding-top: 1.8rem !important;
+            padding-top: 22px !important;
         }
 
         &.studentBtn.start-friend-btn-v2 {
@@ -201,19 +222,22 @@ p {
 
 .block-student-active {
     position: relative;
-    top: 30px;
-    width: 100px;
-    //margin-bottom: -70px;
+    top: 10px;
+    width: 80px;
     margin-left: auto;
     margin-right: auto;
-    height: 150px;
+    height: 105px;
+
+    &.flag-active {
+        height: unset;
+    }
 }
 
 
 .block-students-vertical {
     display: inline-flex;
     position: relative;
-    top: -100px;
+    top: -80px;
     left: 110px;
 
     .student-shadow-flex {
@@ -224,6 +248,12 @@ p {
 
     .fadeOut {
         opacity: 0.5;
+    }
+
+    &.line-students {
+        top: -70px;
+        left: 150px;
+        margin-top: 80px !important;
     }
 
     .btn-circle.btn-xl.studentBtn {
@@ -241,7 +271,7 @@ p {
     }
 
     &.relation-block-student-shadow {
-        left: -66px;
+        left: -50px;
         z-index: 0;
 
         .student-shadow-flex {
@@ -257,7 +287,7 @@ p {
         padding-left: 0;
         padding-right: 10px;
         position: relative;
-        top: 35px;
+        top: 28px;
 
         &.left {
             padding-left: 10px;
@@ -267,8 +297,24 @@ p {
 
 .block-student-active {
     .relation-block-student-shadow {
-        margin-top: 120px;
+        margin-top: 80px;
     }
+}
+
+#scope-form-step14 {
+    .flag-shadow {
+        margin-top: -55px;
+    }
+}
+
+.row-cols-2.justify-content-center.text-center.p-2 {
+    margin-left: 20px;
+}
+
+.text-center.flags-row-buttons {
+    padding-right: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -278,13 +324,13 @@ p {
         width: 100%;
         margin-bottom: 10px;
         background-color: #ededed;
-        padding: 22px 15px 22px 15px;
+        padding: 15px 15px 15px 15px;
         border: none;
         border-radius: 0;
         font-size: 0.9rem;
         color: #5d5d5d;
 
-        &:hover {
+        :hover {
             background-color: #c2c0c0;
         }
     }
@@ -299,7 +345,7 @@ p {
 
 .container .sub-head-text {
     font-style: italic;
-    padding-top: 40px;
+    //padding-top: 40px;
     //font-size: 1rem;
 }
 
@@ -335,13 +381,14 @@ p {
 textarea {
     background-color: #ededed;
     border: 2px solid #dca351;
+    border-radius: 0;
 }
 
 textarea:focus-visible, textarea:active {
     outline: 0;
 }
 
-.notification.alert.alert-danger {
+.step-notification.alert.alert-danger {
     padding-bottom: 0;
 }
 
@@ -373,7 +420,7 @@ overflow: visible;
 
     .form-check {
         background-color: #e8e8e8;
-        height: 80px;
+        height: 65px;
         margin-bottom: 10px;
         padding-left: 40px;
         //font-size: 0.9rem;
@@ -408,7 +455,7 @@ overflow: visible;
 
     &.student-list {
         display: inline-flex;
-        margin-left: -13px;
+        margin-left: 0;
 
         .btn-circle.btn-xl {
             margin-right: 5px;
@@ -460,7 +507,7 @@ overflow: visible;
         }
 
         .boxed-btn-2 {
-            margin-left: 32px;
+            margin-left: 43px;
             z-index: 99;
         }
 
@@ -578,7 +625,7 @@ overflow: visible;
         .boxed-btn-0 {
             position: absolute;
             z-index: 20;
-            left: 164px;
+            left: 172px;
         }
     }
 
@@ -697,7 +744,7 @@ overflow: visible;
     width: 373px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 7px;
+    padding-left: 22px;
 
     .btn:active {
       border: none;
@@ -705,8 +752,8 @@ overflow: visible;
 
     .btn {
         margin-bottom: 0;
-        margin-left: -4px;
-        width: 95px;
+        //margin-left: -4px;
+        width: 88px;
     }
 }
 
@@ -794,6 +841,56 @@ overflow: visible;
     to {
         opacity: 0;
         transform: translate3d(-2000px, 0, 0) scaleX(2);
+    }
+}
+
+
+
+/* iPhone X and Xs Max */
+@media only screen
+//and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+    .form-group {
+        &.student-list {
+            margin-left: -10px !important;
+        }
+    }
+
+    .form-group.student-list .btn-circle.btn-xl {
+        margin-right: 3px;
+    }
+
+    .form-check {
+        height: 49px !important;
+    }
+
+    .card-footer .btn {
+        height: 40px;
+    }
+
+    .students-overview {
+        padding-left: 6px;
+    }
+
+    .form-group.student-list .selected-friends-row-v2 .boxed-btn-0 {
+        left: unset;
+    }
+
+    .sub-head-text.student-list {
+        margin-left: 10px;
+    }
+
+    .form-group.student-list .selected-friends-row-v4 .boxed-btn-1 {
+        right: 90px;
+    }
+
+    .text-center.flags-row-buttons {
+        width: 95%;
+    }
+
+    .btn.press-buttons-inline {
+        padding: 11px;
     }
 }
 

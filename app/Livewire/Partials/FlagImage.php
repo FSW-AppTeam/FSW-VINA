@@ -57,9 +57,6 @@ class FlagImage extends Component
 
     public function mount()
     {
-//        dump('flagimage mount before id = ' . $this->id);
-//        dump('showFlag mount before = ' . $this->showFlag);
-
         if(($this->id !== 6) && in_array($this->id, array_column($this->flagsSelected, 'id'))){
                 $this->showFlag = !$this->showFlag;
         }

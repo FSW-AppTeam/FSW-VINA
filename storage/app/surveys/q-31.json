@@ -1,14 +1,10 @@
 {
     "survey_id": 1,
     "question_id": 31,
-    "question_type": "json",
-    "question_title": "Immigratie houding - vrienden",
-    "question_content": "Wat denk jij dat de volgende klasgenoot er van zou vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
-    "question_answer_options": [
-        {"id": 1, "value": "Helemaal verkeerd"},
-        {"id": 2, "value": "Verkeerd"},
-        {"id": 3, "value": "Niet verkeerd niet goed"},
-        {"id": 4, "value": "Goed"},
-        {"id": 5, "value": "Heel goed"}
-    ]
+    "question_type": "text",
+    "question_title": "Einde",
+    "question_content": "Heeft u nog opmerkingen over de vragenlijst?",
+    "question_options": {
+        "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!"
+    }
 }

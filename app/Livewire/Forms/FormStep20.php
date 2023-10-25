@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\AnswerBtnBlock;
-use App\Livewire\Partials\FlagImage;
 use Closure;
 use Livewire\Component;
 
@@ -22,7 +21,9 @@ class FormStep20 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
+
     public array $students = [];
+
     public array $startStudent = [];
 
     public int $studentCounter = 1;
@@ -58,7 +59,7 @@ class FormStep20 extends Component
     {
         $this->answerSelected = ['id' => $id, 'value' => $val];
 
-        $this->dispatch('set-show-btn-false', $id)->component(AnswerBtnBlock::class);
+//        $this->dispatch('set-show-btn-false', $id)->component(AnswerBtnBlock::class);
     }
 
     public function removeSelectedSquare(int $id): void
@@ -71,6 +72,12 @@ class FormStep20 extends Component
     public function save(): void
     {
         $this->validate();
+
+        if(empty($this->startStudent)){
+            $this->dispatch('set-step-id-up');
+
+            return;
+        }
 
         if (\Session::has('survey-student-class-id')) {
             $answer = [
@@ -103,12 +110,14 @@ class FormStep20 extends Component
         $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
         $this->students = $this->form->getStudentsNotInFriendsSelected();
 
-        shuffle($this->students);
+        if(!empty($this->students)){
+            shuffle($this->students);
 
-        $this->startStudent = $this->students[0];
-
-        // shifts the student shadow
-        array_shift($this->students);
+            $this->startStudent = $this->students[0];
+//
+//        // shifts the student shadow
+            array_shift($this->students);
+        }
     }
 
     public function render()

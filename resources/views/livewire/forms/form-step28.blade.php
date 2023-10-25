@@ -1,8 +1,7 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-    <div id="scope-form-step26" class="set-fade-in">
+    <div id="scope-form-step28" class="set-fade-in">
 
         <div class="container text-center mt-3 mb-2">
-            <h6 class="sub-head-text">{{ $jsonQuestion->question_options->extra_text }}</h6>
             <h6 class="py-3">{{ $jsonQuestion->question_content }}</h6>
         </div>
 

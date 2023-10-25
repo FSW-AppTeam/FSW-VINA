@@ -5,7 +5,6 @@ namespace App\Livewire\Forms;
 use App\Models\SurveyAnswers;
 use App\Models\SurveyStudent;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Rule;
 use Livewire\Form;
 use stdClass;
 
@@ -61,10 +60,10 @@ class PostForm extends Form
 
     public function getStudentsFriendsRelationsSelected(): array
     {
-        $answer = SurveyAnswers::where('student_id', $this->getStudent()->id)
-            ->where('survey_id', '=', 1)
-            ->where('question_id', '=', 10)  // own friends
-            ->orWhere('question_id', '=', 12) // friends of friends
+        $answer = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
+            ->where('survey_answers.survey_id', '=', 1)
+            ->where('survey_answers.question_id', '=', 10)  // own friends
+            ->orWhere('survey_answers.question_id', '=', 12) // friends of friends
             ->get('student_answer')
             ->toArray();
 
@@ -78,16 +77,22 @@ class PostForm extends Form
 
         // flat student array for import
         foreach ($answer as $friend){
-            foreach ($friend['student_answer'][0]['value'] as $selectedFriend){
-                $allFriends[] = ['id' => $friend['student_answer'][0]['id'], 'relation_id' => $selectedFriend];
-            }
+              if(isset($friend['student_answer'][0]['value'])){
+                  foreach ($friend['student_answer'][0]['value'] as $selectedFriend){
+                    $allFriends[] = ['id' => $friend['student_answer'][0]['id'], 'relation_id' => $selectedFriend];
+                  }
+              }
         }
 
         $allFriends = array_merge($allFriendsFirst, $allFriends);
+        $uniqueStudents = [];
 
-        $uniqueStudents = array_unique(
-            array_merge(array_column($allFriends, 'id'), array_column($allFriends, 'relation_id'))
-        );
+        try {
+            $uniqueStudents = array_unique(
+                array_merge(array_column($allFriends, 'id'), array_column($allFriends, 'relation_id'))
+            );
+        } catch (\Exception $e){
+        }
 
         $students = $this->getStudent()
             ->whereIn('id', $uniqueStudents)
@@ -116,8 +121,6 @@ class PostForm extends Form
         \Session::put([
             "step$stepId" => true
         ]);
-
-//        $this->reset();
     }
 
     public function createStudent(int $surveyId, string $name, string $classId): void

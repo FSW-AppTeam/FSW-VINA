@@ -6,7 +6,7 @@ use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
 
-class FormStep24 extends Component
+class FormStep27 extends Component
 {
     public PostForm $form;
 
@@ -21,7 +21,9 @@ class FormStep24 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
+
     public array $students = [];
+
     public array $startStudent = [];
 
     public int $answerId;
@@ -76,7 +78,7 @@ class FormStep24 extends Component
         if (\Session::has('survey-student-class-id')) {
             $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-class-polarisation' => $this->answerSelected]);
+            \Session::put(['student-class-fun-survey' => $this->answerSelected]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -84,11 +86,11 @@ class FormStep24 extends Component
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-class-polarisation') ?? [];
+        $this->answerSelected = old('answerSelected') ?? \Session::get('student-class-fun-survey') ?? [];
     }
 
     public function render()
     {
-        return view('livewire.forms.form-step24');
+        return view('livewire.forms.form-step27');
     }
 }

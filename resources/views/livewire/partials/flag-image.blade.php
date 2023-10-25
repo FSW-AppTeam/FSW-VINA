@@ -6,14 +6,11 @@
                  type="button"
                  wire:click="setFlag({{$id}})"
                  alt="{{$country}}"
-                 id="{{$id}}"
-            >
-            <p>{{$country}}</p>
+                 id="{{$id}}">
+            <p class="mt-1">{{$country}}</p>
         </div>
     @else
-        <div class="col p-2"  style="height: 150px; width: 180px;">
-
-        </div>
+        <div class="col p-2"  style="height: 123px; width: 180px;"></div>
     @endif
 </div>
 

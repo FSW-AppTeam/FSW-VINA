@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use App\Livewire\Partials\AnswerBtnBlock;
-use App\Livewire\Partials\FlagImage;
 use Closure;
 use Livewire\Component;
 
@@ -64,7 +62,7 @@ class FormStep22 extends Component
     {
         $this->answerSelected = ['id' => $id, 'value' => $val];
 
-        $this->dispatch('set-show-btn-false', $id)->component(AnswerBtnBlock::class);
+//        $this->dispatch('set-show-btn-false', $id)->component(AnswerBtnBlock::class);
     }
 
     public function removeSelectedSquare(int $id): void
@@ -79,6 +77,10 @@ class FormStep22 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
+            if(empty($this->startStudent)){
+                $this->dispatch('set-step-id-up');
+            }
+
             $answer = [
                 'id' => $this->startStudent['id'],
                 'relation_id' => $this->startStudentRelation['id'],
@@ -156,6 +158,7 @@ class FormStep22 extends Component
         $this->students = $questionSet['students'];
         $this->studentRelationIds = $questionSet['relations'];
         $this->shadowStudents = $this->studentRelationIds;
+
 
 
         if (!empty($this->students)) {

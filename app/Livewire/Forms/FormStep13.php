@@ -29,7 +29,6 @@ class FormStep13 extends Component
     public function rules(): array
     {
         $this->messages['flags.required'] = $this->jsonQuestion->question_options->error_empty_text;
-//        $this->messages['flags.min'] = $this->jsonQuestion->question_options->error_one_text;
 
         return [
             'flagsSelected' => [
@@ -40,15 +39,10 @@ class FormStep13 extends Component
                         if (empty($value)) {
                             $fail($this->messages['flags.required']);
                         }
-
-//                        if (count($value) === 1) {
-//                            $fail($this->messages['flags.min']);
-//                        }
                     }
                 },
                 'array'
             ],
-
         ];
     }
 
@@ -90,6 +84,6 @@ class FormStep13 extends Component
 
     public function render()
     {
-        return view('livewire.forms.form-step13')->with(['flagsSelected' => $this->flagsSelected]);
+        return view('livewire.forms.form-step13');
     }
 }

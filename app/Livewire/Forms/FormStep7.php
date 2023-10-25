@@ -10,8 +10,8 @@ class FormStep7 extends Component
     public PostForm $form;
 
     public int|null $originCountry;
-    public string $originCountryName = "";
-    public string $fromCountry = "";
+    public string|null $originCountryName = "";
+    public string|null $fromCountry = "";
 
     public $stepId;
 

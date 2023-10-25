@@ -29,7 +29,7 @@ class FormStep2 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createStudent(1, $this->name, \Session::get('survey-student-class-id'));
+            $this->form->createStudent(1, $this->name, strtolower(\Session::get('survey-student-class-id')));
             $this->dispatch('set-step-id-up');
         }
     }
@@ -37,8 +37,6 @@ class FormStep2 extends Component
     public function mount(): void
     {
         $this->name = old('student-name') ?? \Session::get('student-name') ?? "";
-
-//        session()->flash('message', 'Form Step 2 mounted -- ' . $this->stepId);
     }
 
     public function render()

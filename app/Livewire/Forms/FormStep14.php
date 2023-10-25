@@ -13,7 +13,6 @@ class FormStep14 extends Component
     public $stepId;
 
     public $jsonQuestion;
-
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -21,10 +20,14 @@ class FormStep14 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
-    public array $students = [];
-    public array $startStudent = [];
 
+    public array $students = [];
+
+    public array $startStudent = [];
+    public array $shadowStudents = [];
     public $studentCounter = 1;
+
+    public  $setPage = true;
 
     protected $listeners = [
         'set-selected-flag-id' => 'setSelectedFlagId',
@@ -40,16 +43,11 @@ class FormStep14 extends Component
         return [
             'flagsSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['flags.required']);
-                        }
-
-//                        if (count($value) === 1) {
-//                            $fail($this->messages['flags.min']);
-//                        }
+                        $fail($this->messages['flags.required']);
+                    } else {
+                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -58,7 +56,6 @@ class FormStep14 extends Component
         ];
     }
 
-    
     public function setSelectedFlagId(int $id, string $image, string $country): void
     {
         if(count($this->flagsSelected) <= 3){
@@ -82,12 +79,22 @@ class FormStep14 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $answer = ['student_id' => $this->startStudent['id'], 'countries' => $this->flagsSelected];
+            $answer = [
+                'student_id' => $this->startStudent['id'],
+                'countries' => $this->flagsSelected
+            ];
+
             $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-country-culture-student' => $this->flagsSelected]);
 
-            if(array_key_exists(2, $this->students)){
+            $this->dispatch('set-animation-flag-student');
+
+            if(array_key_exists(1, $this->students)){
+                foreach ($this->flagsSelected as $flagSelect){
+                    $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
+                }
+
                 $this->startStudent = $this->students[1];
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
@@ -107,8 +114,7 @@ class FormStep14 extends Component
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
         $this->students = $this->form->getStudentsWithoutActiveStudent();
-
-//        reorder array
+        $this->shadowStudents = $this->students;
 
         if(empty($this->startStudent)){
             $this->startStudent = $this->students[0];
@@ -117,6 +123,6 @@ class FormStep14 extends Component
 
     public function render()
     {
-        return view('livewire.forms.form-step14')->with(['flagsSelected' => $this->flagsSelected]);
+        return view('livewire.forms.form-step14');
     }
 }

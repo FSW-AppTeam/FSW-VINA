@@ -10,7 +10,7 @@ class CreateSurvey extends Component
 
     public function mount()
     {
-        session()->flash('message', 'Survey mounted -- ');
+//        session()->flash('message', 'Survey mounted -- ');
     }
 
     public function render()

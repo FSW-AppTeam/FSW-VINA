@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\AnswerBtnBlock;
-use App\Livewire\Partials\FlagImage;
 use Closure;
 use Livewire\Component;
 
@@ -22,7 +21,9 @@ class FormStep16 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
+
     public array $students = [];
+
     public array $startStudent = [];
 
     public int $studentCounter = 1;
@@ -68,6 +69,8 @@ class FormStep16 extends Component
         if(in_array($id, $this->answerSelected)){
             $this->answerSelected = [];
         }
+
+        $this->dispatch('refreshAnswerBtnBlock')->component(AnswerBtnBlock::class);
     }
 
     public function save(): void

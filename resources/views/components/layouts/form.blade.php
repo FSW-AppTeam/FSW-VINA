@@ -7,11 +7,11 @@
                 @csrf
 
                 <div class="card @if($stepId === 0) animate__animated animate__fadeIn animate__slow @endif">
-                    <div class="card-header">{{ ucfirst($jsonQuestion->question_title) }}</div>
+{{--                    <div class="card-header">{{ ucfirst($jsonQuestion->question_title) }}</div>--}}
                     <div class="card-body">
 
                         @if ($errors->getMessages())
-                            <div class="notification alert-danger text-center">
+                            <div class="step-notification alert alert-danger text-center">
                                 @foreach ($errors->all() as $error)
                                     <p>{{ $error }}</p>
                                 @endforeach

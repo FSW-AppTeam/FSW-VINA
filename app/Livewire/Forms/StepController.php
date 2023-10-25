@@ -5,6 +5,9 @@ namespace App\Livewire\Forms;
 use File;
 use Livewire\Component;
 
+/**
+ * Controlling the pages from the survey
+ */
 class StepController extends Component
 {
     public $activeStep = 'forms.form-step-intro';
@@ -58,8 +61,6 @@ class StepController extends Component
 
     public function booted()
     {
-//        $this->setFormSteps();
-
         $this->steps = [
             'forms.form-step-intro',
             'forms.form-step1',
@@ -88,6 +89,12 @@ class StepController extends Component
             'forms.form-step24',
             'forms.form-step25',
             'forms.form-step26',
+            'forms.form-step27',
+            'forms.form-step28',
+            'forms.form-step29',
+            'forms.form-step30',
+            'forms.form-step31',
+            'forms.form-step32',
         ];
     }
 
@@ -95,8 +102,6 @@ class StepController extends Component
     {
 //        $this->getJsonQuestion($this->stepId);
         $this->getJsonIntro();
-
-//        session()->flash('message', 'Survey mounted -- ' . $this->stepId);
     }
 
 //    not using, maybe future
