@@ -4,7 +4,7 @@
     "question_type": "text",
     "question_title": "Voornamen",
     "question_content": "Vul je voornaam in",
-    "question_answer": "",
+    "question_answer_options": "",
     "question_options": {
         "extra_text": "Je achternaam is niet nodig. Als iemand in je klas dezelfde voornaam heeft als jij, dan kun je de eerste letter van je achternaam toevoegen.\nLet op! Je moet je naam invullen zodat je klasgenoten ook vragen over jou kunnen beantwoorden. Je naam wordt na afloop van dit onderzoek verwijderd."
     }

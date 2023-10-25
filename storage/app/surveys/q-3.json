@@ -1,17 +1,11 @@
 {
     "survey_id": 1,
     "question_id": 3,
-    "question_type": "json",
-    "question_title": "Immigratie houding - vrienden",
-    "question_content": "Wat denk jij dat de volgende klasgenoot er van zou vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
-    "question_answer": [
-        "Helemaal verkeerd",
-        "Verkeerd",
-        "Niet verkeerd niet goed",
-        "Goed",
-        "Heel goed"
-    ],
+    "question_type": "int",
+    "question_title": "Leeftijd",
+    "question_content": "Hoe oud ben je?",
+    "question_answer_options": [],
     "question_options": {
-        "extra_text": ""
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
     }
 }

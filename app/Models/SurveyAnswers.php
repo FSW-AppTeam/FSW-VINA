@@ -10,19 +10,22 @@ class SurveyAnswers extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'student_answer' => 'array'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'class_id',
         'student_id',
         'survey_id',
         'question_id',
         'question_type',
         'question_title',
-        'question_answer',
+        'student_answer',
     ];
 
     /**

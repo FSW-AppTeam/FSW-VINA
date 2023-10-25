@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Livewire\Forms;
+
+use Livewire\Component;
+
+class FormStep21 extends Component
+{
+    public PostForm $form;
+
+    public $stepId;
+
+    public $jsonQuestion;
+
+    public function save(): void
+    {
+        $this->dispatch('set-step-id-up');
+    }
+
+    public function render()
+    {
+        return view('livewire.forms.form-step21');
+    }
+}

@@ -1,8 +1,7 @@
 /.phpunit.cache
 /node_modules
-/public/build
 /public/hot
-/public/storage
+/public/storage/app/public
 /storage/*.key
 /vendor
 .env
@@ -18,5 +17,6 @@ yarn-error.log
 /.idea
 /.vscode
 
-!storage/app/surveys
+!storage/app/surveys/
 !public/storage/app/surveys
+/storage/debugbar/

@@ -1,0 +1,15 @@
+{
+    "survey_id": 1,
+    "question_id": 4,
+    "question_type": "int",
+    "question_title": "Geslacht",
+    "question_content": "Wat is jouw geslacht?",
+    "question_answer_options": [
+        {"id": 1, "value": "Jongen"},
+        {"id": 2, "value": "Meisje"},
+        {"id": 3, "value": "Anders"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+    }
+}

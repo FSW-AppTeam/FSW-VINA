@@ -1,0 +1,15 @@
+{
+    "survey_id": 1,
+    "question_id": 5,
+    "question_type": "int",
+    "question_title": "Opleidingsniveau",
+    "question_content": "Welk niveau is jouw opleiding?",
+    "question_answer_options": [
+        {"id": 1, "value": "Niveau 2"},
+        {"id": 2, "value": "Niveau 3"},
+        {"id": 3, "value": "Niveau 4"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+    }
+}

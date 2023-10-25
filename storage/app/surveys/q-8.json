@@ -1,0 +1,17 @@
+{
+    "survey_id": 1,
+    "question_id": 8,
+    "question_type": "int",
+    "question_title": "Identificatie met herkomstland",
+    "question_content": "Hoe sterk voel jij je horen bij mensen uit het herkomstland ",
+    "question_answer_options": [
+        {"id": 1, "value": "Helemaal niet sterk"},
+        {"id": 2, "value": "Niet sterk"},
+        {"id": 3, "value": "Redelijk sterk"},
+        {"id": 4, "value": "Sterk"},
+        {"id": 5, "value": "Heel erg sterk"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+    }
+}
