@@ -160,7 +160,6 @@ class FormStep22 extends Component
         $this->shadowStudents = $this->studentRelationIds;
 
 
-
         if (!empty($this->students)) {
             $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
             $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);

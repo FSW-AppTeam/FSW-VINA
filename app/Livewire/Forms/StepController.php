@@ -10,9 +10,12 @@ use Livewire\Component;
  */
 class StepController extends Component
 {
+    public PostForm $form;
     public $activeStep = 'forms.form-step-intro';
 
     public $jsonQuestion;
+
+    public $jsonQuestionNameList = [];
 
     public $stepId = 0;
 
@@ -47,6 +50,11 @@ class StepController extends Component
         if(file_exists(storage_path("app/surveys/q-$i.json"))){
             $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-$i.json")), FALSE);
         }
+    }
+
+    public function getJsonNameList(): void
+    {
+        $this->jsonQuestionNameList = json_decode(file_get_contents(storage_path("app/surveys/prefilled-names.json")), FALSE);
     }
 
     public function getJsonIntro(): void
@@ -102,6 +110,13 @@ class StepController extends Component
     {
 //        $this->getJsonQuestion($this->stepId);
         $this->getJsonIntro();
+        $this->getJsonNameList();
+
+        if($this->jsonQuestionNameList->active_list){
+            $this->form->createStudentListFromJson($this->jsonQuestionNameList);
+
+//            $this->setStepIdUp();
+        }
     }
 
 //    not using, maybe future

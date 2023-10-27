@@ -252,7 +252,7 @@ p {
 
     &.line-students {
         top: -70px;
-        left: 150px;
+        margin-left: 40px;
         margin-top: 80px !important;
     }
 
@@ -271,7 +271,7 @@ p {
     }
 
     &.relation-block-student-shadow {
-        left: -50px;
+        margin-left: -212%;
         z-index: 0;
 
         .student-shadow-flex {
@@ -544,50 +544,13 @@ overflow: visible;
                 z-index: 0;
             }
 
-            .boxed-btn-4 {
-                //margin-left: 0;
-                //z-index: 99;
-                //margin-top: -20px;
-
-                //display: none !important;
-            }
         }
 
         &.question-step-friends {
-            //margin-bottom: -40px !important;
-
             .boxed-btn-4 {
-                //margin-left: 0;
                 z-index: 99;
                 margin-top: -20px;
-
-                //margin-bottom: -20px;
             }
-
-            //
-            //.boxed-btn-3 {
-            //    position: absolute;
-            //    right: 30px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-2 {
-            //    position: absolute;
-            //    left: 10px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-1 {
-            //    position: absolute;
-            //    left: 10px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-0 {
-            //    position: absolute;
-            //    left: 100px;
-            //    z-index: 0;
-            //}
 
             &.qv2 {
                 margin-bottom: -80px !important;
@@ -595,7 +558,6 @@ overflow: visible;
             }
         }
     }
-
 
 
     .selected-friends-row-v2 {
@@ -633,7 +595,6 @@ overflow: visible;
     .selected-friends-row-v3 {
             margin-top: -80px;
 
-
         .boxed-btn-4 {
             margin-left: 0;
             z-index: 9999;
@@ -641,37 +602,29 @@ overflow: visible;
         }
 
         .boxed-btn-3 {
-            right: 42px;
+            margin-right: 18px !important;
             z-index: 0;
-            position: absolute;
-
-
-            //margin-top: -60px;
         }
 
         .boxed-btn-2 {
-            left: 10px;
+            margin-left: 17px;
             z-index: 0;
-            position: absolute;
-            //margin-top: -60px;
         }
 
         .boxed-btn-1 {
             right: 106px;
             z-index: 15;
             position: absolute;
-
-            //margin-top: -60px;
         }
 
         .boxed-btn-0 {
             z-index: 20;
-            margin-left: -118px;
+            margin-left: -115px !important;
             margin-bottom: 0 !important;
         }
     }
 
-
+// q12
     .selected-friends-row-v4 {
 
         .boxed-btn-4 {
@@ -701,7 +654,6 @@ overflow: visible;
         .boxed-btn-0 {
             z-index: 20;
             margin-left: -120px;
-
             margin-bottom: -20px;
 
             &.swithced {
@@ -710,8 +662,44 @@ overflow: visible;
         }
 
 
+// first row animation q12
+        &.v2 {
+            .boxed-btn-0 {
+                margin-left: -170px;
+
+                &.third-run {
+                    margin-left: -108px !important;
+                }
+
+                &.fourth-run {
+                    margin-left: -108px !important;
+                }
+            }
+
+            .boxed-btn-1 {
+                margin-right: -28px;
+
+                &.third-run {
+                    margin-right: 5px;
+                }
+
+                &.fourth-run {
+                    margin-right: 5px;
+                }
+            }
+
+            .boxed-btn-2 {
+                margin-left: 15px ;
+            }
+
+            .boxed-btn-3 {
+                margin-right: 10px ;
+            }
+
+        }
+
+
         &.question-step-friends {
-            //margin-top: -80px;
 
             &.qv2 {
                 margin-top: -80px !important;
@@ -722,12 +710,23 @@ overflow: visible;
                 margin-bottom: 60px !important;
             }
 
+            .boxed-btn-1 {
+                margin-right: 7px ;
+            }
+
+            .boxed-btn-2 {
+                margin-left: 17px;
+            }
+
+            .boxed-btn-3 {
+                margin-right: 19px ;
+            }
+
             .boxed-btn-4 {
+                margin-left: -31.5px;
             }
 
         }
-
-
     }
 
     .start-friend {
@@ -891,6 +890,42 @@ and (-webkit-min-device-pixel-ratio: 3) {
 
     .btn.press-buttons-inline {
         padding: 11px;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.v2 .boxed-btn-1{
+        margin-right: -26px;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-2{
+        margin-left: 0;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.v2 .boxed-btn-0.third-run {
+        margin-left: -107px !important;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-3 {
+        margin-right: 10px;
+    }
+
+    .form-group.student-list .selected-friends-row-v3 .boxed-btn-2 {
+        margin-left: 0;
+    }
+
+    .form-group.student-list .selected-friends-row-v3 .boxed-btn-3 {
+        margin-right: 10px !important;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-4 {
+        margin-left: -29px;
+    }
+
+    .block-students-vertical.line-students {
+        margin-left: 20px;
+    }
+
+    #answer-end {
+        width: 315px;
     }
 }
 

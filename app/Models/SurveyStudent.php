@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Str;
 
 class SurveyStudent extends Model
 {
@@ -21,6 +20,7 @@ class SurveyStudent extends Model
         'name',
         'class_id',
         'survey_id',
+        'finished_at'
     ];
 
     public function hashModel(){

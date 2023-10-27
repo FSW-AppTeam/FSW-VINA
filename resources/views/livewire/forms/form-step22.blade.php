@@ -1,6 +1,13 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
     <div id="scope-form-step22" class="set-fade-in">
 
+
+        @if(empty($shadowStudents))
+            <div class="step-notification alert alert-danger text-center">
+                <p>{{ $jsonQuestion->question_options->error_text }}</p>
+            </div>
+        @else
+
         <div class="container text-center">
             <h6 class="pt-4">{{ $jsonQuestion->question_content }}</h6>
         </div>
@@ -24,6 +31,13 @@
                 </div>
             </div>
         </div>
+        @endif
+
+
+
+
+
+
 
         <div class="container-sm">
             <div class="row justify-content-center align-items-center text-center">
