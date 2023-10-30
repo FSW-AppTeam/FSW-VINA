@@ -1,0 +1,17 @@
+{
+    "survey_id": 1,
+    "question_id": 29,
+    "question_type": "int",
+    "question_title": "Interessant",
+    "question_content": "Hoe interessant vond je deze vragenlijst?",
+    "question_answer_options": [
+        {"id": 1, "value": "Helemaal niet interessant"},
+        {"id": 2, "value": "Niet interessant"},
+        {"id": 3, "value": "Een beetje interessant"},
+        {"id": 4, "value": "Interessant"},
+        {"id": 5, "value": "Heel erg interessant"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "survey_id": 1,
+    "question_id": 28,
+    "question_type": "int",
+    "question_title": "Meedoen",
+    "question_content": "Zou je nog een keer aan een vergelijkbaar onderzoek over je klas meedoen?",
+    "question_answer_options": [
+        {"id": 1, "value": "Zeker niet"},
+        {"id": 2, "value": "Waarschijnlijk niet"},
+        {"id": 3, "value": "Misschien"},
+        {"id": 4, "value": "Waarschijnlijk wel"},
+        {"id": 5, "value": "Zeker wel"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "survey_id": 1,
+    "question_id": 30,
+    "question_type": "int",
+    "question_title": "Moeilijk",
+    "question_content": "Vond je het moeilijk of makkelijk te begrijpen hoe je de antwoorden moest invullen?",
+    "question_answer_options": [
+        {"id": 1, "value": "Heel moeilijk"},
+        {"id": 2, "value": "Moeilijk"},
+        {"id": 3, "value": "Niet moeilijk, maar ook niet makkelijk"},
+        {"id": 4, "value": "Makkelijk"},
+        {"id": 5, "value": "Heel makkelijk"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+    }
+}
