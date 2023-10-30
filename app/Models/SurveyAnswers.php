@@ -10,6 +10,13 @@ class SurveyAnswers extends Model
 {
     use HasFactory;
 
+    /**
+     * The storage format of the model's date columns.
+     *
+     * @var string
+     */
+//    protected $dateFormat = 'd-m-Y H:i:s';
+
     protected $casts = [
         'student_answer' => 'array'
     ];
@@ -29,8 +36,7 @@ class SurveyAnswers extends Model
     ];
 
     /**
-     * Get the user's first name.
-     *
+     * Data mapper
      * @return Attribute
      */
 

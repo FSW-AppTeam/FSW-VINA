@@ -1,5 +1,4 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-
     <div class="mt-4">
     @if($setPage)
         <div class="form-group set-fade-in">
@@ -21,11 +20,6 @@
         </div>
     @endif
     </div>
-
-{{--    select-btn-block--}}
-
-{{--    ontouchstart="triggerClick(this);" --}}
-
 </x-layouts.form>
 
 

@@ -13,13 +13,6 @@
                     <h6 class="mt-2 text-center px-2">{{ $jsonQuestion->question_content }}</h6>
                 </div>
 
-{{--                <div class="text-center block-student-active flag-active">--}}
-{{--                    <div id="{{$startStudent['id']}}"--}}
-{{--                        class="p-2 btn-circle btn-xl studentBtn title @if(strlen($startStudent['name']) > 8) circle-text @endif" data-start-student>--}}
-{{--                        {{$startStudent['name']}}--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
                 <div class="mt-4 text-center block-students-vertical line-students " data-student-list>
                     @foreach($shadowStudents as $key => $student)
                         <div class="student-shadow-flex @if($key !== 0) fadeOut @endif">
@@ -45,18 +38,13 @@
                                      class="rounded"
                                 >
                             @else
-                                <div style="height: 45px; width: 75px; margin: 5px; background-color: #f8f8f8; display: inline-block;
+                                <div style="height: 50px; width: 75px; margin: 5px; background-color: #f8f8f8; display: inline-block;
                     border: 1px solid darkgray;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);"
                                      class="rounded"></div>
                             @endif
                         @endfor
 
                     </div>
-                </div>
-
-                <div class="form-group">
-                    {{--            <input type="text" wire:model="flagsSelected" id="flagsSelected" class="active-flags" />--}}
-                    {{--            <input type="text" wire:model="selectedFlagIds" id="selectedFlagIds" class="active-flags-ids" />--}}
                 </div>
 
                 <div class="mt-2 mb-3 fst-italic text-center">{{ $jsonQuestion->question_options->extra_text }}</div>

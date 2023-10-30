@@ -109,6 +109,12 @@ class PostForm extends Form
 
     public function createAnswer(array $answer, stdClass $jsonQuestions, int $stepId): void
     {
+        if(isset($answer[0])){
+            if(is_null($answer[0])){
+                $answer = [];
+            }
+        }
+
         SurveyAnswers::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
@@ -145,6 +151,12 @@ class PostForm extends Form
        }
     }
 
+    /**
+     * Get student list from json file for testing purposes
+     *
+     * @param stdClass $studentList
+     * @return void
+     */
     public function createStudentListFromJson(stdClass $studentList): void
     {
         $this->createStudent($studentList->survey_id, $studentList->active_student, $studentList->class_id);

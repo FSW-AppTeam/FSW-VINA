@@ -32,7 +32,7 @@
 {{--                             wire:click="$dispatchset-square-animation', {event:event});"--}}
                              id="{{$answerSelected['id']}}"
                              class="btn btn-outline-secondary press-buttons-inline rounded"
-                             style="height: 45px; border: solid 2px orange;padding-top: 10px;">
+                             style="height: 50px; border: solid 2px orange;padding-top: 10px;">
                             {{$answerSelected['value']}}
                         </button>
                     @else

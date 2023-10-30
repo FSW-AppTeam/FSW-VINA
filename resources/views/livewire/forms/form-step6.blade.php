@@ -14,7 +14,6 @@
                     </button>
                 @endforeach
             </div>
-
         </div>
     @endif
 </x-layouts.form>

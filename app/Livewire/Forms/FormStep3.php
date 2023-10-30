@@ -9,7 +9,7 @@ class FormStep3 extends Component
 {
     public PostForm $form;
 
-    public int|null $age;
+    public int|null $age = null;
 
     public $stepId;
 
@@ -44,7 +44,7 @@ class FormStep3 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->age ?? null], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer(!is_null($this->age) ? [$this->age] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put([
                 'student-age' => $this->age ?? null

@@ -22,10 +22,14 @@ class FormStep23 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
+
     public array $students = [];
+
     public array $startStudent = [];
 
     public int $answerId;
+
+    public $setPage = true;
 
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
@@ -46,6 +50,8 @@ class FormStep23 extends Component
                         if (empty($value)) {
                             $fail($this->messages['answer_id.required']);
                         }
+                    } else {
+                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -75,7 +81,7 @@ class FormStep23 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-culture-interest' => $this->answerSelected]);
 

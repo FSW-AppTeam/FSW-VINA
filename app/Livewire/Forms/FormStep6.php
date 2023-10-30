@@ -8,7 +8,7 @@ use Livewire\Component;
 class FormStep6 extends Component
 {
     public PostForm $form;
-    public int|null $classTime;
+    public int|null $classTime = null;
 
     public $stepId;
 
@@ -47,7 +47,7 @@ class FormStep6 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->classTime ?? null], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer(!is_null($this->classTime) ? [$this->classTime] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-class-time' => $this->classTime ?? null]);
 

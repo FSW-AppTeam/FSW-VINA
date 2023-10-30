@@ -1,5 +1,4 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-
     @if($setPage)
         <div class="set-fade-in">
             <h6 class="pb-3 mt-4">{{ $jsonQuestion->question_content }}</h6>

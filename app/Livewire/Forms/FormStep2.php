@@ -13,6 +13,7 @@ class FormStep2 extends Component
     public $stepId;
 
     public $jsonQuestion;
+    public $jsonQuestionNameList;
 
     protected $rules = [
         'name' => 'required|min:2',
