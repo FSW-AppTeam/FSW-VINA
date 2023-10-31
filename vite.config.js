@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
+import laravel, { refreshPaths } from 'laravel-vite-plugin';
+import fs from 'fs';
 
 export default defineConfig({
     plugins: [
@@ -12,9 +13,16 @@ export default defineConfig({
         }),
     ],
     server: {
-        hmr: {
-            host: 'localhost',
+        https: {
+            key: fs.readFileSync('docker/certificates/apache/docker.dev.key'),
+            cert: fs.readFileSync('docker/certificates/apache/docker.dev.crt'),
         },
-    }
+        host: true,
+        port: 7037,
+        hmr: {
+            host: 'dualnets.docker.dev',
+            protocol: 'wss'
+        },
+    },
 
 });
