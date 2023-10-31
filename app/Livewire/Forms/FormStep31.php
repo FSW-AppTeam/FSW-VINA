@@ -27,6 +27,8 @@ class FormStep31 extends Component
 
             \Session::put(['student-end-survey-answer' => $this->answerText]);
 
+            $this->form->setStudentFinishedSurvey();
+
             $this->dispatch('set-step-id-up');
         }
     }

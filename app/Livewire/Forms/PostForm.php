@@ -73,7 +73,8 @@ class PostForm extends Form
             $allFriendsFirst[] = ['id' => $this->getStudent()->id, 'relation_id' => $val];
         }
 
-        unset($answer[0]); // reset for own friends
+//        unset($answer[0]); // reset for own friends
+      // reset for own friends
 
         // flat student array for import
         foreach ($answer as $friend){
@@ -84,6 +85,8 @@ class PostForm extends Form
               }
         }
 
+        unset($allFriendsFirst[0]);  //reset for own friends
+
         $allFriends = array_merge($allFriendsFirst, $allFriends);
         $uniqueStudents = [];
 
@@ -92,6 +95,7 @@ class PostForm extends Form
                 array_merge(array_column($allFriends, 'id'), array_column($allFriends, 'relation_id'))
             );
         } catch (\Exception $e){
+            dd($e->getMessage());
         }
 
         $students = $this->getStudent()
@@ -105,6 +109,12 @@ class PostForm extends Form
 
     public function createAnswer(array $answer, stdClass $jsonQuestions, int $stepId): void
     {
+        if(isset($answer[0])){
+            if(is_null($answer[0])){
+                $answer = [];
+            }
+        }
+
         SurveyAnswers::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
@@ -123,19 +133,48 @@ class PostForm extends Form
         ]);
     }
 
-    public function createStudent(int $surveyId, string $name, string $classId): void
+    public function createStudent(int $surveyId, string $name, string $classId, bool $setSession = true): void
     {
        $student = SurveyStudent::firstOrCreate([
-            'survey_id' => $surveyId,
-            'name' => $name,
-            'class_id' => $classId,
+            'survey_id' => strip_tags($surveyId),
+            'name' => strip_tags($name),
+            'class_id' => strip_tags($classId)
         ]);
 
-        \Session::put([
-            'student-name' => $name,
-            'survey-student-id' => $student->id,
-            'survey-student-class-id' => $classId,
-            'step2' => true
+       if($setSession){
+           \Session::put([
+               'student-name' => strip_tags($name),
+               'survey-student-id' => strip_tags($student->id),
+               'survey-student-class-id' =>strip_tags($classId),
+               'step2' => true
+           ]);
+       }
+    }
+
+    /**
+     * Get student list from json file for testing purposes
+     *
+     * @param stdClass $studentList
+     * @return void
+     */
+    public function createStudentListFromJson(stdClass $studentList): void
+    {
+        $this->createStudent($studentList->survey_id, $studentList->active_student, $studentList->class_id);
+
+        foreach ($studentList->survey_students as $studentName){
+            $this->createStudent($studentList->survey_id, $studentName, $studentList->class_id, false);
+        }
+    }
+
+    public function setStudentFinishedSurvey(): void
+    {
+        SurveyStudent::where([
+            'id' => $this->getStudent()->id,
+            'survey_id' => $this->getStudent()->survey_id,
+            'class_id' => $this->getStudent()->class_id,
+            ])
+        ->update([
+            'finished_at' => now()
         ]);
     }
 

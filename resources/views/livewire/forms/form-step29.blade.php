@@ -1,4 +1,5 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+    @if($setPage)
     <div id="scope-form-step29" class="set-fade-in">
 
         <div class="container text-center mt-3 mb-2">
@@ -35,4 +36,5 @@
             </div>
         </div>
     </div>
+    @endif
 </x-layouts.form>

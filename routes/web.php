@@ -24,3 +24,4 @@ Route::group(['middleware' => ['auth', 'XssSanitizer']], function () {
     });
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/csv-export', [App\Http\Controllers\SurveyController::class, 'checkSurveys'])->name('survey-check');

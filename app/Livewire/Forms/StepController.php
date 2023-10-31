@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use Carbon\Carbon;
 use File;
 use Livewire\Component;
 
@@ -10,11 +11,14 @@ use Livewire\Component;
  */
 class StepController extends Component
 {
+    public PostForm $form;
     public $activeStep = 'forms.form-step-intro';
 
     public $jsonQuestion;
 
-    public $stepId = 0;
+    public $jsonQuestionNameList = [];
+
+    public $stepId = 17;
 
     public $steps;
 
@@ -25,7 +29,7 @@ class StepController extends Component
         'set-refresh-stepper'  => '$refresh'
     ];
 
-    public function next(bool $skip = false)
+    public function next()
     {
         $currentIndex = array_search($this->activeStep, $this->steps);
         $this->activeStep = ($currentIndex + 1) >= count($this->steps) ? $this->steps[$currentIndex] : $this->steps[$currentIndex + 1];
@@ -49,6 +53,11 @@ class StepController extends Component
         }
     }
 
+    public function getJsonNameList(): void
+    {
+        $this->jsonQuestionNameList = json_decode(file_get_contents(storage_path("app/surveys/prefilled-names.json")), FALSE);
+    }
+
     public function getJsonIntro(): void
     {
         $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-intro.json")), FALSE);
@@ -63,23 +72,23 @@ class StepController extends Component
     {
         $this->steps = [
             'forms.form-step-intro',
-            'forms.form-step1',
-            'forms.form-step2',
-            'forms.form-step3',
-            'forms.form-step4',
-            'forms.form-step5',
-            'forms.form-step6',
-            'forms.form-step7',
-            'forms.form-step8',
-            'forms.form-step9',
-            'forms.form-step10',
-            'forms.form-step11',
-            'forms.form-step12',
-            'forms.form-step13',
-            'forms.form-step14',
-            'forms.form-step15',
-            'forms.form-step16',
-            'forms.form-step17',
+//            'forms.form-step1',
+//            'forms.form-step2',
+//            'forms.form-step3',
+//            'forms.form-step4',
+//            'forms.form-step5',
+//            'forms.form-step6',
+//            'forms.form-step7',
+//            'forms.form-step8',
+//            'forms.form-step9',
+//            'forms.form-step10',
+//            'forms.form-step11',
+//            'forms.form-step12',
+//            'forms.form-step13',
+//            'forms.form-step14',
+//            'forms.form-step15',
+//            'forms.form-step16',
+//            'forms.form-step17',
             'forms.form-step18',
             'forms.form-step19',
             'forms.form-step20',
@@ -100,8 +109,12 @@ class StepController extends Component
 
     public function mount()
     {
-//        $this->getJsonQuestion($this->stepId);
         $this->getJsonIntro();
+        $this->getJsonNameList();
+
+        if($this->jsonQuestionNameList->active_list){
+            $this->form->createStudentListFromJson($this->jsonQuestionNameList);
+        }
     }
 
 //    not using, maybe future

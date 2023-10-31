@@ -121,7 +121,7 @@ class FormStep12 extends Component
 
                 $this->friends = [];
                 $this->selectedFriendsIds = [];
-                $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+                $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
                 $this->friendsList = [];
 
                 array_shift($this->students);
@@ -136,13 +136,13 @@ class FormStep12 extends Component
 //        $this->friends = old('friends') ?? \Session::get('student-friends-frequent') ?? [];
 
         $this->basicTitle = $this->jsonQuestion->question_title;
-
-        $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
         if(empty($this->friends)){
             $this->startFriend = $this->students[0];
             array_shift($this->students);
+
+            $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
         }
 
         $index = -1;

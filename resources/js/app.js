@@ -40,7 +40,6 @@ appHeight();
 
 
 
-
 let mobileDevice = false;
 if (window.TouchEvent) {
     mobileDevice = true;
@@ -209,8 +208,8 @@ document.addEventListener('livewire:initialized', (e) => {
                         let shadowList = document.querySelectorAll('.student-shadow-flex');
 
                         shadowList[index].animate([
-                            {opacity: 1, transform: `translate3d(10px, 0, 0) scaleX(1)`},
-                            {opacity: 0, transform: `translate3d(-2000px, 0, 0) scaleX(2)`}
+                            {opacity: 1, transform: `translate3d(10px, 0, 0) `},
+                            {opacity: 0, transform: `translate3d(-2000px, 0, 0) `}
                         ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
 
                         if(shadowList[(index + 1)] !== undefined){
@@ -229,7 +228,7 @@ document.addEventListener('livewire:initialized', (e) => {
                         if(studentBtn !== null){
                             // form step 22 relation question animations
                             studentBtn.animate([
-                                {opacity: 0, transform: `translate3d(0, 0, 0) scaleX(1)`},
+                                {opacity: 0, transform: `translate3d(0, 0, 0)`},
                                 {opacity: 1, transform: `translate3d(0, 0, 0)`}
                             ], {duration: 500, easing: 'ease', fill: 'forwards', delay: 1000});
                         }
@@ -260,12 +259,12 @@ document.addEventListener('livewire:initialized', (e) => {
 
         // answer buttonsblock animation from of question 15
         blockBtn.animate([
-            {transform: `translateY(${(squareTop - blockBtnTop) - 10 }px)`},
+            {transform: `translateY(${(squareTop - blockBtnTop) - 2 }px)`},
         ], {duration: 400, easing: 'ease-in', fill: 'forwards'});
 
         blockBtn.animate([
             {opacity: 0},
-        ], {duration: 100, easing: 'ease-in', fill: 'forwards', delay: 450});
+        ], {duration: 200, easing: 'ease-in', fill: 'forwards', delay: 400});
 
     });
 

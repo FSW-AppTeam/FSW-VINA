@@ -9,7 +9,7 @@ class FormStep7 extends Component
 {
     public PostForm $form;
 
-    public int|null $originCountry;
+    public int|null $originCountry = null;
     public string|null $originCountryName = "";
     public string|null $fromCountry = "";
 
@@ -50,7 +50,7 @@ class FormStep7 extends Component
         $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->originCountry ?? null], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer(!is_null($this->originCountry) ? [$this->originCountry] : [], $this->jsonQuestion, $this->stepId);
 
             if(!empty($this->fromCountry)){
                 $this->jsonQuestion->question_title = $this->jsonQuestion->question_options->question_custom_input_title;

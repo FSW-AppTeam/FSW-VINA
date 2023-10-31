@@ -78,13 +78,18 @@ class FormStep15 extends Component
                     'id'    => $this->startStudent['id'],
                     'value' => $this->answerSelected['id'],
                 ];
-
-                $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
-
-                \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+            } else {
+                $answer = [
+                    'id'    => $this->startStudent['id'],
+                    'value' => [],
+                ];
             }
 
-            if(array_key_exists(2, $this->students)){
+            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
+
+            \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+
+            if(!empty($this->students)){
                 $this->startStudent = $this->students[0];
                 $this->studentCounter ++;
                 $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
@@ -107,7 +112,9 @@ class FormStep15 extends Component
 
         shuffle($this->students);
 
-        $this->startStudent = $this->students[0];
+        if(!empty($this->students)){
+            $this->startStudent = $this->students[0];
+        }
 
         // shifts the student shadow
         array_shift($this->students);
