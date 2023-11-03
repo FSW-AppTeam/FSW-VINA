@@ -1,6 +1,4 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-{{--    <div class="animate__animated animate__fadeIn animate__slow">--}}
-    <div class="">
         <h5>Hartelijk welkom!</h5>
 
         <p class="lh-sm mt-3">Het invullen van deze vragenlijst duurt ongeveer 10-15 minuten.</p>
@@ -19,7 +17,4 @@
                 <li><span>Ik stem in met het gebruik van mijn antwoorden voor wetenschappelijk onderzoek.</span></li>
             </ul>
         </div>
-    </div>
-{{--</div>--}}
-
 </x-layouts.form>

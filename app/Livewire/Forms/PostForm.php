@@ -23,6 +23,7 @@ class PostForm extends Form
     {
         return SurveyStudent::where('class_id', $this->getStudent()->class_id)
             ->whereNot('id', $this->getStudent()->id)
+            ->where('exported_at', '=', NULL)
             ->orderBy('name')
             ->get()
             ->toArray();
@@ -38,6 +39,7 @@ class PostForm extends Form
         return $this->getStudent()
             ->whereIn('id', $answer)
             ->where('class_id', $this->getStudent()->class_id)
+            ->where('exported_at', '=', NULL)
             ->get()
             ->toArray();
     }
@@ -53,6 +55,7 @@ class PostForm extends Form
             ->whereNot('id', $this->getStudent()->id)
             ->whereNotIn('id', $answer)
             ->where('class_id', $this->getStudent()->class_id)
+            ->where('exported_at', '=', NULL)
             ->limit(3)
             ->get()
             ->toArray();
@@ -62,14 +65,11 @@ class PostForm extends Form
     {
         $answer = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
             ->where('survey_answers.survey_id', '=', 1)
-//            ->where('survey_answers.question_id', '=', 10)  // own friends
             ->whereIn('survey_answers.question_id', [10,12]) // friends of friends
             ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
             ->where('survey_students.class_id', '=', $this->getStudent()->class_id)
             ->get(['survey_answers.student_answer'])
             ->toArray();
-
-//        dd($answer);
 
         $allFriends= [];
         $allFriendsFirst = [];
@@ -78,10 +78,7 @@ class PostForm extends Form
             $allFriendsFirst[] = ['id' => $this->getStudent()->id, 'relation_id' => $val];
         }
 
-//        dd($allFriendsFirst);
-
 //        unset($answer[0]); // reset for own friends
-      // reset for own friends
 
         // flat student array for import
         foreach ($answer as $friend){
@@ -91,8 +88,6 @@ class PostForm extends Form
                   }
               }
         }
-
-//        unset($allFriendsFirst[0]);  //reset for own friends
 
         $allFriends = array_merge($allFriendsFirst, $allFriends);
         $uniqueStudents = [];
@@ -105,30 +100,19 @@ class PostForm extends Form
             dd($e->getMessage());
         }
 
-//        dump($allFriends);
-
-
         $students = $this->getStudent()
             ->whereIn('id', $uniqueStudents)
             ->where('class_id', $this->getStudent()->class_id)
             ->where('survey_id', $this->getStudent()->survey_id)
+            ->where('exported_at', '=', NULL)
             ->get()
             ->toArray();
-
-//        dd($students);
-
 
         return ['students' => $students, 'relations' => $allFriends];
     }
 
     public function createAnswer(array $answer, stdClass $jsonQuestions, int $stepId): void
     {
-//        if(isset($answer[0])){
-//            if(is_null($answer[0])){
-//                $answer = [];
-//            }
-//        }
-
         SurveyAnswers::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
