@@ -28,12 +28,12 @@
     "src": "resources/fonts/bahnschrift/bahnschrift.woff2"
   },
   "resources/js/app.js": {
-    "file": "assets/app-7818b9f2.js",
+    "file": "assets/app-f99d533c.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-72aa0bb8.css",
+    "file": "assets/app-27ac6437.css",
     "isEntry": true,
     "src": "resources/sass/app.scss"
   }
