@@ -1,0 +1,46 @@
+version: "3.2"
+services:
+  dualnets:
+    hostname: dualnets.docker.dev
+    container_name: dualnets
+    build:
+      context: .
+      dockerfile: docker/dualnets.dockerfile
+    environment:
+      - VIRTUAL_HOST=dualnets.docker.dev
+      - VIRTUAL_PROTO=https
+      - VIRTUAL_PORT=443
+      - WWWUSER='${WWWUSER}'
+    volumes:
+      - ./:/var/www
+    networks:
+      - default
+      - hts-appteam-local-dev
+    env_file:
+      - docker/keys.env
+  mariadb:
+    hostname: dualnets_mariadb.docker
+    container_name: dualnets_mariadb
+    image: "mariadb:latest"
+    ports:
+      - "8038:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "development"
+      MYSQL_USER: "development"
+      MYSQL_PASSWORD: "secret"
+  mariadbtest:
+    hostname: dualnets_mariadb_test.docker
+    container_name: dualnets_mariadb_test
+    image: "mariadb:latest"
+    ports:
+      - "7038:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "test"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "secret"
+networks:
+  hts-appteam-local-dev:
+    external: true
+
