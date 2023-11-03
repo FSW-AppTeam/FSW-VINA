@@ -24,7 +24,7 @@ class FormStep15 extends Component
     public array $students = [];
 
     public array $startStudent = [];
-
+    public array $shadowStudents = [];
     public int $studentCounter = 1;
 
     public int $answerId;
@@ -89,13 +89,18 @@ class FormStep15 extends Component
 
             \Session::put(['student-good-knowing-student' => $this->answerSelected]);
 
-            if(!empty($this->students)){
+            if(array_key_exists(1, $this->students)){
                 $this->startStudent = $this->students[0];
                 $this->studentCounter ++;
-                $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
-
+                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
                 $this->answerSelected = [];
+
                 array_shift($this->students);
+
+                // next button skip question
+                if(empty($answer['value'])) {
+                    array_shift($this->shadowStudents);
+                }
             } else {
                 $this->dispatch('set-step-id-up');
             }
@@ -107,17 +112,15 @@ class FormStep15 extends Component
 //        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-knowing-student') ?? [];
 
         $this->basicTitle = $this->jsonQuestion->question_title;
-        $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+        $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
         shuffle($this->students);
+        $this->shadowStudents = $this->students;
 
         if(!empty($this->students)){
             $this->startStudent = $this->students[0];
         }
-
-        // shifts the student shadow
-        array_shift($this->students);
     }
 
     public function render()

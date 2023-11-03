@@ -98,7 +98,7 @@ class FormStep14 extends Component
                 $this->startStudent = $this->students[1];
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
-                $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
 
                 array_shift($this->students);
             } else {
@@ -112,7 +112,7 @@ class FormStep14 extends Component
         $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-country-culture-student') ?? [];
 
         $this->basicTitle = $this->jsonQuestion->question_title;
-        $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+        $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
         $this->shadowStudents = $this->students;
 
