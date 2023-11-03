@@ -105,6 +105,8 @@ Cron will run once per hour to check if students are finished with a particular 
 
 The naming of the exported csv file is `YY-mm-dd time classId`. Results are exported hourly per classId when there are new submissions.
 
+There is also an option to run the csv export script simply from the url route. Open the link `{mydomain}/csv-export`. Don't forget to wait 1 hour after the survey submission.
+
 ###
 ### Data Privacy 
 
