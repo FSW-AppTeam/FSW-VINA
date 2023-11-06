@@ -86,8 +86,6 @@ document.addEventListener('livewire:initialized', (e) => {
 
             dispatchEvent(setAnswerButtonBlock);
         }
-
-        // document.removeEventListener('select-answer-block', ()=>{});
     });
 
     document.addEventListener('set-modal-flag', event => {
@@ -155,16 +153,42 @@ document.addEventListener('livewire:initialized', (e) => {
     // end Flag animation question 14
 
 
-    let shadowPositionX = -200;
+    let stepIndex = 1;
+    let shadowPositionX = -90;
     let index = 0;
 
-    // Livewire.dispatchTo('dashboard', 'post-created', { postId: 2 })
-    // let component = Livewire.first();
+    document.addEventListener('set-step-id-up', () => {
+        setTimeout(() => {
+            let formQuestion22 = document.querySelector('#scope-form-step22');
+            index = 0;
+            shadowPositionX = -90;
+
+            if(formQuestion22 !== null){
+                shadowPositionX = -210;
+            }
+        }, 500);
+    });
+
+    document.addEventListener('set-step-id-down', () => {
+        setTimeout(() => {
+            let formQuestion22 = document.querySelector('#scope-form-step22');
+            index = 0;
+            shadowPositionX = -90;
+
+            if(formQuestion22 !== null){
+                shadowPositionX = -210;
+            }
+        }, 500);
+    });
+
+
 
     document.addEventListener('set-block-btn-animation', (ev) => {
         ev.preventDefault();
 
         let setSquareArea = document.querySelector('#set-square-area');
+        let formQuestion22 = document.querySelector('#scope-form-step22');
+
         if(setSquareArea === null) return; // wrong btn block pressed
 
         let squareTop = setSquareArea.getBoundingClientRect().top;
@@ -207,22 +231,31 @@ document.addEventListener('livewire:initialized', (e) => {
                     if(studentShadowList !== null){
                         let shadowList = document.querySelectorAll('.student-shadow-flex');
 
-                        shadowList[index].animate([
-                            {opacity: 1, transform: `translate3d(10px, 0, 0) `},
-                            {opacity: 0, transform: `translate3d(-2000px, 0, 0) `}
-                        ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
+                        if(shadowList[index] !== undefined){
+                            shadowList[index].animate([
+                                // {opacity: 1, transform: `translateX(-2000px)`},
+                                {opacity: 0, transform: `translateX(-2000px)`}
+                            ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
 
-                        if(shadowList[(index + 1)] !== undefined){
-                            shadowList[(index + 1)].animate([
-                                {opacity: 1}
-                            ], {duration: 300, easing: 'ease', fill: 'forwards', delay: 800});
+                            if(shadowList[(index + 1)] !== undefined){
+                                shadowList[(index + 1)].animate([
+                                    {opacity: 1}
+                                ], {duration: 300, easing: 'ease', fill: 'forwards', delay: 800});
+                            }
                         }
 
                         studentShadowList.animate([
-                            {transform: 'translateX(' + shadowPositionX + 'px)'}
-                        ], {duration: 400, easing: 'ease', fill: 'forwards', delay: 500});
+                            // {transform: 'translateX( ' + (shadowPositionX + 196) + 'px)'},
+                            {transform: 'translateX( ' +  (shadowPositionX ) + 'px)'}
+                        ], {duration: 400, easing: 'ease-in', fill: 'forwards', delay: 300});
 
-                        shadowPositionX -= 208;
+                        if(formQuestion22 !== null){
+                            shadowPositionX -= 210;
+                            stepIndex++;
+                        } else {
+                            shadowPositionX -= 90;
+                        }
+
                         index++;
 
                         if(studentBtn !== null){
@@ -253,11 +286,10 @@ document.addEventListener('livewire:initialized', (e) => {
 
             }, 1200);
 
-            // blockBtn.classList.add('animate__animated', 'animate__bounceOutLeft', 'animate_slow');
         }, {once: true});
 
 
-        // answer buttonsblock animation from of question 15
+        // answer buttons block animation from of question 15
         blockBtn.animate([
             {transform: `translateY(${(squareTop - blockBtnTop) - 2 }px)`},
         ], {duration: 400, easing: 'ease-in', fill: 'forwards'});
@@ -287,6 +319,5 @@ document.addEventListener('livewire:initialized', (e) => {
 
         dispatchEvent(setBackBlockBtn);
     });
-
 
 });

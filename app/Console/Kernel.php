@@ -2,8 +2,11 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\SurveyController;
+use App\Jobs\SurveyExportJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,6 +16,18 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
+        $schedule->command('app:export-csv-run')->hourly();
+
+//        $schedule->job(SurveyExportJob::class)
+//            ->name('Runs the csv export')
+//            ->hourly();
+
+        $schedule->call(function () {
+            DB::table('survey_students')->delete();
+            DB::table('survey_answers')->delete();
+        })->dailyAt('03:00');
+
     }
 
     /**

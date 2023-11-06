@@ -62,16 +62,23 @@ class PostForm extends Form
     {
         $answer = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
             ->where('survey_answers.survey_id', '=', 1)
-            ->where('survey_answers.question_id', '=', 10)  // own friends
-            ->orWhere('survey_answers.question_id', '=', 12) // friends of friends
-            ->get('student_answer')
+//            ->where('survey_answers.question_id', '=', 10)  // own friends
+            ->whereIn('survey_answers.question_id', [10,12]) // friends of friends
+            ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
+            ->where('survey_students.class_id', '=', $this->getStudent()->class_id)
+            ->get(['survey_answers.student_answer'])
             ->toArray();
+
+//        dd($answer);
 
         $allFriends= [];
         $allFriendsFirst = [];
+
         foreach ($answer[0]['student_answer'] as $val){
             $allFriendsFirst[] = ['id' => $this->getStudent()->id, 'relation_id' => $val];
         }
+
+//        dd($allFriendsFirst);
 
 //        unset($answer[0]); // reset for own friends
       // reset for own friends
@@ -85,7 +92,7 @@ class PostForm extends Form
               }
         }
 
-        unset($allFriendsFirst[0]);  //reset for own friends
+//        unset($allFriendsFirst[0]);  //reset for own friends
 
         $allFriends = array_merge($allFriendsFirst, $allFriends);
         $uniqueStudents = [];
@@ -98,22 +105,29 @@ class PostForm extends Form
             dd($e->getMessage());
         }
 
+//        dump($allFriends);
+
+
         $students = $this->getStudent()
             ->whereIn('id', $uniqueStudents)
             ->where('class_id', $this->getStudent()->class_id)
+            ->where('survey_id', $this->getStudent()->survey_id)
             ->get()
             ->toArray();
+
+//        dd($students);
+
 
         return ['students' => $students, 'relations' => $allFriends];
     }
 
     public function createAnswer(array $answer, stdClass $jsonQuestions, int $stepId): void
     {
-        if(isset($answer[0])){
-            if(is_null($answer[0])){
-                $answer = [];
-            }
-        }
+//        if(isset($answer[0])){
+//            if(is_null($answer[0])){
+//                $answer = [];
+//            }
+//        }
 
         SurveyAnswers::updateOrCreate(
             [

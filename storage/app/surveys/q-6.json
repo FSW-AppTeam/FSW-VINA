@@ -1,6 +1,6 @@
 {
     "survey_id": 1,
-    "question_id": 7,
+    "question_id": 6,
     "question_type": "int",
     "question_title": "Tijd in klas",
     "question_content": "Hoe lang zit je al in deze klas?",

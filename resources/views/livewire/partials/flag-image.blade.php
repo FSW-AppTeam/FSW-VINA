@@ -10,7 +10,12 @@
             <p class="mt-1">{{$country}}</p>
         </div>
     @else
-        <div class="col p-2"  style="height: 123px; width: 180px;"></div>
+        <div class="col image-box p-2" style="opacity: 0;">
+            <img src="{{ asset('flags/' .$image. '.jpg') }}"
+                 style="width: 90%;"
+                 type="button">
+            <p class="mt-1">{{$country}}</p>
+        </div>
     @endif
 </div>
 

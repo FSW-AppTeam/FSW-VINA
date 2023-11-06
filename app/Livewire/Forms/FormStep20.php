@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
 
@@ -25,10 +24,10 @@ class FormStep20 extends Component
     public array $students = [];
 
     public array $startStudent = [];
-
     public int $studentCounter = 1;
 
     public int $answerId;
+    public array $shadowStudents = [];
 
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
@@ -85,17 +84,12 @@ class FormStep20 extends Component
 
             $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-            if(!empty($this->startStudent)){
-                $this->jsonQuestion->question_title = $this->basicTitle . " klasgenoot " . $this->studentCounter. " waarde";
-                $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
-            }
-
             \Session::put(['student-good-knowing-student' => $this->answerSelected]);
 
             if (!empty($this->students)) {
                 $this->startStudent = $this->students[0];
                 $this->studentCounter++;
-                $this->jsonQuestion->question_title = $this->basicTitle . " klasgenoot " . $this->studentCounter . " ID";
+                $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter . " ID";
 
                 $this->answerSelected = [];
                 array_shift($this->students);
@@ -115,8 +109,10 @@ class FormStep20 extends Component
         if(!empty($this->students)){
             shuffle($this->students);
 
+            $this->shadowStudents = $this->students;
+
             $this->startStudent = $this->students[0];
-            $this->jsonQuestion->question_title = $this->basicTitle . " klasgenoot " . $this->studentCounter . " ID";
+            $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
 
             // shifts the student shadow
             array_shift($this->students);

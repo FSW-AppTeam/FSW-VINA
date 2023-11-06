@@ -168,6 +168,10 @@ p {
             height: 92%;
         }
     }
+
+    //.bottom-flag-image {
+    //    padding-bottom: 10px;
+    //}
 }
 
 .btn-circle {
@@ -224,9 +228,15 @@ p {
     position: relative;
     top: 10px;
     width: 80px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     height: 105px;
+
+    &.shadow-row-step22 {
+        //position: unset;
+        //margin-left: 50% !important;
+        width: 196px;
+    }
 
     &.flag-active {
         height: unset;
@@ -256,6 +266,12 @@ p {
         margin-top: 80px !important;
     }
 
+    &.line-students.step-list-15 {
+        top: -20px;
+        margin-top: 40px !important;
+    }
+
+
     .btn-circle.btn-xl.studentBtn {
         margin-right: 10px;
 
@@ -271,8 +287,8 @@ p {
     }
 
     &.relation-block-student-shadow {
-        margin-left: -212%;
         z-index: 0;
+        left: 0 !important;
 
         .student-shadow-flex {
             display: inherit;
@@ -298,7 +314,15 @@ p {
 .block-student-active {
     .relation-block-student-shadow {
         margin-top: 80px;
+        //left: -80px !important;
+
+        width: 196px;
     }
+}
+
+.block-students-vertical.relation-block-student-shadow .student-shadow-flex {
+    display: inherit;
+    min-width: 210px;
 }
 
 #scope-form-step14 {
@@ -337,7 +361,8 @@ p {
 }
 
 #set-square-area {
-    height: 50px;
+    height: 45px;
+    margin-bottom: 15px;
     background-color: #fbfbfb;
     border: solid 1px #c2c0c0;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
@@ -376,6 +401,27 @@ p {
     background-color: inherit;
     border-color: inherit;
     box-shadow: 0 0 0 0.10rem rgb(255, 165, 0);
+}
+
+.form-control, .form-control:focus {
+    border-color: #FFA500FF;
+    box-shadow: none;
+    caret-color: #FFA500FF;
+}
+
+#country-set-btn {
+    border-color: #FFA500FF !important;
+    color: black;
+}
+
+input::-webkit-list-button {
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+
+    color: #FFA500FF !important;
+    fill: black !important;
+    stroke: black !important;
 }
 
 textarea {
@@ -794,6 +840,11 @@ overflow: visible;
     to {
         opacity: 0;
     }
+}
+
+// set-square-btn callback
+.btn.btn-outline-secondary.press-buttons-inline.rounded {
+    animation: setFadeIn 600ms ease forwards;
 }
 
 .set-fade-in {

@@ -25,13 +25,13 @@ class FormStep22 extends Component
 
     public array $startStudent = [];
     public array $startStudentRelation = [];
-
     public array $studentRelationIds = [];
     public array $shadowStudents = [];
 
     public int $answerId;
 
     public $setPage = true;
+    public $studentCounter = 1;
 
     public const SELF_ID_TEXT = 'Jou';
 
@@ -90,14 +90,18 @@ class FormStep22 extends Component
             \Session::put(['student-connection-relation-student' => $this->answerSelected]);
 
             if (!empty($this->studentRelationIds)) {
-//                array_shift($this->shadowStudents);
                 array_shift($this->studentRelationIds);
+
+                if(empty($this->answerSelected['id'])){
+                    array_shift($this->shadowStudents);
+                }
 
                 if (!empty($this->studentRelationIds)) {
                     $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
                     $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);
+                    $this->studentCounter++;
 
-                    $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->startStudent['id'];
+                    $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
                     $this->answerSelected = [];
                 } else {
                     $this->dispatch('set-step-id-up');
@@ -123,25 +127,23 @@ class FormStep22 extends Component
 
     public function mount(): void
     {
-//        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-knowing-student') ?? [];
-
         $this->basicTitle = $this->jsonQuestion->question_title;
         $questionSet = $this->form->getStudentsFriendsRelationsSelected();
+        $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
 
         $this->students = $questionSet['students'];
         $this->studentRelationIds = $questionSet['relations'];
-        $this->shadowStudents = $this->studentRelationIds;
 
         if (!empty($this->students)) {
-            $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
-            $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);
-
-            $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->startStudent['id'];
+            $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']) ?? [];
+            $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']) ?? [];
 
             // shifts the student shadow
-//            array_shift($this->studentRelationIds);
+            // array_shift($this->studentRelationIds);
 
-//            shuffle($this->studentRelationIds);
+            shuffle($this->studentRelationIds);
+            $this->shadowStudents = $this->studentRelationIds;
+
 //            array_shift($this->shadowStudents);
         }
     }

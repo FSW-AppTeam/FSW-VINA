@@ -121,7 +121,7 @@ class FormStep12 extends Component
 
                 $this->friends = [];
                 $this->selectedFriendsIds = [];
-                $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
+                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
                 $this->friendsList = [];
 
                 array_shift($this->students);
@@ -142,7 +142,7 @@ class FormStep12 extends Component
             $this->startFriend = $this->students[0];
             array_shift($this->students);
 
-            $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
+            $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         }
 
         $index = -1;

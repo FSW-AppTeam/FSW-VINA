@@ -1,8 +1,7 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-    @if($setPage)
     <div id="scope-form-step22" class="set-fade-in">
 
-        @if(empty($shadowStudents) || empty($students))
+        @if(empty($shadowStudents) && empty($students))
             <div class="step-notification alert alert-danger text-center">
                 <p>{{ $jsonQuestion->question_options->error_text }}</p>
             </div>
@@ -12,12 +11,13 @@
                 <h6 class="pt-4">{{ $jsonQuestion->question_content }}</h6>
             </div>
 
-            <div class="text-center mb-2">
-                <div class="block-student-active">
-                    <div class="block-students-vertical relation-block-student-shadow" data-student-list>
+            <div class="text-center mb-2 wrapper-shadow-list">
+                <div class="block-student-active shadow-row-step22"  >
+
+                    <div class="block-students-vertical relation-block-student-shadow" data-student-list >
                         @foreach($shadowStudents as $key => $student)
-                            <div
-                                class="justify-content-center text-center student-shadow-flex @if($key !== 0) fadeOut @endif">
+                            <div class="justify-content-center text-center student-shadow-flex @if($key !== 0) fadeOut @endif" >
+
                                 <div class="p-2 btn-circle btn-xl studentBtn title @if($student['id'] !== $selfStudentId && strlen($this->getStudentById($student['id'])['name']) > 8) circle-text @endif">
                                         <?= $student['id'] === $selfStudentId ? $selfText : $this->getStudentById($student['id'])['name']; ?>
                                 </div>
@@ -66,7 +66,6 @@
             </div>
         @endif
     </div>
-    @endif
 </x-layouts.form>
 
 
