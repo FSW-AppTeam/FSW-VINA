@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Component;
+use Livewire\Features\SupportValidation\HandlesValidation;
 
 class FormStep2 extends Component
 {
@@ -21,13 +22,14 @@ class FormStep2 extends Component
 
     protected $messages = [
         'name.required' => 'Voornaam is verplicht',
-        'name.min' => 'Je naam moet minimaal 2 karakters zijn.',
+        'name.min' => 'Je naam moet minimaal 2 karakters zijn.'
     ];
     public $setPage = true;
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules);
+        $this->validate($this->rules);
 
         if (\Session::has('survey-student-class-id')) {
             $this->form->createStudent(1, $this->name, strtolower(\Session::get('survey-student-class-id')));

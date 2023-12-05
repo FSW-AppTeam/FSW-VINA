@@ -43,12 +43,9 @@ class FormStep14 extends Component
         return [
             'flagsSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['flags.required']);
-                        }
+                        $fail($this->messages['flags.required']);
                     }
                 },
                 'array'
@@ -77,7 +74,8 @@ class FormStep14 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $answer = [

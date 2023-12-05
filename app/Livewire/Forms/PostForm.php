@@ -5,12 +5,19 @@ namespace App\Livewire\Forms;
 use App\Models\SurveyAnswers;
 use App\Models\SurveyStudent;
 use Livewire\Attributes\Computed;
+use Livewire\Features\SupportValidation\HandlesValidation;
 use Livewire\Form;
 use stdClass;
 
 class PostForm extends Form
 {
+    use HandlesValidation;
     public ?SurveyAnswers $answers;
+
+//    protected $rules = [];
+
+//    public $name;
+
 
     #[Computed(persist: true)]
     public function getStudent(): SurveyStudent

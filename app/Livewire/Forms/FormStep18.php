@@ -73,7 +73,8 @@ class FormStep18 extends Component
 
     public function save(): void
     {
-       $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
                 $answer = [

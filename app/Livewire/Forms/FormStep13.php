@@ -66,7 +66,8 @@ class FormStep13 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $this->form->createAnswer($this->flagsSelected, $this->jsonQuestion, $this->stepId);

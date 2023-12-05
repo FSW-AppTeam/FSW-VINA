@@ -46,7 +46,8 @@ class FormStep8 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $this->form->createAnswer(!is_null($this->indicationCountry ) ? [$this->indicationCountry] : [], $this->jsonQuestion, $this->stepId);

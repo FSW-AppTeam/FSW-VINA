@@ -68,7 +68,8 @@ class FormStep20 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if(empty($this->startStudent)){
             $this->dispatch('set-step-id-up');

@@ -79,7 +79,8 @@ class FormStep25 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);

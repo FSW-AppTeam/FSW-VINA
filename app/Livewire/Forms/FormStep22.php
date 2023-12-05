@@ -49,12 +49,9 @@ class FormStep22 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['answer_selected.required']);
-                        }
+                        $fail($this->messages['answer_selected.required']);
                     }
                 },
                 'array'
@@ -76,7 +73,8 @@ class FormStep22 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $answer = [
