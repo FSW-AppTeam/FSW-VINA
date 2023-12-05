@@ -93,6 +93,11 @@ class FormStep20 extends Component
 
                 $this->answerSelected = [];
                 array_shift($this->students);
+
+                if(empty($answer['value'])){
+                    $this->dispatch('set-block-btn-animation', null);
+                }
+
             } else {
                 $this->dispatch('set-step-id-up');
             }

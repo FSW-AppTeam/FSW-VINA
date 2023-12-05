@@ -13,7 +13,6 @@ class FormStep13 extends Component
     public $stepId;
 
     public $jsonQuestion;
-
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -45,6 +44,7 @@ class FormStep13 extends Component
             ],
         ];
     }
+
 
     public function setSelectedFlagId(int $id, string $image, string $country): void
     {

@@ -46,7 +46,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-11 col-lg-8">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
-                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="step-form-q22-{{ $answer->id }}" />
+                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="step-form-q22-{{ $answer->id . time()}}" />
                     @endforeach
                 </div>
             </div>

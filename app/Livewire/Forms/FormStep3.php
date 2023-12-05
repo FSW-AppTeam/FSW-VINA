@@ -23,18 +23,19 @@ class FormStep3 extends Component
 
     public function rules(): array
     {
-        $this->messages['age.numeric'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['age.required'] = $this->jsonQuestion->question_options->error_empty_text;
 
         return [
             'age' => [
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-                        $fail($this->messages['age.numeric']);
+                        $fail($this->messages['age.required']);
                     } else {
                         $this->setPage = false;
                     }
-                }
+                },
+                'numeric'
             ],
         ];
     }

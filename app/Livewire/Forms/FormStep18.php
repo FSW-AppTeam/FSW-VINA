@@ -73,7 +73,7 @@ class FormStep18 extends Component
 
     public function save(): void
     {
-        $this->validate();
+       $this->validate();
 
         if (\Session::has('survey-student-class-id')) {
                 $answer = [
@@ -85,13 +85,18 @@ class FormStep18 extends Component
 
                 \Session::put(['student-good-knowing-student' => $this->answerSelected]);
 
-            if(!empty($this->students)){
+            if(!empty($this->students[0])){
                 $this->startStudent = $this->students[0];
                 $this->studentCounter ++;
                 $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
 
                 $this->answerSelected = [];
+
                 array_shift($this->students);
+
+                if(empty($answer['value'])){
+                    $this->dispatch('set-block-btn-animation', null);
+                }
             } else {
                 $this->dispatch('set-step-id-up');
             }

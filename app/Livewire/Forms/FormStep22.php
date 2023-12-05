@@ -49,16 +49,16 @@ class FormStep22 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired && empty($value)) {
+                    if ($this->firstRequired) {
                         $this->firstRequired = false;
-                        $fail($this->messages['answer_selected.required']);
-                    } else {
-                        $this->setPage = false;
+
+                        if (empty($value)) {
+                            $fail($this->messages['answer_selected.required']);
+                        }
                     }
                 },
                 'array'
             ],
-
         ];
     }
 
@@ -138,13 +138,8 @@ class FormStep22 extends Component
             $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']) ?? [];
             $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']) ?? [];
 
-            // shifts the student shadow
-            // array_shift($this->studentRelationIds);
-
             shuffle($this->studentRelationIds);
             $this->shadowStudents = $this->studentRelationIds;
-
-//            array_shift($this->shadowStudents);
         }
     }
 

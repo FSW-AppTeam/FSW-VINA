@@ -43,11 +43,12 @@ class FormStep14 extends Component
         return [
             'flagsSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired && empty($value)) {
+                    if ($this->firstRequired) {
                         $this->firstRequired = false;
-                        $fail($this->messages['flags.required']);
-                    } else {
-                        $this->setPage = false;
+
+                        if (empty($value)) {
+                            $fail($this->messages['flags.required']);
+                        }
                     }
                 },
                 'array'

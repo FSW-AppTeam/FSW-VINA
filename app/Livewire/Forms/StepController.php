@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use File;
+use Illuminate\Http\File;
 use Livewire\Component;
 
 /**

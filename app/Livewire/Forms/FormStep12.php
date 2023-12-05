@@ -84,13 +84,13 @@ class FormStep12 extends Component
         return [
             'friends' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired && empty($value)) {
+                    if ($this->firstRequired) {
                         $this->firstRequired = false;
-                        $fail($this->messages['friends.required']);
+
+                        if (empty($value)) {
+                            $fail($this->messages['friends.required']);
+                        }
                     }
-//                    else {
-//                        $this->setPage = false;
-//                    }
                 },
                 'array'
             ]

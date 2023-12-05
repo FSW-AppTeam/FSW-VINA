@@ -51,7 +51,7 @@
                                     <livewire:partials.answer-btn-block :id="$answer->id"
                                                                         :value="ucfirst($answer->value)"
                                                                         :answer-selected="$answerSelected"
-                                                                        wire:key="{{ $answer->id }}"/>
+                                                                        wire:key="{{ $answer->id . time()}}"/>
                                 @endforeach
                             </div>
                         </div>

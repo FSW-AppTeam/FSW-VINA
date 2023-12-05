@@ -78,8 +78,9 @@
                                     <div class="row">
                                         @foreach ($this->students as $key => $student)
                                             <livewire:student-fade-component
-                                                wire:key="students-fade-selected-v2{{ $student['id'] }}"
-                                                :id="$student['id']" :name="$student['name']"
+                                                wire:key="students-fade-selected-{{ $student['id'] . time() }}"
+                                                :id="$student['id']"
+                                                :name="$student['name']"
                                                 :selected-friends-ids="$selectedFriendsIds"/>
                                         @endforeach
                                     </div>

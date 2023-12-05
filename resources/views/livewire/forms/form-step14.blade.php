@@ -1,13 +1,15 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
     <div>
-        @if(count($flagsSelected) >= 4)
-            <div class="step-notification alert alert-danger text-center">
-                <p>{{ $jsonQuestion->question_options->error_text }}</p>
-            </div>
-        @endif
-
 
         <div class="set-fade-in">
+            @if(count($flagsSelected) >= 4)
+                <div class="step-notification pt-3 alert alert-danger text-center ">
+                    <p>{{ $jsonQuestion->question_options->error_text }}</p>
+                </div>
+            @endif
+
+
+
             <div id="scope-form-step14">
                 <div class="row justify-content-center">
                     <h6 class="mt-2 text-center px-2">{{ $jsonQuestion->question_content }}</h6>
@@ -51,7 +53,8 @@
 
                     <div class="row row-cols-2 justify-content-center text-center flags-row-buttons">
                         @foreach ($jsonQuestion->question_answer_options as $index => $answer)
-                            <livewire:partials.flag-image :id="$answer->id" :image="$answer->flag"
+                            <livewire:partials.flag-image :id="$answer->id"
+                                                          :image="$answer->flag"
                                                           :country="ucfirst($answer->value)"
                                                           :flags-selected="$flagsSelected"
                                                           wire:key="flag-key-student-q14-{{ $index . time() }}"/>

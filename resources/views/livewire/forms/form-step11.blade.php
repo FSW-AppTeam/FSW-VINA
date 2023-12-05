@@ -48,8 +48,9 @@
                                         @foreach ($this->form->getStudentsWithoutActiveStudent() as $student)
                                             {{--  use strict unique key in wire:key attr  --}}
                                             <livewire:student-fade-component
-                                                wire:key="students-fade-step-11{{ $student['id'] }}"
-                                                :id="$student['id']" :name="$student['name']"
+                                                wire:key="students-fade-step-11-{{ $student['id'] . time() }}"
+                                                :id="$student['id']"
+                                                :name="$student['name']"
                                                 :selected-friends-ids="$selectedFriendsIds"/>
                                         @endforeach
                                     </div>

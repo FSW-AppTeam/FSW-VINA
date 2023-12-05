@@ -43,16 +43,16 @@ class FormStep15 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired && empty($value)) {
+                    if ($this->firstRequired) {
                         $this->firstRequired = false;
-                        $fail($this->messages['answer_id.required']);
-                    } else {
-                        $this->setPage = false;
+
+                        if (empty($value)) {
+                            $fail($this->messages['answer_id.required']);
+                        }
                     }
                 },
                 'array'
             ],
-
         ];
     }
 
@@ -99,7 +99,8 @@ class FormStep15 extends Component
 
                 // next button skip question
                 if(empty($answer['value'])) {
-                    array_shift($this->shadowStudents);
+                    $this->dispatch('set-block-btn-animation', null);
+//                    array_shift($this->shadowStudents);
                 }
             } else {
                 $this->dispatch('set-step-id-up');
