@@ -18,7 +18,7 @@ export default defineConfig({
             cert: fs.readFileSync('docker/certificates/apache/docker.dev.crt'),
         },
         host: true,
-        port: 7037,
+        port: 7038,
         hmr: {
             host: 'dualnets.docker.dev',
             protocol: 'wss'

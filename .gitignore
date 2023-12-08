@@ -20,5 +20,3 @@ yarn-error.log
 !storage/app/surveys/
 !public/storage/app/surveys
 /storage/debugbar/
-/package-lock.json
-/composer.lock
