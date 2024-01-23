@@ -3,7 +3,10 @@
 namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\FlagImage;
+use App\Models\SurveyAnswers;
+use App\Models\SurveyStudent;
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep14 extends Component
@@ -38,7 +41,6 @@ class FormStep14 extends Component
     public function rules(): array
     {
         $this->messages['flags.required'] = $this->jsonQuestion->question_options->error_empty_text;
-//        $this->messages['flags.min'] = $this->jsonQuestion->question_options->error_one_text;
 
         return [
             'flagsSelected' => [
@@ -56,9 +58,24 @@ class FormStep14 extends Component
 
     public function setSelectedFlagId(int $id, string $image, string $country): void
     {
-        if(count($this->flagsSelected) <= 3){
-            $this->flagsSelected[] = ['id' => $id, 'image' => $image, 'country' => $country];
+        if(count($this->flagsSelected) > 3){
+            return;
         }
+        $imageFile = false;
+
+        if($image == 'anders'){
+            $image = $country;
+        }
+        $isoFlag = array_search(ucfirst($image), getIsoCountries());
+        if(file_exists(public_path('build/images/flags/' . strtolower($isoFlag) . '.svg'))){
+            $imageFile = asset('build/images/flags/' . strtolower($isoFlag) . '.svg');
+
+        }
+
+        if(!$imageFile && file_exists(public_path('flags/' . strtolower($image) . '.jpg'))){
+            $imageFile = asset('flags/' . strtolower($image) . '.jpg');
+        }
+        $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
     }
 
     public function removeSelectedFlagId(int $id, string $country): void
@@ -77,15 +94,14 @@ class FormStep14 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             $answer = [
                 'student_id' => $this->startStudent['id'],
                 'countries' => $this->flagsSelected
             ];
 
-            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
-
-            \Session::put(['student-country-culture-student' => $this->flagsSelected]);
+            $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+            session::put(['student-country-culture-student' => $this->flagsSelected]);
 
             $this->dispatch('set-animation-flag-student');
 
@@ -123,5 +139,24 @@ class FormStep14 extends Component
     public function render()
     {
         return view('livewire.forms.form-step14');
+    }
+
+    public function setDatabaseResponse()
+    {
+        $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
+            ->where('survey_id', $this->jsonQuestion->survey_id)
+            ->where('question_id', $this->stepId)
+            ->whereJsonContains('student_answer->id', $this->startFriend['id'])
+            ->first();
+
+        if(!$response) {
+            ray('NIET gevonden' . $this->startFriend['id'] );
+            return;
+        }
+
+        foreach ($response->student_answer['value'] as $response) {
+            $student = SurveyStudent::find($response);
+            $this->setSelectedStudentId($response, $student->name);
+        }
     }
 }
