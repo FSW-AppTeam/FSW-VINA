@@ -10,7 +10,7 @@ class FormStep5 extends Component
 {
     public PostForm $form;
 
-    public int|null $educationDegree;
+    public int|null $educationDegree = null;
 
     public $stepId;
 
@@ -47,12 +47,13 @@ class FormStep5 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
-             $this->form->createAnswer([$this->educationDegree ?? null], $this->jsonQuestion, $this->stepId);
+             $this->form->createAnswer(!is_null($this->educationDegree) ? [$this->educationDegree] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put('student-education-degree', $this->educationDegree);
+            \Session::put('student-education-degree', $this->educationDegree ?? null);
 
             $this->dispatch('set-step-id-up');
         }
@@ -65,7 +66,7 @@ class FormStep5 extends Component
 
     public function mount(): void
     {
-        $this->educationDegree = old('education-degree') ?? \Session::get('student-education-degree');
+        $this->educationDegree = old('education-degree') ?? \Session::get('student-education-degree') ?? null;
     }
 
     public function render()

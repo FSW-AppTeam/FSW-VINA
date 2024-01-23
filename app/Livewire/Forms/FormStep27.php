@@ -28,6 +28,8 @@ class FormStep27 extends Component
 
     public int $answerId;
 
+    public $setPage = true;
+
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
         'set-remove-selected-square' => 'removeSelectedSquare',
@@ -47,6 +49,8 @@ class FormStep27 extends Component
                         if (empty($value)) {
                             $fail($this->messages['answer_id.required']);
                         }
+                    } else {
+                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -73,10 +77,11 @@ class FormStep27 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-class-fun-survey' => $this->answerSelected]);
 

@@ -9,7 +9,7 @@ class FormStep4 extends Component
 {
     public PostForm $form;
 
-    public int|null $gender;
+    public int|null $gender = null;
 
     public $stepId;
 
@@ -19,6 +19,9 @@ class FormStep4 extends Component
 
     protected $messages = [];
 
+    /**
+     * @var bool for page error message jump
+     */
     public $setPage = true;
 
     protected $listeners = [
@@ -51,12 +54,13 @@ class FormStep4 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
-             $this->form->createAnswer([$this->gender ?? 0], $this->jsonQuestion, $this->stepId);
+             $this->form->createAnswer(!is_null($this->gender) ? [$this->gender] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put('student-gender', $this->gender);
+            \Session::put('student-gender', $this->gender ?? null);
 
             $this->dispatch('set-step-id-up');
         }

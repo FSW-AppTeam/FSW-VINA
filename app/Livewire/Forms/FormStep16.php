@@ -26,9 +26,9 @@ class FormStep16 extends Component
 
     public array $startStudent = [];
 
-    public int $studentCounter = 1;
-
     public int $answerId;
+
+    public $setPage = true;
 
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
@@ -43,17 +43,15 @@ class FormStep16 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['answer_id.required']);
-                        }
+                        $fail($this->messages['answer_id.required']);
+                    } else {
+                        $this->setPage = false;
                     }
                 },
                 'array'
             ],
-
         ];
     }
 
@@ -75,10 +73,11 @@ class FormStep16 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
 
@@ -88,7 +87,7 @@ class FormStep16 extends Component
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-immigration-own-behaviour') ?? [];
+        $this->answerSelected = old('answerSelected') ?? \Session::get('student-immigration-own-behaviour') ?? [] ;
     }
 
     public function render()

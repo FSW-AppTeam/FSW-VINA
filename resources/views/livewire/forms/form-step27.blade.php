@@ -1,4 +1,5 @@
 <x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+    @if($setPage)
     <div id="scope-form-step27" class="set-fade-in">
 
         <div class="container text-center mt-3 mb-2">
@@ -29,11 +30,12 @@
                 <div class="row justify-content-center align-items-center">
                     <div class="col-12 col-lg-10">
                         @foreach ($jsonQuestion->question_answer_options as $answer)
-                            <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="{{ $answer->id }}" />
+                            <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="{{ $answer->id . time() }}" />
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endif
 </x-layouts.form>

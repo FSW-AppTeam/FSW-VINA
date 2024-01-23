@@ -24,7 +24,7 @@ class FormStep15 extends Component
     public array $students = [];
 
     public array $startStudent = [];
-
+    public array $shadowStudents = [];
     public int $studentCounter = 1;
 
     public int $answerId;
@@ -46,13 +46,10 @@ class FormStep15 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['answer_id.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
                 'array'
             ],
-
         ];
     }
 
@@ -70,7 +67,8 @@ class FormStep15 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             if(!empty($this->answerSelected)){
@@ -78,19 +76,30 @@ class FormStep15 extends Component
                     'id'    => $this->startStudent['id'],
                     'value' => $this->answerSelected['id'],
                 ];
-
-                $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
-
-                \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+            } else {
+                $answer = [
+                    'id'    => $this->startStudent['id'],
+                    'value' => [],
+                ];
             }
 
-            if(array_key_exists(2, $this->students)){
+            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
+
+            \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+
+            if(array_key_exists(1, $this->students)){
                 $this->startStudent = $this->students[0];
                 $this->studentCounter ++;
-                $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
-
+                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
                 $this->answerSelected = [];
+
                 array_shift($this->students);
+
+                // next button skip question
+                if(empty($answer['value'])) {
+                    $this->dispatch('set-block-btn-animation', null);
+//                    array_shift($this->shadowStudents);
+                }
             } else {
                 $this->dispatch('set-step-id-up');
             }
@@ -102,15 +111,15 @@ class FormStep15 extends Component
 //        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-knowing-student') ?? [];
 
         $this->basicTitle = $this->jsonQuestion->question_title;
-        $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+        $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
         shuffle($this->students);
+        $this->shadowStudents = $this->students;
 
-        $this->startStudent = $this->students[0];
-
-        // shifts the student shadow
-        array_shift($this->students);
+        if(!empty($this->students)){
+            $this->startStudent = $this->students[0];
+        }
     }
 
     public function render()

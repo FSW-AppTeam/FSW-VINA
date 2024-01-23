@@ -13,7 +13,6 @@ class FormStep13 extends Component
     public $stepId;
 
     public $jsonQuestion;
-
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -46,6 +45,7 @@ class FormStep13 extends Component
         ];
     }
 
+
     public function setSelectedFlagId(int $id, string $image, string $country): void
     {
         if(count($this->flagsSelected) <= 3){
@@ -66,7 +66,8 @@ class FormStep13 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $this->form->createAnswer($this->flagsSelected, $this->jsonQuestion, $this->stepId);

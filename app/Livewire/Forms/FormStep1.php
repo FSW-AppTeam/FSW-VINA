@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 class FormStep1 extends Component
@@ -13,6 +12,11 @@ class FormStep1 extends Component
 
     public $stepId;
 
+    public $jsonQuestionNameList;
+
+    /**
+     * @var bool for the back routing
+     */
     public $setPage = true;
 
     protected $rules = [

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use File;
+use Illuminate\Http\File;
 use Livewire\Component;
 
 /**
@@ -10,12 +10,14 @@ use Livewire\Component;
  */
 class StepController extends Component
 {
+    public PostForm $form;
     public $activeStep = 'forms.form-step-intro';
 
     public $jsonQuestion;
 
-    public $stepId = 0;
+    public $jsonQuestionNameList = [];
 
+    public $stepId = 0;
     public $steps;
 
     protected $listeners = [
@@ -25,7 +27,7 @@ class StepController extends Component
         'set-refresh-stepper'  => '$refresh'
     ];
 
-    public function next(bool $skip = false)
+    public function next()
     {
         $currentIndex = array_search($this->activeStep, $this->steps);
         $this->activeStep = ($currentIndex + 1) >= count($this->steps) ? $this->steps[$currentIndex] : $this->steps[$currentIndex + 1];
@@ -47,6 +49,11 @@ class StepController extends Component
         if(file_exists(storage_path("app/surveys/q-$i.json"))){
             $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-$i.json")), FALSE);
         }
+    }
+
+    public function getJsonNameList(): void
+    {
+        $this->jsonQuestionNameList = json_decode(file_get_contents(storage_path("app/surveys/prefilled-names.json")), FALSE);
     }
 
     public function getJsonIntro(): void
@@ -100,8 +107,12 @@ class StepController extends Component
 
     public function mount()
     {
-//        $this->getJsonQuestion($this->stepId);
         $this->getJsonIntro();
+        $this->getJsonNameList();
+
+        if($this->jsonQuestionNameList->active_list){
+            $this->form->createStudentListFromJson($this->jsonQuestionNameList);
+        }
     }
 
 //    not using, maybe future
@@ -133,7 +144,7 @@ class StepController extends Component
         $this->back();
         $this->stepId --;
 
-        if(\Session::get('student-origin-country') === 1 || is_null(\Session::get('student-origin-country')) && ($this->stepId === 7)){  // skip question 8
+        if(is_null(\Session::get('student-origin-country')) && ($this->stepId === 7)){  // skip question 8
             $this->back();
             $this->stepId --;
         }

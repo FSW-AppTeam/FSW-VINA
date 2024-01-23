@@ -26,7 +26,7 @@ class AnswerBtnBlock extends Component
 
     public function render()
     {
-        if(in_array($this->id, $this->answerSelected)){
+        if(in_array($this->id, $this->answerSelected ?? [])){
             $this->showBtn = !$this->showBtn;
         }
 

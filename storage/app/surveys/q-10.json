@@ -1,7 +1,7 @@
 {
     "survey_id": 1,
     "question_id": 10,
-    "question_type": "int",
+    "question_type": "array",
     "question_title": "Eigen vrienden - basis",
     "question_content": "Met welke klasgenoten ga jij het beste om?",
     "question_options": {

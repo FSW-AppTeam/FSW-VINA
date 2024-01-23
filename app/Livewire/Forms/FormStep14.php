@@ -46,8 +46,6 @@ class FormStep14 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['flags.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -76,7 +74,8 @@ class FormStep14 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $answer = [
@@ -98,7 +97,7 @@ class FormStep14 extends Component
                 $this->startStudent = $this->students[1];
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
-                $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
 
                 array_shift($this->students);
             } else {
@@ -112,7 +111,7 @@ class FormStep14 extends Component
         $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-country-culture-student') ?? [];
 
         $this->basicTitle = $this->jsonQuestion->question_title;
-        $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+        $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
         $this->shadowStudents = $this->students;
 

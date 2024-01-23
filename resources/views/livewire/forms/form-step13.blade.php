@@ -36,11 +36,12 @@
 
                 </div>
 
-                <div class="mt-2 mb-3 fst-italic text-center">{{ $jsonQuestion->question_options->extra_text }}</div>
+                <div class="mt-2 mb-5 fst-italic text-center">{{ $jsonQuestion->question_options->extra_text }}</div>
 
                     <div class="row row-cols-2 justify-content-center text-center flags-row-buttons">
                         @foreach ($jsonQuestion->question_answer_options as $index => $answer)
-                            <livewire:partials.flag-image :id="$answer->id" :image="$answer->flag"
+                            <livewire:partials.flag-image :id="$answer->id"
+                                                          :image="$answer->flag"
                                                           :country="ucfirst($answer->value)"
                                                           :flags-selected="$flagsSelected"
                                                           wire:key="flag-set-key-{{ $index . time() }}"/>

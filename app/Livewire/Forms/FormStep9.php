@@ -9,7 +9,7 @@ class FormStep9 extends Component
 {
     public PostForm $form;
 
-    public int|null $religion;
+    public int|null $religion = null;
     public string $newReligion;
 
     public $stepId;
@@ -46,10 +46,11 @@ class FormStep9 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->religion ?? null], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer( !is_null($this->religion) ? [$this->religion] : [], $this->jsonQuestion, $this->stepId);
 
             if(!empty($this->newReligion)){
                 $this->jsonQuestion->question_title = $this->jsonQuestion->question_options->question_custom_input_title;
@@ -68,10 +69,7 @@ class FormStep9 extends Component
     {
         $this->religion = old('religion') ?? \Session::get('student-religion') ?? null;
 
-
         if($this->religion === 6){
-//            dd(\Session::get('student-religion-different'));
-
         $this->newReligion = old('newReligion') ?? \Session::get('student-religion-different') ?? "";
         }
     }

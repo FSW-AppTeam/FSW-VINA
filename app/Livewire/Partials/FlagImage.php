@@ -58,7 +58,9 @@ class FlagImage extends Component
     public function mount()
     {
         if(($this->id !== 6) && in_array($this->id, array_column($this->flagsSelected, 'id'))){
-                $this->showFlag = !$this->showFlag;
+                $this->showFlag = false;
+        } else {
+            $this->showFlag = true;
         }
     }
 

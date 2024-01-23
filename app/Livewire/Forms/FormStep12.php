@@ -84,13 +84,13 @@ class FormStep12 extends Component
         return [
             'friends' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired && empty($value)) {
+                    if ($this->firstRequired) {
                         $this->firstRequired = false;
-                        $fail($this->messages['friends.required']);
+
+                        if (empty($value)) {
+                            $fail($this->messages['friends.required']);
+                        }
                     }
-//                    else {
-//                        $this->setPage = false;
-//                    }
                 },
                 'array'
             ]
@@ -99,7 +99,8 @@ class FormStep12 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (\Session::has('survey-student-class-id')) {
             $answer = [
@@ -121,7 +122,7 @@ class FormStep12 extends Component
 
                 $this->friends = [];
                 $this->selectedFriendsIds = [];
-                $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
                 $this->friendsList = [];
 
                 array_shift($this->students);
@@ -136,13 +137,13 @@ class FormStep12 extends Component
 //        $this->friends = old('friends') ?? \Session::get('student-friends-frequent') ?? [];
 
         $this->basicTitle = $this->jsonQuestion->question_title;
-
-        $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
         if(empty($this->friends)){
             $this->startFriend = $this->students[0];
             array_shift($this->students);
+
+            $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         }
 
         $index = -1;

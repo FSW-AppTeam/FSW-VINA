@@ -6,7 +6,12 @@ if [ -f "/var/build" ]; then
     rm /var/build
 fi
 
-npm config set cache=/var/www/storage/framework/cache/
+echo "⭐️ Install n and set the correct node version:";
+node --version
+npm install -g n
+n 18.17.1
+hash -r
+node --version
 
 echo "⭐️ Clean install ${CLEANINSTALL}";
 if [ "$CLEANINSTALL" = true ]; then
@@ -26,9 +31,7 @@ if [ "$CLEANINSTALL" = true ]; then
     composer install
 
     echo "⭐️ Run NPM install";
-    npm install --userconfig="storage/framework/cache/.npmrc"
-    npm run dev
-    npm run build
+#    npm install --userconfig="storage/framework/cache/.npmrc"
 
     echo "⭐️ Reset Database";
     php artisan db:wipe
@@ -38,15 +41,6 @@ if [ "$CLEANINSTALL" = true ]; then
 
     # Run database seeders
     php artisan db:seed --class=DatabaseSeeder
-else
-    # run composer
-    echo "⭐️ Run composer update";
-    composer update
-
-    # run laraval's Mix
-    echo "⭐️ Run NPM install";
-    npm install --userconfig="storage/framework/cache/.npmrc"
-    npx mix
 fi
 
 # make sure folder permissions are set
@@ -54,7 +48,7 @@ echo "⭐️ Set folder access";
 chmod a+w -R /var/www/bootstrap/cache
 chmod a+w -R /var/www/storage
 chmod a+w -R /var/www/vendor
-chmod a+w -R /var/www/node_modules
+#chmod a+w -R /var/www/node_modules
 
 # run apache in foreground
 apache2-foreground

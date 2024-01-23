@@ -1,7 +1,7 @@
 {
     "survey_id": 1,
     "question_id": 11,
-    "question_type": "int",
+    "question_type": "array",
     "question_title": "Vertrouwen",
     "question_content": "Met welke klasgenoten praat je als je ergens mee zit?",
     "question_options": {

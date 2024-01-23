@@ -1,0 +1,18 @@
+{
+    "survey_id": 1,
+    "question_id": 27,
+    "question_type": "int",
+    "question_title": "Leuk",
+    "question_content": "Hoe leuk vond je het om deze vragenlijst in te vullen?",
+    "question_answer_options": [
+        {"id": 1, "value": "Helemaal niet leuk"},
+        {"id": 2, "value": "Niet leuk"},
+        {"id": 3, "value": "Een beetje leuk"},
+        {"id": 4, "value": "Leuk"},
+        {"id": 5, "value": "Heel leuk"}
+    ],
+    "question_options": {
+        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+        "extra_text": "Je bent bijna aan het einde van de vragenlijst. De laatste vragen gaan over wat je van de vragenlijst vond."
+    }
+}

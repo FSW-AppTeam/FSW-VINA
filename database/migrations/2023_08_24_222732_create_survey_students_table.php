@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('survey_students', function (Blueprint $table) {
             $table->id();
             $table->string('class_id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->integer('survey_id');
             $table->dateTime('finished_at')->nullable();
             $table->dateTime('exported_at')->nullable();

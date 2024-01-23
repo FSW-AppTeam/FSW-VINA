@@ -23,7 +23,7 @@
                 @endif
 
                 @if(!empty($friends))
-                        <?php $rowZindex = 100;  $firstRun = false; ?>
+                        <?php $rowZindex = 100;?>
 
                     @foreach($friendsList as $key => $newFriends)
                         @if(count($friendsList[$key]) % 5 === 0)
@@ -37,6 +37,7 @@
 
                                     <div
                                         class="justify-content-center row student-block-v2 selected-friends-row-v4 @if(count($friendsList) === 1) v2 @endif @if($key !== 0) selected-friends-row-v3 @endif"
+
                                         id="selected-row-{{$key}}" style="z-index: 0">
                                         @endif
                                         @foreach($newFriends as $k => $friend)
@@ -48,11 +49,19 @@
                                                     @if($k === 3) boxed-btn-3 @endif
                                                     @if($k === 2) boxed-btn-2 @endif
                                                     @if($k === 1) boxed-btn-1 @endif
+                                                    @if($k === 1 && count($newFriends) === 3) third-run @endif
+                                                    @if($k === 1 && count($newFriends) === 4) fourth-run @endif
+
                                                     @if($k === 0) boxed-btn-0 @endif
                                                     @if($k === 0 && count($friendsList) > 1) swithced @endif
+                                                    @if($k === 0 && count($newFriends) === 1) first-run @endif
+                                                    @if($k === 0 && count($newFriends) === 2) second-run @endif
+                                                    @if($k === 0 && count($newFriends) === 3) third-run @endif
+                                                    @if($k === 0 && count($newFriends) === 4) fourth-run @endif
                                                     ">
                                                 {{$friend['name']}}
                                             </button>
+
                                         @endforeach
 
                                     </div>
@@ -69,8 +78,9 @@
                                     <div class="row">
                                         @foreach ($this->students as $key => $student)
                                             <livewire:student-fade-component
-                                                wire:key="students-fade-selected-v2{{ $student['id'] }}"
-                                                :id="$student['id']" :name="$student['name']"
+                                                wire:key="students-fade-selected-{{ $student['id'] . time() }}"
+                                                :id="$student['id']"
+                                                :name="$student['name']"
                                                 :selected-friends-ids="$selectedFriendsIds"/>
                                         @endforeach
                                     </div>

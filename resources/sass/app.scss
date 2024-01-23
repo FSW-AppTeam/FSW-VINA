@@ -26,7 +26,7 @@
 @import 'bootstrap/scss/bootstrap';
 
 // Bootstrap icons
-@import 'bootstrap-icons/font/bootstrap-icons.css';
+//@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 @import 'animate.css';
 
@@ -136,16 +136,27 @@ p {
     line-height: 18px;
 }
 
+.arrow {
+    display: flex;
+    padding: 10px;
+}
+
+.arrow svg {
+    height: 25px;
+    shape-rendering: auto;
+    width: 70px;
+}
+
 .card-footer {
     background-color: white;
     border-top: none;
     margin-bottom: 15px;
 
     .btn {
-        width: 5rem !important;
         background-color: #dca351ff !important;
         border: none !important;
         border-radius: 3px !important;
+
     }
 
     .btn:hover {
@@ -168,6 +179,10 @@ p {
             height: 92%;
         }
     }
+
+    //.bottom-flag-image {
+    //    padding-bottom: 10px;
+    //}
 }
 
 .btn-circle {
@@ -184,7 +199,7 @@ p {
         border-radius: 60px;
         font-size: 0.8rem;
         text-align: center;
-        margin-bottom: -2px;
+        //margin-bottom: -2px;
 
         &.start-friend-btn-v2 {
             background-color: #dca351;
@@ -224,9 +239,15 @@ p {
     position: relative;
     top: 10px;
     width: 80px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     height: 105px;
+
+    &.shadow-row-step22 {
+        //position: unset;
+        //margin-left: 50% !important;
+        width: 196px;
+    }
 
     &.flag-active {
         height: unset;
@@ -252,9 +273,15 @@ p {
 
     &.line-students {
         top: -70px;
-        left: 150px;
+        margin-left: 40px;
         margin-top: 80px !important;
     }
+
+    &.line-students.step-list-15 {
+        top: -20px;
+        margin-top: 40px !important;
+    }
+
 
     .btn-circle.btn-xl.studentBtn {
         margin-right: 10px;
@@ -271,8 +298,8 @@ p {
     }
 
     &.relation-block-student-shadow {
-        left: -50px;
         z-index: 0;
+        left: 0 !important;
 
         .student-shadow-flex {
             display: inherit;
@@ -298,7 +325,15 @@ p {
 .block-student-active {
     .relation-block-student-shadow {
         margin-top: 80px;
+        //left: -80px !important;
+
+        width: 196px;
     }
+}
+
+.block-students-vertical.relation-block-student-shadow .student-shadow-flex {
+    display: inherit;
+    min-width: 210px;
 }
 
 #scope-form-step14 {
@@ -337,7 +372,8 @@ p {
 }
 
 #set-square-area {
-    height: 50px;
+    height: 45px;
+    margin-bottom: 15px;
     background-color: #fbfbfb;
     border: solid 1px #c2c0c0;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
@@ -376,6 +412,27 @@ p {
     background-color: inherit;
     border-color: inherit;
     box-shadow: 0 0 0 0.10rem rgb(255, 165, 0);
+}
+
+.form-control, .form-control:focus {
+    border-color: #FFA500FF;
+    box-shadow: none;
+    caret-color: #FFA500FF;
+}
+
+#country-set-btn {
+    border-color: #FFA500FF !important;
+    color: black;
+}
+
+input::-webkit-list-button {
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+
+    color: #FFA500FF !important;
+    fill: black !important;
+    stroke: black !important;
 }
 
 textarea {
@@ -544,50 +601,13 @@ overflow: visible;
                 z-index: 0;
             }
 
-            .boxed-btn-4 {
-                //margin-left: 0;
-                //z-index: 99;
-                //margin-top: -20px;
-
-                //display: none !important;
-            }
         }
 
         &.question-step-friends {
-            //margin-bottom: -40px !important;
-
             .boxed-btn-4 {
-                //margin-left: 0;
                 z-index: 99;
                 margin-top: -20px;
-
-                //margin-bottom: -20px;
             }
-
-            //
-            //.boxed-btn-3 {
-            //    position: absolute;
-            //    right: 30px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-2 {
-            //    position: absolute;
-            //    left: 10px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-1 {
-            //    position: absolute;
-            //    left: 10px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-0 {
-            //    position: absolute;
-            //    left: 100px;
-            //    z-index: 0;
-            //}
 
             &.qv2 {
                 margin-bottom: -80px !important;
@@ -595,7 +615,6 @@ overflow: visible;
             }
         }
     }
-
 
 
     .selected-friends-row-v2 {
@@ -633,7 +652,6 @@ overflow: visible;
     .selected-friends-row-v3 {
             margin-top: -80px;
 
-
         .boxed-btn-4 {
             margin-left: 0;
             z-index: 9999;
@@ -641,37 +659,29 @@ overflow: visible;
         }
 
         .boxed-btn-3 {
-            right: 42px;
+            margin-right: 18px !important;
             z-index: 0;
-            position: absolute;
-
-
-            //margin-top: -60px;
         }
 
         .boxed-btn-2 {
-            left: 10px;
+            margin-left: 17px;
             z-index: 0;
-            position: absolute;
-            //margin-top: -60px;
         }
 
         .boxed-btn-1 {
             right: 106px;
             z-index: 15;
             position: absolute;
-
-            //margin-top: -60px;
         }
 
         .boxed-btn-0 {
             z-index: 20;
-            margin-left: -118px;
+            margin-left: -115px !important;
             margin-bottom: 0 !important;
         }
     }
 
-
+// q12
     .selected-friends-row-v4 {
 
         .boxed-btn-4 {
@@ -701,7 +711,6 @@ overflow: visible;
         .boxed-btn-0 {
             z-index: 20;
             margin-left: -120px;
-
             margin-bottom: -20px;
 
             &.swithced {
@@ -710,8 +719,44 @@ overflow: visible;
         }
 
 
+// first row animation q12
+        &.v2 {
+            .boxed-btn-0 {
+                margin-left: -170px;
+
+                &.third-run {
+                    margin-left: -108px !important;
+                }
+
+                &.fourth-run {
+                    margin-left: -108px !important;
+                }
+            }
+
+            .boxed-btn-1 {
+                margin-right: -28px;
+
+                &.third-run {
+                    margin-right: 5px;
+                }
+
+                &.fourth-run {
+                    margin-right: 5px;
+                }
+            }
+
+            .boxed-btn-2 {
+                margin-left: 15px ;
+            }
+
+            .boxed-btn-3 {
+                margin-right: 10px ;
+            }
+
+        }
+
+
         &.question-step-friends {
-            //margin-top: -80px;
 
             &.qv2 {
                 margin-top: -80px !important;
@@ -722,12 +767,23 @@ overflow: visible;
                 margin-bottom: 60px !important;
             }
 
+            .boxed-btn-1 {
+                margin-right: 7px ;
+            }
+
+            .boxed-btn-2 {
+                margin-left: 17px;
+            }
+
+            .boxed-btn-3 {
+                margin-right: 19px ;
+            }
+
             .boxed-btn-4 {
+                margin-left: -31.5px;
             }
 
         }
-
-
     }
 
     .start-friend {
@@ -745,6 +801,10 @@ overflow: visible;
     margin-left: auto;
     margin-right: auto;
     padding-left: 22px;
+
+    max-height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     .btn:active {
       border: none;
@@ -791,6 +851,11 @@ overflow: visible;
     to {
         opacity: 0;
     }
+}
+
+// set-square-btn callback
+.btn.btn-outline-secondary.press-buttons-inline.rounded {
+    animation: setFadeIn 600ms ease forwards;
 }
 
 .set-fade-in {
@@ -857,6 +922,10 @@ and (-webkit-min-device-pixel-ratio: 3) {
         }
     }
 
+    .students-overview {
+        max-height: 300px;
+    }
+
     .form-group.student-list .btn-circle.btn-xl {
         margin-right: 3px;
     }
@@ -891,6 +960,42 @@ and (-webkit-min-device-pixel-ratio: 3) {
 
     .btn.press-buttons-inline {
         padding: 11px;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.v2 .boxed-btn-1{
+        margin-right: -26px;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-2{
+        margin-left: 0;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.v2 .boxed-btn-0.third-run {
+        margin-left: -107px !important;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-3 {
+        margin-right: 10px;
+    }
+
+    .form-group.student-list .selected-friends-row-v3 .boxed-btn-2 {
+        margin-left: 0;
+    }
+
+    .form-group.student-list .selected-friends-row-v3 .boxed-btn-3 {
+        margin-right: 10px !important;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-4 {
+        margin-left: -29px;
+    }
+
+    .block-students-vertical.line-students {
+        margin-left: 20px;
+    }
+
+    #answer-end {
+        width: 315px;
     }
 }
 
