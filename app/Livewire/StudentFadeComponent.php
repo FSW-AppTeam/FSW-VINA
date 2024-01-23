@@ -7,6 +7,8 @@ use Livewire\Component;
 class StudentFadeComponent extends Component
 {
     public $showFade = false;
+    public $showShrink = false;
+    public $nextId = 0;
 
     public $id;
 
@@ -18,6 +20,7 @@ class StudentFadeComponent extends Component
         'set-toggle-remove-student' => 'removeStudent',
         'set-refresh' => '$refresh',
         'set-show-fade-true' => 'setShowFadeTrue',
+        'set-show-shrink-true' => 'setShowShrinkTrue',
     ];
 
     public function setShowFadeFalse(): void
@@ -29,6 +32,13 @@ class StudentFadeComponent extends Component
     {
         if($id === $this->id){
             $this->showFade = true;
+        }
+    }
+
+    public function setShowShrinkTrue(): void
+    {
+        if($this->nextId === $this->id) {
+            $this->showShrink = true;
         }
     }
 
