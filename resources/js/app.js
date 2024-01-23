@@ -327,4 +327,17 @@ document.addEventListener('livewire:initialized', (e) => {
         dispatchEvent(setBackBlockBtn);
     });
 
+    document.addEventListener('start-friend-bounce', () => {
+        //Timeout is nodig om de animatie eventlistner te laten werken. Let op, met deze methode kan je nog steeds niet de
+        // "animationstart" afvangen.
+        window.setTimeout(function() {
+            dispatchEvent(new Event('set-show-shrink-true'))
+            const shrink = document.getElementById('next-student')
+            shrink.addEventListener('animationend', function(){
+                dispatchEvent(new Event('set-save-answer'));
+            }, true);
+
+        }, 50);
+    });
+
 });
