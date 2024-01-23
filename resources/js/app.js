@@ -9,28 +9,6 @@ const Livewire = window.Livewire;
 // :hover fix ios
 document.addEventListener("click", x=>0);
 
-
-
-//
-// // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-// let vh = (window.innerHeight * 0.01) + 1;
-// // Then we set the value in the --vh custom property to the root of the document
-// document.documentElement.style.setProperty('--vh', `${vh}px`);
-//
-// // Quick address bar hide on devices like the iPhone
-// //---------------------------------------------------
-// function quickHideAddressBar() {
-//     setTimeout(function() {
-//         if(window.pageYOffset !== 0) return;
-//         window.scrollTo(0, window.pageYOffset + 1);
-//     }, 100);
-// }
-//
-// quickHideAddressBar();
-
-
-
-
 const appHeight = () => {
     const doc = document.documentElement
     doc.style.setProperty('--app-height', `${window.innerHeight}px`);
@@ -43,27 +21,6 @@ appHeight();
 let mobileDevice = false;
 if (window.TouchEvent) {
     mobileDevice = true;
-}
-
-/* iOS re-orientation fix */
-// if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
-//     /* iOS hides Safari address bar */
-//     window.addEventListener("load",function() {
-//         setTimeout(function() {
-//             window.scrollTo(0, 1);
-//         }, 1000);
-//     });
-// }
-
-// document.addEventListener('touchstart', onDocumentTouchStart, false);
-
-function onDocumentTouchStart(event) {
-    if (event.touches[0]) {
-        // alert('resize touchstart');
-
-        // alert(event.touches[0].target.id);
-        // console.log(event.touches[0]);
-    }
 }
 
 document.addEventListener('livewire:initialized', (e) => {

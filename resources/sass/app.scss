@@ -179,10 +179,6 @@ p {
             height: 92%;
         }
     }
-
-    //.bottom-flag-image {
-    //    padding-bottom: 10px;
-    //}
 }
 
 .btn-circle {
@@ -465,8 +461,7 @@ textarea:focus-visible, textarea:active {
 }
 
 .form-group {
-overflow: visible;
-
+    overflow: visible;
     h6, .h6{
         margin-left: 5px;
     }
@@ -613,176 +608,6 @@ overflow: visible;
                 margin-bottom: -80px !important;
 
             }
-        }
-    }
-
-
-    .selected-friends-row-v2 {
-        .boxed-btn-4 {
-            margin-left: 0;
-            z-index: 9999;
-            margin-top: -80px;
-        }
-
-        .boxed-btn-3 {
-            margin-left: -245px;
-            z-index: 0;
-            position: absolute;
-        }
-
-        .boxed-btn-2 {
-            margin-left: 120px;
-            //z-index: 99;
-            position: absolute;
-        }
-
-        .boxed-btn-1 {
-            margin-left: -120px;
-            z-index: 15;
-        }
-
-        .boxed-btn-0 {
-            position: absolute;
-            z-index: 20;
-            left: 172px;
-        }
-    }
-
-    /* question 12 */
-    .selected-friends-row-v3 {
-            margin-top: -80px;
-
-        .boxed-btn-4 {
-            margin-left: 0;
-            z-index: 9999;
-            margin-top: -80px;
-        }
-
-        .boxed-btn-3 {
-            margin-right: 18px !important;
-            z-index: 0;
-        }
-
-        .boxed-btn-2 {
-            margin-left: 17px;
-            z-index: 0;
-        }
-
-        .boxed-btn-1 {
-            right: 106px;
-            z-index: 15;
-            position: absolute;
-        }
-
-        .boxed-btn-0 {
-            z-index: 20;
-            margin-left: -115px !important;
-            margin-bottom: 0 !important;
-        }
-    }
-
-// q12
-    .selected-friends-row-v4 {
-
-        .boxed-btn-4 {
-            margin-left: -24px;
-            z-index: 99;
-            margin-top: 60px;
-        }
-
-        .boxed-btn-3 {
-            right: 40px;
-            z-index: 0;
-            position: absolute;
-        }
-
-        .boxed-btn-2 {
-            left: 42px;
-            z-index: 0;
-            position: absolute;
-        }
-
-        .boxed-btn-1 {
-            right: 106px;
-            z-index: 15;
-            position: absolute;
-        }
-
-        .boxed-btn-0 {
-            z-index: 20;
-            margin-left: -120px;
-            margin-bottom: -20px;
-
-            &.swithced {
-               margin-bottom: 60px ;
-            }
-        }
-
-
-// first row animation q12
-        &.v2 {
-            .boxed-btn-0 {
-                margin-left: -170px;
-
-                &.third-run {
-                    margin-left: -108px !important;
-                }
-
-                &.fourth-run {
-                    margin-left: -108px !important;
-                }
-            }
-
-            .boxed-btn-1 {
-                margin-right: -28px;
-
-                &.third-run {
-                    margin-right: 5px;
-                }
-
-                &.fourth-run {
-                    margin-right: 5px;
-                }
-            }
-
-            .boxed-btn-2 {
-                margin-left: 15px ;
-            }
-
-            .boxed-btn-3 {
-                margin-right: 10px ;
-            }
-
-        }
-
-
-        &.question-step-friends {
-
-            &.qv2 {
-                margin-top: -80px !important;
-            }
-
-            .boxed-btn-0 {
-                margin-left: -60px;
-                margin-bottom: 60px !important;
-            }
-
-            .boxed-btn-1 {
-                margin-right: 7px ;
-            }
-
-            .boxed-btn-2 {
-                margin-left: 17px;
-            }
-
-            .boxed-btn-3 {
-                margin-right: 19px ;
-            }
-
-            .boxed-btn-4 {
-                margin-left: -31.5px;
-            }
-
         }
     }
 

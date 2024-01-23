@@ -4,8 +4,6 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-
-
 class StudentComponent extends Component
 {
     public $showDiv = true;
