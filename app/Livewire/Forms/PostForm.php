@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswers;
 use App\Models\SurveyStudent;
+use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
 use Livewire\Features\SupportValidation\HandlesValidation;
 use Livewire\Form;
@@ -14,15 +15,10 @@ class PostForm extends Form
     use HandlesValidation;
     public ?SurveyAnswers $answers;
 
-//    protected $rules = [];
-
-//    public $name;
-
-
     #[Computed(persist: true)]
     public function getStudent(): SurveyStudent
     {
-        return SurveyStudent::find(\Session::get('survey-student-id'));
+        return SurveyStudent::find(session::get('survey-student-id'));
     }
 
     #[Computed(persist: true)]
@@ -85,8 +81,6 @@ class PostForm extends Form
             $allFriendsFirst[] = ['id' => $this->getStudent()->id, 'relation_id' => $val];
         }
 
-//        unset($answer[0]); // reset for own friends
-
         // flat student array for import
         foreach ($answer as $friend){
               if(isset($friend['student_answer'][0]['value'])){
@@ -133,7 +127,7 @@ class PostForm extends Form
             ]
         );
 
-        \Session::put([
+        session::put([
             "step$stepId" => true
         ]);
     }
@@ -147,7 +141,7 @@ class PostForm extends Form
         ]);
 
        if($setSession){
-           \Session::put([
+           session::put([
                'student-name' => strip_tags($name),
                'survey-student-id' => strip_tags($student->id),
                'survey-student-class-id' =>strip_tags($classId),
