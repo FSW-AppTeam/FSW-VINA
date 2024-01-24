@@ -20,9 +20,6 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
-// Bootstrap icons
-//@import 'bootstrap-icons/font/bootstrap-icons.css';
-
 @import 'animate.css';
 
 
@@ -30,15 +27,6 @@
     //transition: transform 0.2s ease-out;
     transform: scaleZ(2) scale(2);
 }
-
-
-//.modal.fade .modal-dialog {
-//    transform: scale(2);
-//}
-//
-//.modal.fade .modal-dialog {
-//    transform: translate3d(0, 100vh, 0);
-//}
 
 @media print {
     .container {
@@ -48,10 +36,6 @@
 
 .modal.show .modal-dialog {
     transform: translate3d(0, -10vh, 0);
-}
-
-datalist {
-    //display: contents;
 }
 
 :root {
@@ -72,31 +56,11 @@ html, body {
 
 .card {
     height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-    //height: calc(var(--h, 1vh) * 100);
-
     height: calc(var(--vh, 1vh) * 100 - 90px  );
     border: none;
     border-radius: 0;
     background-color: white;
 }
-
-//
-//.module_container {
-//  height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
-//  height: calc(var(--vh, 1vh) * 100);
-//  margin: 0;
-//  padding: 0;
-//  width: 100%;
-//
-//  background-color: green;
-//}
-//
-//.footer {
-//    position: absolute;
-//    bottom: 15px;
-//}
-
-
 
 .card-body {
     padding-bottom: 0;
@@ -629,22 +593,6 @@ textarea:focus-visible, textarea:active {
         width: 88px;
     }
 }
-
-
-//.my-bounce-left {
-//    animation-name: bounceOutLeftD;
-//    animation-duration: 1s;
-//    //animation-delay: 1s;
-//    //animation-iteration-count : 1;
-//}
-
-//@keyframes slideOutUpd {
-//    0% {
-//    }
-//    100% {
-//        transform: translateY(-500px)
-//    }
-//}
 
 .set-answer-btn {
     animation: fadeOut 2000ms forwards;
