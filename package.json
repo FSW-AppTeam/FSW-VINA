@@ -12,6 +12,7 @@
         "autoprefixer": "^10.4.15",
         "axios": "^1.1.2",
         "bootstrap": "^5.2.3",
+        "bootstrap-icons": "^1.10.5",
         "laravel-vite-plugin": "^0.8.0",
         "postcss": "^8.4.28",
         "sass": "^1.69.2",
@@ -20,6 +21,8 @@
     },
     "dependencies": {
         "animate.css": "^4.1.1",
-        "livewire": "^0.6.1"
+        "flag-icons": "^7.1.0",
+        "livewire": "^0.6.1",
+        "vite-plugin-static-copy": "^0.17.0"
     }
 }
