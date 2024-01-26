@@ -16,8 +16,14 @@
                 </div>
 
                 <div class="mt-4 text-center block-students-vertical line-students " data-student-list>
-                    @foreach($shadowStudents as $key => $student)
-                        <div class="student-shadow-flex @if($key !== 0) fadeOut @endif">
+                    <div class="student-shadow-flex @if($disappear) bounce-out-left-btn @endif">
+                        <div id="{{$startStudent['id']}}"
+                             class="p-2 btn-circle btn-xl studentBtn title @if(strlen($startStudent['name']) > 8) circle-text @endif">
+                            {{$startStudent['name']}}
+                        </div>
+                    </div>
+                    @foreach($students as $key => $student)
+                        <div class="student-shadow-flex  @if($disappear) move-to-left-btn @endif"  id="step-14-student-{{$key}}">
                             <div id="{{$student['id']}}"
                                 class="p-2 btn-circle btn-xl studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
                                 {{$student['name']}}
@@ -31,7 +37,7 @@
 
                         @for($x = 0; $x <= 3; $x++)
                             @if(isset($flagsSelected[$x]))
-                                <img src="{{ asset('flags/'.$flagsSelected[$x]['image'].'.jpg') }}"
+                                <img src="{{asset($flagsSelected[$x]['image'])}}"
                                      style="height: 50px; width: 75px; margin: 5px; display: inline-block; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);"
                                      type="button"
                                      wire:click="removeSelectedFlagId({{$flagsSelected[$x]['id'] }}, '{{$flagsSelected[$x]['country']}}')"
