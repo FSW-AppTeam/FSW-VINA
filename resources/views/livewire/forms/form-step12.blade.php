@@ -27,7 +27,7 @@
                         <button type="button"
                                 id="selected-friend-{{$key}}"
                                 wire:click="removeSelectedStudentId({{$newFriends['id'], $key}})"
-                                class="p-2 btn-circle btn-xl selected-btn fadeOut
+                                class="p-2 btn-circle btn-xl fadeOut
                                     @if($key === 3) boxed-btn-4 @endif
                                     @if($key === 2) boxed-btn-3 @endif
                                     @if($key === 1) boxed-btn-2 @endif
