@@ -51,8 +51,7 @@
                                 wire:key="students-fade-{{ $student['id'] . time() }}"
                                 :id="$student['id']"
                                 :name="$student['name']"
-                                :selected-friends-ids="$selectedFriendsIds"
-                                :last-selected-friend-id="$lastSelectedFriendId"/>
+                                :selected-friends-ids="$selectedFriendsIds"/>
                         @endforeach
                     </div>
                 </div>

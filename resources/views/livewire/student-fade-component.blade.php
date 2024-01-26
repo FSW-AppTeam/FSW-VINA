@@ -1,4 +1,6 @@
-<div class="btn p-1" >
+<div class="btn p-1
+    @if($showShrink)selected-btn-shrink @endif"
+    @if($nextId == $id)id="next-student"@endif>
     @if ($showFade)
         <button type="button"
                 wire:click="removeStudent({{$id}})"
