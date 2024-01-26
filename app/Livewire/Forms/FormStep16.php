@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep16 extends Component
 {
@@ -76,10 +77,10 @@ class FormStep16 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
+            session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -87,7 +88,7 @@ class FormStep16 extends Component
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-immigration-own-behaviour') ?? [] ;
+        $this->answerSelected = old('answerSelected') ?? session::get('student-immigration-own-behaviour') ?? [] ;
     }
 
     public function render()

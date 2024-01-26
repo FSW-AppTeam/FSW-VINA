@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep22 extends Component
 {
@@ -76,7 +77,7 @@ class FormStep22 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             $answer = [
                 'id' => $this->startStudent['id'] ?? [],
                 'relation_id' => $this->startStudentRelation['id'] ?? [],
@@ -85,7 +86,7 @@ class FormStep22 extends Component
 
             $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-connection-relation-student' => $this->answerSelected]);
+            session::put(['student-connection-relation-student' => $this->answerSelected]);
 
             if (!empty($this->studentRelationIds)) {
                 array_shift($this->studentRelationIds);

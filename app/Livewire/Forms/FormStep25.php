@@ -3,9 +3,9 @@
 namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\AnswerBtnBlock;
-use App\Livewire\Partials\FlagImage;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep25 extends Component
 {
@@ -82,10 +82,10 @@ class FormStep25 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-polarisation-society' => $this->answerSelected]);
+            session::put(['student-polarisation-society' => $this->answerSelected]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -93,7 +93,7 @@ class FormStep25 extends Component
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-polarisation-society') ?? [];
+        $this->answerSelected = old('answerSelected') ?? session::get('student-polarisation-society') ?? [];
     }
 
     public function render()
