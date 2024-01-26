@@ -794,3 +794,15 @@ and (-webkit-min-device-pixel-ratio: 3) {
         transform: scale( 1 );
     }
 }
+
+.move-to-left-btn{
+    animation: moveToLeft ease 400ms 1;
+    animation-fill-mode: forwards;
+    animation-delay: 500ms
+}
+
+@keyframes moveToLeft {
+    to {
+        transform: translate3d(-90px, 0, 0)
+    }
+}
