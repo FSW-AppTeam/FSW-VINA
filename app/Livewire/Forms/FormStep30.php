@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep30 extends Component
 {
@@ -80,10 +81,10 @@ class FormStep30 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-class-difficult' => $this->answerSelected]);
+            session::put(['student-class-difficult' => $this->answerSelected]);
 
             $this->dispatch('set-step-id-up');
         }
