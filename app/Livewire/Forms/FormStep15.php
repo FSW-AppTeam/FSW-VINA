@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\SurveyAnswers;
 use Closure;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
@@ -25,6 +26,7 @@ class FormStep15 extends Component
     public array $students = [];
 
     public array $startStudent = [];
+    public array $finishedStudent = [];
     public array $shadowStudents = [];
     public int $studentCounter = 1;
 
@@ -34,6 +36,7 @@ class FormStep15 extends Component
         'set-answer-button-square' => 'setAnswerButtonSquare',
         'set-remove-student' => 'removeStudent',
         'set-remove-selected-square' => 'removeSelectedSquare',
+        'set-sub-step-id-down' => 'stepDown',
         'set-save-answer' => 'save',
     ];
 
@@ -74,37 +77,54 @@ class FormStep15 extends Component
         if (session::has('survey-student-class-id')) {
             if(!empty($this->answerSelected)){
                 $answer = [
-                    'id'    => $this->startStudent['id'],
+                    'student_id'    => $this->startStudent['id'],
                     'value' => $this->answerSelected['id'],
                 ];
             } else {
                 $answer = [
-                    'id'    => $this->startStudent['id'],
+                    'student_id'    => $this->startStudent['id'],
                     'value' => [],
                 ];
             }
 
-            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
+            $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+//            session::put(['student-good-knowing-student' => $this->answerSelected]);
 
             if(array_key_exists(1, $this->students)){
                 $this->startStudent = $this->students[0];
                 $this->studentCounter ++;
-                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
                 $this->answerSelected = [];
-
-                array_shift($this->students);
-
+                $this->startStudent =  array_shift($this->students);
+                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
+                $this->finishedStudent[] = $this->startStudent;
+                $this->setDatabaseResponse();
                 // next button skip question
-                if(empty($answer['value'])) {
+
+//                if(empty($this->answerSelected['value'])) {
                     $this->dispatch('set-block-btn-animation', null);
-//                    array_shift($this->shadowStudents);
-                }
+//                }
             } else {
                 $this->dispatch('set-step-id-up');
             }
         }
+    }
+
+    public function stepDown(): void
+    {
+        if($this->studentCounter <= 1) {
+            $this->dispatch('set-step-id-down');
+            return;
+        }
+        if(!empty($this->finishedStudent)) {
+            array_unshift($this->students, array_pop($this->finishedStudent));
+            $this->startStudent = end($this->finishedStudent);
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+
+        }
+        $this->answerSelected = [];
+        $this->setDatabaseResponse();
+        $this->studentCounter --;
     }
 
     public function mount(): void
@@ -119,12 +139,39 @@ class FormStep15 extends Component
         $this->shadowStudents = $this->students;
 
         if(!empty($this->students)){
-            $this->startStudent = $this->students[0];
+            $this->startStudent =  array_shift($this->students);
+            $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
+            $this->finishedStudent[] = $this->startStudent;
         }
+        $this->setDatabaseResponse();
     }
 
     public function render()
     {
         return view('livewire.forms.form-step15');
+    }
+
+
+    public function setDatabaseResponse()
+    {
+        $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
+            ->where('survey_id', $this->jsonQuestion->survey_id)
+            ->where('question_id', $this->stepId)
+            ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
+            ->first();
+
+        if(!$response) {
+            ray('NIET gevonden' . $this->startStudent['id'] );
+            return;
+        }
+
+
+        ray($response);
+        foreach($this->jsonQuestion->question_answer_options as $key => $option) {
+            if($option->id == $response->student_answer['value']) {
+                $this->setAnswerButtonSquare($response->student_answer['value'], $this->jsonQuestion->question_answer_options[$key]->value);
+                return;
+            }
+        }
     }
 }

@@ -18,23 +18,25 @@ class FormStep14 extends Component
     public $jsonQuestion;
     public $flagsSelected = [];
 
+    public $disappear = false;
+
     public $firstRequired = true;
-
-    protected array $messages = [];
-
     public $basicTitle = "";
-
     public array $students = [];
 
     public array $startStudent = [];
-    public array $shadowStudents = [];
+    public array $finishedStudent = [];
     public $studentCounter = 1;
 
+    protected array $messages = [];
     public  $setPage = true;
 
     protected $listeners = [
         'set-selected-flag-id' => 'setSelectedFlagId',
         'remove-selected-flag-id' => 'removeSelectedFlagId',
+        'set-sub-step-id-down' => 'stepDown',
+        'set-sub-step-id-up' => 'stepUp',
+        'set-save-answer' => 'save',
         'set-refresh' => '$refresh',
     ];
 
@@ -48,6 +50,8 @@ class FormStep14 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['flags.required']);
+                    } else {
+                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -66,14 +70,18 @@ class FormStep14 extends Component
         if($image == 'anders'){
             $image = $country;
         }
-        $isoFlag = array_search(ucfirst($image), getIsoCountries());
-        if(file_exists(public_path('build/images/flags/' . strtolower($isoFlag) . '.svg'))){
-            $imageFile = asset('build/images/flags/' . strtolower($isoFlag) . '.svg');
 
+        if(file_exists(public_path($image))){
+            $imageFile = $image;
+        }
+
+        $isoFlag = array_search(ucfirst($image), getIsoCountries());
+        if(!$imageFile && file_exists(public_path('build/images/flags/' . strtolower($isoFlag) . '.svg'))){
+            $imageFile = 'build/images/flags/' . strtolower($isoFlag) . '.svg';
         }
 
         if(!$imageFile && file_exists(public_path('flags/' . strtolower($image) . '.jpg'))){
-            $imageFile = asset('flags/' . strtolower($image) . '.jpg');
+            $imageFile = 'flags/' . strtolower($image) . '.jpg';
         }
         $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
     }
@@ -101,39 +109,57 @@ class FormStep14 extends Component
             ];
 
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-            session::put(['student-country-culture-student' => $this->flagsSelected]);
-
-            $this->dispatch('set-animation-flag-student');
+            $this->disappear = false;
 
             if(array_key_exists(1, $this->students)){
-                foreach ($this->flagsSelected as $flagSelect){
-                    $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
-                }
-
-                $this->startStudent = $this->students[1];
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
-                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
-
-                array_shift($this->students);
+                $this->startStudent =  array_shift($this->students);
+                $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+                $this->finishedStudent[] = $this->startStudent;
+                $this->setDatabaseResponse();
             } else {
+                $this->disappear = false;
                 $this->dispatch('set-step-id-up');
             }
         }
     }
 
+
+    public function stepDown(): void
+    {
+        $this->disappear = false;
+        if($this->studentCounter <= 1) {
+            $this->dispatch('set-step-id-down');
+            return;
+        }
+        if(!empty($this->finishedStudent)) {
+            array_unshift($this->students, array_pop($this->finishedStudent));
+            $this->startStudent = end($this->finishedStudent);
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+
+        }
+        $this->flagsSelected = [];
+        $this->setDatabaseResponse();
+        $this->studentCounter --;
+    }
+
+    public function stepUp(): void
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->disappear = true;
+        $this->dispatch('set-animation-flag-student');
+    }
+
     public function mount(): void
     {
-        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-country-culture-student') ?? [];
-
         $this->basicTitle = $this->jsonQuestion->question_title;
-        $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
-        $this->shadowStudents = $this->students;
-
-        if(empty($this->startStudent)){
-            $this->startStudent = $this->students[0];
-        }
+        $this->startStudent = array_shift($this->students);
+        $this->finishedStudent[] = $this->startStudent;
+        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+        $this->setDatabaseResponse();
     }
 
     public function render()
@@ -146,17 +172,16 @@ class FormStep14 extends Component
         $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
             ->where('survey_id', $this->jsonQuestion->survey_id)
             ->where('question_id', $this->stepId)
-            ->whereJsonContains('student_answer->id', $this->startFriend['id'])
+            ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
             ->first();
 
         if(!$response) {
-            ray('NIET gevonden' . $this->startFriend['id'] );
+            ray('NIET gevonden' . $this->startStudent['id'] );
             return;
         }
-
-        foreach ($response->student_answer['value'] as $response) {
-            $student = SurveyStudent::find($response);
-            $this->setSelectedStudentId($response, $student->name);
+        foreach ($response->student_answer['countries'] as $responseItem) {
+            ray($responseItem);
+            $this->setSelectedFlagId($responseItem['id'], $responseItem['image'], $responseItem['country']);
         }
     }
 }

@@ -17,9 +17,7 @@
 
                         @for($x = 0; $x <= 3; $x++)
                             @if(isset($flagsSelected[$x]))
-                                {{--                        {{$flagsSelected[$x]['id']}}--}}
-
-                                <img src="{{ asset('flags/'.$flagsSelected[$x]['image'].'.jpg') }}"
+                                <img src="{{$flagsSelected[$x]['image']}}"
                                      style="height: 50px; width: 75px; margin: 5px; display: inline-block; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);"
                                      type="button"
                                      wire:click="removeSelectedFlagId({{$flagsSelected[$x]['id'] }}, '{{$flagsSelected[$x]['country']}}')"
