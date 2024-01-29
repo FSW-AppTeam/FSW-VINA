@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\SurveyAnswers;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep15 extends Component
 {
@@ -73,7 +74,7 @@ class FormStep15 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             if(!empty($this->answerSelected)){
                 $answer = [
                     'student_id'    => $this->startStudent['id'],

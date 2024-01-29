@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use Illuminate\Support\Facades\Session;
 use Closure;
 use Livewire\Component;
 
@@ -85,7 +86,7 @@ class FormStep20 extends Component
 
             $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+            session::put(['student-good-knowing-student' => $this->answerSelected]);
 
             if (!empty($this->students)) {
                 $this->startStudent = $this->students[0];
@@ -107,8 +108,6 @@ class FormStep20 extends Component
 
     public function mount(): void
     {
-//        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-knowing-student') ?? [];
-
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->students = $this->form->getStudentsNotInFriendsSelected();
 

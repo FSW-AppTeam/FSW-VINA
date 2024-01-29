@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep31 extends Component
 {
@@ -23,10 +24,10 @@ class FormStep31 extends Component
         $this->form->addRulesFromOutside($this->rules);
         $this->validate($this->rules);
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             $this->form->createAnswer([strip_tags($this->answerText)], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-end-survey-answer' => $this->answerText]);
+            session::put(['student-end-survey-answer' => $this->answerText]);
 
             $this->form->setStudentFinishedSurvey();
 

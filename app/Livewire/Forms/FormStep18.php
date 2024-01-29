@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep18 extends Component
@@ -76,7 +77,7 @@ class FormStep18 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
                 $answer = [
                     'id' => $this->startStudent['id'] ?? [],
                     'value' => $this->answerSelected['id'] ?? [],
@@ -84,7 +85,7 @@ class FormStep18 extends Component
 
                 $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-                \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+                session::put(['student-good-knowing-student' => $this->answerSelected]);
 
             if(!empty($this->students[0])){
                 $this->startStudent = $this->students[0];
@@ -106,8 +107,6 @@ class FormStep18 extends Component
 
     public function mount(): void
     {
-//        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-knowing-student') ?? [];
-
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->students = $this->form->getStudentsSelfFriendsSelected();
 
@@ -118,8 +117,7 @@ class FormStep18 extends Component
 
             $this->startStudent = $this->students[0];
             $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
-//
-//        // shifts the student shadow
+
             array_shift($this->students);
         }
     }
