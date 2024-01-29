@@ -148,12 +148,11 @@ class StepController extends Component
             $this->back();
             $this->stepId --;
         }
-
-        $this->getJsonQuestion($this->stepId);
     }
 
     public function render()
     {
+        $this->getJsonQuestion($this->stepId);
         return view('livewire.forms.step-controller');
     }
 }

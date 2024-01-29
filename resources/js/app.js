@@ -80,36 +80,6 @@ document.addEventListener('livewire:initialized', (e) => {
             ,500);
     })
 
-
-    // Flag animation question 14
-    let shadowPositionXFlag = -90;
-    let indexFlag = 0;
-
-    document.addEventListener('set-animation-flag-student', (ev) => {
-        let studentShadowList = document.querySelector('[data-student-list]');
-        let shadowList = document.querySelectorAll('.student-shadow-flex');
-
-        shadowList[indexFlag].animate([
-            {opacity: 1, transform: `translate3d(10px, 0, 0) scaleX(1)`},
-            {opacity: 0, transform: `translate3d(-2000px, 0, 0) scaleX(2)`}
-        ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
-
-        if(shadowList[(indexFlag + 1)] !== undefined){
-            shadowList[(indexFlag + 1)].animate([
-                {opacity: 1}
-            ], {duration: 300, easing: 'ease', fill: 'forwards', delay: 800});
-        }
-
-        studentShadowList.animate([
-            {transform: 'translateX(' + shadowPositionXFlag + 'px)'}
-        ], {duration: 400, easing: 'ease', fill: 'forwards', delay: 500});
-
-        shadowPositionXFlag -= 90;
-        indexFlag++;
-    });
-    // end Flag animation question 14
-
-
     let stepIndex = 1;
     let shadowPositionX = -90;
     let index = 0;
@@ -284,6 +254,7 @@ document.addEventListener('livewire:initialized', (e) => {
         dispatchEvent(setBackBlockBtn);
     });
 
+    // Used in step 12
     document.addEventListener('start-friend-bounce', () => {
         //Timeout is nodig om de animatie eventlistner te laten werken. Let op, met deze methode kan je nog steeds niet de
         // "animationstart" afvangen.
@@ -295,6 +266,18 @@ document.addEventListener('livewire:initialized', (e) => {
             }, true);
 
         }, 50);
-    });
+    }, { once: true });
+
+    // Used in step 14
+    document.addEventListener('set-animation-flag-student', () => {
+        window.setTimeout(function() {
+            const moveLeft = document.getElementById('step-14-student-0')
+            moveLeft.addEventListener('animationend', function(){
+                console.log('TEST')
+                dispatchEvent(new Event('set-save-answer'));
+            }, true);
+
+        }, 50);
+    }, { once: true });
 
 });

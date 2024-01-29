@@ -48,7 +48,6 @@ class FormStep1 extends Component
     public function update()
     {
         $this->dispatch('getJsonQuestion', 1);
-//        session()->flash('message', 'UPDATED!!!');
     }
 
     public function render()
