@@ -1,5 +1,7 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-    @if($setPage)
+<x-layouts.form :step-id="$stepId"
+                :next-enabled="$nextEnabled"
+                :back-enabled="$backEnabled"
+                :json-question="$jsonQuestion">
     <div id="scope-form-step16" class="set-fade-in">
 
         <div class="container text-center">
@@ -36,7 +38,6 @@
             </div>
         </div>
     </div>
-    @endif
 </x-layouts.form>
 
 
