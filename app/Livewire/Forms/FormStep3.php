@@ -12,12 +12,12 @@ class FormStep3 extends Component
     public int|null $age = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public $firstRequired = true;
-
-    public $setPage = true;
 
     protected $messages = [];
 
@@ -31,8 +31,6 @@ class FormStep3 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['age.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
             ],
@@ -55,9 +53,20 @@ class FormStep3 extends Component
         }
     }
 
+    public function updatedAge()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
+
+
     public function mount(): void
     {
         $this->age = old('age') ?? \Session::get('student-age') ?? null;
+        if($this->age) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function render()

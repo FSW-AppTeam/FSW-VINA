@@ -13,14 +13,14 @@ class FormStep5 extends Component
     public int|null $educationDegree = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public $firstRequired = true;
 
     protected $messages = [];
-
-    public $setPage = true;
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
@@ -36,8 +36,6 @@ class FormStep5 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['education-degree.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
@@ -59,6 +57,13 @@ class FormStep5 extends Component
         }
     }
 
+    public function updatedEducationDegree()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
+
     public function setAnswerBlockAnswerId(int $id): void
     {
         $this->educationDegree = $id;
@@ -67,6 +72,9 @@ class FormStep5 extends Component
     public function mount(): void
     {
         $this->educationDegree = old('education-degree') ?? \Session::get('student-education-degree') ?? null;
+        if($this->educationDegree) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function render()

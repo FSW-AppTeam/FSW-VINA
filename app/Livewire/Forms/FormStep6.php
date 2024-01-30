@@ -11,10 +11,10 @@ class FormStep6 extends Component
     public int|null $classTime = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
-
-    public $setPage = true;
 
     public $firstRequired = true;
 
@@ -34,12 +34,18 @@ class FormStep6 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['classTime.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
         ];
+    }
+
+    public function updatedClassTime()
+    {
+        ray('asd');
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
     }
 
     public function save(): void
@@ -59,6 +65,9 @@ class FormStep6 extends Component
     public function mount(): void
     {
         $this->classTime = old('classTime') ?? \Session::get('student-class-time') ?? null;
+        if($this->classTime) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function setAnswerBlockAnswerId(int $id): void
