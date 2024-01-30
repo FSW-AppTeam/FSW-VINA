@@ -12,6 +12,8 @@ class FormStep25 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -29,8 +31,6 @@ class FormStep25 extends Component
     public int $studentCounter = 1;
 
     public int $answerId;
-
-    public $setPage = true;
 
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
@@ -51,8 +51,6 @@ class FormStep25 extends Component
                         if (empty($value)) {
                             $fail($this->messages['answer_id.required']);
                         }
-                    }  else {
-                        $this->setPage = false;
                     }
                 },
                 'array'

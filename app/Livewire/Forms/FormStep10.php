@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep10 extends Component
 {
@@ -12,12 +13,12 @@ class FormStep10 extends Component
     public array $selectedFriendsIds = [];
 
     public int $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public \stdClass $jsonQuestion;
 
     public $firstRequired = true;
-
-    public $setPage = true;
 
     public $index = 0;
 
@@ -83,8 +84,6 @@ class FormStep10 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['friends.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -97,10 +96,10 @@ class FormStep10 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-student-class-id')) {
             $this->form->createAnswer(array_column($this->friends, 'id'), $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-own-friends-basic' => $this->friends]);
+            session::put(['student-own-friends-basic' => $this->friends]);
 
             $this->dispatch('set-step-id-up');
         }

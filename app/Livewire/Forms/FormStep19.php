@@ -9,6 +9,8 @@ class FormStep19 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 

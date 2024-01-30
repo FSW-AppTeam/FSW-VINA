@@ -12,6 +12,8 @@ class FormStep16 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -29,8 +31,6 @@ class FormStep16 extends Component
 
     public int $answerId;
 
-    public $setPage = true;
-
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
         'set-remove-selected-square' => 'removeSelectedSquare',
@@ -47,8 +47,6 @@ class FormStep16 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['answer_id.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
                 'array'

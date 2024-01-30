@@ -13,14 +13,14 @@ class FormStep11 extends Component
     public array $selectedFriendsIds = [];
 
     public int $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public \stdClass $jsonQuestion;
 
     public $firstRequired = true;
 
     protected array $messages = [];
-
-    public $setPage = true;
 
     public $index = 0;
     public $friendsList = [];
@@ -82,8 +82,6 @@ class FormStep11 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['friends.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
                 'array'

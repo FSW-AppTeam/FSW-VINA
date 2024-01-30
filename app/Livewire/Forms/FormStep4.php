@@ -12,17 +12,14 @@ class FormStep4 extends Component
     public int|null $gender = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public $firstRequired = true;
 
     protected $messages = [];
-
-    /**
-     * @var bool for page error message jump
-     */
-    public $setPage = true;
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
@@ -38,8 +35,6 @@ class FormStep4 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['gender.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
@@ -66,9 +61,20 @@ class FormStep4 extends Component
         }
     }
 
+    public function updatedGender()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
+
+
     public function mount(): void
     {
         $this->gender = old('gender') ?? \Session::get('student-gender') ?? null;
+        if($this->gender) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function render()

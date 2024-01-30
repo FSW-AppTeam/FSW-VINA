@@ -12,6 +12,8 @@ class FormStep15 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -92,7 +94,6 @@ class FormStep15 extends Component
 //            session::put(['student-good-knowing-student' => $this->answerSelected]);
 
             if(array_key_exists(1, $this->students)){
-                $this->startStudent = $this->students[0];
                 $this->studentCounter ++;
                 $this->answerSelected = [];
                 $this->startStudent =  array_shift($this->students);
@@ -129,13 +130,11 @@ class FormStep15 extends Component
 
     public function mount(): void
     {
-//        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-knowing-student') ?? [];
-
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
-        shuffle($this->students);
+//        shuffle($this->students);
         $this->shadowStudents = $this->students;
 
         if(!empty($this->students)){

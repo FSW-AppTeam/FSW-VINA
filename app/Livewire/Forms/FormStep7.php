@@ -14,14 +14,14 @@ class FormStep7 extends Component
     public string|null $fromCountry = "";
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public $firstRequired = true;
 
     protected $messages = [];
-
-    public $setPage = true;
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
@@ -37,14 +37,18 @@ class FormStep7 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['origin-country.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
         ];
     }
 
+    public function updatedOriginCountry()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
@@ -75,6 +79,9 @@ class FormStep7 extends Component
 
         if($this->originCountry === 6){
             $this->fromCountry = old('studentOriginFromCountryName') ?? \Session::get('student-origin-from-country-name') ?? null;
+        }
+        if($this->originCountry) {
+            $this->nextEnabled = true;
         }
 
     }

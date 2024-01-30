@@ -11,14 +11,14 @@ class FormStep8 extends Component
     public int|null $indicationCountry = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public string $originCountryName;
 
     protected $messages = [];
-
-    public $setPage = true;
 
     public $firstRequired = true;
 
@@ -36,12 +36,17 @@ class FormStep8 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['indicationCountry.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
         ];
+    }
+
+    public function updatedIndicationCountry()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
     }
 
     public function save(): void
@@ -61,6 +66,9 @@ class FormStep8 extends Component
     public function mount(): void
     {
         $this->indicationCountry = old('indicationCountry') ?? \Session::get('student-indication-country') ?? null;
+        if($this->indicationCountry) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function setAnswerBlockAnswerId(int $id): void

@@ -3,14 +3,17 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep1 extends Component
 {
+    public PostForm $form;
     public $classId = '';
 
     public $jsonQuestion;
-
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestionNameList;
 
@@ -30,19 +33,31 @@ class FormStep1 extends Component
 
     public function mount(): void
     {
-        $this->classId = old('classId') ?? \Session::get('survey-student-class-id') ?? "";
+        $this->classId = old('classId') ?? session::get('survey-student-class-id') ?? "";
+
+        if($this->classId) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function save(): void
     {
-       $this->validate();
+        $this->form->addRulesFromOutside($this->rules);
+        $this->validate($this->rules);
 
-        \Session::put([
+        session::put([
             'survey-student-class-id' => strtolower($this->classId),
             'step1' => true
         ]);
 
         $this->dispatch('set-step-id-up');
+    }
+
+    public function updatedClassId()
+    {
+        $this->form->addRulesFromOutside($this->rules);
+        $this->validate($this->rules);
+        $this->dispatch('set-enable-next');
     }
 
     public function update()

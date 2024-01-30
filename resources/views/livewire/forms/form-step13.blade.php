@@ -1,6 +1,8 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+<x-layouts.form :step-id="$stepId"
+                :next-enabled="$nextEnabled"
+                :back-enabled="$backEnabled"
+                :json-question="$jsonQuestion">
     <div>
-
         @if(count($flagsSelected) >= 4)
             <div class="step-notification alert alert-danger text-center">
                 <p>{{ $jsonQuestion->question_options->error_text }}</p>

@@ -1,5 +1,8 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
-{{--    <div class="animate__animated animate__fadeIn animate__slow">--}}
+<x-layouts.form
+    :step-id="$stepId"
+    :next-enabled="$nextEnabled"
+    :back-enabled="$backEnabled"
+    :json-question="$jsonQuestion">
     <div class="">
         <h5>Hartelijk welkom!</h5>
 
@@ -20,6 +23,4 @@
             </ul>
         </div>
     </div>
-{{--</div>--}}
-
 </x-layouts.form>

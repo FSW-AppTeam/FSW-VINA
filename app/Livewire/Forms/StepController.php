@@ -12,19 +12,22 @@ class StepController extends Component
 {
     public PostForm $form;
     public $activeStep = 'forms.form-step-intro';
+    public $stepId = 0;
+    public $nextEnabled = false;
+    public $backEnabled = false;
+    public $defaultEnabledNext = [10, 11, 12, 13, 17];
+
 
     public $jsonQuestion;
 
     public $jsonQuestionNameList = [];
 
-    public $stepId = 0;
     public $steps;
 
     protected $listeners = [
-        'postAdded' => '$refresh',
         'set-step-id-up' => 'setStepIdUp',
         'set-step-id-down' => 'setStepIdDown',
-        'set-refresh-stepper'  => '$refresh'
+        'set-refresh-stepper'  => '$refresh',
     ];
 
     public function next()
@@ -136,7 +139,6 @@ class StepController extends Component
     {
         $this->next();
         $this->stepId ++;
-        $this->getJsonQuestion($this->stepId);
     }
 
     public function setStepIdDown(): void
@@ -150,9 +152,24 @@ class StepController extends Component
         }
     }
 
+    public function setEnabledNext(): void
+    {
+        if (in_array($this->stepId, $this->defaultEnabledNext)){
+            $this->nextEnabled = true;
+        }
+    }
+
+    public function setEnabledBack(): void
+    {
+        $this->backEnabled = true;
+    }
+
     public function render()
     {
         $this->getJsonQuestion($this->stepId);
+
+        $this->setEnabledNext();
+        $this->setEnabledBack();
         return view('livewire.forms.step-controller');
     }
 }

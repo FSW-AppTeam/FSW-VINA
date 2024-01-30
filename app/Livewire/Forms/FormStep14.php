@@ -14,6 +14,8 @@ class FormStep14 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
     public $flagsSelected = [];
@@ -29,7 +31,6 @@ class FormStep14 extends Component
     public $studentCounter = 1;
 
     protected array $messages = [];
-    public  $setPage = true;
 
     protected $listeners = [
         'set-selected-flag-id' => 'setSelectedFlagId',
@@ -49,9 +50,9 @@ class FormStep14 extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
+
+                        $this->dispatch('set-enable-next');
                         $fail($this->messages['flags.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -118,6 +119,7 @@ class FormStep14 extends Component
                 $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
                 $this->finishedStudent[] = $this->startStudent;
                 $this->setDatabaseResponse();
+                $this->dispatch('set-enable-next');
             } else {
                 $this->disappear = false;
                 $this->dispatch('set-step-id-up');
@@ -146,6 +148,7 @@ class FormStep14 extends Component
 
     public function stepUp(): void
     {
+        $this->dispatch('set-disable-next');
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
         $this->disappear = true;

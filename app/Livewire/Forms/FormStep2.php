@@ -3,7 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Component;
-use Livewire\Features\SupportValidation\HandlesValidation;
+use Illuminate\Support\Facades\Session;
 
 class FormStep2 extends Component
 {
@@ -12,6 +12,8 @@ class FormStep2 extends Component
     public string $name = '';
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
     public $jsonQuestionNameList;
@@ -26,20 +28,31 @@ class FormStep2 extends Component
     ];
     public $setPage = true;
 
+    public function updatedName()
+    {
+        $this->form->addRulesFromOutside($this->rules);
+        $this->validate($this->rules);
+        $this->dispatch('set-enable-next');
+    }
+
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules);
         $this->validate($this->rules);
 
-        if (\Session::has('survey-student-class-id')) {
-            $this->form->createStudent(1, $this->name, strtolower(\Session::get('survey-student-class-id')));
+        if (session::has('survey-student-class-id')) {
+            $this->form->createStudent(1, $this->name, strtolower(session::get('survey-student-class-id')));
             $this->dispatch('set-step-id-up');
         }
     }
 
     public function mount(): void
     {
-        $this->name = old('student-name') ?? \Session::get('student-name') ?? "";
+        $this->name = old('student-name') ?? session::get('student-name') ?? "";
+
+        if($this->name) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function render()

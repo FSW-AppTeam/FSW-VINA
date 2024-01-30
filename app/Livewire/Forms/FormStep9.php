@@ -13,12 +13,12 @@ class FormStep9 extends Component
     public string $newReligion;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     protected $messages = [];
-
-    public $setPage = true;
 
     public $firstRequired = true;
 
@@ -36,12 +36,17 @@ class FormStep9 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['religion.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
         ];
+    }
+
+    public function updatedReligion()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
     }
 
     public function save(): void
@@ -70,7 +75,10 @@ class FormStep9 extends Component
         $this->religion = old('religion') ?? \Session::get('student-religion') ?? null;
 
         if($this->religion === 6){
-        $this->newReligion = old('newReligion') ?? \Session::get('student-religion-different') ?? "";
+            $this->newReligion = old('newReligion') ?? \Session::get('student-religion-different') ?? "";
+        }
+        if($this->religion) {
+            $this->nextEnabled = true;
         }
     }
 
