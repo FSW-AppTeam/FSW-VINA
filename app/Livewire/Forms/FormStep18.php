@@ -11,6 +11,8 @@ class FormStep18 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -30,7 +32,6 @@ class FormStep18 extends Component
 
     public int $answerId;
 
-    public $setPage = true;
     public array $shadowStudents = [];
 
     protected $listeners = [
@@ -49,9 +50,8 @@ class FormStep18 extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                         if ($this->firstRequired && empty($value)) {
                             $this->firstRequired = false;
+                            $this->dispatch('set-enable-next');
                             $fail($this->messages['answer_id.required']);
-                        } else {
-                            $this->setPage = false;
                         }
                 },
                 'array'

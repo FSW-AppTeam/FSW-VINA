@@ -23,6 +23,8 @@ class FormStep12 extends Component
     public array $finishedFriend = [];
 
     public int $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public \stdClass $jsonQuestion;
 
@@ -31,9 +33,6 @@ class FormStep12 extends Component
     public $studentCounter = 1;
 
     protected array $messages = [];
-
-    public $setPage = true;
-
     public $index = 0;
 
     protected $listeners = [
@@ -70,8 +69,8 @@ class FormStep12 extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired) {
                         $this->firstRequired = false;
-
                         if (empty($value)) {
+                            $this->dispatch('set-enable-next');
                             $fail($this->messages['friends.required']);
                         }
                     }
@@ -93,8 +92,6 @@ class FormStep12 extends Component
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
             $this->disappear = false;
 
-
-
             if(array_key_exists(1, $this->students)){
                 $this->studentCounter ++;
 
@@ -109,6 +106,7 @@ class FormStep12 extends Component
                 $this->startFriend = array_shift($this->students);
                 $this->finishedFriend[] = $this->startFriend;
                 $this->setDatabaseResponse();
+                $this->dispatch('set-enable-next');
             } else {
                 $this->disappear = false;
                 $this->dispatch('set-step-id-up');
@@ -136,8 +134,7 @@ class FormStep12 extends Component
 
     public function stepUp(): void
     {
-        $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
+        $this->dispatch('set-disable-next');
         $this->disappear = true;
         $this->dispatch('start-friend-bounce');
     }
