@@ -1,4 +1,7 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+<x-layouts.form :step-id="$stepId"
+                :next-enabled="$nextEnabled"
+                :back-enabled="$backEnabled"
+                :json-question="$jsonQuestion">
     <div id="scope-form-step20" class="set-fade-in">
 
         @if(empty($startStudent))
