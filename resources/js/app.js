@@ -266,18 +266,26 @@ document.addEventListener('livewire:initialized', (e) => {
             }, true);
 
         }, 50);
-    }, { once: true });
+    });
 
     // Used in step 14
     document.addEventListener('set-animation-flag-student', () => {
         window.setTimeout(function() {
             const moveLeft = document.getElementById('step-14-student-0')
             moveLeft.addEventListener('animationend', function(){
-                console.log('TEST')
                 dispatchEvent(new Event('set-save-answer'));
             }, true);
 
         }, 50);
     }, { once: true });
 
+    window.setTimeout(function() {
+        let slowanimation = document.querySelector('.animate__animated.animate__slow')
+
+        if(slowanimation === null) return;
+
+        slowanimation.addEventListener('animationend', function(){
+            dispatchEvent(new Event('set-enable-next'));
+        }, true);
+    }, 50);
 });
