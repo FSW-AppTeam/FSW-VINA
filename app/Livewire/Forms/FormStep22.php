@@ -11,6 +11,8 @@ class FormStep22 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -31,7 +33,6 @@ class FormStep22 extends Component
 
     public int $answerId;
 
-    public $setPage = true;
     public $studentCounter = 1;
 
     public const SELF_ID_TEXT = 'Jou';
