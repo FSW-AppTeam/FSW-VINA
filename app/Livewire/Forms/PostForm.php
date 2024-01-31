@@ -170,7 +170,6 @@ class PostForm extends Form
     {
         SurveyStudent::where([
             'id' => $this->getStudent()->id,
-            'group_id' => $this->getSurvey()->id,
             ])
         ->update([
             'finished_at' => now()
