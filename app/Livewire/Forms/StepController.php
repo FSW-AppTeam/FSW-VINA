@@ -15,7 +15,7 @@ class StepController extends Component
     public $stepId = 0;
     public $nextEnabled = false;
     public $backEnabled = false;
-    public $defaultEnabledNext = [10, 11, 12, 13, 14, 17, 21];
+    public $defaultEnabledNext = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 21];
 
 
     public $jsonQuestion;
