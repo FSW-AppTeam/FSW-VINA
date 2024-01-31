@@ -19,7 +19,7 @@ class PostForm extends Form
     #[Computed(persist: true)]
     public function getStudent(): SurveyStudent
     {
-        return SurveyStudent::find(session::get('survey-student-id'));
+        return SurveyStudent::find(session::get('student-id'));
     }
 
     #[Computed(persist: true)]
