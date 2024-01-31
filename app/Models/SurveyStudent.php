@@ -2,76 +2,47 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * Class SurveyStudent
+ *
+ * @property int $id
+ * @property string|null $name
+ * @property Carbon|null $finished_at
+ * @property Carbon|null $exported_at
+ * @property int $survey_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ *
+ * @property Survey $survey
+ *
+ * @package App\Models
+ */
 class SurveyStudent extends Model
 {
     use HasFactory;
+	protected $table = 'survey_students';
 
-    /**
-     * The storage format of the model's date columns.
-     *
-     * @var string
-     */
-//    protected $dateFormat = 'd-m-Y H:i:s';
+	protected $casts = [
+		'finished_at' => 'datetime',
+		'exported_at' => 'datetime',
+		'survey_id' => 'int'
+	];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'class_id',
-        'survey_id',
-        'finished_at'
-    ];
+	protected $fillable = [
+		'name',
+		'finished_at',
+		'exported_at',
+		'survey_id'
+	];
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'finished_at'
-    ];
 
-    public function hashModel(){
-//        $h = new Hashids\Hashids('this is my salt');
-    }
-
-    /**
-     *  Setup model event hooks
-     */
-    public static function boot(): void
+    public function survey()
     {
-        parent::boot();
-
-//        self::creating(function ($model) {
-//            $model->uuid = Str::uuid()->toString();
-//        });
-    }
-
-    /**
-     *  Get export answers for csv
-     */
-    public static function getAnswersForExport(int $surveyId, string $classId): array
-    {
-        return SurveyStudent::where('survey_students.survey_id', '=', $surveyId)
-            ->where('class_id', '=', $classId)
-            ->join('survey_answers', 'survey_students.id', '=', 'survey_answers.student_id')
-            ->orderBy('survey_answers.question_id')
-            ->get([
-                'name',
-                'survey_students.id as student_id',
-                'student_answer',
-                'question_title',
-                'question_id',
-                'question_type',
-                'survey_students.created_at',
-                'class_id',
-                'finished_at',
-                'exported_at'
-            ])->toArray();
+        return $this->belongsTo(Survey::class);
     }
 
     /**
