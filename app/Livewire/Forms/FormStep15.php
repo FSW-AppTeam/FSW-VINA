@@ -88,12 +88,14 @@ class FormStep15 extends Component
                     'value' => [],
                 ];
             }
+        if (session::has('survey-id')) {
+            $answer = [
+                'student_id'    => $this->startStudent['id'],
+                'answer' => $this->answerSelected,
+            ];
 
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-
-//            session::put(['student-good-knowing-student' => $this->answerSelected]);
-
-            if(array_key_exists(1, $this->students)){
+            if(array_key_exists(0, $this->students)){
                 $this->studentCounter ++;
                 $this->answerSelected = [];
                 $this->startStudent =  array_shift($this->students);
@@ -106,6 +108,7 @@ class FormStep15 extends Component
                     $this->dispatch('set-block-btn-animation', null);
 //                }
             } else {
+                $this->disappear = false;
                 $this->dispatch('set-step-id-up');
             }
         }
@@ -154,21 +157,20 @@ class FormStep15 extends Component
     public function setDatabaseResponse()
     {
         $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
-            ->where('survey_id', $this->jsonQuestion->survey_id)
             ->where('question_id', $this->stepId)
             ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
             ->first();
 
         if(!$response) {
-            ray('NIET gevonden' . $this->startStudent['id'] );
+            Log::info('NIET gevonden' . $this->startStudent['id'] );
             return;
         }
 
-
-        ray($response);
         foreach($this->jsonQuestion->question_answer_options as $key => $option) {
-            if($option->id == $response->student_answer['value']) {
-                $this->setAnswerButtonSquare($response->student_answer['value'], $this->jsonQuestion->question_answer_options[$key]->value);
+            if($option->id == $response->student_answer['answer']['id']) {
+                $this->setAnswerButtonSquare(
+                    $response->student_answer['answer']['id'],
+                    $this->jsonQuestion->question_answer_options[$key]->value);
                 return;
             }
         }

@@ -26,7 +26,7 @@ class FormStep31 extends Component
         $this->form->addRulesFromOutside($this->rules);
         $this->validate($this->rules);
 
-        if (session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $this->form->createAnswer([strip_tags($this->answerText)], $this->jsonQuestion, $this->stepId);
 
             session::put(['student-end-survey-answer' => $this->answerText]);

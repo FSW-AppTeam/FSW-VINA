@@ -79,7 +79,7 @@ class FormStep28 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
             session::put(['student-class-collaborate' => $this->answerSelected]);

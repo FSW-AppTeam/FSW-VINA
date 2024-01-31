@@ -80,7 +80,7 @@ class FormStep20 extends Component
             return;
         }
 
-        if (\Session::has('survey-student-class-id')) {
+        if (\Session::has('survey-id')) {
             $answer = [
                 'id' => $this->startStudent['id'] ?? [],
                 'value' => $this->answerSelected['id'] ?? [],
