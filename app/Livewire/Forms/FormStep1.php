@@ -2,58 +2,79 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Survey;
+use Closure;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 
 class FormStep1 extends Component
 {
     public PostForm $form;
-    public $classId = '';
+    public $surveyCode = '';
 
     public $jsonQuestion;
     public $stepId;
     public $nextEnabled;
     public $backEnabled;
 
-    public $jsonQuestionNameList;
-
-    /**
-     * @var bool for the back routing
-     */
-    public $setPage = true;
-
     protected $rules = [
-        'classId' => 'required|min:2',
+        'surveyCode' => 'required|min:2',
     ];
 
     protected $messages = [
-        'classId.required' => 'De klas code is verplicht.',
-        'classId.min' => 'De :attribute moet minimaal 2 karakters zijn.',
+        'surveyCode.required' => 'De klas code is verplicht.',
+        'surveyCode.min' => 'De :attribute moet minimaal 2 karakters zijn.',
     ];
+
+    public function rules(): array
+    {
+        $this->messages['surveyCode.exists'] = 'Code bestaat niet.';
+
+        return [
+            'surveyCode' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+                    if (empty($value)) {
+                        $this->firstRequired = false;
+                        $fail($this->messages['surveyCode.exists']);
+                    }
+
+                    if (!Survey::checkCode($value)) {
+                        $fail($this->messages['surveyCode.exists']);
+                    }
+                }
+            ],
+
+        ];
+    }
 
     public function mount(): void
     {
-        $this->classId = old('classId') ?? session::get('survey-student-class-id') ?? "";
+        if(session::get('survey-id')) {
+            $survey = Survey::where('id', session::get('survey-id'));
+            if($survey->exists()) {
+                $this->surveyCode = $survey->first()->survey_code;
+            }
+        }
 
-        if($this->classId) {
+        if($this->surveyCode) {
             $this->nextEnabled = true;
         }
     }
 
     public function save(): void
     {
-        $this->form->addRulesFromOutside($this->rules);
-        $this->validate($this->rules);
-
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $survey = Survey::where('survey_code', $this->surveyCode)->first();
         session::put([
-            'survey-student-class-id' => strtolower($this->classId),
+            'survey-id' => $survey->id,
             'step1' => true
         ]);
 
         $this->dispatch('set-step-id-up');
     }
 
-    public function updatedClassId()
+    public function updatedsurveyCode()
     {
         $this->form->addRulesFromOutside($this->rules);
         $this->validate($this->rules);

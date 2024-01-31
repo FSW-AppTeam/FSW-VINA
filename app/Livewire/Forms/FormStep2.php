@@ -40,8 +40,8 @@ class FormStep2 extends Component
         $this->form->addRulesFromOutside($this->rules);
         $this->validate($this->rules);
 
-        if (session::has('survey-student-class-id')) {
-            $this->form->createStudent(1, $this->name, strtolower(session::get('survey-student-class-id')));
+        if (session::has('survey-id')) {
+            $this->form->createStudent($this->name, strtolower(session::get('survey-id')));
             $this->dispatch('set-step-id-up');
         }
     }
