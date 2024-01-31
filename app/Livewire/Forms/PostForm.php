@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Survey;
 use App\Models\SurveyAnswers;
 use App\Models\SurveyStudent;
 use Illuminate\Support\Facades\Session;
@@ -22,9 +23,15 @@ class PostForm extends Form
     }
 
     #[Computed(persist: true)]
+    public function getSurvey(): Survey
+    {
+        return Survey::find(session::get('survey-id'));
+    }
+
+    #[Computed(persist: true)]
     public function getStudentsWithoutActiveStudent(): array
     {
-        return SurveyStudent::where('class_id', $this->getStudent()->class_id)
+        return SurveyStudent::where('survey_id', $this->getSurvey()->id)
             ->whereNot('id', $this->getStudent()->id)
             ->where('exported_at', '=', NULL)
             ->orderBy('name')
@@ -34,14 +41,14 @@ class PostForm extends Form
 
     public function getStudentsSelfFriendsSelected(): array
     {
-        $answer = SurveyAnswers::where('student_id', $this->getStudent()->id)
-            ->where('survey_id', '=', 1)
+        $answers = SurveyAnswers::where('student_id', $this->getStudent()->id)
             ->where('question_id', '=', 10)
             ->get('student_answer')->first()->student_answer;
 
         return $this->getStudent()
             ->whereIn('id', $answer)
             ->where('class_id', $this->getStudent()->class_id)
+            ->where('survey_id', $this->getSurvey()->id)
             ->where('exported_at', '=', NULL)
             ->get()
             ->toArray();
@@ -49,15 +56,14 @@ class PostForm extends Form
 
     public function getStudentsNotInFriendsSelected(): array
     {
-        $answer = SurveyAnswers::where('student_id', $this->getStudent()->id)
-            ->where('survey_id', '=', 1)
+        $answers = SurveyAnswers::where('student_id', $this->getStudent()->id)
             ->where('question_id', '=', 10)
             ->get('student_answer')->first()->student_answer;
 
         return $this->getStudent()
             ->whereNot('id', $this->getStudent()->id)
-            ->whereNotIn('id', $answer)
-            ->where('class_id', $this->getStudent()->class_id)
+            ->whereNotIn('id', $answers)
+            ->where('survey_id', '=', $this->getSurvey()->id)
             ->where('exported_at', '=', NULL)
             ->limit(3)
             ->get()
@@ -67,10 +73,9 @@ class PostForm extends Form
     public function getStudentsFriendsRelationsSelected(): array
     {
         $answer = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
-            ->where('survey_answers.survey_id', '=', 1)
             ->whereIn('survey_answers.question_id', [10,12]) // friends of friends
             ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
-            ->where('survey_students.class_id', '=', $this->getStudent()->class_id)
+            ->where('survey_students.survey_id', '=', $this->getSurvey()->id)
             ->get(['survey_answers.student_answer'])
             ->toArray();
 
@@ -103,8 +108,7 @@ class PostForm extends Form
 
         $students = $this->getStudent()
             ->whereIn('id', $uniqueStudents)
-            ->where('class_id', $this->getStudent()->class_id)
-            ->where('survey_id', $this->getStudent()->survey_id)
+            ->where('survey_id', $this->getSurvey()->id)
             ->where('exported_at', '=', NULL)
             ->get()
             ->toArray();
@@ -117,13 +121,12 @@ class PostForm extends Form
         SurveyAnswers::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
-                'survey_id' => $jsonQuestions->survey_id,
-                'question_id' => $jsonQuestions->question_id,
-                'question_type' => $jsonQuestions->question_type,
-                'question_title' => $jsonQuestions->question_title,
+                'question_id' => $jsonQuestions->question_id
             ],
             [
-                'student_answer' => $answer
+                'student_answer' => $answer,
+                'question_type' => $jsonQuestions->question_type,
+                'question_title' => $jsonQuestions->question_title,
             ]
         );
 
@@ -132,19 +135,18 @@ class PostForm extends Form
         ]);
     }
 
-    public function createStudent(int $surveyId, string $name, string $classId, bool $setSession = true): void
+    public function createStudent(string $name, string $surveyId, bool $setSession = true): void
     {
        $student = SurveyStudent::firstOrCreate([
-            'survey_id' => strip_tags($surveyId),
             'name' => strip_tags($name),
-            'class_id' => strip_tags($classId)
+            'survey_id' => strip_tags($surveyId)
         ]);
 
        if($setSession){
            session::put([
                'student-name' => strip_tags($name),
-               'survey-student-id' => strip_tags($student->id),
-               'survey-student-class-id' =>strip_tags($classId),
+               'student-id' => strip_tags($student->id),
+               'survey-id' =>strip_tags($surveyId),
                'step2' => true
            ]);
        }
@@ -169,8 +171,7 @@ class PostForm extends Form
     {
         SurveyStudent::where([
             'id' => $this->getStudent()->id,
-            'survey_id' => $this->getStudent()->survey_id,
-            'class_id' => $this->getStudent()->class_id,
+            'group_id' => $this->getSurvey()->id,
             ])
         ->update([
             'finished_at' => now()

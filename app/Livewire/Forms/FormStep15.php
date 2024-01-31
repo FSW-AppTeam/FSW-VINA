@@ -76,18 +76,6 @@ class FormStep15 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-student-class-id')) {
-            if(!empty($this->answerSelected)){
-                $answer = [
-                    'student_id'    => $this->startStudent['id'],
-                    'value' => $this->answerSelected['id'],
-                ];
-            } else {
-                $answer = [
-                    'student_id'    => $this->startStudent['id'],
-                    'value' => [],
-                ];
-            }
         if (session::has('survey-id')) {
             $answer = [
                 'student_id'    => $this->startStudent['id'],

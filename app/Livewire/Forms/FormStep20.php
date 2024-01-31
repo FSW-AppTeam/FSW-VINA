@@ -112,18 +112,22 @@ class FormStep20 extends Component
     {
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->students = $this->form->getStudentsNotInFriendsSelected();
+        if(empty($this->students)){
+            $this->dispatch('set-step-id-up');
+            return;
+        }
+        shuffle($this->students);
 
-        if(!empty($this->students)){
-            shuffle($this->students);
+        $this->shadowStudents = $this->students;
 
-            $this->shadowStudents = $this->students;
-
-            $this->startStudent = $this->students[0];
-            $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
+        $this->startStudent = $this->students[0];
+        $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
 
             // shifts the student shadow
             array_shift($this->students);
         }
+        // shifts the student shadow
+        array_shift($this->students);
     }
 
     public function render()
