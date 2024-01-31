@@ -123,9 +123,6 @@ class FormStep20 extends Component
         $this->startStudent = $this->students[0];
         $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
 
-            // shifts the student shadow
-            array_shift($this->students);
-        }
         // shifts the student shadow
         array_shift($this->students);
     }

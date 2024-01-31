@@ -46,8 +46,7 @@ class PostForm extends Form
             ->get('student_answer')->first()->student_answer;
 
         return $this->getStudent()
-            ->whereIn('id', $answer)
-            ->where('class_id', $this->getStudent()->class_id)
+            ->whereIn('id', $answers)
             ->where('survey_id', $this->getSurvey()->id)
             ->where('exported_at', '=', NULL)
             ->get()
