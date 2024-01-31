@@ -65,8 +65,8 @@ class FormStep13 extends Component
 
         }
 
-        if(!$imageFile && file_exists(public_path('flags/' . strtolower($image) . '.jpg'))){
-            $imageFile = asset('flags/' . strtolower($image) . '.jpg');
+        if(!$imageFile && file_exists(public_path('images/flags/' . strtolower($image) . '.jpg'))){
+            $imageFile = asset('images/flags/' . strtolower($image) . '.jpg');
         }
         $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
 

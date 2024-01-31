@@ -6,6 +6,7 @@ use App\Livewire\Partials\FlagImage;
 use App\Models\SurveyAnswers;
 use App\Models\SurveyStudent;
 use Closure;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -81,8 +82,8 @@ class FormStep14 extends Component
             $imageFile = 'build/images/flags/' . strtolower($isoFlag) . '.svg';
         }
 
-        if(!$imageFile && file_exists(public_path('flags/' . strtolower($image) . '.jpg'))){
-            $imageFile = 'flags/' . strtolower($image) . '.jpg';
+        if(!$imageFile && file_exists(public_path('images/flags/' . strtolower($image) . '.jpg'))){
+            $imageFile = 'images/flags/' . strtolower($image) . '.jpg';
         }
         $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
     }

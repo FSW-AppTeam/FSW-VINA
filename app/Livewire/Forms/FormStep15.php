@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\SurveyAnswers;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class FormStep15 extends Component
