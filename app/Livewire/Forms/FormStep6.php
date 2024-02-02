@@ -42,7 +42,6 @@ class FormStep6 extends Component
 
     public function updatedClassTime()
     {
-        ray('asd');
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
         $this->dispatch('set-enable-next');
@@ -53,7 +52,7 @@ class FormStep6 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (\Session::has('survey-id')) {
             $this->form->createAnswer(!is_null($this->classTime) ? [$this->classTime] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-class-time' => $this->classTime ?? null]);

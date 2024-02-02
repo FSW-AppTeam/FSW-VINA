@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\SurveyAnswers;
 use App\Models\SurveyStudent;
 use Closure;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -84,7 +85,7 @@ class FormStep12 extends Component
     {
         $this->disappear = false;
 
-        if (session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $answer = [
                 'student_id' => $this->startFriend['id'],
                 'value' => array_column($this->friends, 'id'),
@@ -159,12 +160,11 @@ class FormStep12 extends Component
     public function setDatabaseResponse()
     {
         $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
-            ->where('survey_id', $this->jsonQuestion->survey_id)
             ->where('question_id', $this->stepId)
             ->whereJsonContains('student_answer->student_id', $this->startFriend['id'])
             ->first();
         if(!$response) {
-            ray('NIET gevonden' . $this->startFriend['id'] );
+            Log::info('NIET gevonden' . $this->startFriend['id'] );
             return;
         }
 

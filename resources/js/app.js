@@ -277,7 +277,7 @@ document.addEventListener('livewire:initialized', (e) => {
             }, true);
 
         }, 50);
-    }, { once: true });
+    });
 
     window.setTimeout(function() {
         let slowanimation = document.querySelector('.animate__animated.animate__slow')

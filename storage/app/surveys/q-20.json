@@ -12,7 +12,7 @@
         {"id": 5, "value": "Heel goed"}
     ],
     "question_options": {
-        "error_text": "Je hebt geen vrienden opgeven!",
+        "error_text": "Je hebt geen klassgenoten die je niet als vriend hebt geselecteerd!",
         "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
     }
 }

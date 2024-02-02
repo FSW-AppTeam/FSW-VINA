@@ -6,6 +6,7 @@ use App\Livewire\Partials\FlagImage;
 use App\Models\SurveyAnswers;
 use App\Models\SurveyStudent;
 use Closure;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -81,8 +82,8 @@ class FormStep14 extends Component
             $imageFile = 'build/images/flags/' . strtolower($isoFlag) . '.svg';
         }
 
-        if(!$imageFile && file_exists(public_path('flags/' . strtolower($image) . '.jpg'))){
-            $imageFile = 'flags/' . strtolower($image) . '.jpg';
+        if(!$imageFile && file_exists(public_path('images/flags/' . strtolower($image) . '.jpg'))){
+            $imageFile = 'images/flags/' . strtolower($image) . '.jpg';
         }
         $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
     }
@@ -103,7 +104,7 @@ class FormStep14 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $answer = [
                 'student_id' => $this->startStudent['id'],
                 'countries' => $this->flagsSelected
@@ -111,8 +112,7 @@ class FormStep14 extends Component
 
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
             $this->disappear = false;
-
-            if(array_key_exists(1, $this->students)){
+            if(array_key_exists(0, $this->students)){
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
                 $this->startStudent =  array_shift($this->students);
@@ -152,7 +152,12 @@ class FormStep14 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
         $this->disappear = true;
-        $this->dispatch('set-animation-flag-student');
+        if(count($this->students) >= 1) {
+            $this->dispatch('set-animation-flag-student');
+        }
+        if(count($this->students) == 0 ) {
+            $this->dispatch('set-save-answer');
+        }
     }
 
     public function mount(): void
@@ -173,17 +178,15 @@ class FormStep14 extends Component
     public function setDatabaseResponse()
     {
         $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
-            ->where('survey_id', $this->jsonQuestion->survey_id)
             ->where('question_id', $this->stepId)
             ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
             ->first();
 
         if(!$response) {
-            ray('NIET gevonden' . $this->startStudent['id'] );
+            Log::info('NIET gevonden' . $this->startStudent['id'] );
             return;
         }
         foreach ($response->student_answer['countries'] as $responseItem) {
-            ray($responseItem);
             $this->setSelectedFlagId($responseItem['id'], $responseItem['image'], $responseItem['country']);
         }
     }

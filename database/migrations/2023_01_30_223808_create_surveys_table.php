@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('survey_students', function (Blueprint $table) {
+        Schema::create('surveys', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('survey_code')->unique();
+            $table->dateTime('started_at')->nullable();
             $table->dateTime('finished_at')->nullable();
-            $table->dateTime('exported_at')->nullable();
-            $table->unique(['name', 'survey_id']);
-            $table->foreignId('survey_id')->constrained('surveys');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('survey_students');
+        Schema::dropIfExists('surveys');
     }
 };

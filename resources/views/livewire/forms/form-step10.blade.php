@@ -46,14 +46,16 @@
         <div class="form-group students-overview mb-3">
             <div class="">
                 <div class="row">
-                    @foreach ($this->form->getStudentsWithoutActiveStudent() as $student)
-                        {{--  use strict unique key in wire:key attr  --}}
-                        <livewire:student-fade-component
-                            wire:key="students-fade-{{ $student['id'] . time() }}"
-                            :id="$student['id']"
-                            :name="$student['name']"
-                            :selected-friends-ids="$selectedFriendsIds"/>
-                    @endforeach
+                    <div wire:poll>
+                        @foreach ($this->form->getStudentsWithoutActiveStudent() as $student)
+                            {{--  use strict unique key in wire:key attr  --}}
+                            <livewire:student-fade-component
+                                wire:key="students-fade-{{ $student['id'] . time() }}"
+                                :id="$student['id']"
+                                :name="$student['name']"
+                                :selected-friends-ids="$selectedFriendsIds"/>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

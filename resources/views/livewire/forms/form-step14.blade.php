@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     @foreach($students as $key => $student)
-                        <div class="student-shadow-flex  @if($disappear) move-to-left-btn @endif"  id="step-14-student-{{$key}}">
+                        <div class="student-shadow-flex  fadeOut @if($disappear) move-to-left-btn @endif"  id="step-14-student-{{$key}}">
                             <div id="{{$student['id']}}"
                                 class="p-2 btn-circle btn-xl studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
                                 {{$student['name']}}
@@ -37,7 +37,6 @@
 
                 <div class="text-center flag-shadow">
                     <div style="display: inline-flex">
-
                         @for($x = 0; $x <= 3; $x++)
                             @if(isset($flagsSelected[$x]))
                                 <img src="{{asset($flagsSelected[$x]['image'])}}"

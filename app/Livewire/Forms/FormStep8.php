@@ -54,7 +54,7 @@ class FormStep8 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (\Session::has('survey-id')) {
             $this->form->createAnswer(!is_null($this->indicationCountry ) ? [$this->indicationCountry] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-indication-country' => $this->indicationCountry ?? null]);

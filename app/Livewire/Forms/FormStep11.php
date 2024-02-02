@@ -94,7 +94,7 @@ class FormStep11 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $this->form->createAnswer(array_column($this->friends, 'id'), $this->jsonQuestion, $this->stepId);
 
             session::put(['student-own-friends-trust' => $this->friends]);

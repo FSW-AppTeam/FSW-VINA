@@ -40,6 +40,12 @@ class SurveyAnswers extends Model
      * @return Attribute
      */
 
+
+    public function survey()
+    {
+        return $this->belongsTo(Survey::class, 'groups_id');
+    }
+
     protected function data(): Attribute
     {
         return Attribute::make(

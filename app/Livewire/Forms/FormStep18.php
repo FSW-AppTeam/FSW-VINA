@@ -77,7 +77,7 @@ class FormStep18 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
                 $answer = [
                     'id' => $this->startStudent['id'] ?? [],
                     'value' => $this->answerSelected['id'] ?? [],

@@ -80,7 +80,7 @@ class FormStep20 extends Component
             return;
         }
 
-        if (\Session::has('survey-student-class-id')) {
+        if (\Session::has('survey-id')) {
             $answer = [
                 'id' => $this->startStudent['id'] ?? [],
                 'value' => $this->answerSelected['id'] ?? [],
@@ -112,18 +112,19 @@ class FormStep20 extends Component
     {
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->students = $this->form->getStudentsNotInFriendsSelected();
-
-        if(!empty($this->students)){
-            shuffle($this->students);
-
-            $this->shadowStudents = $this->students;
-
-            $this->startStudent = $this->students[0];
-            $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
-
-            // shifts the student shadow
-            array_shift($this->students);
+        if(empty($this->students)){
+            $this->dispatch('set-step-id-up');
+            return;
         }
+        shuffle($this->students);
+
+        $this->shadowStudents = $this->students;
+
+        $this->startStudent = $this->students[0];
+        $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
+
+        // shifts the student shadow
+        array_shift($this->students);
     }
 
     public function render()

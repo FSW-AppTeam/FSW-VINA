@@ -25,7 +25,7 @@ class FormStep10 extends Component
     public $friendsList = [];
 
     protected array $messages = [];
-
+    public $studentsWithoutActiveStudent = [];
     protected $listeners = [
         'set-selected-student-id-comp' => 'setSelectedStudentId',
         'remove-selected-student-id' => 'removeSelectedStudentId',
@@ -96,7 +96,7 @@ class FormStep10 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $this->form->createAnswer(array_column($this->friends, 'id'), $this->jsonQuestion, $this->stepId);
 
             session::put(['student-own-friends-basic' => $this->friends]);

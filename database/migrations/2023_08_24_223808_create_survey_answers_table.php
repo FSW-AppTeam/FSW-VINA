@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('survey_answers', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id');
-            $table->integer('survey_id');
+            $table->string('student_id');
             $table->integer('question_id');
             $table->string('question_type');
             $table->string('question_title');
             $table->json('student_answer')->nullable();
+            $table->unique(['student_id', 'question_id']);
             $table->timestamps();
         });
     }

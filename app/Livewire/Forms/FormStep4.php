@@ -52,7 +52,7 @@ class FormStep4 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (\Session::has('survey-id')) {
              $this->form->createAnswer(!is_null($this->gender) ? [$this->gender] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put('student-gender', $this->gender ?? null);
