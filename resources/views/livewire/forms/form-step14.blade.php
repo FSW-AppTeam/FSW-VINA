@@ -19,19 +19,19 @@
                 </div>
 
                 <div class="mt-4 text-center block-students-vertical line-students " data-student-list>
-                    <div class="student-shadow-flex @if($disappear) bounce-out-left-btn @endif">
-                        <div id="{{$startStudent['id']}}"
-                             class="p-2 btn-circle btn-xl studentBtn title @if(strlen($startStudent['name']) > 8) circle-text @endif">
-                            {{$startStudent['name']}}
-                        </div>
-                    </div>
+                    <button type="button"
+                            class="p-2 btn-circle btn-xl selected-btn boxed-btn-0
+                        @if($disappear) bounce-out-left-btn @endif"
+                            id="{{$startStudent['id']}}">
+                        {{$startStudent['name']}}
+                    </button>
                     @foreach($students as $key => $student)
-                        <div class="student-shadow-flex  fadeOut @if($disappear) move-to-left-btn @endif"  id="step-14-student-{{$key}}">
-                            <div id="{{$student['id']}}"
-                                class="p-2 btn-circle btn-xl studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
-                                {{$student['name']}}
-                            </div>
-                        </div>
+                        <button type="button"
+                                class="p-2 btn-circle btn-xl selected-btn boxed-btn-0 fadeOut
+                                @if($disappear) move-to-left-btn @endif"
+                                id="step-14-student-{{$key}}">
+                            {{$student['name']}}
+                        </button>
                     @endforeach
                 </div>
 

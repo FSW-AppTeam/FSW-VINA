@@ -6,7 +6,7 @@
         <div class="form-group set-fade-in">
                 <h6 class="pb-2">{{ $jsonQuestion->question_content }}</h6>
                 <input type="text"
-                       wire:model.live="surveyCode"
+                       wire:model.live.debounce="surveyCode"
                        class="form-control style-input" name="student-class-code">
         </div>
     </div>
