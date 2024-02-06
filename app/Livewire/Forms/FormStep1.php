@@ -35,10 +35,12 @@ class FormStep1 extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                     if (empty($value)) {
                         $this->firstRequired = false;
+                        $this->dispatch('set-disable-next');
                         $fail($this->messages['surveyCode.exists']);
                     }
 
                     if (!Survey::checkCode($value)) {
+                        $this->dispatch('set-disable-next');
                         $fail($this->messages['surveyCode.exists']);
                     }
                 }
