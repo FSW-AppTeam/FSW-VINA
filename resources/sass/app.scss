@@ -166,16 +166,8 @@ p {
             padding-top: 28px !important;
         }
 
-        &.circle-text {
-            padding-top: 22px !important;
-        }
-
         &.studentBtn.start-friend-btn-v2 {
             padding-top: 28px !important;
-
-            &.circle-text {
-                padding-top: 22px !important;
-            }
         }
 
     }
@@ -578,8 +570,6 @@ textarea:focus-visible, textarea:active {
     margin-left: auto;
     margin-right: auto;
     padding-left: 22px;
-
-    max-height: 350px;
     overflow-x: hidden;
     overflow-y: auto;
 
@@ -644,7 +634,7 @@ textarea:focus-visible, textarea:active {
 
 .bounce-out-left-btn {
     animation: bounceOutLeft ease-in forwards;
-    animation-duration: 1.5s;
+    animation-duration: 0.8s;
     animation-fill-mode: forwards;
 }
 
@@ -772,13 +762,13 @@ and (-webkit-min-device-pixel-ratio: 3) {
 }
 
 .selected-btn-shrink {
-    animation: shrink-circle 1.5s 1;
+    animation: shrink-circle 0.8s 1;
     animation-fill-mode: forwards;
 }
 
 @keyframes shrink-circle {
     to {
-        width: 5%;
+        width: 6.3%;
         margin-inline: inherit;
         -webkit-transform: scale( 0.0 );
         -moz-transform: scale( 0.0 );
@@ -796,13 +786,13 @@ and (-webkit-min-device-pixel-ratio: 3) {
 }
 
 .move-to-left-btn{
-    animation: moveToLeft ease 400ms 1;
+    animation: moveToLeft ease 200ms 1;
     animation-fill-mode: forwards;
-    animation-delay: 500ms
+    animation-delay: 300ms
 }
 
 @keyframes moveToLeft {
     to {
-        transform: translate3d(-90px, 0, 0)
+        transform: translate3d(-80px, 0, 0)
     }
 }
