@@ -93,9 +93,9 @@ class FormStep15 extends Component
                 $this->setDatabaseResponse();
                 // next button skip question
 
-//                if(empty($this->answerSelected['value'])) {
+                if(empty($this->answerSelected['value'])) {
                     $this->dispatch('set-block-btn-animation', null);
-//                }
+                }
             } else {
                 $this->disappear = false;
                 $this->dispatch('set-step-id-up');
@@ -126,7 +126,7 @@ class FormStep15 extends Component
         $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
-//        shuffle($this->students);
+        shuffle($this->students);
         $this->shadowStudents = $this->students;
 
         if(!empty($this->students)){
@@ -156,7 +156,7 @@ class FormStep15 extends Component
         }
 
         foreach($this->jsonQuestion->question_answer_options as $key => $option) {
-            if($option->id == $response->student_answer['answer']['id']) {
+            if(!empty($response->student_answer['answer']) && $option->id == $response->student_answer['answer']['id']) {
                 $this->setAnswerButtonSquare(
                     $response->student_answer['answer']['id'],
                     $this->jsonQuestion->question_answer_options[$key]->value);
