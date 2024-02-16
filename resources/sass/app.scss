@@ -631,27 +631,6 @@ textarea:focus-visible, textarea:active {
     }
 }
 
-
-.bounce-out-left-btn {
-    animation: bounceOutLeft ease-in forwards;
-    animation-duration: 0.8s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes bounceOutLeft {
-    from {
-        opacity: 1;
-        transform: translate3d(10px, 0, 0) scaleX(1);
-    }
-
-    to {
-        opacity: 0;
-        transform: translate3d(-2000px, 0, 0) scaleX(2);
-    }
-}
-
-
-
 /* iPhone X and Xs Max */
 @media only screen
 //and (min-device-width: 375px)
@@ -740,10 +719,12 @@ and (-webkit-min-device-pixel-ratio: 3) {
     }
 }
 
+
+//DA css
 .selected-btn-grow {
     animation: grow-circle 1.5s 1;
 }
-
+// Used for circle buttons to grow
 @keyframes grow-circle {
     from {
         -webkit-transform: scale( 0.0 );
@@ -766,6 +747,7 @@ and (-webkit-min-device-pixel-ratio: 3) {
     animation-fill-mode: forwards;
 }
 
+// Used for circle buttons to shrink and dissapear
 @keyframes shrink-circle {
     to {
         width: 6.3%;
@@ -791,8 +773,28 @@ and (-webkit-min-device-pixel-ratio: 3) {
     animation-delay: 300ms
 }
 
+// Used for circle buttons to move to the left after the previous button has bounced to the left and off screen.
 @keyframes moveToLeft {
     to {
         transform: translate3d(-80px, 0, 0)
+    }
+}
+
+.bounce-out-left-btn {
+    animation: bounceOutLeft ease-in forwards;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+}
+
+// Used for circle buttons to bounce to the left and off screen
+@keyframes bounceOutLeft {
+    from {
+        opacity: 1;
+        transform: translate3d(10px, 0, 0) scaleX(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(-2000px, 0, 0) scaleX(2);
     }
 }

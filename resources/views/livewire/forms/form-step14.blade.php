@@ -17,23 +17,10 @@
                 <div class="row justify-content-center">
                     <h6 class="mt-2 text-center px-2">{{ $jsonQuestion->question_content }}</h6>
                 </div>
-
-                <div class="mt-4 text-center block-students-vertical line-students " data-student-list>
-                    <button type="button"
-                            class="p-2 btn-circle btn-xl selected-btn boxed-btn-0
-                        @if($disappear) bounce-out-left-btn @endif"
-                            id="{{$startStudent['id']}}">
-                        {{$startStudent['name']}}
-                    </button>
-                    @foreach($students as $key => $student)
-                        <button type="button"
-                                class="p-2 btn-circle btn-xl selected-btn boxed-btn-0 fadeOut
-                                @if($disappear) move-to-left-btn @endif"
-                                id="step-14-student-{{$key}}">
-                            {{$student['name']}}
-                        </button>
-                    @endforeach
-                </div>
+                <livewire:partials.students-buttons
+                    :startStudent="$startStudent"
+                    :students="$students"
+                    wire:key="key-student-q14-{{ $startStudent['id'] }}"/>
 
                 <div class="text-center flag-shadow">
                     <div style="display: inline-flex">
