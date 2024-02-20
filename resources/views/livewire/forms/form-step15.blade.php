@@ -11,10 +11,10 @@
         <div class="mt-4 text-center block-students-vertical line-students step-list-15 " data-student-list>
             @foreach($shadowStudents as $key => $student)
                 <div class="student-shadow-flex @if($key !== 0) fadeOut @endif">
-                    <button type="button" id="{{$student['id']}}"
-                         class="p-2 btn-circle btn-xl selected-btn boxed-btn-0">
+                    <div id="{{$student['id']}}"
+                         class="p-2 btn-circle btn-xl studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
                         {{$student['name']}}
-                    </button>
+                    </div>
                 </div>
             @endforeach
         </div>
