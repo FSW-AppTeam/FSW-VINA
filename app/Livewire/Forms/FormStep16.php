@@ -80,6 +80,7 @@ class FormStep16 extends Component
 
             session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
 
+            $this->dispatch('set-enable-next');
             $this->dispatch('set-step-id-up');
         }
     }
@@ -91,6 +92,7 @@ class FormStep16 extends Component
 
     public function render()
     {
+        $this->dispatch('set-enable-next');
         return view('livewire.forms.form-step16');
     }
 }

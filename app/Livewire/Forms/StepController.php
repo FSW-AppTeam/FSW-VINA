@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 /**
@@ -15,7 +16,7 @@ class StepController extends Component
     public $stepId = 0;
     public $nextEnabled = false;
     public $backEnabled = false;
-    public $defaultEnabledNext = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 21];
+    public $defaultEnabledNext = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
 
 
     public $jsonQuestion;
@@ -69,7 +70,7 @@ class StepController extends Component
         $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-outro.json")), FALSE);
     }
 
-    public function booted()
+    public function boot()
     {
         $this->steps = [
             'forms.form-step-intro',
@@ -106,6 +107,8 @@ class StepController extends Component
             'forms.form-step31',
             'forms.form-step32',
         ];
+
+        $this->setDefaultActiveStep();
     }
 
     public function mount()
@@ -119,26 +122,27 @@ class StepController extends Component
     }
 
 //    not using, maybe future
-    protected function setFormSteps(): void
-    {
-        $steps = [];
-        $path = resource_path('views/livewire/forms');
-        $files = File::allFiles($path);
-
-        foreach ($files as $file){
-         $name = $file->getFilenameWithoutExtension(); // remove .php
-         $name = substr($name, 0, -6); // remove .blade
-
-            if(str_starts_with($name, 'form-step')){
-                $steps[] = 'forms.' . $name;
-            }
-        }
-    }
+//    protected function setFormSteps(): void
+//    {
+//        $steps = [];
+//        $path = resource_path('views/livewire/forms');
+//        $files = File::allFiles($path);
+//
+//        foreach ($files as $file){
+//         $name = $file->getFilenameWithoutExtension(); // remove .php
+//         $name = substr($name, 0, -6); // remove .blade
+//
+//            if(str_starts_with($name, 'form-step')){
+//                $steps[] = 'forms.' . $name;
+//            }
+//        }
+//    }
 
     public function setStepIdUp(): void
     {
         $this->next();
         $this->stepId ++;
+        $this->setDefaultActiveStep();
     }
 
     public function setStepIdDown(): void
@@ -150,6 +154,7 @@ class StepController extends Component
             $this->back();
             $this->stepId --;
         }
+        $this->setDefaultActiveStep();
     }
 
     public function setEnabledNext(): void
@@ -170,6 +175,20 @@ class StepController extends Component
 
         $this->setEnabledNext();
         $this->setEnabledBack();
+
         return view('livewire.forms.step-controller');
+    }
+
+    public function setDefaultActiveStep(): void
+    {
+        if(!session::has('student-id')){
+            $this->stepId = 2;
+        }
+
+        if($this->stepId >= 2 && !session::has('survey-id')){
+            $this->stepId = 1;
+        }
+
+        $this->activeStep = $this->steps[$this->stepId];
     }
 }
