@@ -19,12 +19,13 @@ class FormStep2 extends Component
     public $jsonQuestionNameList;
 
     protected $rules = [
-        'name' => 'required|min:2',
+        'name' => 'required|min:1|alpha_num:ascii',
     ];
 
     protected $messages = [
         'name.required' => 'Voornaam is verplicht',
-        'name.min' => 'Je naam moet minimaal 2 karakters zijn.'
+        'name.min' => 'Je naam moet minimaal 1 karakter zijn.',
+        'name.alpha_num' => 'Je kunt alleen letters en cijfers invoeren.'
     ];
     public $setPage = true;
 

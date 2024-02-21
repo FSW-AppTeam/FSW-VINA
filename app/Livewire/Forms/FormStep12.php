@@ -102,10 +102,9 @@ class FormStep12 extends Component
 
                 $this->friends = [];
                 $this->selectedFriendsIds = [];
-                $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
-
                 $this->startFriend = array_shift($this->students);
                 $this->finishedFriend[] = $this->startFriend;
+                $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
                 $this->setDatabaseResponse();
                 $this->dispatch('set-enable-next');
             } else {

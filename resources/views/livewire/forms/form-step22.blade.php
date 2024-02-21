@@ -21,13 +21,13 @@
                         @foreach($shadowStudents as $key => $student)
                             <div class="justify-content-center text-center student-shadow-flex @if($key !== 0) fadeOut @endif" >
 
-                                <div class="p-2 btn-circle btn-xl studentBtn title @if($student['id'] !== $selfStudentId && strlen($this->getStudentById($student['id'])['name']) > 8) circle-text @endif">
+                                <div class="p-2 btn-circle btn-xl studentBtn title">
                                         <?= $student['id'] === $selfStudentId ? $selfText : $this->getStudentById($student['id'])['name']; ?>
                                 </div>
 
                                 <h2 class="circle-amp-student right">&#38;</h2>
 
-                                <div class="p-2 btn-circle btn-xl studentBtn title @if($student['relation_id'] !== $selfStudentId && strlen($this->getStudentById($student['relation_id'])['name']) > 8) circle-text @endif">
+                                <div class="p-2 btn-circle btn-xl studentBtn title">
                                         <?= $student['relation_id'] === $selfStudentId ? $selfText : $this->getStudentById($student['relation_id'])['name']; ?>
                                 </div>
                             </div>

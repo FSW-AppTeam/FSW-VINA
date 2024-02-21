@@ -11,10 +11,10 @@
         <div class="mt-4 text-center block-students-vertical line-students step-list-15 " data-student-list>
             @foreach($shadowStudents as $key => $student)
                 <div class="student-shadow-flex @if($key !== 0) fadeOut @endif">
-                    <div id="{{$student['id']}}"
-                         class="p-2 btn-circle btn-xl studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
+                    <button type="button" id="{{$student['id']}}"
+                         class="p-2 btn-circle btn-xl selected-btn boxed-btn-0">
                         {{$student['name']}}
-                    </div>
+                    </button>
                 </div>
             @endforeach
         </div>
@@ -41,7 +41,11 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-11 col-lg-8">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
-                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="form-step-q15-{{ $answer->id . time() }}" />
+                        <livewire:partials.answer-btn-block
+                            :id="$answer->id"
+                            :value="ucfirst($answer->value)"
+                            :answer-selected="$answerSelected"
+                            wire:key="form-step-q15-{{ $answer->id . time() }}" />
                     @endforeach
                 </div>
             </div>

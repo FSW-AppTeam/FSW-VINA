@@ -56,8 +56,7 @@ class SurveyStudent extends Model
     {
         $exportClassIds = [];
 
-        $students = SurveyStudent::
-            where('finished_at', 'IS NOT', NULL)
+        $students = SurveyStudent::where('finished_at', 'IS NOT', NULL)
             ->where('exported_at', '=', NULL)
             ->orderBy('finished_at', 'DESC')
             ->get()

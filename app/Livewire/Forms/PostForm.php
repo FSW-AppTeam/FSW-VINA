@@ -102,7 +102,7 @@ class PostForm extends Form
                 array_merge(array_column($allFriends, 'id'), array_column($allFriends, 'relation_id'))
             );
         } catch (\Exception $e){
-            dd($e->getMessage());
+            dd($e->getMessage(), $allFriends);
         }
 
         $students = $this->getStudent()
@@ -120,12 +120,12 @@ class PostForm extends Form
         SurveyAnswers::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
-                'question_id' => $jsonQuestions->question_id
+                'question_id' => $jsonQuestions->question_id,
+                'question_title' => $jsonQuestions->question_title,
             ],
             [
                 'student_answer' => $answer,
                 'question_type' => $jsonQuestions->question_type,
-                'question_title' => $jsonQuestions->question_title,
             ]
         );
 

@@ -19,7 +19,8 @@
                 style="z-index: 0">
 
                 <button type="button"
-                        class="p-2 btn-circle btn-xl selected-btn boxed-btn-0 @if(strlen($startFriend['name']) > 8) circle-text @endif
+                        class="p-2 btn-circle btn-xl studentBtn title fadeOut
+                            @if($disappear) bounce-out-left-btn @endif"
                         @if($disappear) bounce-out-left-btn @endif"
                         id="start-friend-bounce">
                     {{$startFriend['name']}}

@@ -18,7 +18,7 @@
                 @foreach($shadowStudents as $key => $student)
                     <div class="student-shadow-flex @if($key !== 0) fadeOut @endif">
                         <div id="{{$student['id']}}"
-                             class="p-2 btn-circle btn-xl studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
+                             class="p-2 btn-circle btn-xl studentBtn title">
                             {{$student['name']}}
                         </div>
                     </div>

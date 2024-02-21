@@ -42,21 +42,16 @@
         </div>
 
         <p class="sub-head-text pt-4 student-list">{{ $jsonQuestion->question_options->extra_text }}</p>
-
         <div class="form-group students-overview mb-3">
-            <div class="">
-                <div class="row">
-                    <div wire:poll>
-                        @foreach ($this->form->getStudentsWithoutActiveStudent() as $student)
-                            {{--  use strict unique key in wire:key attr  --}}
-                            <livewire:student-fade-component
-                                wire:key="students-fade-{{ $student['id'] . time() }}"
-                                :id="$student['id']"
-                                :name="$student['name']"
-                                :selected-friends-ids="$selectedFriendsIds"/>
-                        @endforeach
-                    </div>
-                </div>
+            <div class="row" wire:poll>
+                @foreach ($this->form->getStudentsWithoutActiveStudent() as $student)
+                    {{--  use strict unique key in wire:key attr  --}}
+                    <livewire:student-fade-component
+                        wire:key="students-fade-{{ $student['id'] . time() }}"
+                        :id="$student['id']"
+                        :name="$student['name']"
+                        :selected-friends-ids="$selectedFriendsIds"/>
+                @endforeach
             </div>
         </div>
     </div>
