@@ -20,8 +20,6 @@ class FormStep14 extends Component
     public $jsonQuestion;
     public $flagsSelected = [];
 
-//    public $disappear = false;
-
     public $firstRequired = true;
     public $basicTitle = "";
     public array $students = [];
@@ -110,7 +108,6 @@ class FormStep14 extends Component
             ];
 
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-//            $this->dispatch('set-disapear-false');
             if(array_key_exists(0, $this->students)){
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
@@ -120,7 +117,6 @@ class FormStep14 extends Component
                 $this->setDatabaseResponse();
                 $this->dispatch('set-enable-next');
             } else {
-//                $this->dispatch('set-disapear-false');
                 $this->dispatch('set-step-id-up');
             }
         }
