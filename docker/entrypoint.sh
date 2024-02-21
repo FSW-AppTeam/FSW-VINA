@@ -46,6 +46,7 @@ fi
 # make sure folder permissions are set
 echo "⭐️ Set folder access";
 chmod a+w -R /var/www/bootstrap/cache
+chmod a+w -R /var/www/storage/framework/sessions
 chmod a+w -R /var/www/storage
 chmod a+w -R /var/www/vendor
 #chmod a+w -R /var/www/node_modules

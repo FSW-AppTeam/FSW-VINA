@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\FlagImage;
 use App\Models\SurveyAnswers;
-use App\Models\SurveyStudent;
 use Closure;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -20,8 +19,6 @@ class FormStep14 extends Component
 
     public $jsonQuestion;
     public $flagsSelected = [];
-
-    public $disappear = false;
 
     public $firstRequired = true;
     public $basicTitle = "";
@@ -111,7 +108,6 @@ class FormStep14 extends Component
             ];
 
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-            $this->disappear = false;
             if(array_key_exists(0, $this->students)){
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
@@ -121,7 +117,6 @@ class FormStep14 extends Component
                 $this->setDatabaseResponse();
                 $this->dispatch('set-enable-next');
             } else {
-                $this->disappear = false;
                 $this->dispatch('set-step-id-up');
             }
         }
@@ -151,7 +146,8 @@ class FormStep14 extends Component
         $this->dispatch('set-disable-next');
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-        $this->disappear = true;
+        $this->dispatch('set-disapear-true');
+
         if(count($this->students) >= 1) {
             $this->dispatch('set-animation-flag-student');
         }

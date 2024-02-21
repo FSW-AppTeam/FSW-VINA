@@ -24,7 +24,7 @@
                 </button>
             @endif
         @endif
-        @if($stepId == 12 || $stepId == 14)
+        @if($stepId == 12 || $stepId == 14 )
             <button class="btn btn-secondary btn-survey float-end arrow"
                     wire:click="nextStep()"
                     wire:loading.attr="disabled"

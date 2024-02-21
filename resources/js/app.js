@@ -271,13 +271,13 @@ document.addEventListener('livewire:initialized', (e) => {
     // Used in step 14
     document.addEventListener('set-animation-flag-student', () => {
         window.setTimeout(function() {
-            const moveLeft = document.getElementById('step-14-student-0')
+            const moveLeft = document.getElementById('step-student-button-0')
             moveLeft.addEventListener('animationend', function(){
                 dispatchEvent(new Event('set-save-answer'));
             }, true);
 
         }, 50);
-    }, {once: true});
+    }, {once: false});
 
     window.setTimeout(function() {
         let slowanimation = document.querySelector('.animate__animated.animate__slow')

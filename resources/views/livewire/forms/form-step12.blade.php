@@ -19,8 +19,7 @@
                 style="z-index: 0">
 
                 <button type="button"
-                        class="p-2 btn-circle btn-xl studentBtn title fadeOut
-                            @if($disappear) bounce-out-left-btn @endif"
+                        class="p-2 btn-circle btn-xl selected-btn fadeOut
                         @if($disappear) bounce-out-left-btn @endif"
                         id="start-friend-bounce">
                     {{$startFriend['name']}}
