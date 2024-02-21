@@ -108,6 +108,9 @@ class FormStep14 extends Component
             ];
 
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+            foreach ($this->flagsSelected as $flagSelect){
+                $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
+            }
             if(array_key_exists(0, $this->students)){
                 $this->studentCounter ++;
                 $this->flagsSelected = [];  // db output
