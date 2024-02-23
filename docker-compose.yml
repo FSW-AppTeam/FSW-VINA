@@ -10,7 +10,6 @@ services:
       - VIRTUAL_HOST=dualnets.docker.dev
       - VIRTUAL_PROTO=https
       - VIRTUAL_PORT=443
-      - WWWUSER='${WWWUSER}'
     volumes:
       - ./:/var/www
     networks:
