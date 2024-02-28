@@ -2,34 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Cron\SurveyExport;
+use App\Models\SurveyExport;
+use Illuminate\Support\Facades\Storage;
 
 class SurveyController extends Controller
 {
-    protected int $surveyId = 1;
-
-    protected SurveyExport $surveyExport;
-
-    public function __construct(SurveyExport $surveyExport)
+    public function __construct()
     {
-        $this->surveyExport = $surveyExport;
     }
 
-    public function checkSurveys()
+    public function checkSurvey($surveyId)
     {
+        $surveyExport = new SurveyExport();
         try {
-            $this->surveyExport->checkExportCsv($this->surveyId);
+            $surveyExport->checkExportCsv($surveyId);
         } catch (\Exception $exception){
+
             dump("Ooops... Something went wrong with the CSV export job!!");
         }
 
     }
 
-
     public function index()
     {
-        dd("csv export view");
+        $directory = "csv";
+        $files = Storage::files($directory);
 
-        return view('export');
+        foreach ($files as $key => $file) {
+            if (pathinfo($file, PATHINFO_EXTENSION) !== 'csv') {
+                unset($files[$key]);
+            }
+        }
+
+        return view('export', compact('files'));
     }
 }

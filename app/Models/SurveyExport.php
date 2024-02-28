@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Cron;
+namespace App\Models;
 
-use App\Models\SurveyStudent;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\CannotInsertRecord;
 use League\Csv\Exception;
 use League\Csv\Writer;
+use App\Models\SurveyStudent;
 
-final class SurveyExport
+class SurveyExport
 {
     /**
      * Checks the student finished at datetime, if
@@ -18,10 +18,10 @@ final class SurveyExport
      * @param int $surveyId
      * @throws Exception
      */
-    public function checkExportCsv(int $surveyId = 1): void
+    public function checkExportCsv(int $surveyId): int
     {
         $classIds = SurveyStudent::getClassIdsForExport();
-
+        $count = 0;
         foreach ($classIds as $classId){
             $res = $this->exportCsv($classId);
 
@@ -39,12 +39,13 @@ final class SurveyExport
             }
 
             $fileName = $date.$classId.'-export.csv';
-
-            Storage::disk('local')->put('public/csv/' . $fileName, $csv->toString());
+            Storage::disk('local')->put('csv/' . $fileName, $csv->toString());
+            $count++;
             dump("CSV export:  $fileName");
         }
 
         SurveyStudent::setExportedFinished($surveyId, $classIds);
+        return $count;
     }
 
     protected function setHeaderCsv(array $surveys, array $header): array

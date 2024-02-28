@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
 import fs from 'fs';
+import path from 'path';
 import {viteStaticCopy} from "vite-plugin-static-copy";
 
 export default defineConfig({
@@ -9,6 +10,8 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/js/app.js',
+                'resources/js/hts-appteam-livewire/appteam-livewire.js',
+                'resources/sass/hts-appteam-livewire/appteam-livewire.scss'
             ],
             refresh: true,
         }),
@@ -25,6 +28,12 @@ export default defineConfig({
             ]
         }),
     ],
+    resolve: {
+        alias: {
+            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+            '~fontawesome': path.resolve(__dirname, 'node_modules/@fortawesome/fontawesome-free')
+        }
+    },
     server: {
         https: {
             key: fs.readFileSync('docker/certificates/apache/docker.dev.key'),

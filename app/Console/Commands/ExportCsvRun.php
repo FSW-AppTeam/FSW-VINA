@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Cron\SurveyExport;
+use App\Models\SurveyExport;
 use Illuminate\Console\Command;
 
 class ExportCsvRun extends Command

@@ -2,10 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Cron\SurveyExport;
+use App\Models\SurveyExport;
 use Artisan;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
