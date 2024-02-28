@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,8 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'solis_id' => fake()->lexify('?????001')
+            'solis_id' => fake()->lexify('?????001'),
+            'role_id' => fake()->randomElement([Role::ADMINISTRATOR, Role::USER]),
         ];
     }
 }
