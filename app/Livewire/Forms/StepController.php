@@ -50,19 +50,19 @@ class StepController extends Component
 
     public function getJsonQuestion(int $i): void
     {
-        if(file_exists(storage_path("app/surveys/q-$i.json"))){
-            $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-$i.json")), FALSE);
+        if(file_exists(resource_path("surveys/q-$i.json"))){
+            $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-$i.json")), FALSE);
         }
     }
 
     public function getJsonNameList(): void
     {
-        $this->jsonQuestionNameList = json_decode(file_get_contents(storage_path("app/surveys/prefilled-names.json")), FALSE);
+        $this->jsonQuestionNameList = json_decode(file_get_contents(resource_path("surveys/prefilled-names.json")), FALSE);
     }
 
     public function getJsonIntro(): void
     {
-        $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-intro.json")), FALSE);
+        $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-intro.json")), FALSE);
     }
 
     public function getJsonOutro(int $i): void
