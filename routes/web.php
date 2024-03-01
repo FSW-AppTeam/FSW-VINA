@@ -17,7 +17,6 @@ Route::get('/', function () {
     return view('survey');
 });
 
-Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('beheer', function () {
         return view('beheer');
