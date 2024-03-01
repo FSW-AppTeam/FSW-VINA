@@ -28,7 +28,7 @@
     <script defer data-domain="<?= parse_url(env('APP_URL'), PHP_URL_HOST) ?>" src="https://plausible.io/js/plausible.js"></script>
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/hts-appteam-livewire/modal.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/hts-appteam-livewire/appteam-livewire.js'])
     @livewireStyles
 </head>
 
