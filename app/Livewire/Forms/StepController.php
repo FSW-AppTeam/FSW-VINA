@@ -67,7 +67,7 @@ class StepController extends Component
 
     public function getJsonOutro(int $i): void
     {
-        $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-outro.json")), FALSE);
+        $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-outro.json")), FALSE);
     }
 
     public function boot()
