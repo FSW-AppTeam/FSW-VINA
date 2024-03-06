@@ -18,34 +18,28 @@ class SurveyExport
      * @param int $surveyId
      * @throws Exception
      */
-    public function checkExportCsv(int $surveyId): int
+    public function checkExportCsv(int $surveyId): string
     {
-        $classIds = SurveyStudent::getClassIdsForExport();
-        $count = 0;
-        foreach ($classIds as $classId){
-            $res = $this->exportCsv($classId);
+        $survey = Survey::find($surveyId);
+        $res = $this->exportCsv($surveyId);
 
-            $date = now()->format('Y-m-d-H_i-');
-            $csv = Writer::createFromString();
-            try {
-                $csv->insertOne($res['header']);
-            } catch (CannotInsertRecord|Exception $e) {
-                dump($e->getMessage());
-            }
-            try {
-                $csv->insertAll($res['full_answer']);
-            } catch (CannotInsertRecord|Exception $e) {
-                dump($e->getMessage());
-            }
-
-            $fileName = $date.$classId.'-export.csv';
-            Storage::disk('local')->put('csv/' . $fileName, $csv->toString());
-            $count++;
-            dump("CSV export:  $fileName");
+        $date = now()->format('Y-m-d-H_i-');
+        $csv = Writer::createFromString();
+        try {
+            $csv->insertOne($res['header']);
+        } catch (CannotInsertRecord|Exception $e) {
+            dump($e->getMessage());
+        }
+        try {
+            $csv->insertAll($res['full_answer']);
+        } catch (CannotInsertRecord|Exception $e) {
+            dump($e->getMessage());
         }
 
-        SurveyStudent::setExportedFinished($surveyId, $classIds);
-        return $count;
+        $fileName = $date.$survey->survey_code.'-export.csv';
+        Storage::disk('local')->put('csv/' . $fileName, $csv->toString());
+        SurveyStudent::setExportedFinished($surveyId);
+        return $fileName;
     }
 
     protected function setHeaderCsv(array $surveys, array $header): array
@@ -90,27 +84,24 @@ class SurveyExport
      * Export formatter
      *
      */
-    protected function exportCsv(string $classId): array
+    protected function exportCsv(string $surveysId): array
     {
-        $surveys = SurveyStudent::getAnswersForExport(1, $classId);
+        $surveys = SurveyStudent::getAnswersForExport($surveysId);
         $header = ['Respondent code', 'Klas code', 'Starttijd', 'Eindtijd'];
         $studentIds = [];
         $answers = [];
 
         $header = $this->setHeaderCsv($surveys, $header);
-
         // sets the first answers set
         foreach ($surveys as $survey) {
             if (!in_array($survey['student_id'], $studentIds)) {
                 $studentIds[] = $survey['student_id'];
                 $answers[$survey['student_id']]['Respondent code'] = $survey['student_id'];
-                $answers[$survey['student_id']]['Klas code'] = $survey['class_id'];
                 $answers[$survey['student_id']]['Starttijd'] = date_create($survey['created_at'])->format('H:i');
                 $answers[$survey['student_id']]['Eindtijd'] = date_create($survey['finished_at'])->format('H:i');
             }
 
             $answer = json_decode($survey['student_answer']);
-
             switch ($survey['question_type']) {
                 case "int":
                 case "text":
@@ -148,18 +139,12 @@ class SurveyExport
                         case 14:
                         {
                             $new = [];
-                            foreach ($answer as $val) {
-                                foreach ($val->countries as $country) {
-                                    if($country->id === 6){
-                                        $new[] = $country->country;
-                                    } else {
-                                        $new[] = $country->id;
-                                    }
-                                }
+                            foreach ($answer->countries as $country) {
+                                $new[] = $country->country;
                             }
 
                             if (in_array($survey['question_title'] . " ID", $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer[0]->student_id;
+                                $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->student_id;
                                 $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = implode(', ', $new);
                             }
 
@@ -169,13 +154,19 @@ class SurveyExport
                         case 12:
                         {
                             if (in_array($survey['question_title'] . " ID", $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer[0]->id;
-                                $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = implode(', ', $answer[0]->value);
+                                $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->student_id;
+                                $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = implode(', ', $answer->value);
                             }
                             break;
                         }
 
                         case 15:
+                            if (in_array($survey['question_title'] . " ID", $header)) {
+                                $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->student_id;
+                                $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->answer->value;
+                            }
+
+                            break;
                         case 18:
                         case 20:
                         {
