@@ -71,30 +71,23 @@ class PostForm extends Form
 
     public function getStudentsFriendsRelationsSelected(): array
     {
-        $answer = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
-            ->whereIn('survey_answers.question_id', [10,12]) // friends of friends
+        $answers = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
+            ->where('survey_answers.question_id', 12) // friends of friends
             ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
             ->where('survey_students.survey_id', '=', $this->getSurvey()->id)
             ->get(['survey_answers.student_answer'])
             ->toArray();
 
         $allFriends= [];
-        $allFriendsFirst = [];
-
-        foreach ($answer[0]['student_answer'] as $val){
-            $allFriendsFirst[] = ['id' => $this->getStudent()->id, 'relation_id' => $val];
-        }
-
         // flat student array for import
-        foreach ($answer as $friend){
-              if(isset($friend['student_answer'][0]['value'])){
-                  foreach ($friend['student_answer'][0]['value'] as $selectedFriend){
-                    $allFriends[] = ['id' => $friend['student_answer'][0]['id'], 'relation_id' => $selectedFriend];
+        foreach ($answers as $answer){
+              if(isset($answer['student_answer']['value'])){
+                  foreach ($answer['student_answer']['value'] as $selectedFriend){
+                    $allFriends[] = ['id' => $answer['student_answer']['student_id'], 'relation_id' => $selectedFriend];
                   }
               }
         }
 
-        $allFriends = array_merge($allFriendsFirst, $allFriends);
         $uniqueStudents = [];
 
         try {
