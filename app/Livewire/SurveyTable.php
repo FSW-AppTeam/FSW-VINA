@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Survey;
 use App\Models\SurveyExport;
+use App\Models\SurveyStudent;
 use DateTime;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
@@ -196,6 +197,14 @@ class SurveyTable extends Component
             session()->flash('error', 'Ooops... Something went wrong with the CSV export job: ' . $exception);
         }
 
+    }
+
+    public function deleteStudentNames($surveyId)
+    {
+        SurveyStudent::where('survey_id', $surveyId)
+            ->update([
+                'name' => NULL,
+            ]);
     }
 
     public function redirectToDetail(string $name, $id)

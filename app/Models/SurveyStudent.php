@@ -66,43 +66,11 @@ class SurveyStudent extends Model
             ])->toArray();
     }
 
-
-    /**
-     * Checks the student finished at datetime, if
-     * older than 1 hour after last submission then
-     * runs the csv export
-     *
-     * @return array
-     */
-    public static function getClassIdsForExport(): array
-    {
-        $exportClassIds = [];
-
-        $students = SurveyStudent::where('finished_at', 'IS NOT', NULL)
-            ->where('exported_at', '=', NULL)
-            ->orderBy('finished_at', 'DESC')
-            ->get()
-            ->groupBy('class_id')
-            ->toArray();
-
-        foreach ($students as $classId => $student){
-            $finishedSurvey = now()->parse($student[0]['finished_at']);
-            $finishedSurvey->addHour();
-
-            if ($finishedSurvey->lt(now())) {  // less than now
-                $exportClassIds[] = $classId;
-            }
-        }
-
-        return $exportClassIds;
-    }
-
     public static function setExportedFinished(int $surveyId): void
     {
         SurveyStudent::where('survey_id', $surveyId)
             ->update([
-                'exported_at' => now(),
-                'name' => NULL,
+                'exported_at' => now()
             ]);
     }
 

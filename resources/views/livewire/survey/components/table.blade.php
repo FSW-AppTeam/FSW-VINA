@@ -86,8 +86,8 @@
                     <td>
                         <input wire:model.live="selectedSurveys" id="{{$model->id}}" value="{{$model->id}}" type="checkbox">
                     </td>
-                    <td class="col-md-8">{{$model->survey_code}}</td>
-                    <td class="col-md-4">
+                    <td class="col-md-6">{{$model->survey_code}}</td>
+                    <td class="col-md-6">
                         <a class="btn btn-outline-info btn-sm"
                            href="#" wire:click.stop.prevent="redirectToDetail('surveydetails', {{ $model->id }})" >
                             Details
@@ -105,8 +105,12 @@
                                 class="btn btn-outline-danger btn-sm">Delete
                         </button>
                         <button
-                                wire:click="checkSurvey({{ $model->id }})"
-                                class="btn btn-outline-dark btn-sm">Create export
+                            wire:click="checkSurvey({{ $model->id }})"
+                            class="btn btn-outline-dark btn-sm">Create export
+                        </button>
+                        <button
+                            wire:click="deleteStudentNames({{ $model->id }})"
+                            class="btn btn-outline-warning btn-sm">Delete studentnames
                         </button>
                     </td>
                 </tr>
