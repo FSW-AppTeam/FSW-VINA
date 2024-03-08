@@ -33,7 +33,6 @@ class PostForm extends Form
     {
         return SurveyStudent::where('survey_id', $this->getSurvey()->id)
             ->whereNot('id', $this->getStudent()->id)
-            ->where('exported_at', '=', NULL)
             ->orderBy('name')
             ->get()
             ->toArray();
@@ -48,7 +47,6 @@ class PostForm extends Form
         return $this->getStudent()
             ->whereIn('id', $answers)
             ->where('survey_id', $this->getSurvey()->id)
-            ->where('exported_at', '=', NULL)
             ->get()
             ->toArray();
     }
@@ -63,7 +61,6 @@ class PostForm extends Form
             ->whereNot('id', $this->getStudent()->id)
             ->whereNotIn('id', $answers)
             ->where('survey_id', '=', $this->getSurvey()->id)
-            ->where('exported_at', '=', NULL)
             ->limit(3)
             ->get()
             ->toArray();
@@ -101,7 +98,6 @@ class PostForm extends Form
         $students = $this->getStudent()
             ->whereIn('id', $uniqueStudents)
             ->where('survey_id', $this->getSurvey()->id)
-            ->where('exported_at', '=', NULL)
             ->get()
             ->toArray();
 
