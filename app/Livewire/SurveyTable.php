@@ -193,7 +193,7 @@ class SurveyTable extends Component
                 session()->flash('error', 'No new CSV files generated!');
             }
         } catch (\Exception $exception){
-            session()->flash('error', 'Ooops... Something went wrong with the CSV export job!!');
+            session()->flash('error', 'Ooops... Something went wrong with the CSV export job: ' . $exception);
         }
 
     }

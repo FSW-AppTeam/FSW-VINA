@@ -46,6 +46,28 @@ class SurveyStudent extends Model
     }
 
     /**
+     *  Get export answers for csv
+     */
+    public static function getAnswersForExport(int $surveyId): array
+    {
+        return SurveyStudent::where('survey_students.survey_id', '=', $surveyId)
+            ->join('survey_answers', 'survey_students.id', '=', 'survey_answers.student_id')
+            ->orderBy('survey_answers.question_id')
+            ->get([
+                'name',
+                'survey_students.id as student_id',
+                'student_answer',
+                'question_title',
+                'question_id',
+                'question_type',
+                'survey_students.created_at',
+                'finished_at',
+                'exported_at'
+            ])->toArray();
+    }
+
+
+    /**
      * Checks the student finished at datetime, if
      * older than 1 hour after last submission then
      * runs the csv export
@@ -75,10 +97,9 @@ class SurveyStudent extends Model
         return $exportClassIds;
     }
 
-    public static function setExportedFinished(int $surveyId, array $classIds): void
+    public static function setExportedFinished(int $surveyId): void
     {
         SurveyStudent::where('survey_id', $surveyId)
-            ->whereIn('class_id', $classIds)
             ->update([
                 'exported_at' => now(),
                 'name' => NULL,
