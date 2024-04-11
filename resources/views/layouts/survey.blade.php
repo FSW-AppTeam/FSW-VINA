@@ -24,6 +24,7 @@
 
 </head>
 <body>
+    @ribbon()
     <main class="module_container">
         @yield('content')
     </main>
