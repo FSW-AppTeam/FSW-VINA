@@ -3,13 +3,11 @@
                 :back-enabled="$backEnabled"
                 :json-question="$jsonQuestion">
     <div id="scope-form-step22" class="set-fade-in">
-
         @if(empty($shadowStudents) && empty($students))
             <div class="step-notification alert alert-danger text-center">
-                <p>{{ $jsonQuestion->question_options->error_text }}</p>
+                <p>{{ $jsonQuestion->question_options['error_text'] }}</p>
             </div>
         @else
-
             <div class="container text-center">
                 <h6 class="pt-4">{{ $jsonQuestion->question_content }}</h6>
             </div>
@@ -20,9 +18,8 @@
                     <div class="block-students-vertical relation-block-student-shadow" data-student-list >
                         @foreach($shadowStudents as $key => $student)
                             <div class="justify-content-center text-center student-shadow-flex @if($key !== 0) fadeOut @endif" >
-
                                 <div class="p-2 btn-circle btn-xl studentBtn title">
-                                        <?= $student['id'] === $selfStudentId ? $selfText : $this->getStudentById($student['id'])['name']; ?>
+                                    <?= $student['id'] === $selfStudentId ? $selfText : $this->getStudentById($student['id'])['name']; ?>
                                 </div>
 
                                 <h2 class="circle-amp-student right">&#38;</h2>
@@ -59,9 +56,9 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-12 col-lg-10">
                             @foreach ($jsonQuestion->question_answer_options as $answer)
-                                <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)"
+                                <livewire:partials.answer-btn-block :id="$answer['id']" :value="ucfirst($answer['value'])"
                                                                     :answer-selected="$answerSelected"
-                                                                    wire:key="{{ $answer->id . time() }}"/>
+                                                                    wire:key="{{ $answer['id'] . time() }}"/>
                             @endforeach
                         </div>
                     </div>

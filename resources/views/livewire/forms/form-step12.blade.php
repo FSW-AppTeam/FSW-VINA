@@ -9,7 +9,7 @@
 
             @if (empty($startFriend))
                 <div class="step-notification alert alert-danger text-center">
-                    <p>{{ $jsonQuestion->question_options->error_text }}</p>
+                    <p>{{ $jsonQuestion->question_options['extra_text'] }}</p>
                 </div>
             @endif
 
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <p class="sub-head-text pt-4 student-list">{{ $jsonQuestion->question_options->extra_text }}</p>
+        <p class="sub-head-text pt-4 student-list">{{ $jsonQuestion->question_options['extra_text'] }}</p>
 
         <div class="form-group students-overview mb-3">
             <div class="">

@@ -9,10 +9,10 @@
             @foreach ($jsonQuestion->question_answer_options as $index => $answer)
                 <button class="form-check btn" type="button" wire:click="$dispatch('select-answer-block', {event: event});">
                     <input class="form-check-input" type="radio" wire:model.live="indicationCountry" name="select-btn-block"
-                           id="{{ $answer->id }}" value="{{ $answer->id }}"/>
+                           id="{{ $answer['id'] }}" value="{{ $answer['id'] }}"/>
 
-                    <label class="form-check-label" for="{{ $answer->id }}">
-                        {{ ucfirst($answer->value) }}
+                    <label class="form-check-label" for="{{ $answer['id'] }}">
+                        {{ ucfirst($answer['value']) }}
                     </label>
                 </button>
             @endforeach
