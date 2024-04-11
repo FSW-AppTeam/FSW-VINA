@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\SurveyQuestion;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -35,12 +36,20 @@ class StepController extends Component
     {
         $currentIndex = array_search($this->activeStep, $this->steps);
         $this->activeStep = ($currentIndex + 1) >= count($this->steps) ? $this->steps[$currentIndex] : $this->steps[$currentIndex + 1];
+        $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
+            ->orderBy('order', 'asc')
+            ->where('enabled', true)
+            ->first();
+
+        $this->setActiveStep($question);
     }
 
     public function back()
     {
-        $currentIndex = array_search($this->activeStep, $this->steps);
-        $this->activeStep = ($currentIndex - 1) < 0 ? $this->steps[$currentIndex] : $this->steps[$currentIndex - 1];
+        $question = SurveyQuestion::where('order', '<=', $this->stepId - 1)
+            ->orderBy('order', 'desc')
+            ->where('enabled', true)->first();
+        $this->setActiveStep($question);
     }
 
     public function refreshComponent(): void
@@ -48,12 +57,12 @@ class StepController extends Component
         $this->update = !$this->update;
     }
 
-    public function getJsonQuestion(int $i): void
-    {
-        if(file_exists(resource_path("surveys/q-$i.json"))){
-            $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-$i.json")), FALSE);
-        }
-    }
+//    public function getJsonQuestion(int $i): void
+//    {
+//        $question = SurveyQuestion::where('order', $i)->where('enabled', true)->first();
+//
+//        $this->jsonQuestion =
+//    }
 
     public function getJsonNameList(): void
     {
@@ -72,43 +81,16 @@ class StepController extends Component
 
     public function boot()
     {
-        $this->steps = [
-            'forms.form-step-intro',
-            'forms.form-step1',
-            'forms.form-step2',
-            'forms.form-step3',
-            'forms.form-step4',
-            'forms.form-step5',
-            'forms.form-step6',
-            'forms.form-step7',
-            'forms.form-step8',
-            'forms.form-step9',
-            'forms.form-step10',
-            'forms.form-step11',
-            'forms.form-step12',
-            'forms.form-step13',
-            'forms.form-step14',
-            'forms.form-step15',
-            'forms.form-step16',
-            'forms.form-step17',
-            'forms.form-step18',
-            'forms.form-step19',
-            'forms.form-step20',
-            'forms.form-step21',
-            'forms.form-step22',
-            'forms.form-step23',
-            'forms.form-step24',
-            'forms.form-step25',
-            'forms.form-step26',
-            'forms.form-step27',
-            'forms.form-step28',
-            'forms.form-step29',
-            'forms.form-step30',
-            'forms.form-step31',
-            'forms.form-step32',
-        ];
+        $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
 
         $this->setDefaultActiveStep();
+//        $questions = SurveyQuestion::orderBy('order', 'asc')->where('enabled', true)->get();
+//        $this->steps[] = 'forms.form-step-intro';
+//        foreach($questions as $question){
+//            $this->steps[] = 'forms.form-step' . $question->id;
+//        }
+//
+        $this->setActiveStep($this->jsonQuestion);
     }
 
     public function mount()
@@ -121,28 +103,18 @@ class StepController extends Component
         }
     }
 
-//    not using, maybe future
-//    protected function setFormSteps(): void
-//    {
-//        $steps = [];
-//        $path = resource_path('views/livewire/forms');
-//        $files = File::allFiles($path);
-//
-//        foreach ($files as $file){
-//         $name = $file->getFilenameWithoutExtension(); // remove .php
-//         $name = substr($name, 0, -6); // remove .blade
-//
-//            if(str_starts_with($name, 'form-step')){
-//                $steps[] = 'forms.' . $name;
-//            }
-//        }
-//    }
-
     public function setStepIdUp(): void
     {
         $this->next();
         $this->stepId ++;
-        $this->setDefaultActiveStep();
+
+        $question = SurveyQuestion::where('order', '>=', $this->stepId)
+            ->orderBy('order', 'asc')
+            ->where('enabled', true)->first();
+        // In case of a question is disabled, skip it. We have to set the order as the new stpId
+        $this->stepId = $question->order;
+        $this->jsonQuestion = $question;
+        $this->setActiveStep($this->jsonQuestion);
     }
 
     public function setStepIdDown(): void
@@ -150,17 +122,21 @@ class StepController extends Component
         $this->back();
         $this->stepId --;
 
-        if(is_null(\Session::get('student-origin-country')) && ($this->stepId === 7)){  // skip question 8
-            $this->back();
-            $this->stepId --;
-        }
-        $this->setDefaultActiveStep();
+        $question = SurveyQuestion::where('order', '<=', $this->stepId)
+            ->orderBy('order', 'desc')
+            ->where('enabled', true)->first();
+        // In case of a question is disabled, skip it. We have to set the order as the new stpId
+        $this->stepId = $question->order;
+        $this->jsonQuestion = $question;
+
+        $this->setActiveStep($this->jsonQuestion);
     }
 
     public function setEnabledNext(): void
     {
-        if (in_array($this->stepId, $this->defaultEnabledNext)){
-            $this->nextEnabled = true;
+        $this->nextEnabled = true;
+        if ($this->jsonQuestion->default_disable_next) {
+            $this->nextEnabled = false;
         }
     }
 
@@ -171,24 +147,27 @@ class StepController extends Component
 
     public function render()
     {
-        $this->getJsonQuestion($this->stepId);
-
+        $this->setActiveStep($this->jsonQuestion);
         $this->setEnabledNext();
         $this->setEnabledBack();
 
         return view('livewire.forms.step-controller');
     }
 
-    public function setDefaultActiveStep(): void
+    public function setActiveStep($jsonQuestion): void
     {
-        if(!session::has('student-id')){
-            $this->stepId = 2;
+        if($this->stepId == 0) {
+            $this->activeStep = 'forms.form-step-intro';
+            return;
         }
 
         if($this->stepId >= 2 && !session::has('survey-id')){
             $this->stepId = 1;
+        if(isset($jsonQuestion->form_type)) {
+            $this->activeStep = 'forms.form-step-' . $jsonQuestion->form_type;
+            return;
         }
 
-        $this->activeStep = $this->steps[$this->stepId];
+        $this->activeStep =  'forms.form-step-' . $jsonQuestion->id;
     }
 }

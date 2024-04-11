@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Survey;
 use App\Models\SurveyAnswers;
+use App\Models\SurveyQuestion;
 use App\Models\SurveyStudent;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
@@ -104,12 +105,12 @@ class PostForm extends Form
         return ['students' => $students, 'relations' => $allFriends];
     }
 
-    public function createAnswer(array $answer, stdClass $jsonQuestions, int $stepId): void
+    public function createAnswer(array $answer, SurveyQuestion $jsonQuestions, int $stepId): void
     {
         SurveyAnswers::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
-                'question_id' => $jsonQuestions->question_id,
+                'question_id' => $jsonQuestions->id,
                 'question_title' => $jsonQuestions->question_title,
             ],
             [

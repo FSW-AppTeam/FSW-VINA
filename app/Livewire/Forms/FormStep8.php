@@ -28,7 +28,7 @@ class FormStep8 extends Component
 
     public function rules(): array
     {
-        $this->messages['indicationCountry.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['indicationCountry.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'indicationCountry' => [

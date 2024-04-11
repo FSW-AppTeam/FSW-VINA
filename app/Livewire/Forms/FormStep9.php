@@ -28,7 +28,7 @@ class FormStep9 extends Component
 
     public function rules(): array
     {
-        $this->messages['religion.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['religion.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'religion' => [

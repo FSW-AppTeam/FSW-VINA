@@ -39,7 +39,7 @@ class FormStep29 extends Component
 
     public function rules(): array
     {
-        $this->messages['answer_id.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['answer_id.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'answerSelected' => [

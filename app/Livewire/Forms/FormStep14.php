@@ -41,7 +41,7 @@ class FormStep14 extends Component
 
     public function rules(): array
     {
-        $this->messages['flags.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['flags.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'flagsSelected' => [
@@ -177,7 +177,7 @@ class FormStep14 extends Component
     public function setDatabaseResponse()
     {
         $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
-            ->where('question_id', $this->stepId)
+            ->where('question_id', $this->jsonQuestion->id)
             ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
             ->first();
 

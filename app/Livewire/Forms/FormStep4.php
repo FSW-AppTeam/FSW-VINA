@@ -27,7 +27,7 @@ class FormStep4 extends Component
 
     public function rules(): array
     {
-        $this->messages['gender.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['gender.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'gender' => [

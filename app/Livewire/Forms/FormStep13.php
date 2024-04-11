@@ -30,7 +30,7 @@ class FormStep13 extends Component
 
     public function rules(): array
     {
-        $this->messages['flags.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['flags.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'flagsSelected' => [

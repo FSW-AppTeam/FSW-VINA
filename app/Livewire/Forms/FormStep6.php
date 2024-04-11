@@ -26,7 +26,7 @@ class FormStep6 extends Component
 
     public function rules(): array
     {
-        $this->messages['classTime.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['classTime.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'classTime' => [

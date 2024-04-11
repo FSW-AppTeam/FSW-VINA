@@ -29,7 +29,7 @@ class FormStep7 extends Component
 
     public function rules(): array
     {
-        $this->messages['origin-country.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['origin-country.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'originCountry' => [

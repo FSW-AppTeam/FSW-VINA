@@ -16,7 +16,7 @@ class FormStep11 extends Component
     public $nextEnabled;
     public $backEnabled;
 
-    public \stdClass $jsonQuestion;
+    public $jsonQuestion;
 
     public $firstRequired = true;
 
@@ -74,7 +74,7 @@ class FormStep11 extends Component
 
     public function rules(): array
     {
-        $this->messages['friends.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['friends.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'friends' => [
