@@ -17,7 +17,7 @@
                         {{ $slot }}
                     </div>
                 </div>
-                @livewire('partials.form-buttons', ['stepId' => $stepId, 'nextEnabled' => $nextEnabled, 'backEnabled' => $backEnabled])
+                @livewire('partials.form-buttons', ['stepId' => $stepId, 'jsonQuestion' => $jsonQuestion, 'nextEnabled' => $nextEnabled, 'backEnabled' => $backEnabled])
             </div>
         </form>
     </div>
