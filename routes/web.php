@@ -38,6 +38,12 @@ Route::group(['middleware' => ['auth']], function () {
             return view('livewire.surveyanswers.details', compact('surveyanswers'));
         })->name('surveyanswersdetails');
 
+        Route::get('/surveyquestiontable', function () {
+            return view('livewire.surveyquestion.index');
+        });
+        Route::get('/surveyquestiondetails/{surveyquestion}', function (App\Models\SurveyQuestion $surveyquestion) {
+            return view('livewire.surveyquestion.details', compact('surveyquestion'));
+        })->name('surveyquestiondetails');
 
         Route::get('/usertable', function () {
             return view('livewire.user.index');

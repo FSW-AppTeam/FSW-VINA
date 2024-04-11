@@ -8,12 +8,12 @@
             </div>
             <div class="modal-body">
                 <form wire:submit="store">
-                    
+
             <div class="form-group">
                 <label for="student_id">Student student_id:</label>
                 <select  class="form-select" aria-label="Default select example" wire:model.live="student_id" id="student_id">
                     <option value="">-- Select --</option>
-                    @foreach( App\Models\Student::all()->pluck("name", "id") as $key=>$option)
+                    @foreach( App\Models\SurveyStudent::all()->pluck("name", "id") as $key=>$option)
                         <option value="{{$key}}" >{{$option}}</option>
                     @endforeach
                 </select>
@@ -25,7 +25,7 @@
                 <label for="question_id">Question question_id:</label>
                 <select  class="form-select" aria-label="Default select example" wire:model.live="question_id" id="question_id">
                     <option value="">-- Select --</option>
-                    @foreach( App\Models\Question::all()->pluck("name", "id") as $key=>$option)
+                    @foreach( App\Models\SurveyQuestion::all()->pluck("name", "id") as $key=>$option)
                         <option value="{{$key}}" >{{$option}}</option>
                     @endforeach
                 </select>

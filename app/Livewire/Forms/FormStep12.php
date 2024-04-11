@@ -88,7 +88,7 @@ class FormStep12 extends Component
         if (session::has('survey-id')) {
             $answer = [
                 'student_id' => $this->startFriend['id'],
-                'value' => array_column($this->friends, 'id'),
+                'answer' => array_column($this->friends, 'id'),
             ];
             $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
             $this->disappear = false;
