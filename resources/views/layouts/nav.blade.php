@@ -42,7 +42,8 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        @if(Auth::user()->admin)
+                        @if(Auth::user()->isAdmin())
+                            <a class="nav-link" href="/surveyquestiontable">{{__('nav.surveyquestiontable')}}</a>
                             <a class="nav-link" href="/surveyanswerstable">{{__('nav.surveyanswerstable')}}</a>
                             <a class="nav-link" href="/usertable">{{__('nav.usertable')}}</a>
                             <a class="nav-link" href="/roletable">{{__('nav.roletable')}}</a>
