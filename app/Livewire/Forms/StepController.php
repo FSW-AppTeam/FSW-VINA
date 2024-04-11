@@ -17,7 +17,6 @@ class StepController extends Component
     public $stepId = 0;
     public $nextEnabled = false;
     public $backEnabled = false;
-    public $defaultEnabledNext = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
 
 
     public $jsonQuestion;
@@ -34,8 +33,6 @@ class StepController extends Component
 
     public function next()
     {
-        $currentIndex = array_search($this->activeStep, $this->steps);
-        $this->activeStep = ($currentIndex + 1) >= count($this->steps) ? $this->steps[$currentIndex] : $this->steps[$currentIndex + 1];
         $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
             ->orderBy('order', 'asc')
             ->where('enabled', true)
@@ -83,7 +80,6 @@ class StepController extends Component
     {
         $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
 
-        $this->setDefaultActiveStep();
 //        $questions = SurveyQuestion::orderBy('order', 'asc')->where('enabled', true)->get();
 //        $this->steps[] = 'forms.form-step-intro';
 //        foreach($questions as $question){
@@ -161,8 +157,6 @@ class StepController extends Component
             return;
         }
 
-        if($this->stepId >= 2 && !session::has('survey-id')){
-            $this->stepId = 1;
         if(isset($jsonQuestion->form_type)) {
             $this->activeStep = 'forms.form-step-' . $jsonQuestion->form_type;
             return;

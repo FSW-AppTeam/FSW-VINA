@@ -25,8 +25,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
 	protected $table = 'roles';
-    const ADMINISTRATOR = 1;
-    const USER = 2;
+
+    const USER = 1;
+    const ADMINISTRATOR = 2;
 
 	protected $fillable = [
 		'name'
