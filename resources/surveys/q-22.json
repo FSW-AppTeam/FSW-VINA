@@ -1,18 +1,7 @@
 {
     "survey_id": 1,
     "question_id": 22,
-    "question_type": "json",
+    "question_type": "text",
     "question_title": "Band",
-    "question_content": "Hoe sterk is de band tussen:",
-    "question_answer_options": [
-        {"id": 1, "value": "Helemaal niet sterk"},
-        {"id": 2, "value": "Niet sterk"},
-        {"id": 3, "value": "Redelijk sterk"},
-        {"id": 4, "value": "Sterk"},
-        {"id": 5, "value": "Heel erg sterk"}
-    ],
-    "question_options": {
-        "error_text": "Je hebt geen vrienden opgeven!",
-        "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-    }
+    "question_content": "Deze vraag is in de pilot verwijderd, klik volgende."
 }
