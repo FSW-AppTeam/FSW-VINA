@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 
 class FormStep2 extends Component
 {
@@ -18,9 +19,19 @@ class FormStep2 extends Component
     public $jsonQuestion;
     public $jsonQuestionNameList;
 
-    protected $rules = [
-        'name' => 'required|min:1|alpha_num:ascii',
-    ];
+    protected function rules()
+    {
+        return [
+            'name' => [
+                'required',
+                'min:1',
+                'alpha_num:ascii',
+                Rule::unique('survey_students')
+                    ->where('survey_id', session::get('survey-id'))
+                    ->ignore(session::get('student-id'))
+            ],
+        ];
+    }
 
     protected $messages = [
         'name.required' => 'Voornaam is verplicht',
@@ -31,15 +42,15 @@ class FormStep2 extends Component
 
     public function updatedName()
     {
-        $this->form->addRulesFromOutside($this->rules);
-        $this->validate($this->rules);
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
         $this->dispatch('set-enable-next');
     }
 
     public function save(): void
     {
-        $this->form->addRulesFromOutside($this->rules);
-        $this->validate($this->rules);
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
         if (session::has('survey-id')) {
             $this->form->createStudent($this->name, strtolower(session::get('survey-id')));

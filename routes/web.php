@@ -18,6 +18,11 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/step/{stepId}', function ($stepId) {
+        return view('survey', ['stepId' => $stepId]);
+    });
+
     Route::get('beheer', function () {
         return view('beheer');
 

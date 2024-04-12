@@ -135,25 +135,9 @@ class PostForm extends Form
            session::put([
                'student-name' => strip_tags($name),
                'student-id' => strip_tags($student->id),
-               'survey-id' =>strip_tags($surveyId),
-               'step2' => true
+               'survey-id' =>strip_tags($surveyId)
            ]);
        }
-    }
-
-    /**
-     * Get student list from json file for testing purposes
-     *
-     * @param stdClass $studentList
-     * @return void
-     */
-    public function createStudentListFromJson(stdClass $studentList): void
-    {
-        $this->createStudent($studentList->survey_id, $studentList->active_student, $studentList->class_id);
-
-        foreach ($studentList->survey_students as $studentName){
-            $this->createStudent($studentList->survey_id, $studentName, $studentList->class_id, false);
-        }
     }
 
     public function setStudentFinishedSurvey(): void

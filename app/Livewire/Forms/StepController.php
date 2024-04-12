@@ -54,18 +54,6 @@ class StepController extends Component
         $this->update = !$this->update;
     }
 
-//    public function getJsonQuestion(int $i): void
-//    {
-//        $question = SurveyQuestion::where('order', $i)->where('enabled', true)->first();
-//
-//        $this->jsonQuestion =
-//    }
-
-    public function getJsonNameList(): void
-    {
-        $this->jsonQuestionNameList = json_decode(file_get_contents(resource_path("surveys/prefilled-names.json")), FALSE);
-    }
-
     public function getJsonIntro(): void
     {
         $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-intro.json")), FALSE);
@@ -79,24 +67,11 @@ class StepController extends Component
     public function boot()
     {
         $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
-
-//        $questions = SurveyQuestion::orderBy('order', 'asc')->where('enabled', true)->get();
-//        $this->steps[] = 'forms.form-step-intro';
-//        foreach($questions as $question){
-//            $this->steps[] = 'forms.form-step' . $question->id;
-//        }
-//
-        $this->setActiveStep($this->jsonQuestion);
-    }
-
-    public function mount()
-    {
-        $this->getJsonIntro();
-        $this->getJsonNameList();
-
-        if($this->jsonQuestionNameList->active_list){
-            $this->form->createStudentListFromJson($this->jsonQuestionNameList);
+        if($this->stepId == 0) {
+            $this->getJsonIntro();
         }
+
+        $this->setActiveStep($this->jsonQuestion);
     }
 
     public function setStepIdUp(): void
