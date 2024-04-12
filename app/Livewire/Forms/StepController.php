@@ -73,6 +73,25 @@ class StepController extends Component
         $this->setActiveStep($this->jsonQuestion);
     }
 
+    public function continue()
+    {
+        if(Session::has('student-name') && Session::has('student-id') && Session::has('survey-id')) {
+            $answers = SurveyAnswer::where('student_id', Session::get('student-id'))
+                ->pluck('question_id')->toArray();
+            if($answers) {
+                $lastQuestion = SurveyQuestion::whereIn('id', $answers)
+                    ->orderBy('order', 'desc')->first();
+                $this->stepId = $lastQuestion->order;
+            }
+        }
+        $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
+        if($this->stepId == 0) {
+            $this->getJsonIntro();
+        }
+
+        $this->setActiveStep($this->jsonQuestion);
+    }
+
     public function setStepIdUp(): void
     {
         $this->next();
