@@ -7,6 +7,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">{{-- Safari --}}
     <title>Dualnets</title>
 
+    <!-- Include Plausible.IO script for privacy friendly stats -->
+    <script defer data-domain="<?= parse_url(env('APP_URL'), PHP_URL_HOST) ?>" src="https://plausible.io/js/plausible.js"></script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
