@@ -59,10 +59,15 @@ document.addEventListener('livewire:initialized', (e) => {
                 let countryVar = "";
 
                 document.getElementById('countryDataList').addEventListener('input', function () {
-                    const val = document.getElementById("countryDataList").value;
-                    btn.disabled = !(val !== "" && val.length > 2);
-
-                    countryVar = val;
+                    btn.disabled = true;
+                    const element = document.getElementById("countryDataList");
+                    for (var i = 0; i<  element.list.options.length; i++) {
+                        if (element.value === element.list.options[i].value) {
+                            btn.disabled = false;
+                            countryVar = element.value;
+                            break;
+                        }
+                    }
                 });
 
                 btn.addEventListener('click', function (e) {
