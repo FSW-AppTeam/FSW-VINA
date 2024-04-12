@@ -181,14 +181,6 @@ class StepController extends Component
 
     public function setDefaultActiveStep(): void
     {
-        if(!session::has('student-id')){
-            $this->stepId = 2;
-        }
-
-        if($this->stepId >= 2 && !session::has('survey-id')){
-            $this->stepId = 1;
-        }
-
         $this->activeStep = $this->steps[$this->stepId];
     }
 }
