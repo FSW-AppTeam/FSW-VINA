@@ -17,7 +17,6 @@ class FormStep2 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
-    public $jsonQuestionNameList;
 
     protected function rules()
     {

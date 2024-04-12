@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
+use App\Models\SurveyAnswer;
 use App\Models\SurveyStudent;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -158,7 +158,7 @@ class FormStep12 extends Component
 
     public function setDatabaseResponse()
     {
-        $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
+        $response = SurveyAnswer::where('student_id', $this->form->getStudent()->id)
             ->where('question_id', $this->jsonQuestion->id)
             ->whereJsonContains('student_answer->student_id', $this->startFriend['id'])
             ->first();

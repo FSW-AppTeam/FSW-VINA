@@ -7,11 +7,13 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class SurveyAnswer
- * 
+ *
  * @property int $id
  * @property string $student_id
  * @property int $question_id
@@ -25,10 +27,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SurveyAnswer extends Model
 {
+
+    use HasFactory;
 	protected $table = 'survey_answers';
 
 	protected $casts = [
-		'question_id' => 'int'
+		'question_id' => 'int',
+        'student_answer' => 'array'
 	];
 
 	protected $fillable = [
@@ -38,4 +43,12 @@ class SurveyAnswer extends Model
 		'question_title',
 		'student_answer'
 	];
+
+    protected function data(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => json_decode($value, true),
+            set: fn ($value) => json_encode($value),
+        );
+    }
 }

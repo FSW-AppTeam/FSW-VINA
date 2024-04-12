@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
 use Closure;
 use Livewire\Component;
 

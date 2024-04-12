@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Session;
@@ -20,8 +21,6 @@ class StepController extends Component
 
 
     public $jsonQuestion;
-
-    public $jsonQuestionNameList = [];
 
     public $steps;
 
