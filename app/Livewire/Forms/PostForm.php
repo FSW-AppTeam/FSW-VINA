@@ -105,13 +105,33 @@ class PostForm extends Form
         return ['students' => $students, 'relations' => $allFriends];
     }
 
-    public function createAnswer(array $answer, SurveyQuestion $jsonQuestions, int $stepId): void
+    public function createAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
     {
         SurveyAnswer::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
                 'question_id' => $jsonQuestions->id,
                 'question_title' => $jsonQuestions->question_title,
+            ],
+            [
+                'student_answer' => $answer,
+                'question_type' => $jsonQuestions->question_type,
+            ]
+        );
+
+        session::put([
+            "step$stepId" => true
+        ]);
+    }
+
+    public function createJsonAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
+    {
+        ray($jsonQuestions->question_title);
+        SurveyAnswer::updateOrCreate(
+            [
+                'student_id' => $this->getStudent()->id,
+                'question_id' => $jsonQuestions->id,
+                'question_title' => $jsonQuestions->question_title
             ],
             [
                 'student_answer' => $answer,

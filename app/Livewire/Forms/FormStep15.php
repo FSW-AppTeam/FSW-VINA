@@ -17,6 +17,7 @@ class FormStep15 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerSelected = [];
 
@@ -77,29 +78,29 @@ class FormStep15 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $answer = [
-                'student_id'    => $this->startStudent['id'],
-                'answer' => $this->answerSelected,
-            ];
+        $answer = [
+            'student_id'    => $this->startStudent['id'],
+            'answer' => $this->answerSelected,
+        ];
+        $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
 
-            $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-            if(array_key_exists(0, $this->students)){
-                $this->studentCounter ++;
-                $this->answerSelected = [];
-                $this->startStudent =  array_shift($this->students);
-                $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
-                $this->finishedStudent[] = $this->startStudent;
-                $this->setDatabaseResponse();
-                // next button skip question
+        $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+        if(array_key_exists(0, $this->students)){
+            $this->studentCounter ++;
+            $this->answerSelected = [];
+            $this->startStudent =  array_shift($this->students);
+ray(    $this->startStudent );
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+            $this->finishedStudent[] = $this->startStudent;
+            $this->setDatabaseResponse();
+            // next button skip question
 
-                if(empty($this->answerSelected['value'])) {
-                    $this->dispatch('set-block-btn-animation', null);
-                }
-            } else {
-                $this->disappear = false;
-                $this->dispatch('set-step-id-up');
+            if(empty($this->answerSelected['value'])) {
+                $this->dispatch('set-block-btn-animation', null);
             }
+        } else {
+            $this->disappear = false;
+            $this->dispatch('set-step-id-up');
         }
     }
 
@@ -131,7 +132,7 @@ class FormStep15 extends Component
 
         if(!empty($this->students)){
             $this->startStudent =  array_shift($this->students);
-            $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
             $this->finishedStudent[] = $this->startStudent;
         }
         $this->setDatabaseResponse();
@@ -156,10 +157,10 @@ class FormStep15 extends Component
         }
 
         foreach($this->jsonQuestion->question_answer_options as $key => $option) {
-            if(!empty($response->student_answer['answer']) && $option->id == $response->student_answer['answer']['id']) {
+            if(!empty($response->student_answer['answer']) && $option['id'] == $response->student_answer['answer']['id']) {
                 $this->setAnswerButtonSquare(
                     $response->student_answer['answer']['id'],
-                    $this->jsonQuestion->question_answer_options[$key]->value);
+                    $this->jsonQuestion->question_answer_options[$key]['value']);
                 return;
             }
         }

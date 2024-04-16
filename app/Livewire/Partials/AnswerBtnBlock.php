@@ -26,10 +26,12 @@ class AnswerBtnBlock extends Component
 
     public function render()
     {
-        if(in_array($this->id, $this->answerSelected ?? [])){
+        if(is_array($this->answerSelected) && in_array($this->id, $this->answerSelected ?? [])){
             $this->showBtn = !$this->showBtn;
         }
-
+        if(!is_array($this->answerSelected) && $this->id == $this->answerSelected){
+            $this->showBtn = !$this->showBtn;
+        }
         return view('livewire.partials.answer-btn-block');
     }
 

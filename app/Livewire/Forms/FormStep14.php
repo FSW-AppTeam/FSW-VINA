@@ -18,6 +18,7 @@ class FormStep14 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -101,27 +102,26 @@ class FormStep14 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $answer = [
-                'student_id' => $this->startStudent['id'],
-                'countries' => $this->flagsSelected
-            ];
+        $answer = [
+            'student_id' => $this->startStudent['id'],
+            'countries' => $this->flagsSelected
+        ];
+        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
 
-            $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-            foreach ($this->flagsSelected as $flagSelect){
-                $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
-            }
-            if(array_key_exists(0, $this->students)){
-                $this->studentCounter ++;
-                $this->flagsSelected = [];  // db output
-                $this->startStudent =  array_shift($this->students);
-                $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
-                $this->finishedStudent[] = $this->startStudent;
-                $this->setDatabaseResponse();
-                $this->dispatch('set-enable-next');
-            } else {
-                $this->dispatch('set-step-id-up');
-            }
+        $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+        foreach ($this->flagsSelected as $flagSelect){
+            $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
+        }
+        if(array_key_exists(0, $this->students)){
+            $this->studentCounter ++;
+            $this->flagsSelected = [];  // db output
+            $this->startStudent =  array_shift($this->students);
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+            $this->finishedStudent[] = $this->startStudent;
+            $this->setDatabaseResponse();
+            $this->dispatch('set-enable-next');
+        } else {
+            $this->dispatch('set-step-id-up');
         }
     }
 

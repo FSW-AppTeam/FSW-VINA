@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $question_id
  * @property string $question_type
  * @property string $question_title
- * @property string|null $student_answer
+ * @property string|array|null $student_answer
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

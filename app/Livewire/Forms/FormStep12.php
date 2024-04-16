@@ -28,6 +28,7 @@ class FormStep12 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -85,32 +86,31 @@ class FormStep12 extends Component
     {
         $this->disappear = false;
 
-        if (session::has('survey-id')) {
-            $answer = [
-                'student_id' => $this->startFriend['id'],
-                'answer' => array_column($this->friends, 'id'),
-            ];
-            $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-            $this->disappear = false;
+        $answer = [
+            'student_id' => $this->startFriend['id'],
+            'value' => array_column($this->friends, 'id'),
+        ];
+        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
+        $this->form->createJsonAnswer($answer, $this->jsonQuestion, $this->stepId);
+        $this->disappear = false;
 
-            if(array_key_exists(1, $this->students)){
-                $this->studentCounter ++;
+        if(array_key_exists(1, $this->students)){
+            $this->studentCounter ++;
 
-                foreach ($this->selectedFriendsIds as $id){
-                    $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
-                }
-
-                $this->friends = [];
-                $this->selectedFriendsIds = [];
-                $this->startFriend = array_shift($this->students);
-                $this->finishedFriend[] = $this->startFriend;
-                $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
-                $this->setDatabaseResponse();
-                $this->dispatch('set-enable-next');
-            } else {
-                $this->disappear = false;
-                $this->dispatch('set-step-id-up');
+            foreach ($this->selectedFriendsIds as $id){
+                $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
             }
+
+            $this->friends = [];
+            $this->selectedFriendsIds = [];
+            $this->startFriend = array_shift($this->students);
+            $this->finishedFriend[] = $this->startFriend;
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
+            $this->setDatabaseResponse();
+            $this->dispatch('set-enable-next');
+        } else {
+            $this->disappear = false;
+            $this->dispatch('set-step-id-up');
         }
     }
 

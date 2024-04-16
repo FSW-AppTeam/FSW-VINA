@@ -5,6 +5,7 @@
     @if(isset($activeStep))
         @livewire($activeStep, key('step-controller-id-'.$stepId), [
                 'jsonQuestion' => $jsonQuestion,
+                'savedAnswers' => $savedAnswers,
                 'stepId' => $stepId,
                 'nextEnabled' => $nextEnabled,
                 'backEnabled' => $backEnabled

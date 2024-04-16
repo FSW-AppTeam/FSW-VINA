@@ -18,7 +18,7 @@ class StepController extends Component
     public $stepId = 0;
     public $nextEnabled = false;
     public $backEnabled = false;
-
+    public $savedAnswers;
 
     public $jsonQuestion;
 
@@ -85,6 +85,7 @@ class StepController extends Component
             }
         }
         $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
+        $this->setSavedAnswers();
         if($this->stepId == 0) {
             $this->getJsonIntro();
         }
@@ -100,9 +101,12 @@ class StepController extends Component
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
-        // In case of a question is disabled, skip it. We have to set the order as the new stpId
-        $this->stepId = $question->order;
-        $this->jsonQuestion = $question;
+
+        if($question) {
+            // In case of a question is disabled, skip it. We have to set the order as the new stpId
+            $this->stepId = $question->order;
+            $this->jsonQuestion = $question;
+        }
         $this->setActiveStep($this->jsonQuestion);
     }
 
@@ -137,6 +141,7 @@ class StepController extends Component
     public function render()
     {
         $this->setActiveStep($this->jsonQuestion);
+        $this->setSavedAnswers();
         $this->setEnabledNext();
         $this->setEnabledBack();
 
@@ -145,16 +150,30 @@ class StepController extends Component
 
     public function setActiveStep($jsonQuestion): void
     {
-        if($this->stepId == 0) {
+        if ($this->stepId == 0) {
             $this->activeStep = 'forms.form-step-intro';
             return;
         }
 
-        if(isset($jsonQuestion->form_type)) {
+        if (isset($jsonQuestion->form_type)) {
             $this->activeStep = 'forms.form-step-' . $jsonQuestion->form_type;
             return;
         }
 
-        $this->activeStep =  'forms.form-step-' . $jsonQuestion->id;
+        if (!isset($jsonQuestion->id)) {
+            $this->activeStep = 'forms.form-step-outro';
+            return;
+        }
+        $this->activeStep = 'forms.form-step-' . $jsonQuestion->id;
+    }
+    public function setSavedAnswers(): void
+    {
+        $this->savedAnswers = null;
+        $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->id)
+            ->where('student_id', Session::get('student-id'));
+
+        if($savedAnswer->exists()) {
+            $this->savedAnswers =  $savedAnswer->first()->student_answer;
+        }
     }
 }

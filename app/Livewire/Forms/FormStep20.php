@@ -15,6 +15,7 @@ class FormStep20 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerSelected = [];
 
@@ -79,32 +80,25 @@ class FormStep20 extends Component
 
             return;
         }
+        $answer = [
+            'id' => $this->startStudent['id'] ?? [],
+            'value' => $this->answerSelected['id'] ?? [],
+        ];
+        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
 
-        if (\Session::has('survey-id')) {
-            $answer = [
-                'id' => $this->startStudent['id'] ?? [],
-                'value' => $this->answerSelected['id'] ?? [],
-            ];
-
-            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-good-knowing-student' => $this->answerSelected]);
-
-            if (!empty($this->students)) {
-                $this->startStudent = $this->students[0];
-                $this->studentCounter++;
-                $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter . " ID";
-
-                $this->answerSelected = [];
-                array_shift($this->students);
-
-                if(empty($answer['value'])){
-                    $this->dispatch('set-block-btn-animation', null);
-                }
-
-            } else {
-                $this->dispatch('set-step-id-up');
+        $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+        if (!empty($this->students)) {
+            $this->startStudent = $this->students[0];
+            $this->studentCounter++;
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+            $this->answerSelected = [];
+            array_shift($this->students);
+            if(empty($answer['value'])){
+                $this->dispatch('set-block-btn-animation', null);
             }
+
+        } else {
+            $this->dispatch('set-step-id-up');
         }
     }
 
@@ -121,7 +115,7 @@ class FormStep20 extends Component
         $this->shadowStudents = $this->students;
 
         $this->startStudent = $this->students[0];
-        $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
+        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
 
         // shifts the student shadow
         array_shift($this->students);
