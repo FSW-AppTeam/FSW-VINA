@@ -15,6 +15,7 @@ class FormStep8 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public string $originCountryName;
 
@@ -28,7 +29,7 @@ class FormStep8 extends Component
 
     public function rules(): array
     {
-        $this->messages['indicationCountry.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['indicationCountry.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'indicationCountry' => [
@@ -54,13 +55,14 @@ class FormStep8 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-            $this->form->createAnswer(!is_null($this->indicationCountry ) ? [$this->indicationCountry] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-indication-country' => $this->indicationCountry ?? null]);
+        $answer = [
+            'country_id' => $this->indicationCountry,
+            'countries' => $this->flagsSelected
+        ];
+        $this->form->createAnswer($this->indicationCountry, $this->jsonQuestion, $this->stepId);
 
-            $this->dispatch('set-step-id-up');
-        }
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void

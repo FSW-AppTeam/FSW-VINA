@@ -5,7 +5,7 @@
     <div class="mt-4">
         <div class="form-group set-fade-in">
                 <h6 class="pb-2">{{ $jsonQuestion->question_content }}</h6>
-                <input type="text" wire:model.live.debounce="name" class="form-control style-input" name="student-name" @disabled($jsonQuestionNameList->active_list)>
+                <input type="text" wire:model.live.debounce="name" class="form-control style-input" name="student-name">
 
             <p class="mt-3 sub-head-text">
                 Je achternaam is niet nodig. Als iemand in je klas dezelfde voornaam heeft als jij, dan kun je de

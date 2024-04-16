@@ -7,6 +7,7 @@ use Livewire\Component;
 class FormButtons extends Component
 {
     public $stepId;
+    public $jsonQuestion;
     public $nextEnabled;
     public $backEnabled;
 

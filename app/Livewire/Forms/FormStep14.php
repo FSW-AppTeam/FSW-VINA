@@ -3,7 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\FlagImage;
-use App\Models\SurveyAnswers;
+use App\Models\SurveyAnswer;
 use Closure;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -18,6 +18,7 @@ class FormStep14 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -41,7 +42,7 @@ class FormStep14 extends Component
 
     public function rules(): array
     {
-        $this->messages['flags.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['flags.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'flagsSelected' => [
@@ -101,27 +102,26 @@ class FormStep14 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $answer = [
-                'student_id' => $this->startStudent['id'],
-                'countries' => $this->flagsSelected
-            ];
+        $answer = [
+            'student_id' => $this->startStudent['id'],
+            'countries' => $this->flagsSelected
+        ];
+        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
 
-            $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-            foreach ($this->flagsSelected as $flagSelect){
-                $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
-            }
-            if(array_key_exists(0, $this->students)){
-                $this->studentCounter ++;
-                $this->flagsSelected = [];  // db output
-                $this->startStudent =  array_shift($this->students);
-                $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
-                $this->finishedStudent[] = $this->startStudent;
-                $this->setDatabaseResponse();
-                $this->dispatch('set-enable-next');
-            } else {
-                $this->dispatch('set-step-id-up');
-            }
+        $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+        foreach ($this->flagsSelected as $flagSelect){
+            $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
+        }
+        if(array_key_exists(0, $this->students)){
+            $this->studentCounter ++;
+            $this->flagsSelected = [];  // db output
+            $this->startStudent =  array_shift($this->students);
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+            $this->finishedStudent[] = $this->startStudent;
+            $this->setDatabaseResponse();
+            $this->dispatch('set-enable-next');
+        } else {
+            $this->dispatch('set-step-id-up');
         }
     }
 
@@ -176,8 +176,8 @@ class FormStep14 extends Component
 
     public function setDatabaseResponse()
     {
-        $response = SurveyAnswers::where('student_id', $this->form->getStudent()->id)
-            ->where('question_id', $this->stepId)
+        $response = SurveyAnswer::where('student_id', $this->form->getStudent()->id)
+            ->where('question_id', $this->jsonQuestion->id)
             ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
             ->first();
 

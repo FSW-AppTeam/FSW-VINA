@@ -16,6 +16,7 @@ class FormStep29 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerSelected = [];
 
@@ -39,7 +40,7 @@ class FormStep29 extends Component
 
     public function rules(): array
     {
-        $this->messages['answer_id.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['answer_id.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'answerSelected' => [
@@ -79,18 +80,22 @@ class FormStep29 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-class-interest' => $this->answerSelected]);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->answerSelected['id'], $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-class-interest') ?? [];
+        if ($this->savedAnswers == null) {
+            return;
+        }
+        $this->answerSelected['id'] = $this->savedAnswers ?? null;
+        foreach ($this->jsonQuestion->question_answer_options as $answer) {
+            {
+                if($this->savedAnswers == $answer['id'])
+                    $this->answerSelected['value'] = ucfirst($answer['value']);
+            }
+        }
     }
 
     public function render()

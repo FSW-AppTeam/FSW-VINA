@@ -1,3 +1,3 @@
 <div>
-    <livewire:forms.step-controller/>
+    <livewire:forms.step-controller :stepId="$stepId"/>
 </div>

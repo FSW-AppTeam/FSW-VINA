@@ -5,7 +5,7 @@
     <div id="scope-form-step25" class="set-fade-in">
 
         <div class="container text-center">
-            <h6 class="sub-head-text">{{ $jsonQuestion->question_options->extra_text }}</h6>
+            <h6 class="sub-head-text">{{ $jsonQuestion->question_options['extra_text'] }}</h6>
             <h6 class="py-3">{{ $jsonQuestion->question_content }}</h6>
         </div>
 
@@ -32,7 +32,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-10">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
-                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="{{ $answer->id . time()}}" />
+                        <livewire:partials.answer-btn-block :id="$answer['id']" :value="ucfirst($answer['value'])" :answer-selected="$answerSelected" wire:key="{{ $answer['id'] . time()}}" />
                     @endforeach
                 </div>
             </div>

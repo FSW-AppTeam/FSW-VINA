@@ -3,13 +3,11 @@
                 :back-enabled="$backEnabled"
                 :json-question="$jsonQuestion">
     <div id="scope-form-step22" class="set-fade-in">
-
         @if(empty($shadowStudents) && empty($students))
             <div class="step-notification alert alert-danger text-center">
-                <p>{{ $jsonQuestion->question_options->error_text }}</p>
+                <p>{{ $jsonQuestion->question_options['error_text'] }}</p>
             </div>
         @else
-
             <div class="container text-center">
                 <h6 class="pt-4">{{ $jsonQuestion->question_content }}</h6>
             </div>

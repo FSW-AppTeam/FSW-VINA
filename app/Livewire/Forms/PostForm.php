@@ -3,7 +3,8 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Survey;
-use App\Models\SurveyAnswers;
+use App\Models\SurveyAnswer;
+use App\Models\SurveyQuestion;
 use App\Models\SurveyStudent;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
@@ -14,7 +15,7 @@ use stdClass;
 class PostForm extends Form
 {
     use HandlesValidation;
-    public ?SurveyAnswers $answers;
+    public ?SurveyAnswer $answers;
 
     #[Computed(persist: true)]
     public function getStudent(): SurveyStudent
@@ -40,7 +41,7 @@ class PostForm extends Form
 
     public function getStudentsSelfFriendsSelected(): array
     {
-        $answers = SurveyAnswers::where('student_id', $this->getStudent()->id)
+        $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
             ->where('question_id', '=', 10)
             ->get('student_answer')->first()->student_answer;
 
@@ -53,7 +54,7 @@ class PostForm extends Form
 
     public function getStudentsNotInFriendsSelected(): array
     {
-        $answers = SurveyAnswers::where('student_id', $this->getStudent()->id)
+        $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
             ->where('question_id', '=', 10)
             ->get('student_answer')->first()->student_answer;
 
@@ -68,7 +69,7 @@ class PostForm extends Form
 
     public function getStudentsFriendsRelationsSelected(): array
     {
-        $answers = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
+        $answers = SurveyAnswer::where('survey_answers.student_id', $this->getStudent()->id)
             ->where('survey_answers.question_id', 12) // friends of friends
             ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
             ->where('survey_students.survey_id', '=', $this->getSurvey()->id)
@@ -104,13 +105,33 @@ class PostForm extends Form
         return ['students' => $students, 'relations' => $allFriends];
     }
 
-    public function createAnswer(array $answer, stdClass $jsonQuestions, int $stepId): void
+    public function createAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
     {
-        SurveyAnswers::updateOrCreate(
+        SurveyAnswer::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
-                'question_id' => $jsonQuestions->question_id,
+                'question_id' => $jsonQuestions->id,
                 'question_title' => $jsonQuestions->question_title,
+            ],
+            [
+                'student_answer' => $answer,
+                'question_type' => $jsonQuestions->question_type,
+            ]
+        );
+
+        session::put([
+            "step$stepId" => true
+        ]);
+    }
+
+    public function createJsonAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
+    {
+        ray($jsonQuestions->question_title);
+        SurveyAnswer::updateOrCreate(
+            [
+                'student_id' => $this->getStudent()->id,
+                'question_id' => $jsonQuestions->id,
+                'question_title' => $jsonQuestions->question_title
             ],
             [
                 'student_answer' => $answer,
@@ -134,25 +155,9 @@ class PostForm extends Form
            session::put([
                'student-name' => strip_tags($name),
                'student-id' => strip_tags($student->id),
-               'survey-id' =>strip_tags($surveyId),
-               'step2' => true
+               'survey-id' =>strip_tags($surveyId)
            ]);
        }
-    }
-
-    /**
-     * Get student list from json file for testing purposes
-     *
-     * @param stdClass $studentList
-     * @return void
-     */
-    public function createStudentListFromJson(stdClass $studentList): void
-    {
-        $this->createStudent($studentList->survey_id, $studentList->active_student, $studentList->class_id);
-
-        foreach ($studentList->survey_students as $studentName){
-            $this->createStudent($studentList->survey_id, $studentName, $studentList->class_id, false);
-        }
     }
 
     public function setStudentFinishedSurvey(): void
