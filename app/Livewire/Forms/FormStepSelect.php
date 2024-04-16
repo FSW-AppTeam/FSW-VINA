@@ -16,6 +16,7 @@ class FormStepSelect extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -54,13 +55,8 @@ class FormStepSelect extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-             $this->form->createAnswer(!is_null($this->input) ? [$this->input] : [], $this->jsonQuestion, $this->stepId);
-
-            \Session::put('student-' . $this->jsonQuestion['question_title'], $this->input ?? null);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->input, $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function updatedGender()
@@ -73,7 +69,7 @@ class FormStepSelect extends Component
 
     public function mount(): void
     {
-        $this->input = old('input') ?? \Session::get('student-' . $this->jsonQuestion['question_title']) ?? null;
+        $this->input = $this->savedAnswers ?? null;
         if($this->input) {
             $this->nextEnabled = true;
         }

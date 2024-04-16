@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\SurveyAnswers;
 use Closure;
 use Livewire\Component;
 
@@ -17,6 +16,7 @@ class FormStep5 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -48,13 +48,9 @@ class FormStep5 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-             $this->form->createAnswer(!is_null($this->educationDegree) ? [$this->educationDegree] : [], $this->jsonQuestion, $this->stepId);
+         $this->form->createAnswer($this->educationDegree, $this->jsonQuestion, $this->stepId);
 
-            \Session::put('student-education-degree', $this->educationDegree ?? null);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->dispatch('set-step-id-up');
     }
 
     public function updatedEducationDegree()
@@ -71,7 +67,7 @@ class FormStep5 extends Component
 
     public function mount(): void
     {
-        $this->educationDegree = old('education-degree') ?? \Session::get('student-education-degree') ?? null;
+        $this->educationDegree = $this->savedAnswers ?? null;
         if($this->educationDegree) {
             $this->nextEnabled = true;
         }

@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group mb-4">
-        <input type="text" wire:model="newReligion" class="form-control input-extra" name="newReligion"/>
+        <input type="text" wire:model="otherReligion" class="form-control input-extra" name="otherReligion"/>
     </div>
 </x-layouts.form>
 

@@ -16,6 +16,7 @@ class FormStep13 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -88,18 +89,13 @@ class FormStep13 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $this->form->createAnswer($this->flagsSelected, $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-country-culture-self' => $this->flagsSelected]);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->flagsSelected, $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-country-culture-self') ?? [];
+        $this->flagsSelected = $this->savedAnswers ?? [];
     }
 
     public function render()

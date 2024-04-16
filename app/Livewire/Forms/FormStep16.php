@@ -16,6 +16,7 @@ class FormStep16 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerSelected = [];
 
@@ -75,19 +76,14 @@ class FormStep16 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
-
-            $this->dispatch('set-enable-next');
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->answerSelected['id'], $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-enable-next');
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? session::get('student-immigration-own-behaviour') ?? [] ;
+        $this->answerSelected = $this->savedAnswers ?? null;
     }
 
     public function render()

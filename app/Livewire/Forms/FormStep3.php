@@ -16,6 +16,7 @@ class FormStep3 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -41,15 +42,8 @@ class FormStep3 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-            $this->form->createAnswer(!is_null($this->age) ? [$this->age] : [], $this->jsonQuestion, $this->stepId);
-
-            \Session::put([
-                'student-age' => $this->age ?? null
-            ]);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->age, $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function updatedAge()
@@ -62,7 +56,8 @@ class FormStep3 extends Component
 
     public function mount(): void
     {
-        $this->age = old('age') ?? \Session::get('student-age') ?? null;
+        ray( $this->savedAnswers );
+        $this->age = $this->savedAnswers ?? null;
         if($this->age) {
             $this->nextEnabled = true;
         }

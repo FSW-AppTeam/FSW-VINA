@@ -16,6 +16,7 @@ class FormStep26 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerSelected = [];
 
@@ -79,18 +80,22 @@ class FormStep26 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-class-polarisation-2' => $this->answerSelected]);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->answerSelected['id'], $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? session::get('student-class-polarisation-2') ?? [];
+        if ($this->savedAnswers == null) {
+            return;
+        }
+        $this->answerSelected['id'] = $this->savedAnswers ?? null;
+        foreach ($this->jsonQuestion->question_answer_options as $answer) {
+            {
+                if($this->savedAnswers == $answer['id'])
+                    $this->answerSelected['value'] = ucfirst($answer['value']);
+            }
+        }
     }
 
     public function render()

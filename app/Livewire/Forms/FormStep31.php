@@ -14,6 +14,7 @@ class FormStep31 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerText = "";
 
@@ -26,20 +27,14 @@ class FormStep31 extends Component
         $this->form->addRulesFromOutside($this->rules);
         $this->validate($this->rules);
 
-        if (session::has('survey-id')) {
-            $this->form->createAnswer([strip_tags($this->answerText)], $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-end-survey-answer' => $this->answerText]);
-
-            $this->form->setStudentFinishedSurvey();
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer(strip_tags($this->answerText), $this->jsonQuestion, $this->stepId);
+        $this->form->setStudentFinishedSurvey();
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->answerText = old('answerText') ?? \Session::get('student-end-survey-answer') ?? "";
+        $this->answerText = $this->savedAnswers ?? null;
     }
 
     public function render()
