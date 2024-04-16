@@ -163,7 +163,11 @@ class SurveyExport
                         case 15:
                             if (in_array($survey['question_title'] . " ID", $header)) {
                                 $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->student_id;
-                                $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->answer->value;
+                                if(isset($answer->answer->value)) {
+                                    $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->answer->value;
+                                } else {
+                                    $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = '';
+                                }
                             }
 
                             break;
