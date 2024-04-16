@@ -3,7 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Survey;
-use App\Models\SurveyAnswers;
+use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
 use App\Models\SurveyStudent;
 use Illuminate\Support\Facades\Session;
@@ -15,7 +15,7 @@ use stdClass;
 class PostForm extends Form
 {
     use HandlesValidation;
-    public ?SurveyAnswers $answers;
+    public ?SurveyAnswer $answers;
 
     #[Computed(persist: true)]
     public function getStudent(): SurveyStudent
@@ -41,7 +41,7 @@ class PostForm extends Form
 
     public function getStudentsSelfFriendsSelected(): array
     {
-        $answers = SurveyAnswers::where('student_id', $this->getStudent()->id)
+        $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
             ->where('question_id', '=', 10)
             ->get('student_answer')->first()->student_answer;
 
@@ -54,7 +54,7 @@ class PostForm extends Form
 
     public function getStudentsNotInFriendsSelected(): array
     {
-        $answers = SurveyAnswers::where('student_id', $this->getStudent()->id)
+        $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
             ->where('question_id', '=', 10)
             ->get('student_answer')->first()->student_answer;
 
@@ -69,7 +69,7 @@ class PostForm extends Form
 
     public function getStudentsFriendsRelationsSelected(): array
     {
-        $answers = SurveyAnswers::where('survey_answers.student_id', $this->getStudent()->id)
+        $answers = SurveyAnswer::where('survey_answers.student_id', $this->getStudent()->id)
             ->where('survey_answers.question_id', 12) // friends of friends
             ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
             ->where('survey_students.survey_id', '=', $this->getSurvey()->id)
@@ -105,13 +105,33 @@ class PostForm extends Form
         return ['students' => $students, 'relations' => $allFriends];
     }
 
-    public function createAnswer(array $answer, SurveyQuestion $jsonQuestions, int $stepId): void
+    public function createAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
     {
-        SurveyAnswers::updateOrCreate(
+        SurveyAnswer::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
                 'question_id' => $jsonQuestions->id,
                 'question_title' => $jsonQuestions->question_title,
+            ],
+            [
+                'student_answer' => $answer,
+                'question_type' => $jsonQuestions->question_type,
+            ]
+        );
+
+        session::put([
+            "step$stepId" => true
+        ]);
+    }
+
+    public function createJsonAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
+    {
+        ray($jsonQuestions->question_title);
+        SurveyAnswer::updateOrCreate(
+            [
+                'student_id' => $this->getStudent()->id,
+                'question_id' => $jsonQuestions->id,
+                'question_title' => $jsonQuestions->question_title
             ],
             [
                 'student_answer' => $answer,

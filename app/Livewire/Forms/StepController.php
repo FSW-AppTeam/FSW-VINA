@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Session;
@@ -17,11 +18,9 @@ class StepController extends Component
     public $stepId = 0;
     public $nextEnabled = false;
     public $backEnabled = false;
-
+    public $savedAnswers;
 
     public $jsonQuestion;
-
-    public $jsonQuestionNameList = [];
 
     public $steps;
 
@@ -74,6 +73,26 @@ class StepController extends Component
         $this->setActiveStep($this->jsonQuestion);
     }
 
+    public function continue()
+    {
+        if(Session::has('student-name') && Session::has('student-id') && Session::has('survey-id')) {
+            $answers = SurveyAnswer::where('student_id', Session::get('student-id'))
+                ->pluck('question_id')->toArray();
+            if($answers) {
+                $lastQuestion = SurveyQuestion::whereIn('id', $answers)
+                    ->orderBy('order', 'desc')->first();
+                $this->stepId = $lastQuestion->order;
+            }
+        }
+        $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
+        $this->setSavedAnswers();
+        if($this->stepId == 0) {
+            $this->getJsonIntro();
+        }
+
+        $this->setActiveStep($this->jsonQuestion);
+    }
+
     public function setStepIdUp(): void
     {
         $this->next();
@@ -82,9 +101,12 @@ class StepController extends Component
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
-        // In case of a question is disabled, skip it. We have to set the order as the new stpId
-        $this->stepId = $question->order;
-        $this->jsonQuestion = $question;
+
+        if($question) {
+            // In case of a question is disabled, skip it. We have to set the order as the new stpId
+            $this->stepId = $question->order;
+            $this->jsonQuestion = $question;
+        }
         $this->setActiveStep($this->jsonQuestion);
     }
 
@@ -119,6 +141,7 @@ class StepController extends Component
     public function render()
     {
         $this->setActiveStep($this->jsonQuestion);
+        $this->setSavedAnswers();
         $this->setEnabledNext();
         $this->setEnabledBack();
 
@@ -127,16 +150,30 @@ class StepController extends Component
 
     public function setActiveStep($jsonQuestion): void
     {
-        if($this->stepId == 0) {
+        if ($this->stepId == 0) {
             $this->activeStep = 'forms.form-step-intro';
             return;
         }
 
-        if(isset($jsonQuestion->form_type)) {
+        if (isset($jsonQuestion->form_type)) {
             $this->activeStep = 'forms.form-step-' . $jsonQuestion->form_type;
             return;
         }
 
-        $this->activeStep =  'forms.form-step-' . $jsonQuestion->id;
+        if (!isset($jsonQuestion->id)) {
+            $this->activeStep = 'forms.form-step-outro';
+            return;
+        }
+        $this->activeStep = 'forms.form-step-' . $jsonQuestion->id;
+    }
+    public function setSavedAnswers(): void
+    {
+        $this->savedAnswers = null;
+        $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->id)
+            ->where('student_id', Session::get('student-id'));
+
+        if($savedAnswer->exists()) {
+            $this->savedAnswers =  $savedAnswer->first()->student_answer;
+        }
     }
 }

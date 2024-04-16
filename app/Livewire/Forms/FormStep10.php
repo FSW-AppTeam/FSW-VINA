@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class FormStep10 extends Component
 {
     public PostForm $form;
-    public array $friends = [];
+    public array|null $friends = [];
     public array $selectedFriendsIds = [];
 
     public int $stepId;
@@ -17,6 +17,7 @@ class FormStep10 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -95,21 +96,26 @@ class FormStep10 extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-
-        if (session::has('survey-id')) {
-            $this->form->createAnswer(array_column($this->friends, 'id'), $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-own-friends-basic' => $this->friends]);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer(array_column($this->friends, 'id'), $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->friends = old('friends') ?? \Session::get('student-own-friends-basic') ?? [];
+        if(is_null($this->savedAnswers)) {
+            return;
+        }
+        $allStudents = $this->form->getStudentsWithoutActiveStudent();
+        foreach($allStudents as $student) {
+            if(in_array($student['id'], $this->savedAnswers)) {
+                $this->friends[] = [
+                    'id' => $student['id'],
+                    'name' => $student['name']
+                ];
+            }
+        }
 
-//      array to build the list for the view
+        // array to build the list for the view
         $index = -1;
         foreach ($this->friends as $key => $friend){
             if($key % 5 === 0){

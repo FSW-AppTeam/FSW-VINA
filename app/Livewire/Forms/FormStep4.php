@@ -16,6 +16,7 @@ class FormStep4 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -52,13 +53,8 @@ class FormStep4 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-             $this->form->createAnswer(!is_null($this->gender) ? [$this->gender] : [], $this->jsonQuestion, $this->stepId);
-
-            \Session::put('student-gender', $this->gender ?? null);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->gender, $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function updatedGender()
@@ -71,7 +67,7 @@ class FormStep4 extends Component
 
     public function mount(): void
     {
-        $this->gender = old('gender') ?? \Session::get('student-gender') ?? null;
+        $this->gender = $this->savedAnswers ?? null;
         if($this->gender) {
             $this->nextEnabled = true;
         }

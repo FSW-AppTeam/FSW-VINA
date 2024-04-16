@@ -10,14 +10,14 @@ class FormStep7 extends Component
     public PostForm $form;
 
     public int|null $originCountry = null;
-    public string|null $originCountryName = "";
-    public string|null $fromCountry = "";
+    public string|null $otherCountry = "";
 
     public $stepId;
     public $nextEnabled;
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -54,32 +54,21 @@ class FormStep7 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-            $this->form->createAnswer(!is_null($this->originCountry) ? [$this->originCountry] : [], $this->jsonQuestion, $this->stepId);
+        $answer = [
+            'country_id' => $this->originCountry,
+            'other_country' => $this->otherCountry
+        ];
 
-            if(!empty($this->fromCountry)){
-                $this->jsonQuestion->question_title = $this->jsonQuestion->question_options->question_custom_input_title;
-                $this->jsonQuestion->question_type = 'text';
-                $this->form->createAnswer([$this->fromCountry], $this->jsonQuestion, $this->stepId);
-            }
-
-            \Session::put(['student-origin-country' => $this->originCountry ?? null]);
-            \Session::put(['student-origin-country-name' => $this->originCountryName ?? null]);
-            \Session::put(['student-origin-from-country-name' => $this->fromCountry ?? null]);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->originCountry = old('originCountry') ?? \Session::get('student-origin-country') ?? null;
-        $this->originCountryName = old('fromCountry') ?? \Session::get('student-origin-country-name') ?? null;
 
+        $this->originCountry = $this->savedAnswers['country_id'] ?? null;
+        $this->otherCountry = $this->savedAnswers['other_country'] ?? null;
 
-        if($this->originCountry === 6){
-            $this->fromCountry = old('studentOriginFromCountryName') ?? \Session::get('student-origin-from-country-name') ?? null;
-        }
         if($this->originCountry) {
             $this->nextEnabled = true;
         }
@@ -89,7 +78,6 @@ class FormStep7 extends Component
     public function setAnswerBlockAnswerId(int $id, string $countryName): void
     {
         $this->originCountry = $id;
-        $this->originCountryName = $countryName;
     }
 
     public function render()

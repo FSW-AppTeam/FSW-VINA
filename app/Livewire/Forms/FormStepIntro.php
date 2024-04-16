@@ -11,6 +11,7 @@ class FormStepIntro extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public function mount(): void
     {
