@@ -7,12 +7,13 @@ use Livewire\Component;
 class FormStepIntro extends Component
 {
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public function mount(): void
     {
-//        session()->flash('message', 'Form Step intro mounted');
     }
 
     public function save(): void

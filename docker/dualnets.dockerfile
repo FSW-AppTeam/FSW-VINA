@@ -22,6 +22,8 @@ RUN apt-get install -y sendmail
 RUN apt-get install -y libpng-dev
 RUN apt-get install -y zlib1g-dev
 
+RUN apt-get install -y ca-certificates curl gnupg
+
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install zip
 
@@ -46,7 +48,11 @@ RUN a2enmod rewrite
 RUN a2enmod headers
 
 # install NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+
+RUN sudo apt-get update
 RUN apt-get install -y nodejs
 
 # install additional PHP extensions

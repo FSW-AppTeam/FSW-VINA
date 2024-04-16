@@ -5,12 +5,15 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep27 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -73,12 +76,13 @@ class FormStep27 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-class-fun-survey' => $this->answerSelected]);
+            session::put(['student-class-fun-survey' => $this->answerSelected]);
 
             $this->dispatch('set-step-id-up');
         }

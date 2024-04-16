@@ -1,4 +1,7 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+<x-layouts.form :step-id="$stepId"
+                :next-enabled="$nextEnabled"
+                :back-enabled="$backEnabled"
+                :json-question="$jsonQuestion">
     <div id="scope-form-step19" class="set-fade-in">
         <div class="container py-3">
             <div class="row">

@@ -9,17 +9,17 @@ class FormStep4 extends Component
 {
     public PostForm $form;
 
-    public int|null $gender;
+    public int|null $gender = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public $firstRequired = true;
 
     protected $messages = [];
-
-    public $setPage = true;
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
@@ -35,8 +35,6 @@ class FormStep4 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['gender.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
@@ -51,20 +49,32 @@ class FormStep4 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
-             $this->form->createAnswer([$this->gender ?? 0], $this->jsonQuestion, $this->stepId);
+        if (\Session::has('survey-id')) {
+             $this->form->createAnswer(!is_null($this->gender) ? [$this->gender] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put('student-gender', $this->gender);
+            \Session::put('student-gender', $this->gender ?? null);
 
             $this->dispatch('set-step-id-up');
         }
     }
 
+    public function updatedGender()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
+
+
     public function mount(): void
     {
         $this->gender = old('gender') ?? \Session::get('student-gender') ?? null;
+        if($this->gender) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function render()

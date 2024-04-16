@@ -1,6 +1,8 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+<x-layouts.form :step-id="$stepId"
+                :next-enabled="$nextEnabled"
+                :back-enabled="$backEnabled"
+                :json-question="$jsonQuestion">
     <div>
-
         @if(count($flagsSelected) >= 4)
             <div class="step-notification alert alert-danger text-center">
                 <p>{{ $jsonQuestion->question_options->error_text }}</p>
@@ -17,9 +19,7 @@
 
                         @for($x = 0; $x <= 3; $x++)
                             @if(isset($flagsSelected[$x]))
-                                {{--                        {{$flagsSelected[$x]['id']}}--}}
-
-                                <img src="{{ asset('flags/'.$flagsSelected[$x]['image'].'.jpg') }}"
+                                <img src="{{$flagsSelected[$x]['image']}}"
                                      style="height: 50px; width: 75px; margin: 5px; display: inline-block; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);"
                                      type="button"
                                      wire:click="removeSelectedFlagId({{$flagsSelected[$x]['id'] }}, '{{$flagsSelected[$x]['country']}}')"
@@ -36,11 +36,12 @@
 
                 </div>
 
-                <div class="mt-2 mb-3 fst-italic text-center">{{ $jsonQuestion->question_options->extra_text }}</div>
+                <div class="mt-2 mb-5 fst-italic text-center">{{ $jsonQuestion->question_options->extra_text }}</div>
 
                     <div class="row row-cols-2 justify-content-center text-center flags-row-buttons">
                         @foreach ($jsonQuestion->question_answer_options as $index => $answer)
-                            <livewire:partials.flag-image :id="$answer->id" :image="$answer->flag"
+                            <livewire:partials.flag-image :id="$answer->id"
+                                                          :image="$answer->flag"
                                                           :country="ucfirst($answer->value)"
                                                           :flags-selected="$flagsSelected"
                                                           wire:key="flag-set-key-{{ $index . time() }}"/>

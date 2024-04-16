@@ -8,13 +8,13 @@ use Livewire\Component;
 class FormStep6 extends Component
 {
     public PostForm $form;
-    public int|null $classTime;
+    public int|null $classTime = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
-
-    public $setPage = true;
 
     public $firstRequired = true;
 
@@ -34,20 +34,26 @@ class FormStep6 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['classTime.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
         ];
     }
 
+    public function updatedClassTime()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
+
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->classTime ?? null], $this->jsonQuestion, $this->stepId);
+        if (\Session::has('survey-id')) {
+            $this->form->createAnswer(!is_null($this->classTime) ? [$this->classTime] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-class-time' => $this->classTime ?? null]);
 
@@ -58,6 +64,9 @@ class FormStep6 extends Component
     public function mount(): void
     {
         $this->classTime = old('classTime') ?? \Session::get('student-class-time') ?? null;
+        if($this->classTime) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function setAnswerBlockAnswerId(int $id): void

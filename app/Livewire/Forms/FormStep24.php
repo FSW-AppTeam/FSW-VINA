@@ -5,12 +5,15 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep24 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -21,7 +24,9 @@ class FormStep24 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
+
     public array $students = [];
+
     public array $startStudent = [];
 
     public int $answerId;
@@ -71,12 +76,13 @@ class FormStep24 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
+        if (session::has('survey-id')) {
+            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-class-polarisation' => $this->answerSelected]);
+            session::put(['student-class-polarisation' => $this->answerSelected]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -84,7 +90,7 @@ class FormStep24 extends Component
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-class-polarisation') ?? [];
+        $this->answerSelected = old('answerSelected') ?? session::get('student-class-polarisation') ?? [];
     }
 
     public function render()

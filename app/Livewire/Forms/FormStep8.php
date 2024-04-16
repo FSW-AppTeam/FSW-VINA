@@ -8,17 +8,17 @@ use Livewire\Component;
 class FormStep8 extends Component
 {
     public PostForm $form;
-    public int|null $indicationCountry;
+    public int|null $indicationCountry = null;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public string $originCountryName;
 
     protected $messages = [];
-
-    public $setPage = true;
 
     public $firstRequired = true;
 
@@ -36,20 +36,26 @@ class FormStep8 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['indicationCountry.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
         ];
     }
 
+    public function updatedIndicationCountry()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
+
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->indicationCountry ?? null], $this->jsonQuestion, $this->stepId);
+        if (\Session::has('survey-id')) {
+            $this->form->createAnswer(!is_null($this->indicationCountry ) ? [$this->indicationCountry] : [], $this->jsonQuestion, $this->stepId);
 
             \Session::put(['student-indication-country' => $this->indicationCountry ?? null]);
 
@@ -60,6 +66,9 @@ class FormStep8 extends Component
     public function mount(): void
     {
         $this->indicationCountry = old('indicationCountry') ?? \Session::get('student-indication-country') ?? null;
+        if($this->indicationCountry) {
+            $this->nextEnabled = true;
+        }
     }
 
     public function setAnswerBlockAnswerId(int $id): void

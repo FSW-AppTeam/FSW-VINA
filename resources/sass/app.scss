@@ -1,8 +1,3 @@
-/*@tailwind base;*/
-/*@tailwind components;*/
-/*@tailwind utilities;*/
-
-
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
 
@@ -25,9 +20,6 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
-// Bootstrap icons
-@import 'bootstrap-icons/font/bootstrap-icons.css';
-
 @import 'animate.css';
 
 
@@ -35,15 +27,6 @@
     //transition: transform 0.2s ease-out;
     transform: scaleZ(2) scale(2);
 }
-
-
-//.modal.fade .modal-dialog {
-//    transform: scale(2);
-//}
-//
-//.modal.fade .modal-dialog {
-//    transform: translate3d(0, 100vh, 0);
-//}
 
 @media print {
     .container {
@@ -53,10 +36,6 @@
 
 .modal.show .modal-dialog {
     transform: translate3d(0, -10vh, 0);
-}
-
-datalist {
-    //display: contents;
 }
 
 :root {
@@ -77,31 +56,11 @@ html, body {
 
 .card {
     height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-    //height: calc(var(--h, 1vh) * 100);
-
     height: calc(var(--vh, 1vh) * 100 - 90px  );
     border: none;
     border-radius: 0;
     background-color: white;
 }
-
-//
-//.module_container {
-//  height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
-//  height: calc(var(--vh, 1vh) * 100);
-//  margin: 0;
-//  padding: 0;
-//  width: 100%;
-//
-//  background-color: green;
-//}
-//
-//.footer {
-//    position: absolute;
-//    bottom: 15px;
-//}
-
-
 
 .card-body {
     padding-bottom: 0;
@@ -136,16 +95,27 @@ p {
     line-height: 18px;
 }
 
+.arrow {
+    display: flex;
+    padding: 10px;
+}
+
+.arrow svg {
+    height: 25px;
+    shape-rendering: auto;
+    width: 70px;
+}
+
 .card-footer {
     background-color: white;
     border-top: none;
     margin-bottom: 15px;
 
     .btn {
-        width: 5rem !important;
         background-color: #dca351ff !important;
         border: none !important;
         border-radius: 3px !important;
+
     }
 
     .btn:hover {
@@ -184,7 +154,7 @@ p {
         border-radius: 60px;
         font-size: 0.8rem;
         text-align: center;
-        margin-bottom: -2px;
+        //margin-bottom: -2px;
 
         &.start-friend-btn-v2 {
             background-color: #dca351;
@@ -196,16 +166,8 @@ p {
             padding-top: 28px !important;
         }
 
-        &.circle-text {
-            padding-top: 22px !important;
-        }
-
         &.studentBtn.start-friend-btn-v2 {
             padding-top: 28px !important;
-
-            &.circle-text {
-                padding-top: 22px !important;
-            }
         }
 
     }
@@ -224,9 +186,15 @@ p {
     position: relative;
     top: 10px;
     width: 80px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     height: 105px;
+
+    &.shadow-row-step22 {
+        //position: unset;
+        //margin-left: 50% !important;
+        width: 196px;
+    }
 
     &.flag-active {
         height: unset;
@@ -252,9 +220,15 @@ p {
 
     &.line-students {
         top: -70px;
-        left: 150px;
+        margin-left: 40px;
         margin-top: 80px !important;
     }
+
+    &.line-students.step-list-15 {
+        top: -20px;
+        margin-top: 40px !important;
+    }
+
 
     .btn-circle.btn-xl.studentBtn {
         margin-right: 10px;
@@ -271,8 +245,8 @@ p {
     }
 
     &.relation-block-student-shadow {
-        left: -50px;
         z-index: 0;
+        left: 0 !important;
 
         .student-shadow-flex {
             display: inherit;
@@ -298,7 +272,15 @@ p {
 .block-student-active {
     .relation-block-student-shadow {
         margin-top: 80px;
+        //left: -80px !important;
+
+        width: 196px;
     }
+}
+
+.block-students-vertical.relation-block-student-shadow .student-shadow-flex {
+    display: inherit;
+    min-width: 210px;
 }
 
 #scope-form-step14 {
@@ -337,7 +319,8 @@ p {
 }
 
 #set-square-area {
-    height: 50px;
+    height: 45px;
+    margin-bottom: 15px;
     background-color: #fbfbfb;
     border: solid 1px #c2c0c0;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
@@ -378,6 +361,27 @@ p {
     box-shadow: 0 0 0 0.10rem rgb(255, 165, 0);
 }
 
+.form-control, .form-control:focus {
+    border-color: #FFA500FF;
+    box-shadow: none;
+    caret-color: #FFA500FF;
+}
+
+#country-set-btn {
+    border-color: #FFA500FF !important;
+    color: black;
+}
+
+input::-webkit-list-button {
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+
+    color: #FFA500FF !important;
+    fill: black !important;
+    stroke: black !important;
+}
+
 textarea {
     background-color: #ededed;
     border: 2px solid #dca351;
@@ -408,8 +412,7 @@ textarea:focus-visible, textarea:active {
 }
 
 .form-group {
-overflow: visible;
-
+    overflow: visible;
     h6, .h6{
         margin-left: 5px;
     }
@@ -488,26 +491,19 @@ overflow: visible;
     .student-block {
         margin-bottom: -20px !important;
     }
-
-    .student-block-v2 {
-        //margin-bottom: -80px !important;
-        //height: 55px;
-    }
-
     .selected-friends-row {
         .boxed-btn-4 {
-            margin-left: 0;
-            z-index: 9999;
-            margin-top: -80px;
+            margin-left: -20px;
+            z-index: 199;
         }
 
         .boxed-btn-3 {
             margin-left: -20px;
-            z-index: 0;
+            z-index: 110;
         }
 
         .boxed-btn-2 {
-            margin-left: 43px;
+            margin-left: -20px;
             z-index: 99;
         }
 
@@ -544,190 +540,19 @@ overflow: visible;
                 z-index: 0;
             }
 
-            .boxed-btn-4 {
-                //margin-left: 0;
-                //z-index: 99;
-                //margin-top: -20px;
-
-                //display: none !important;
-            }
         }
 
         &.question-step-friends {
-            //margin-bottom: -40px !important;
-
             .boxed-btn-4 {
-                //margin-left: 0;
                 z-index: 99;
                 margin-top: -20px;
-
-                //margin-bottom: -20px;
             }
-
-            //
-            //.boxed-btn-3 {
-            //    position: absolute;
-            //    right: 30px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-2 {
-            //    position: absolute;
-            //    left: 10px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-1 {
-            //    position: absolute;
-            //    left: 10px;
-            //    z-index: 0;
-            //}
-            //
-            //.boxed-btn-0 {
-            //    position: absolute;
-            //    left: 100px;
-            //    z-index: 0;
-            //}
 
             &.qv2 {
                 margin-bottom: -80px !important;
 
             }
         }
-    }
-
-
-
-    .selected-friends-row-v2 {
-        .boxed-btn-4 {
-            margin-left: 0;
-            z-index: 9999;
-            margin-top: -80px;
-        }
-
-        .boxed-btn-3 {
-            margin-left: -245px;
-            z-index: 0;
-            position: absolute;
-        }
-
-        .boxed-btn-2 {
-            margin-left: 120px;
-            //z-index: 99;
-            position: absolute;
-        }
-
-        .boxed-btn-1 {
-            margin-left: -120px;
-            z-index: 15;
-        }
-
-        .boxed-btn-0 {
-            position: absolute;
-            z-index: 20;
-            left: 172px;
-        }
-    }
-
-    /* question 12 */
-    .selected-friends-row-v3 {
-            margin-top: -80px;
-
-
-        .boxed-btn-4 {
-            margin-left: 0;
-            z-index: 9999;
-            margin-top: -80px;
-        }
-
-        .boxed-btn-3 {
-            right: 42px;
-            z-index: 0;
-            position: absolute;
-
-
-            //margin-top: -60px;
-        }
-
-        .boxed-btn-2 {
-            left: 10px;
-            z-index: 0;
-            position: absolute;
-            //margin-top: -60px;
-        }
-
-        .boxed-btn-1 {
-            right: 106px;
-            z-index: 15;
-            position: absolute;
-
-            //margin-top: -60px;
-        }
-
-        .boxed-btn-0 {
-            z-index: 20;
-            margin-left: -118px;
-            margin-bottom: 0 !important;
-        }
-    }
-
-
-    .selected-friends-row-v4 {
-
-        .boxed-btn-4 {
-            margin-left: -24px;
-            z-index: 99;
-            margin-top: 60px;
-        }
-
-        .boxed-btn-3 {
-            right: 40px;
-            z-index: 0;
-            position: absolute;
-        }
-
-        .boxed-btn-2 {
-            left: 42px;
-            z-index: 0;
-            position: absolute;
-        }
-
-        .boxed-btn-1 {
-            right: 106px;
-            z-index: 15;
-            position: absolute;
-        }
-
-        .boxed-btn-0 {
-            z-index: 20;
-            margin-left: -120px;
-
-            margin-bottom: -20px;
-
-            &.swithced {
-               margin-bottom: 60px ;
-            }
-        }
-
-
-        &.question-step-friends {
-            //margin-top: -80px;
-
-            &.qv2 {
-                margin-top: -80px !important;
-            }
-
-            .boxed-btn-0 {
-                margin-left: -60px;
-                margin-bottom: 60px !important;
-            }
-
-            .boxed-btn-4 {
-            }
-
-        }
-
-
     }
 
     .start-friend {
@@ -745,6 +570,8 @@ overflow: visible;
     margin-left: auto;
     margin-right: auto;
     padding-left: 22px;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     .btn:active {
       border: none;
@@ -754,28 +581,6 @@ overflow: visible;
         margin-bottom: 0;
         //margin-left: -4px;
         width: 88px;
-    }
-}
-
-
-.my-bounce-left {
-    animation-name: bounceOutLeftD;
-    animation-duration: 1s;
-    //animation-delay: 1s;
-    //animation-iteration-count : 1;
-}
-
-//
-//@keyframes slideOutUpd {
-//    from { }
-//    to   { top: 20px;}
-//}
-
-@keyframes slideOutUpd {
-    0% {
-    }
-    100% {
-        transform: translateY(-500px)
     }
 }
 
@@ -791,6 +596,11 @@ overflow: visible;
     to {
         opacity: 0;
     }
+}
+
+// set-square-btn callback
+.btn.btn-outline-secondary.press-buttons-inline.rounded {
+    animation: setFadeIn 600ms ease forwards;
 }
 
 .set-fade-in {
@@ -821,31 +631,6 @@ overflow: visible;
     }
 }
 
-
-.bounce-out-left-btn {
-    //animation: bounceOutLeft    1.5s forwards;
-    //animation: bounceOutLeft 1s ease-in forwards;
-
-    animation-name: bounceOutLeft;
-    animation-duration: 1s;
-    animation-delay: 1s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes bounceOutLeft {
-    20% {
-        opacity: 1;
-        transform: translate3d(10px, 0, 0) scaleX(1);
-    }
-
-    to {
-        opacity: 0;
-        transform: translate3d(-2000px, 0, 0) scaleX(2);
-    }
-}
-
-
-
 /* iPhone X and Xs Max */
 @media only screen
 //and (min-device-width: 375px)
@@ -855,6 +640,10 @@ and (-webkit-min-device-pixel-ratio: 3) {
         &.student-list {
             margin-left: -10px !important;
         }
+    }
+
+    .students-overview {
+        max-height: 300px;
     }
 
     .form-group.student-list .btn-circle.btn-xl {
@@ -892,5 +681,120 @@ and (-webkit-min-device-pixel-ratio: 3) {
     .btn.press-buttons-inline {
         padding: 11px;
     }
+
+    .form-group.student-list .selected-friends-row-v4.v2 .boxed-btn-1{
+        margin-right: -26px;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-2{
+        margin-left: 0;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.v2 .boxed-btn-0.third-run {
+        margin-left: -107px !important;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-3 {
+        margin-right: 10px;
+    }
+
+    .form-group.student-list .selected-friends-row-v3 .boxed-btn-2 {
+        margin-left: 0;
+    }
+
+    .form-group.student-list .selected-friends-row-v3 .boxed-btn-3 {
+        margin-right: 10px !important;
+    }
+
+    .form-group.student-list .selected-friends-row-v4.question-step-friends .boxed-btn-4 {
+        margin-left: -29px;
+    }
+
+    .block-students-vertical.line-students {
+        margin-left: 20px;
+    }
+
+    #answer-end {
+        width: 310px;
+    }
 }
 
+
+//DA css
+.selected-btn-grow {
+    animation: grow-circle 1.5s 1;
+}
+// Used for circle buttons to grow
+@keyframes grow-circle {
+    from {
+        -webkit-transform: scale( 0.0 );
+        -moz-transform: scale( 0.0 );
+        -o-transform: scale( 0.0 );
+        -ms-transform: scale( 0.0 );
+        transform: scale( 0.0 );
+    }
+    to {
+        -webkit-transform: scale( 1 );
+        -moz-transform: scale( 1 );
+        -o-transform: scale( 1 );
+        -ms-transform: scale( 1 );
+        transform: scale( 1 );
+    }
+}
+
+.selected-btn-shrink {
+    animation: shrink-circle 0.8s 1;
+    animation-fill-mode: forwards;
+}
+
+// Used for circle buttons to shrink and dissapear
+@keyframes shrink-circle {
+    to {
+        width: 6.3%;
+        margin-inline: inherit;
+        -webkit-transform: scale( 0.0 );
+        -moz-transform: scale( 0.0 );
+        -o-transform: scale( 0.0 );
+        -ms-transform: scale( 0.0 );
+        transform: scale( 0.0 );
+    }
+    from {
+        -webkit-transform: scale( 1 );
+        -moz-transform: scale( 1 );
+        -o-transform: scale( 1 );
+        -ms-transform: scale( 1 );
+        transform: scale( 1 );
+    }
+}
+
+.move-to-left-btn{
+    animation: moveToLeft ease 200ms 1;
+    animation-fill-mode: forwards;
+    animation-delay: 300ms
+}
+
+// Used for circle buttons to move to the left after the previous button has bounced to the left and off screen.
+@keyframes moveToLeft {
+    to {
+        transform: translate3d(-80px, 0, 0)
+    }
+}
+
+.bounce-out-left-btn {
+    animation: bounceOutLeft ease-in forwards;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+}
+
+// Used for circle buttons to bounce to the left and off screen
+@keyframes bounceOutLeft {
+    from {
+        opacity: 1;
+        transform: translate3d(10px, 0, 0) scaleX(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(-2000px, 0, 0) scaleX(2);
+    }
+}

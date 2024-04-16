@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep11 extends Component
@@ -12,14 +13,14 @@ class FormStep11 extends Component
     public array $selectedFriendsIds = [];
 
     public int $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public \stdClass $jsonQuestion;
 
     public $firstRequired = true;
 
     protected array $messages = [];
-
-    public $setPage = true;
 
     public $index = 0;
     public $friendsList = [];
@@ -81,8 +82,6 @@ class FormStep11 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['friends.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 },
                 'array'
@@ -92,12 +91,13 @@ class FormStep11 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $this->form->createAnswer(array_column($this->friends, 'id'), $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-own-friends-trust' => $this->friends]);
+            session::put(['student-own-friends-trust' => $this->friends]);
 
             $this->dispatch('set-step-id-up');
         }
@@ -105,7 +105,7 @@ class FormStep11 extends Component
 
     public function mount(): void
     {
-        $this->friends = old('friends') ?? \Session::get('student-own-friends-trust') ?? [];
+        $this->friends = old('friends') ?? session::get('student-own-friends-trust') ?? [];
 
         $index = -1;
         foreach ($this->friends as $key => $friend){

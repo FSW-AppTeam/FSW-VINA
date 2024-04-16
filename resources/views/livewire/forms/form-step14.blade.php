@@ -1,42 +1,32 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+<x-layouts.form :step-id="$stepId"
+                :next-enabled="$nextEnabled"
+                :back-enabled="$backEnabled"
+                :json-question="$jsonQuestion">
     <div>
-        @if(count($flagsSelected) >= 4)
-            <div class="step-notification alert alert-danger text-center">
-                <p>{{ $jsonQuestion->question_options->error_text }}</p>
-            </div>
-        @endif
-
 
         <div class="set-fade-in">
+            @if(count($flagsSelected) >= 4)
+                <div class="step-notification pt-3 alert alert-danger text-center ">
+                    <p>{{ $jsonQuestion->question_options->error_text }}</p>
+                </div>
+            @endif
+
+
+
             <div id="scope-form-step14">
                 <div class="row justify-content-center">
                     <h6 class="mt-2 text-center px-2">{{ $jsonQuestion->question_content }}</h6>
                 </div>
-
-{{--                <div class="text-center block-student-active flag-active">--}}
-{{--                    <div id="{{$startStudent['id']}}"--}}
-{{--                        class="p-2 btn-circle btn-xl studentBtn title @if(strlen($startStudent['name']) > 8) circle-text @endif" data-start-student>--}}
-{{--                        {{$startStudent['name']}}--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-                <div class="mt-4 text-center block-students-vertical line-students " data-student-list>
-                    @foreach($shadowStudents as $key => $student)
-                        <div class="student-shadow-flex @if($key !== 0) fadeOut @endif">
-                            <div id="{{$student['id']}}"
-                                class="p-2 btn-circle btn-xl studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
-                                {{$student['name']}}
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+                <livewire:partials.students-buttons
+                    :startStudent="$startStudent"
+                    :students="$students"
+                    wire:key="key-student-q14-{{ $startStudent['id'] }}"/>
 
                 <div class="text-center flag-shadow">
                     <div style="display: inline-flex">
-
                         @for($x = 0; $x <= 3; $x++)
                             @if(isset($flagsSelected[$x]))
-                                <img src="{{ asset('flags/'.$flagsSelected[$x]['image'].'.jpg') }}"
+                                <img src="{{asset($flagsSelected[$x]['image'])}}"
                                      style="height: 50px; width: 75px; margin: 5px; display: inline-block; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);"
                                      type="button"
                                      wire:click="removeSelectedFlagId({{$flagsSelected[$x]['id'] }}, '{{$flagsSelected[$x]['country']}}')"
@@ -45,7 +35,7 @@
                                      class="rounded"
                                 >
                             @else
-                                <div style="height: 45px; width: 75px; margin: 5px; background-color: #f8f8f8; display: inline-block;
+                                <div style="height: 50px; width: 75px; margin: 5px; background-color: #f8f8f8; display: inline-block;
                     border: 1px solid darkgray;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);"
                                      class="rounded"></div>
                             @endif
@@ -54,16 +44,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    {{--            <input type="text" wire:model="flagsSelected" id="flagsSelected" class="active-flags" />--}}
-                    {{--            <input type="text" wire:model="selectedFlagIds" id="selectedFlagIds" class="active-flags-ids" />--}}
-                </div>
-
                 <div class="mt-2 mb-3 fst-italic text-center">{{ $jsonQuestion->question_options->extra_text }}</div>
 
                     <div class="row row-cols-2 justify-content-center text-center flags-row-buttons">
                         @foreach ($jsonQuestion->question_answer_options as $index => $answer)
-                            <livewire:partials.flag-image :id="$answer->id" :image="$answer->flag"
+                            <livewire:partials.flag-image :id="$answer->id"
+                                                          :image="$answer->flag"
                                                           :country="ucfirst($answer->value)"
                                                           :flags-selected="$flagsSelected"
                                                           wire:key="flag-key-student-q14-{{ $index . time() }}"/>

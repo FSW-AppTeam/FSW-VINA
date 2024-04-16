@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('survey_students', function (Blueprint $table) {
             $table->id();
-            $table->string('class_id');
-            $table->string('name');
-            $table->integer('survey_id');
+            $table->string('name')->nullable();
             $table->dateTime('finished_at')->nullable();
             $table->dateTime('exported_at')->nullable();
-            $table->unique(['name', 'class_id', 'survey_id']);
+            $table->unique(['name', 'survey_id']);
+            $table->foreignId('survey_id')->constrained('surveys');
             $table->timestamps();
         });
     }

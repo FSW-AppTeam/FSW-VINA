@@ -5,12 +5,15 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep16 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -25,8 +28,6 @@ class FormStep16 extends Component
     public array $students = [];
 
     public array $startStudent = [];
-
-    public int $studentCounter = 1;
 
     public int $answerId;
 
@@ -43,17 +44,13 @@ class FormStep16 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired) {
+                    if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-
-                        if (empty($value)) {
-                            $fail($this->messages['answer_id.required']);
-                        }
+                        $fail($this->messages['answer_id.required']);
                     }
                 },
                 'array'
             ],
-
         ];
     }
 
@@ -75,24 +72,27 @@ class FormStep16 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->answerSelected['id']], $this->jsonQuestion, $this->stepId);
+        if (session::has('survey-id')) {
+            $this->form->createAnswer(isset($this->answerSelected['id']) ? [$this->answerSelected['id']] : [], $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
+            session::put(['student-immigration-own-behaviour' => $this->answerSelected]);
 
+            $this->dispatch('set-enable-next');
             $this->dispatch('set-step-id-up');
         }
     }
 
     public function mount(): void
     {
-        $this->answerSelected = old('answerSelected') ?? \Session::get('student-immigration-own-behaviour') ?? [];
+        $this->answerSelected = old('answerSelected') ?? session::get('student-immigration-own-behaviour') ?? [] ;
     }
 
     public function render()
     {
+        $this->dispatch('set-enable-next');
         return view('livewire.forms.form-step16');
     }
 }

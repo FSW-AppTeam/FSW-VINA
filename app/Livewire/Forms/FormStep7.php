@@ -9,19 +9,19 @@ class FormStep7 extends Component
 {
     public PostForm $form;
 
-    public int|null $originCountry;
+    public int|null $originCountry = null;
     public string|null $originCountryName = "";
     public string|null $fromCountry = "";
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
     public $firstRequired = true;
 
     protected $messages = [];
-
-    public $setPage = true;
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
@@ -37,20 +37,25 @@ class FormStep7 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['origin-country.required']);
-                    } else {
-                        $this->setPage = false;
                     }
                 }
             ],
         ];
     }
 
+    public function updatedOriginCountry()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-enable-next');
+    }
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
-            $this->form->createAnswer([$this->originCountry ?? null], $this->jsonQuestion, $this->stepId);
+        if (\Session::has('survey-id')) {
+            $this->form->createAnswer(!is_null($this->originCountry) ? [$this->originCountry] : [], $this->jsonQuestion, $this->stepId);
 
             if(!empty($this->fromCountry)){
                 $this->jsonQuestion->question_title = $this->jsonQuestion->question_options->question_custom_input_title;
@@ -74,6 +79,9 @@ class FormStep7 extends Component
 
         if($this->originCountry === 6){
             $this->fromCountry = old('studentOriginFromCountryName') ?? \Session::get('student-origin-from-country-name') ?? null;
+        }
+        if($this->originCountry) {
+            $this->nextEnabled = true;
         }
 
     }

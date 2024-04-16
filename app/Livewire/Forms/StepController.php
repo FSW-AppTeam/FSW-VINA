@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Forms;
 
-use File;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 /**
@@ -10,22 +11,27 @@ use Livewire\Component;
  */
 class StepController extends Component
 {
+    public PostForm $form;
     public $activeStep = 'forms.form-step-intro';
+    public $stepId = 0;
+    public $nextEnabled = false;
+    public $backEnabled = false;
+    public $defaultEnabledNext = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+
 
     public $jsonQuestion;
 
-    public $stepId = 0;
+    public $jsonQuestionNameList = [];
 
     public $steps;
 
     protected $listeners = [
-        'postAdded' => '$refresh',
         'set-step-id-up' => 'setStepIdUp',
         'set-step-id-down' => 'setStepIdDown',
-        'set-refresh-stepper'  => '$refresh'
+        'set-refresh-stepper'  => '$refresh',
     ];
 
-    public function next(bool $skip = false)
+    public function next()
     {
         $currentIndex = array_search($this->activeStep, $this->steps);
         $this->activeStep = ($currentIndex + 1) >= count($this->steps) ? $this->steps[$currentIndex] : $this->steps[$currentIndex + 1];
@@ -44,22 +50,27 @@ class StepController extends Component
 
     public function getJsonQuestion(int $i): void
     {
-        if(file_exists(storage_path("app/surveys/q-$i.json"))){
-            $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-$i.json")), FALSE);
+        if(file_exists(resource_path("surveys/q-$i.json"))){
+            $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-$i.json")), FALSE);
         }
+    }
+
+    public function getJsonNameList(): void
+    {
+        $this->jsonQuestionNameList = json_decode(file_get_contents(resource_path("surveys/prefilled-names.json")), FALSE);
     }
 
     public function getJsonIntro(): void
     {
-        $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-intro.json")), FALSE);
+        $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-intro.json")), FALSE);
     }
 
     public function getJsonOutro(int $i): void
     {
-        $this->jsonQuestion = json_decode(file_get_contents(storage_path("app/surveys/q-outro.json")), FALSE);
+        $this->jsonQuestion = json_decode(file_get_contents(resource_path("surveys/q-outro.json")), FALSE);
     }
 
-    public function booted()
+    public function boot()
     {
         $this->steps = [
             'forms.form-step-intro',
@@ -96,36 +107,42 @@ class StepController extends Component
             'forms.form-step31',
             'forms.form-step32',
         ];
+
+        $this->setDefaultActiveStep();
     }
 
     public function mount()
     {
-//        $this->getJsonQuestion($this->stepId);
         $this->getJsonIntro();
+        $this->getJsonNameList();
+
+        if($this->jsonQuestionNameList->active_list){
+            $this->form->createStudentListFromJson($this->jsonQuestionNameList);
+        }
     }
 
 //    not using, maybe future
-    protected function setFormSteps(): void
-    {
-        $steps = [];
-        $path = resource_path('views/livewire/forms');
-        $files = File::allFiles($path);
-
-        foreach ($files as $file){
-         $name = $file->getFilenameWithoutExtension(); // remove .php
-         $name = substr($name, 0, -6); // remove .blade
-
-            if(str_starts_with($name, 'form-step')){
-                $steps[] = 'forms.' . $name;
-            }
-        }
-    }
+//    protected function setFormSteps(): void
+//    {
+//        $steps = [];
+//        $path = resource_path('views/livewire/forms');
+//        $files = File::allFiles($path);
+//
+//        foreach ($files as $file){
+//         $name = $file->getFilenameWithoutExtension(); // remove .php
+//         $name = substr($name, 0, -6); // remove .blade
+//
+//            if(str_starts_with($name, 'form-step')){
+//                $steps[] = 'forms.' . $name;
+//            }
+//        }
+//    }
 
     public function setStepIdUp(): void
     {
         $this->next();
         $this->stepId ++;
-        $this->getJsonQuestion($this->stepId);
+        $this->setDefaultActiveStep();
     }
 
     public function setStepIdDown(): void
@@ -133,16 +150,37 @@ class StepController extends Component
         $this->back();
         $this->stepId --;
 
-        if(\Session::get('student-origin-country') === 1 || is_null(\Session::get('student-origin-country')) && ($this->stepId === 7)){  // skip question 8
+        if(is_null(\Session::get('student-origin-country')) && ($this->stepId === 7)){  // skip question 8
             $this->back();
             $this->stepId --;
         }
+        $this->setDefaultActiveStep();
+    }
 
-        $this->getJsonQuestion($this->stepId);
+    public function setEnabledNext(): void
+    {
+        if (in_array($this->stepId, $this->defaultEnabledNext)){
+            $this->nextEnabled = true;
+        }
+    }
+
+    public function setEnabledBack(): void
+    {
+        $this->backEnabled = true;
     }
 
     public function render()
     {
+        $this->getJsonQuestion($this->stepId);
+
+        $this->setEnabledNext();
+        $this->setEnabledBack();
+
         return view('livewire.forms.step-controller');
+    }
+
+    public function setDefaultActiveStep(): void
+    {
+        $this->activeStep = $this->steps[$this->stepId];
     }
 }

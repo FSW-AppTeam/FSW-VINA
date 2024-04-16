@@ -5,15 +5,17 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\FlagImage;
 use Closure;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class FormStep13 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
-
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -48,9 +50,26 @@ class FormStep13 extends Component
 
     public function setSelectedFlagId(int $id, string $image, string $country): void
     {
-        if(count($this->flagsSelected) <= 3){
-            $this->flagsSelected[] = ['id' => $id, 'image' => $image, 'country' => $country];
+
+        if(count($this->flagsSelected) > 3){
+            return;
         }
+        $imageFile = false;
+        if($image == 'anders'){
+            $image = $country;
+        }
+        $isoFlag = array_search(strtolower($image), array_map('strtolower', getIsoCountries()));
+
+        if(file_exists(public_path('build/images/flags/' . strtolower($isoFlag) . '.svg'))){
+            $imageFile = asset('build/images/flags/' . strtolower($isoFlag) . '.svg');
+
+        }
+
+        if(!$imageFile && file_exists(public_path('images/flags/' . strtolower($image) . '.jpg'))){
+            $imageFile = asset('images/flags/' . strtolower($image) . '.jpg');
+        }
+        $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
+
     }
 
     public function removeSelectedFlagId(int $id, string $country): void
@@ -66,12 +85,13 @@ class FormStep13 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
             $this->form->createAnswer($this->flagsSelected, $this->jsonQuestion, $this->stepId);
 
-            \Session::put(['student-country-culture-self' => $this->flagsSelected]);
+            session::put(['student-country-culture-self' => $this->flagsSelected]);
 
             $this->dispatch('set-step-id-up');
         }

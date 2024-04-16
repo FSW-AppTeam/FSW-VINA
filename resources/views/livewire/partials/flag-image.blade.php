@@ -1,7 +1,7 @@
 <div class="col">
     @if ($showFlag)
         <div class="col image-box p-2">
-            <img src="{{ asset('flags/' .$image. '.jpg') }}"
+            <img src="{{ asset('images/flags/' .$image. '.jpg') }}"
                  style="width: 90%;"
                  type="button"
                  wire:click="setFlag({{$id}})"
@@ -10,7 +10,12 @@
             <p class="mt-1">{{$country}}</p>
         </div>
     @else
-        <div class="col p-2"  style="height: 123px; width: 180px;"></div>
+        <div class="col image-box p-2" style="opacity: 0;">
+            <img src="{{ asset('images/flags/' .$image. '.jpg') }}"
+                 style="width: 90%;"
+                 type="button">
+            <p class="mt-1">{{$country}}</p>
+        </div>
     @endif
 </div>
 

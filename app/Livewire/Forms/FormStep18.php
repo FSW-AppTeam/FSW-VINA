@@ -2,9 +2,8 @@
 
 namespace App\Livewire\Forms;
 
-use App\Livewire\Partials\AnswerBtnBlock;
-use App\Livewire\Partials\FlagImage;
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep18 extends Component
@@ -12,6 +11,8 @@ class FormStep18 extends Component
     public PostForm $form;
 
     public $stepId;
+    public $nextEnabled;
+    public $backEnabled;
 
     public $jsonQuestion;
 
@@ -22,12 +23,16 @@ class FormStep18 extends Component
     protected array $messages = [];
 
     public $basicTitle = "";
+
     public array $students = [];
+
     public array $startStudent = [];
 
     public int $studentCounter = 1;
 
     public int $answerId;
+
+    public array $shadowStudents = [];
 
     protected $listeners = [
         'set-answer-button-square' => 'setAnswerButtonSquare',
@@ -45,12 +50,12 @@ class FormStep18 extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                         if ($this->firstRequired && empty($value)) {
                             $this->firstRequired = false;
+                            $this->dispatch('set-enable-next');
                             $fail($this->messages['answer_id.required']);
-                    }
+                        }
                 },
                 'array'
             ],
-
         ];
     }
 
@@ -69,25 +74,31 @@ class FormStep18 extends Component
 
     public function save(): void
     {
-        $this->validate();
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
 
-        if (\Session::has('survey-student-class-id')) {
+        if (session::has('survey-id')) {
                 $answer = [
-                    'id' => $this->startStudent['id'],
+                    'id' => $this->startStudent['id'] ?? [],
                     'value' => $this->answerSelected['id'] ?? [],
                 ];
 
                 $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
 
-                \Session::put(['student-good-knowing-student' => $this->answerSelected]);
+                session::put(['student-good-knowing-student' => $this->answerSelected]);
 
-            if(array_key_exists(0, $this->students)){
+            if(!empty($this->students[0])){
                 $this->startStudent = $this->students[0];
                 $this->studentCounter ++;
-                $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
+                $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
 
                 $this->answerSelected = [];
+
                 array_shift($this->students);
+
+                if(empty($answer['value'])){
+                    $this->dispatch('set-block-btn-animation', null);
+                }
             } else {
                 $this->dispatch('set-step-id-up');
             }
@@ -96,18 +107,17 @@ class FormStep18 extends Component
 
     public function mount(): void
     {
-//        $this->flagsSelected = old('flagsSelected') ?? \Session::get('student-knowing-student') ?? [];
-
         $this->basicTitle = $this->jsonQuestion->question_title;
-        $this->jsonQuestion->question_title = $this->basicTitle . " $this->studentCounter";
         $this->students = $this->form->getStudentsSelfFriendsSelected();
 
         if(!empty($this->students)){
             shuffle($this->students);
 
+            $this->shadowStudents = $this->students;
+
             $this->startStudent = $this->students[0];
-//
-//        // shifts the student shadow
+            $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
+
             array_shift($this->students);
         }
     }

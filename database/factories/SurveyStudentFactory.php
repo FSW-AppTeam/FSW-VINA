@@ -13,8 +13,6 @@ class SurveyStudentFactory extends Factory
     {
         return [
             'name' => fake()->firstName(),
-            'class_id' => 'u5',
-            'survey_id' => 1,
         ];
     }
 }

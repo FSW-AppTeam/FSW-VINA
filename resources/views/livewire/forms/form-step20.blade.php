@@ -1,4 +1,7 @@
-<x-layouts.form :step-id="$stepId" :json-question="$jsonQuestion">
+<x-layouts.form :step-id="$stepId"
+                :next-enabled="$nextEnabled"
+                :back-enabled="$backEnabled"
+                :json-question="$jsonQuestion">
     <div id="scope-form-step20" class="set-fade-in">
 
         @if(empty($startStudent))
@@ -11,26 +14,17 @@
                 <h6 class="pt-2 px-2">{{ $jsonQuestion->question_content }}</h6>
             </div>
 
-        <div class="text-center">
-            <div class="block-student-active ">
-
-                <div id="{{$startStudent['id']}}"
-                     class="p-2 btn-circle btn-xl title @if(strlen($startStudent['name']) > 8) circle-text @endif" data-start-student>
-                    {{$startStudent['name']}}
-                </div>
-
-                <div class="block-students-vertical">
-                    @foreach($students as $student)
+            <div class="mt-4 text-center block-students-vertical line-students step-list-15 " data-student-list>
+                @foreach($shadowStudents as $key => $student)
+                    <div class="student-shadow-flex @if($key !== 0) fadeOut @endif">
                         <div id="{{$student['id']}}"
-                             class="p-2 btn-circle btn-xl fadeOut studentBtn title @if(strlen($student['name']) > 8) circle-text @endif">
+                             class="p-2 btn-circle btn-xl studentBtn title">
                             {{$student['name']}}
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
         @endif
-
 
         <div class="container-sm">
             <div class="row justify-content-center align-items-center text-center">
@@ -55,7 +49,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-11 col-lg-8">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
-                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="step-form-q22-{{ $answer->id }}" />
+                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="step-form-q22-{{ $answer->id . time()}}" />
                     @endforeach
                 </div>
             </div>

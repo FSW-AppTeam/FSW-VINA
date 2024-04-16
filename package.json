@@ -20,6 +20,8 @@
     },
     "dependencies": {
         "animate.css": "^4.1.1",
-        "livewire": "^0.6.1"
+        "flag-icons": "^7.1.0",
+        "livewire": "^0.6.1",
+        "vite-plugin-static-copy": "^0.17.0"
     }
 }
