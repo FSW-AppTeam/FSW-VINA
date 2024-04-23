@@ -126,7 +126,6 @@ class PostForm extends Form
 
     public function createJsonAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
     {
-        ray($jsonQuestions->question_title);
         SurveyAnswer::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,

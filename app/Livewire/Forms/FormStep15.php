@@ -89,7 +89,7 @@ class FormStep15 extends Component
             $this->studentCounter ++;
             $this->answerSelected = [];
             $this->startStudent =  array_shift($this->students);
-ray(    $this->startStudent );
+
             $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
             $this->finishedStudent[] = $this->startStudent;
             $this->setDatabaseResponse();

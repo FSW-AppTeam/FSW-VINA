@@ -101,7 +101,6 @@ class StepController extends Component
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
-
         if($question) {
             // In case of a question is disabled, skip it. We have to set the order as the new stpId
             $this->stepId = $question->order;

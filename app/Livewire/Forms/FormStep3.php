@@ -56,7 +56,6 @@ class FormStep3 extends Component
 
     public function mount(): void
     {
-        ray( $this->savedAnswers );
         $this->age = $this->savedAnswers ?? null;
         if($this->age) {
             $this->nextEnabled = true;

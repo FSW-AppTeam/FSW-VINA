@@ -1,6 +1,6 @@
 <div class="">
     <div class="">
-        <form method="POST" wire:submit.prevent="save">
+        <form wire:submit="save">
             @csrf
 
             <div class="card @if($stepId === 0) animate__animated animate__fadeIn animate__slow @endif">
@@ -17,7 +17,11 @@
                         {{ $slot }}
                     </div>
                 </div>
-                @livewire('partials.form-buttons', ['stepId' => $stepId, 'jsonQuestion' => $jsonQuestion, 'nextEnabled' => $nextEnabled, 'backEnabled' => $backEnabled])
+                @livewire('partials.form-buttons', [
+                    'stepId' => $stepId,
+                    'jsonQuestion' => $jsonQuestion,
+                    'nextEnabled' => $nextEnabled,
+                    'backEnabled' => $backEnabled])
             </div>
         </form>
     </div>
