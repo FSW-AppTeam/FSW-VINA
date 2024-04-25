@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\SurveyAnswer;
+use App\Models\SurveyQuestion;
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep8 extends Component
@@ -17,11 +20,13 @@ class FormStep8 extends Component
     public $jsonQuestion;
     public $savedAnswers;
 
-    public string $originCountryName;
+    public $depentsOnQuestion = 7;
 
     protected $messages = [];
 
     public $firstRequired = true;
+
+    public $originCountryName;
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
@@ -54,12 +59,6 @@ class FormStep8 extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-
-
-        $answer = [
-            'country_id' => $this->indicationCountry,
-            'countries' => $this->flagsSelected
-        ];
         $this->form->createAnswer($this->indicationCountry, $this->jsonQuestion, $this->stepId);
 
         $this->dispatch('set-step-id-up');
@@ -67,7 +66,7 @@ class FormStep8 extends Component
 
     public function mount(): void
     {
-        $this->indicationCountry = old('indicationCountry') ?? \Session::get('student-indication-country') ?? null;
+        $this->indicationCountry = $this->savedAnswers ?? null;
         if($this->indicationCountry) {
             $this->nextEnabled = true;
         }
@@ -80,17 +79,31 @@ class FormStep8 extends Component
 
     public function render()
     {
-        // skip question when origin country was 1 or not set in question 6
-        if(\Session::get('student-origin-country') === 1 || is_null(\Session::get('student-origin-country'))){
-            $this->dispatch('set-step-id-up');
+        $savedAnswer = SurveyAnswer::where('question_id', $this->depentsOnQuestion)
+            ->where('student_id', Session::get('student-id'));
 
+        if(!$savedAnswer->exists()) {
+            $this->dispatch('set-step-id-up');
             return view('livewire.partials.blanco');
-        } else {
-            if(\Session::get('student-origin-country') === 6){
-                $this->originCountryName = old('originFromCountryName') ?? \Session::get('student-origin-from-country-name') ?? null;
-            } else {
-                $this->originCountryName = old('originCountryName') ?? \Session::get('student-origin-country-name') ?? null;
+        }
+
+        $depentsOnQuestionAnswers =  $savedAnswer->first()->student_answer;
+
+        if($depentsOnQuestionAnswers['country_id'] === 1) {
+            $this->dispatch('set-step-id-up');
+            return view('livewire.partials.blanco');
+        }
+
+        $depentsOnQuestion = SurveyQuestion::find($this->depentsOnQuestion);
+
+        foreach($depentsOnQuestion->question_answer_options as $option){
+            if($option['id'] === $depentsOnQuestionAnswers['country_id']) {
+                $this->originCountryName = $option['value'];
             }
+        }
+
+        if($depentsOnQuestionAnswers['country_id'] === 6) {
+            $this->originCountryName = $depentsOnQuestionAnswers['other_country'];
         }
 
         return view('livewire.forms.form-step8');

@@ -111,7 +111,8 @@ class FormStep20 extends Component
             return;
         }
         shuffle($this->students);
-
+        // get the first 3 students
+        $this->students = array_slice($this->students, 0, 3);
         $this->shadowStudents = $this->students;
 
         $this->startStudent = $this->students[0];
