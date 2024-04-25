@@ -154,7 +154,6 @@
     {
         "question_id": 8,
         "order": 11,
-        "enabled": false,
         "question_type": "int",
         "question_title": "Identificatie met herkomstland",
         "question_content": "Hoe sterk voel jij je horen bij mensen uit het herkomstland ",
@@ -358,6 +357,7 @@
     {
         "question_id": 21,
         "order": 24,
+        "enabled": false,
         "question_type": "text",
         "question_title": "Tussentekst band",
         "question_content": "De volgende vragen gaan over de band tussen sommige van je klasgenoten."
@@ -365,6 +365,7 @@
     {
         "question_id": 22,
         "order": 25,
+        "enabled": false,
         "question_type": "json",
         "question_title": "Band",
         "question_content": "Hoe sterk is de band tussen:",
