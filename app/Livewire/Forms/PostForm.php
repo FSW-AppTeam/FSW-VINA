@@ -62,7 +62,6 @@ class PostForm extends Form
             ->whereNot('id', $this->getStudent()->id)
             ->whereNotIn('id', $answers)
             ->where('survey_id', '=', $this->getSurvey()->id)
-            ->limit(3)
             ->get()
             ->toArray();
     }
