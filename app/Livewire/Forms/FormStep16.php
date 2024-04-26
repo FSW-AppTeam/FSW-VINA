@@ -18,7 +18,7 @@ class FormStep16 extends Component
     public $jsonQuestion;
     public $savedAnswers;
 
-    public $answerSelected = [];
+    public $answerSelected = null;
 
     public $firstRequired = true;
 
@@ -83,9 +83,9 @@ class FormStep16 extends Component
 
     public function mount(): void
     {
-        $this->answerSelected['id'] = $this->savedAnswers ?? null;
         foreach ($this->jsonQuestion->question_answer_options as $option) {
             if ($option['id'] === $this->savedAnswers) {
+                $this->answerSelected['id'] = $this->savedAnswers;
                 $this->answerSelected['value'] = $option['value'];
             }
         }
