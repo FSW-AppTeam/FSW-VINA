@@ -97,16 +97,23 @@ class SurveyExport
             if (!in_array($survey['student_id'], $studentIds)) {
                 $studentIds[] = $survey['student_id'];
                 $answers[$survey['student_id']]['Respondent code'] = $survey['student_id'];
-                $answers[$survey['student_id']]['Starttijd'] = date_create($survey['created_at'])->format('H:i');
-                $answers[$survey['student_id']]['Eindtijd'] = date_create($survey['finished_at'])->format('H:i');
+
+                $startDateTime = SurveyAnswer::where('student_id', $survey['student_id'])->orderBy('created_at', 'asc')->first()->created_at;
+                $answers[$survey['student_id']]['Starttijd'] = date_create($startDateTime)->format('H:i');
+
+                $answers[$survey['student_id']]['Eindtijd'] = date_create($survey['finished_at'] )->format('H:i');
+                if($survey['finished_at'] === null) {
+                    $answers[$survey['student_id']]['Eindtijd'] = 'not finished';
+                }
             }
 
             $answer = json_decode($survey['student_answer']);
             switch ($survey['question_type']) {
                 case "int":
                 case "text":
+                case "string":
                 {
-                    $answers[$survey['student_id']][$survey['question_title']] = empty($answer) ? '' : $answer[0];
+                    $answers[$survey['student_id']][$survey['question_title']] = empty($answer) ? '' : $answer;
                     break;
                 }
 
@@ -171,17 +178,6 @@ class SurveyExport
                             }
 
                             break;
-                        case 18:
-                        case 20:
-                        {
-                            if (in_array($survey['question_title'] . " ID", $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer[0]->id;
-                                $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer[0]->value;
-                            }
-
-                            break;
-                        }
-
                         case 22:
                         {
                             if (in_array($survey['question_title'] . " IDs", $header)) {
@@ -194,10 +190,9 @@ class SurveyExport
 
                         default:
                         {
-                            if (is_array($answer[0]->value)) {
-                                $answers[$survey['student_id']][$survey['question_title']] = implode(', ', $answer[0]->value);
-                            } else {
-                                $answers[$survey['student_id']][$survey['question_title']] = implode(', ', [$answer[0]->value]);
+                            if (in_array($survey['question_title'] . " ID", $header)) {
+                                $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->id;
+                                $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->value;
                             }
                         }
                     }
