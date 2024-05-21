@@ -14,11 +14,12 @@ class FormStep31 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerText = "";
 
     protected $rules = [
-        'answerText' => 'string',
+        'answerText' => 'nullable|string|max:500',
     ];
 
     public function save(): void
@@ -26,24 +27,21 @@ class FormStep31 extends Component
         $this->form->addRulesFromOutside($this->rules);
         $this->validate($this->rules);
 
-        if (session::has('survey-id')) {
-            $this->form->createAnswer([strip_tags($this->answerText)], $this->jsonQuestion, $this->stepId);
-
-            session::put(['student-end-survey-answer' => $this->answerText]);
-
-            $this->form->setStudentFinishedSurvey();
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer(strip_tags($this->answerText), $this->jsonQuestion, $this->stepId);
+        $this->form->setStudentFinishedSurvey();
     }
 
     public function mount(): void
     {
-        $this->answerText = old('answerText') ?? \Session::get('student-end-survey-answer') ?? "";
+        $this->answerText = $this->savedAnswers ?? null;
     }
 
     public function render()
     {
+        if($this->form->getStudent()->finished_at) {
+            return view('livewire.forms.form-step-outro');
+        }
+
         return view('livewire.forms.form-step31');
     }
 }

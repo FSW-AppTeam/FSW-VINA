@@ -15,6 +15,7 @@ class FormStep22 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $answerSelected = [];
 
@@ -32,8 +33,6 @@ class FormStep22 extends Component
     public array $shadowStudents = [];
 
     public int $answerId;
-
-    public $studentCounter = 1;
 
     public const SELF_ID_TEXT = 'Jou';
 
@@ -79,40 +78,37 @@ class FormStep22 extends Component
         $this->form->addRulesFromOutside($this->rules());
 //        $this->validate($this->rules());
 
-        if (session::has('survey-id')) {
-            $answer = [
-                'empty'
-//                'id' => $this->startStudent['id'] ?? [],
-//                'relation_id' => $this->startStudentRelation['id'] ?? [],
-//                'value' => $this->answerSelected['id'] ?? [],
-            ];
+        $answer = [
+            'empty'
+//            'id' => $this->startStudent['id'] ?? [],
+//            'relation_id' => $this->startStudentRelation['id'] ?? [],
+//            'value' => $this->answerSelected['id'] ?? [],
+        ];
 
-            $this->form->createAnswer([$answer], $this->jsonQuestion, $this->stepId);
+//        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+        $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
 
-            $this->dispatch('set-step-id-up');
-//            session::put(['student-connection-relation-student' => $this->answerSelected]);
+        $this->dispatch('set-step-id-up');
+//        session::put(['student-connection-relation-student' => $this->answerSelected]);
+//
+//        if (!empty($this->studentRelationIds)) {
+//            array_shift($this->studentRelationIds);
+//
+//            if(empty($this->answerSelected['id'])){
+//                array_shift($this->shadowStudents);
+//            }
 //
 //            if (!empty($this->studentRelationIds)) {
-//                array_shift($this->studentRelationIds);
-//
-//                if(empty($this->answerSelected['id'])){
-//                    array_shift($this->shadowStudents);
-//                }
-//
-//                if (!empty($this->studentRelationIds)) {
-//                    $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
-//                    $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);
-//                    $this->studentCounter++;
-//
-//                    $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
-//                    $this->answerSelected = [];
-//                } else {
-//                    $this->dispatch('set-step-id-up');
-//                }
+//                $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']);
+//                $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']);
+//                $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+//                $this->answerSelected = [];
 //            } else {
 //                $this->dispatch('set-step-id-up');
 //            }
-        }
+//        } else {
+//            $this->dispatch('set-step-id-up');
+//        }
     }
 
     public function getStudentById(int $id)
@@ -132,15 +128,13 @@ class FormStep22 extends Component
     {
         $this->basicTitle = $this->jsonQuestion->question_title;
         $questionSet = $this->form->getStudentsFriendsRelationsSelected();
-        $this->jsonQuestion->question_title = $this->basicTitle . " " . $this->studentCounter;
-
         $this->students = $questionSet['students'];
         $this->studentRelationIds = $questionSet['relations'];
 
         if (!empty($this->students)) {
             $this->startStudent = $this->getStudentById($this->studentRelationIds[0]['id']) ?? [];
             $this->startStudentRelation = $this->getStudentById($this->studentRelationIds[0]['relation_id']) ?? [];
-
+            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
             shuffle($this->studentRelationIds);
             $this->shadowStudents = $this->studentRelationIds;
         }

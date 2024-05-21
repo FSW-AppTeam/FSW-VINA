@@ -1,7 +1,7 @@
 <div class="card-footer">
     <div class="mb-2">
         @php $backwardArray =[12, 14]; @endphp
-        @if(in_array($stepId, $backwardArray))
+        @if(in_array($jsonQuestion->id, $backwardArray))
             <button class="btn btn-secondary btn-survey float-start arrow"
                     wire:click="$dispatch('set-sub-step-id-down')"
                     wire:loading.attr="disabled"
@@ -24,7 +24,7 @@
                 </button>
             @endif
         @endif
-        @if($stepId == 12 || $stepId == 14 )
+        @if($jsonQuestion->id == 12 || $jsonQuestion->id == 14 )
             <button class="btn btn-secondary btn-survey float-end arrow"
                     wire:click="nextStep()"
                     wire:loading.attr="disabled"

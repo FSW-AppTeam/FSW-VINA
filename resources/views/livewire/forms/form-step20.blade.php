@@ -6,7 +6,7 @@
 
         @if(empty($startStudent))
             <div class="step-notification alert alert-danger text-center">
-                <p>{{ $jsonQuestion->question_options->error_text }}</p>
+                <p>{{ $jsonQuestion->question_options['extra_text'] }}</p>
             </div>
         @else
 
@@ -49,7 +49,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-11 col-lg-8">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
-                        <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="step-form-q22-{{ $answer->id . time()}}" />
+                        <livewire:partials.answer-btn-block :id="$answer['id']" :value="ucfirst($answer['value'])" :answer-selected="$answerSelected" wire:key="step-form-q22-{{ $answer['id'] . time()}}" />
                     @endforeach
                 </div>
             </div>

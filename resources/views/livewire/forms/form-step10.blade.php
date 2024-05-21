@@ -41,7 +41,7 @@
             @endif
         </div>
 
-        <p class="sub-head-text pt-4 student-list">{{ $jsonQuestion->question_options->extra_text }}</p>
+        <p class="sub-head-text pt-4 student-list">{{ $jsonQuestion->question_options['extra_text'] }}</p>
         <div class="form-group students-overview mb-3">
             <div class="row" wire:poll>
                 @foreach ($this->form->getStudentsWithoutActiveStudent() as $student)

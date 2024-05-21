@@ -70,7 +70,6 @@ class FormStep1 extends Component
         $survey = Survey::where('survey_code', $this->surveyCode)->first();
         session::put([
             'survey-id' => $survey->id,
-            'step1' => true
         ]);
 
         $this->dispatch('set-step-id-up');

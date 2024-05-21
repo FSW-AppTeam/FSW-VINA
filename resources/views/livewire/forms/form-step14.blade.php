@@ -7,7 +7,7 @@
         <div class="set-fade-in">
             @if(count($flagsSelected) >= 4)
                 <div class="step-notification pt-3 alert alert-danger text-center ">
-                    <p>{{ $jsonQuestion->question_options->error_text }}</p>
+                    <p>{{ $jsonQuestion->question_options['extra_text'] }}</p>
                 </div>
             @endif
 
@@ -44,13 +44,13 @@
                     </div>
                 </div>
 
-                <div class="mt-2 mb-3 fst-italic text-center">{{ $jsonQuestion->question_options->extra_text }}</div>
+                <div class="mt-2 mb-3 fst-italic text-center">{{ $jsonQuestion->question_options['extra_text'] }}</div>
 
                     <div class="row row-cols-2 justify-content-center text-center flags-row-buttons">
                         @foreach ($jsonQuestion->question_answer_options as $index => $answer)
-                            <livewire:partials.flag-image :id="$answer->id"
-                                                          :image="$answer->flag"
-                                                          :country="ucfirst($answer->value)"
+                            <livewire:partials.flag-image :id="$answer['id']"
+                                                          :image="$answer['flag']"
+                                                          :country="ucfirst($answer['value'])"
                                                           :flags-selected="$flagsSelected"
                                                           wire:key="flag-key-student-q14-{{ $index . time() }}"/>
                         @endforeach

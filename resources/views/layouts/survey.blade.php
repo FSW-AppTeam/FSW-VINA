@@ -26,6 +26,8 @@
 
 </head>
 <body>
+    @bladedebug('<a href="/reset" class="skip-link">Reset</a>')
+    @ribbon()
     <main class="module_container">
         @yield('content')
     </main>

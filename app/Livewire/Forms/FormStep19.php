@@ -13,6 +13,7 @@ class FormStep19 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public function save(): void
     {

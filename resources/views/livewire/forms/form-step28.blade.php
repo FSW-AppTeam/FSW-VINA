@@ -32,7 +32,7 @@
                 <div class="row justify-content-center align-items-center">
                     <div class="col-12 col-lg-10">
                         @foreach ($jsonQuestion->question_answer_options as $answer)
-                            <livewire:partials.answer-btn-block :id="$answer->id" :value="ucfirst($answer->value)" :answer-selected="$answerSelected" wire:key="{{ $answer->id . time() }}" />
+                            <livewire:partials.answer-btn-block :id="$answer['id']" :value="ucfirst($answer['value'])" :answer-selected="$answerSelected" wire:key="{{ $answer['id'] . time() }}" />
                         @endforeach
                     </div>
                 </div>

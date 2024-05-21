@@ -1,11 +1,13 @@
 {
     "survey_id": 1,
-    "question_id": 0,
+    "id": 0,
+    "order": 0,
     "question_type": "text",
     "question_title": "",
     "question_content": " ",
     "question_answer_options": "",
     "question_options": {
         "extra_text": " "
-    }
+    },
+    "default_disable_next": false
 }

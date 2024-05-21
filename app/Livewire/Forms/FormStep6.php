@@ -15,6 +15,7 @@ class FormStep6 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     public $firstRequired = true;
 
@@ -26,7 +27,7 @@ class FormStep6 extends Component
 
     public function rules(): array
     {
-        $this->messages['classTime.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['classTime.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'classTime' => [
@@ -52,18 +53,13 @@ class FormStep6 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-            $this->form->createAnswer(!is_null($this->classTime) ? [$this->classTime] : [], $this->jsonQuestion, $this->stepId);
-
-            \Session::put(['student-class-time' => $this->classTime ?? null]);
-
-            $this->dispatch('set-step-id-up');
-        }
+        $this->form->createAnswer($this->classTime, $this->jsonQuestion, $this->stepId);
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->classTime = old('classTime') ?? \Session::get('student-class-time') ?? null;
+        $this->classTime = $this->savedAnswers ?? null;
         if($this->classTime) {
             $this->nextEnabled = true;
         }

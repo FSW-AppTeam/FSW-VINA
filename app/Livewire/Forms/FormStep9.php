@@ -10,13 +10,14 @@ class FormStep9 extends Component
     public PostForm $form;
 
     public int|null $religion = null;
-    public string $newReligion;
+    public string|null $otherReligion;
 
     public $stepId;
     public $nextEnabled;
     public $backEnabled;
 
     public $jsonQuestion;
+    public $savedAnswers;
 
     protected $messages = [];
 
@@ -28,7 +29,7 @@ class FormStep9 extends Component
 
     public function rules(): array
     {
-        $this->messages['religion.required'] = $this->jsonQuestion->question_options->error_empty_text;
+        $this->messages['religion.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'religion' => [
@@ -54,40 +55,38 @@ class FormStep9 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if (\Session::has('survey-id')) {
-            $this->form->createAnswer( !is_null($this->religion) ? [$this->religion] : [], $this->jsonQuestion, $this->stepId);
-
-            if(!empty($this->newReligion)){
-                $this->jsonQuestion->question_title = $this->jsonQuestion->question_options->question_custom_input_title;
-                $this->jsonQuestion->question_type = 'text';
-                $this->form->createAnswer([$this->newReligion], $this->jsonQuestion, $this->stepId);
-            }
-
-            \Session::put(['student-religion' => $this->religion ?? null]);
-            \Session::put(['student-religion-different' => $this->newReligion ?? ""]);
-
-            $this->dispatch('set-step-id-up');
+        if($this->religion != 6){
+            $this->otherReligion = null;
         }
+        $answer = [
+            'religion' => $this->religion,
+            'other_religion' => $this->otherReligion
+        ];
+
+        $this->form->createAnswer( $answer, $this->jsonQuestion, $this->stepId);
+
+        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
     {
-        $this->religion = old('religion') ?? \Session::get('student-religion') ?? null;
+        $this->religion = $this->savedAnswers['religion'] ?? null;
+        $this->otherReligion = $this->savedAnswers['other_religion'] ?? null;
 
-        if($this->religion === 6){
-            $this->newReligion = old('newReligion') ?? \Session::get('student-religion-different') ?? "";
-        }
         if($this->religion) {
             $this->nextEnabled = true;
         }
     }
 
-    public function setAnswerBlockAnswerId(int $id, string $newReligion = null): void
+    public function setAnswerBlockAnswerId(int $id, string $otherReligion = null): void
     {
         $this->religion = $id;
 
-        if(!is_null($newReligion)){
-            $this->newReligion = $newReligion;
+        if($id == 6 && !is_null($otherReligion)){
+            $this->otherReligion = $otherReligion;
+        }
+        if($id != 6){
+            $this->otherReligion = null;
         }
     }
 
