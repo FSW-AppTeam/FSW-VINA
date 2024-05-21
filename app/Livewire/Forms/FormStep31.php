@@ -19,7 +19,7 @@ class FormStep31 extends Component
     public $answerText = "";
 
     protected $rules = [
-        'answerText' => 'string',
+        'answerText' => 'nullable|string|max:500',
     ];
 
     public function save(): void
@@ -29,7 +29,6 @@ class FormStep31 extends Component
 
         $this->form->createAnswer(strip_tags($this->answerText), $this->jsonQuestion, $this->stepId);
         $this->form->setStudentFinishedSurvey();
-        $this->dispatch('set-step-id-up');
     }
 
     public function mount(): void
@@ -39,6 +38,10 @@ class FormStep31 extends Component
 
     public function render()
     {
+        if($this->form->getStudent()->finished_at) {
+            return view('livewire.forms.form-step-outro');
+        }
+
         return view('livewire.forms.form-step31');
     }
 }

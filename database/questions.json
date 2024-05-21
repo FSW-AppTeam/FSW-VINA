@@ -326,7 +326,7 @@
             "error_text": "Je hebt geen vrienden opgeven!",
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 19,
@@ -352,7 +352,7 @@
             "error_text": "Je hebt geen klassgenoten die je niet als vriend hebt geselecteerd!",
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 21,
@@ -380,7 +380,7 @@
             "error_text": "Je hebt geen vrienden opgeven!",
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
 
     {
@@ -402,7 +402,7 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 24,
@@ -423,7 +423,7 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 25,
@@ -444,7 +444,7 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 26,
@@ -465,7 +465,7 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 27,
@@ -484,7 +484,7 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "extra_text": "Je bent bijna aan het einde van de vragenlijst. De laatste vragen gaan over wat je van de vragenlijst vond."
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 28,
@@ -502,7 +502,7 @@
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 29,
@@ -520,7 +520,7 @@
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 30,
@@ -538,7 +538,7 @@
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         },
-        "default_disable_next": true
+        "default_disable_next": false
     },
     {
         "question_id": 31,

@@ -80,7 +80,7 @@ class FormStep23 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        $this->form->createAnswer($this->answerSelected['id'], $this->jsonQuestion, $this->stepId);
+        $this->form->createAnswer($this->answerSelected['id'] ?? null, $this->jsonQuestion, $this->stepId);
         $this->dispatch('set-step-id-up');
     }
 
@@ -89,7 +89,7 @@ class FormStep23 extends Component
         if ($this->savedAnswers == null) {
             return;
         }
-        $this->answerSelected['id'] = $this->savedAnswers;
+        $this->answerSelected['id'] = $this->savedAnswers ?? null;
         foreach ($this->jsonQuestion->question_answer_options as $answer) {
         {
             if($this->savedAnswers == $answer['id'])

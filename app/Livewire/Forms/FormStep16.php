@@ -76,7 +76,7 @@ class FormStep16 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        $this->form->createAnswer($this->answerSelected['id'], $this->jsonQuestion, $this->stepId);
+        $this->form->createAnswer($this->answerSelected['id'] ?? [], $this->jsonQuestion, $this->stepId);
         $this->dispatch('set-enable-next');
         $this->dispatch('set-step-id-up');
     }
