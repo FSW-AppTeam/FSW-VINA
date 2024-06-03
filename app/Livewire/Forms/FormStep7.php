@@ -12,6 +12,8 @@ class FormStep7 extends Component
     public int|null $originCountry = null;
     public string|null $otherCountry = "";
 
+    public $countryModal = true;
+
     public $stepId;
     public $nextEnabled;
     public $backEnabled;
@@ -25,6 +27,9 @@ class FormStep7 extends Component
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
+
+//        'set-flag-from-js' => 'setSelectedFlagId',
+//        'remove-selected-flag-id' => 'removeSelectedFlagId',
     ];
 
     public function rules(): array
@@ -65,7 +70,6 @@ class FormStep7 extends Component
 
     public function mount(): void
     {
-
         $this->originCountry = $this->savedAnswers['country_id'] ?? null;
         $this->otherCountry = $this->savedAnswers['other_country'] ?? null;
 
@@ -78,6 +82,16 @@ class FormStep7 extends Component
     public function setAnswerBlockAnswerId(int $id, string $countryName): void
     {
         $this->originCountry = $id;
+        if( $id === 6) {
+            $this->dispatch('set-modal-flag');
+        }
+        if( $id !== 6) {
+            $this->otherCountry = "";
+        }
+    }
+    public function setCountry(): void
+    {
+        $this->otherCountry = $this->countryModal;
     }
 
     public function render()

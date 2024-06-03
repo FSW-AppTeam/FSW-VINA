@@ -152,8 +152,27 @@
         }
     },
     {
+        "question_id": 36,
+        "order":11,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "Duale identiteit",
+        "question_content": "Je hebt aangegeven dat jouw familie ook nog een {{$country[1]}} achtergrond heeft. Hoe zou je jezelf beschrijven?",
+        "question_answer_options": [
+            {"id": 1, "value": "Alleen als Nederlands"},
+            {"id": 2, "value": "Meer als Nederlands"},
+            {"id": 3, "value": "Evenveel Nederlands als {{$country[2]}}"},
+            {"id": 4, "value": "Meer als {{$country[1]}}"},
+            {"id": 5, "value": "Alleen als {{$country[1]}}"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
         "question_id": 8,
-        "order": 11,
+        "order": 12,
+        "enabled": false,
         "question_type": "int",
         "question_title": "Identificatie met herkomstland",
         "question_content": "Hoe sterk voel jij je horen bij mensen uit het herkomstland ",
@@ -170,7 +189,7 @@
     },
     {
         "question_id": 9,
-        "order": 12,
+        "order": 13,
         "question_type": "int",
         "question_title": "Godsdienst",
         "question_content": "Reken je jezelf tot een godsdienst? Zo ja, welke?",
@@ -191,7 +210,7 @@
     },
     {
         "question_id": 10,
-        "order": 13,
+        "order": 14,
         "question_type": "array",
         "question_title": "Eigen vrienden - basis",
         "question_content": "Met welke klasgenoten ga jij het beste om?",
@@ -203,7 +222,7 @@
     },
     {
         "question_id": 11,
-        "order": 14,
+        "order": 15,
         "question_type": "array",
         "question_title": "Vertrouwen",
         "question_content": "Met welke klasgenoten praat je als je ergens mee zit?",
@@ -215,7 +234,7 @@
     },
     {
         "question_id": 12,
-        "order": 15,
+        "order": 16,
         "question_type": "json",
         "question_title": "Vrienden van klasgenoten",
         "question_content": "Met wie gaat de volgende klasgenoot het beste om?",
@@ -228,7 +247,8 @@
     },
     {
         "question_id": 13,
-        "order": 16,
+        "order": 17,
+        "enabled": false,
         "question_type": "json",
         "question_title": "Eigen etniciteit",
         "question_content": "Bij welke cultuur of culturen hoor jij?",
@@ -248,8 +268,34 @@
         }
     },
     {
+        "question_id": 37,
+        "order": 18,
+        "question_type": "text",
+        "question_title": "Etniciteit klasgenoten tussentext",
+        "question_content": "De volgende klasgenoten hebben aangegeven dat hun familie nog een ander herkomstland dan Nederlands heeft."
+    },
+    {
+        "question_id": 38,
+        "order": 19,
+        "question_type": "json",
+        "question_title": "Etniciteit klasgenoten",
+        "question_content": "De volgende klasgenoot gaf aan dat zijn/haar familie ook nog een {{$country[1]}} achtergrond heeft.Hoe zou jij deze klasgenoot beschrijven?",
+        "question_answer_options": [
+            {"id": 1, "value": "Alleen als Nederlands"},
+            {"id": 2, "value": "Meer als Nederlands"},
+            {"id": 3, "value": "Evenveel Nederlands als {{$country[2]}}"},
+            {"id": 4, "value": "Meer als {{$country[1]}}"},
+            {"id": 5, "value": "Alleen als {{$country[1]}}"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_one_text": ""
+        }
+    },
+    {
         "question_id": 14,
-        "order": 17,
+        "order": 20,
+        "enabled": false,
         "question_type": "json",
         "question_title": "Etniciteit klasgenoten",
         "question_content": "Bij welke cultuur of culturen denk jij dat de volgende klasgenoot hoort?",
@@ -270,7 +316,7 @@
     },
     {
         "question_id": 15,
-        "order": 18,
+        "order": 21,
         "question_type": "json",
         "question_title": "Goed kennen",
         "question_content": "Hoe goed ken je de volgende klasgenoot?",
@@ -287,7 +333,7 @@
     },
     {
         "question_id": 16,
-        "order": 19,
+        "order": 22,
         "question_type": "int",
         "question_title": "Immigratie houding – eigen",
         "question_content": "Wat zou je er van vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
@@ -304,14 +350,14 @@
     },
     {
         "question_id": 17,
-        "order": 20,
+        "order": 23,
         "question_type": "text",
-        "question_title": "Immigratie houding – eigen",
+        "question_title": "immigratie houding – vrienden tussentekst",
         "question_content": "De volgende vraag gaat over de klasgenoten met wie jij goed omgaat."
     },
     {
         "question_id": 18,
-        "order": 21,
+        "order": 24,
         "question_type": "json",
         "question_title": "Immigratie houding - vrienden",
         "question_content": "Wat denk jij dat de volgende klasgenoot er van zou vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
@@ -330,14 +376,14 @@
     },
     {
         "question_id": 19,
-        "order": 22,
+        "order": 25,
         "question_type": "text",
         "question_title": "Tussentekst willekeurige klasgenoten",
         "question_content": "De volgende vraag gaat over drie willekeurige klasgenoten."
     },
     {
         "question_id": 20,
-        "order": 23,
+        "order": 26,
         "question_type": "json",
         "question_title": "Immigratie houding – willekeurige klasgenoten",
         "question_content": "Wat denk jij dat de volgende klasgenoot er van zou vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
@@ -356,7 +402,7 @@
     },
     {
         "question_id": 21,
-        "order": 24,
+        "order": 27,
         "enabled": false,
         "question_type": "text",
         "question_title": "Tussentekst band",
@@ -364,7 +410,7 @@
     },
     {
         "question_id": 22,
-        "order": 25,
+        "order": 28,
         "enabled": false,
         "question_type": "json",
         "question_title": "Band",
@@ -382,10 +428,9 @@
         },
         "default_disable_next": false
     },
-
     {
         "question_id": 23,
-        "order": 26,
+        "order": 29,
         "question_type": "int",
         "question_title": "Culturele interesse",
         "question_content": "Ik verdiep me graag in de culturele achtergrond van anderen",
@@ -406,7 +451,7 @@
     },
     {
         "question_id": 24,
-        "order": 27,
+        "order": 30,
         "question_type": "int",
         "question_title": "Polarisatie in klas",
         "question_content": "In mijn klas denken mensen heel verschillend over migratie",
@@ -427,7 +472,7 @@
     },
     {
         "question_id": 25,
-        "order": 28,
+        "order": 31,
         "question_type": "int",
         "question_title": "polarisatie in maatschappij",
         "question_content": "In Nederland worden verschillen van mening over migratie steeds groter",
@@ -448,9 +493,9 @@
     },
     {
         "question_id": 26,
-        "order": 29,
+        "order": 32,
         "question_type": "int",
-        "question_title": "Polarisatie in klas 2",
+        "question_title": "Verbinding met klas",
         "question_content": "Ik voel me sterk verbonden met mijn klas",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal oneens"},
@@ -469,7 +514,7 @@
     },
     {
         "question_id": 27,
-        "order": 30,
+        "order": 33,
         "question_type": "int",
         "question_title": "Leuk",
         "question_content": "Hoe leuk vond je het om deze vragenlijst in te vullen?",
@@ -488,7 +533,7 @@
     },
     {
         "question_id": 28,
-        "order": 31,
+        "order": 34,
         "question_type": "int",
         "question_title": "Meedoen",
         "question_content": "Zou je nog een keer aan een vergelijkbaar onderzoek over je klas meedoen?",
@@ -506,7 +551,7 @@
     },
     {
         "question_id": 29,
-        "order": 32,
+        "order": 35,
         "question_type": "int",
         "question_title": "Interessant",
         "question_content": "Hoe interessant vond je deze vragenlijst?",
@@ -524,7 +569,7 @@
     },
     {
         "question_id": 30,
-        "order": 33,
+        "order": 36,
         "question_type": "int",
         "question_title": "Moeilijk",
         "question_content": "Vond je het moeilijk of makkelijk te begrijpen hoe je de antwoorden moest invullen?",
@@ -542,7 +587,7 @@
     },
     {
         "question_id": 31,
-        "order": 34,
+        "order": 38,
         "question_type": "text",
         "question_title": "Einde",
         "question_content": "Heeft u nog opmerkingen over de vragenlijst?",

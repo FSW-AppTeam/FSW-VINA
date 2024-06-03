@@ -1,5 +1,7 @@
 @section('modal-body-select-list')
-    <input class="form-control" list="datalistOptions" id="countryDataList" placeholder="Type om te zoeken..." />
+    <input class="form-control" list="datalistOptions" id="countryDataList"
+           @if(isset($countryModal)) wire:model="countryModal" @endif
+           placeholder="Type om te zoeken..." />
     <label for="datalistOptions">
         <datalist id="datalistOptions">
             @foreach(getIsoCountries() as $country)
@@ -7,5 +9,4 @@
             @endforeach
         </datalist>
     </label>
-
 @endsection
