@@ -75,7 +75,7 @@ class FormStep14 extends Component
             $imageFile = $image;
         }
 
-        $isoFlag = array_search(ucfirst($image), getIsoCountries());
+        $isoFlag = array_search(ucfirst($image), array_keys(getIsoCountries()));
         if(!$imageFile && file_exists(public_path('build/images/flags/' . strtolower($isoFlag) . '.svg'))){
             $imageFile = 'build/images/flags/' . strtolower($isoFlag) . '.svg';
         }
