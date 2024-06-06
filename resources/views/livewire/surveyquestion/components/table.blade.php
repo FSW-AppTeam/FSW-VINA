@@ -21,18 +21,18 @@
     @include('livewire.surveyquestion.components.view')
 
 
-    <button data-bs-toggle="modal" data-bs-target="#createModal"
-            class="btn btn-outline-success btn-outline-md mb-2">Create New SurveyQuestion
-    </button>
+{{--    <button data-bs-toggle="modal" data-bs-target="#createModal"--}}
+{{--            class="btn btn-outline-success btn-outline-md mb-2">Create New SurveyQuestion--}}
+{{--    </button>--}}
 
-    <button data-bs-toggle="modal" data-bs-target="#deleteModal"
-            class="btn btn-outline-danger btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Delete
-    </button>
+{{--    <button data-bs-toggle="modal" data-bs-target="#deleteModal"--}}
+{{--            class="btn btn-outline-danger btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Delete--}}
+{{--    </button>--}}
 
-    <button wire:click.prevent="initDataBulk" data-bs-toggle="modal"
-            data-bs-target="#editBulkModal"
-            class="btn btn-outline-primary btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Edit
-    </button>
+{{--    <button wire:click.prevent="initDataBulk" data-bs-toggle="modal"--}}
+{{--            data-bs-target="#editBulkModal"--}}
+{{--            class="btn btn-outline-primary btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Edit--}}
+{{--    </button>--}}
 
     <div class="row">
         <div class="col-md-3">
@@ -66,12 +66,13 @@
         </div>
     </div>
 
-    <div class="table-responsive">
+    <td class="table-responsive">
         <table class="table table-hover table-sm">
             <thead>
             <tr>
                 <th></th>
-                <th>order</th><th>question_type</th><th>question_title</th><th>question_content</th><th>question_answer_options</th><th>question_options</th>
+                <th>order</th><th>question_type</th><th>question_title</th><th>question_content</th><th>question_answer_options</th>
+                <th>enabled</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -81,27 +82,38 @@
                     <td>
                         <input wire:model.live="selectedSurveyQuestions" id="{{$model->id}}" value="{{$model->id}}" type="checkbox">
                     </td>
-                    <td>{{$model->order}}</td><td>{{$model->question_type}}</td><td>{{$model->question_title}}</td>
+                    <td>{{$model->order}}</td><td>{{$model->question_type}}</td>
+                    <td>{{$model->question_title}}</td>
                     <td>{{$model->question_content}}</td>
-                    <td>{{json_encode($model->question_answer_options)}}</td>
                     <td>{{json_encode($model->question_options)}}</td>
                     <td>
-                        <a class="btn btn-outline-info btn-sm"
-                           href="#" wire:click.stop.prevent="redirectToDetail('surveyquestiondetails', {{ $model->id }})" >
-                            Details
-                        </a>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   role="switch"
+                                   wire:click="toggleEnable({{ $model }})"
+                                   id="flexSwitchCheckDefault"
+                                   @if($model->enabled) checked @endif()
+                            >
+                        </div>
+                    </td>
+                    <td>
+{{--                        <a class="btn btn-outline-info btn-sm"--}}
+{{--                           href="#" wire:click.stop.prevent="redirectToDetail('surveyquestiondetails', {{ $model->id }})" >--}}
+{{--                            Details--}}
+{{--                        </a>--}}
                         <button data-bs-toggle="modal" data-bs-target="#viewModal"
                                 wire:click="initData({{ $model }})"
                                 class="btn btn-outline-info btn-sm">View
                         </button>
-                        <button data-bs-toggle="modal" data-bs-target="#editModal"
-                                wire:click="initData({{ $model }})"
-                                class="btn btn-outline-primary btn-sm">Edit
-                        </button>
-                        <button data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                wire:click="initData({{ $model }})"
-                                class="btn btn-outline-danger btn-sm">Delete
-                        </button>
+{{--                        <button data-bs-toggle="modal" data-bs-target="#editModal"--}}
+{{--                                wire:click="initData({{ $model }})"--}}
+{{--                                class="btn btn-outline-primary btn-sm">Edit--}}
+{{--                        </button>--}}
+{{--                        <button data-bs-toggle="modal" data-bs-target="#deleteModal"--}}
+{{--                                wire:click="initData({{ $model }})"--}}
+{{--                                class="btn btn-outline-danger btn-sm">Delete--}}
+{{--                        </button>--}}
                     </td>
                 </tr>
             @empty
