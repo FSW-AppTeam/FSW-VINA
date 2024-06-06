@@ -19,6 +19,7 @@ return array (
   'roletable' => 'Rollen',
   'surveytable' => 'Surveys',
   'surveystudenttable' => 'Students',
+  'surveyquestiontable' => 'Vragen',
   'csv-export-list' => 'CSV-exports',
   'permissions' => 'toestemmingen',
   'signout' => 'Uitloggen',
