@@ -43,11 +43,11 @@
                     </li>
                     <li class="nav-item">
                         @if(Auth::user()->isAdmin())
-                            <a class="nav-link" href="/surveyquestiontable">{{__('nav.surveyquestiontable')}}</a>
                             <a class="nav-link" href="/surveyanswerstable">{{__('nav.surveyanswerstable')}}</a>
                             <a class="nav-link" href="/usertable">{{__('nav.usertable')}}</a>
                             <a class="nav-link" href="/roletable">{{__('nav.roletable')}}</a>
                         @endif
+                        <a class="nav-link" href="/surveyquestiontable">{{__('nav.surveyquestiontable')}}</a>
                         <a class="nav-link" href="/surveytable">{{__('nav.surveytable')}}</a>
                         <a class="nav-link" href="/surveystudenttable">{{__('nav.surveystudenttable')}}</a>
                         <a class="nav-link" href="/csv-export-list">{{__('nav.csv-export-list')}}</a>
