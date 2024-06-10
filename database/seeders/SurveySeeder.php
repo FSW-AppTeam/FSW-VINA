@@ -16,6 +16,7 @@ class surveySeeder extends Seeder
 
         Survey::factory()
             ->count(2)
-            ->hasSurveyStudents(10)
-            ->create();    }
+            ->hasSurveyStudents(5)
+            ->create();
+    }
 }

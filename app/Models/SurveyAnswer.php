@@ -43,6 +43,10 @@ class SurveyAnswer extends Model
 		'question_title',
 		'student_answer'
 	];
+    public function student()
+    {
+        return $this->belongsTo(SurveyStudent::class);
+    }
 
     protected function data(): Attribute
     {

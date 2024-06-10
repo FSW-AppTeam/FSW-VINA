@@ -27,6 +27,9 @@ class QuestionSeeder extends Seeder
             if(isset($item->form_type)) {
                 $question->form_type = $item->form_type;
             }
+            if (isset($item->depends_on_question)) {
+                $question->depends_on_question = $item->depends_on_question;
+            }
             $question->question_type = $item->question_type;
             $question->question_title = $item->question_title;
             $question->question_content = $item->question_content;

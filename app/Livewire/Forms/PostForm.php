@@ -39,6 +39,18 @@ class PostForm extends Form
             ->toArray();
     }
 
+    #[Computed(persist: true)]
+    public function getStudentsWithResponse($questionId): array
+    {
+        return SurveyStudent::where('survey_id', $this->getSurvey()->id)
+            ->where('survey_students.id', '!=', $this->getStudent()->id)
+            ->where('survey_answers.student_answer->country_id', '!=', 1)
+            ->where('question_id', $questionId)
+            ->join('survey_answers', 'survey_answers.student_id', '=', 'survey_students.id')
+            ->get()
+            ->toArray();
+    }
+
     public function getStudentsSelfFriendsSelected(): array
     {
         $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)

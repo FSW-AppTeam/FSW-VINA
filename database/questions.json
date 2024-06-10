@@ -142,7 +142,7 @@
             {"id": 2, "value": "Turkije"},
             {"id": 3, "value": "Marokko"},
             {"id": 4, "value": "Suriname"},
-            {"id": 5, "value": "Nederlandse Antillen / Aruba"},
+            {"id": 5, "value": "Voormalige Nederlandse Antillen"},
             {"id": 6, "value": "Ander land, namelijk: "}
         ],
         "question_options": {
@@ -156,14 +156,15 @@
         "order":11,
         "form_type": "select",
         "question_type": "int",
+        "depends_on_question": 7,
         "question_title": "Duale identiteit",
-        "question_content": "Je hebt aangegeven dat jouw familie ook nog een {{$country[1]}} achtergrond heeft. Hoe zou je jezelf beschrijven?",
+        "question_content": "Je hebt aangegeven dat jouw familie ook nog een :questionOptions achtergrond heeft. Hoe zou je jezelf beschrijven?",
         "question_answer_options": [
             {"id": 1, "value": "Alleen als Nederlands"},
             {"id": 2, "value": "Meer als Nederlands"},
-            {"id": 3, "value": "Evenveel Nederlands als {{$country[2]}}"},
-            {"id": 4, "value": "Meer als {{$country[1]}}"},
-            {"id": 5, "value": "Alleen als {{$country[1]}}"}
+            {"id": 3, "value": "Evenveel Nederlands als :questionOptions"},
+            {"id": 4, "value": "Meer als :questionOptions"},
+            {"id": 5, "value": "Alleen als :questionOptions"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
@@ -270,22 +271,25 @@
     {
         "question_id": 37,
         "order": 18,
-        "question_type": "text",
+        "form_type": "display",
+        "question_type": "instruction",
         "question_title": "Etniciteit klasgenoten tussentext",
         "question_content": "De volgende klasgenoten hebben aangegeven dat hun familie nog een ander herkomstland dan Nederlands heeft."
     },
     {
         "question_id": 38,
         "order": 19,
-        "question_type": "json",
+        "depends_on_question": 7,
+        "form_type": "multiple_students",
+        "question_type": "select",
         "question_title": "Etniciteit klasgenoten",
-        "question_content": "De volgende klasgenoot gaf aan dat zijn/haar familie ook nog een {{$country[1]}} achtergrond heeft.Hoe zou jij deze klasgenoot beschrijven?",
+        "question_content": "De volgende klasgenoot gaf aan dat zijn/haar familie ook nog een :questionOptions achtergrond heeft.Hoe zou jij deze klasgenoot beschrijven?",
         "question_answer_options": [
             {"id": 1, "value": "Alleen als Nederlands"},
             {"id": 2, "value": "Meer als Nederlands"},
-            {"id": 3, "value": "Evenveel Nederlands als {{$country[2]}}"},
-            {"id": 4, "value": "Meer als {{$country[1]}}"},
-            {"id": 5, "value": "Alleen als {{$country[1]}}"}
+            {"id": 3, "value": "Evenveel Nederlands als :questionOptions"},
+            {"id": 4, "value": "Meer als :questionOptions"},
+            {"id": 5, "value": "Alleen als :questionOptions"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
@@ -351,7 +355,8 @@
     {
         "question_id": 17,
         "order": 23,
-        "question_type": "text",
+        "form_type": "display",
+        "question_type": "instruction",
         "question_title": "immigratie houding – vrienden tussentekst",
         "question_content": "De volgende vraag gaat over de klasgenoten met wie jij goed omgaat."
     },
@@ -377,7 +382,8 @@
     {
         "question_id": 19,
         "order": 25,
-        "question_type": "text",
+        "form_type": "display",
+        "question_type": "instruction",
         "question_title": "Tussentekst willekeurige klasgenoten",
         "question_content": "De volgende vraag gaat over drie willekeurige klasgenoten."
     },
@@ -404,7 +410,8 @@
         "question_id": 21,
         "order": 27,
         "enabled": false,
-        "question_type": "text",
+        "form_type": "display",
+        "question_type": "instruction",
         "question_title": "Tussentekst band",
         "question_content": "De volgende vragen gaan over de band tussen sommige van je klasgenoten."
     },

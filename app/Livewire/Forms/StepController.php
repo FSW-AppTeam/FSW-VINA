@@ -22,6 +22,8 @@ class StepController extends Component
 
     public $jsonQuestion;
 
+    public $questionOptions = [];
+
     public $steps;
 
     protected $listeners = [
@@ -45,6 +47,15 @@ class StepController extends Component
         $question = SurveyQuestion::where('order', '<=', $this->stepId - 1)
             ->orderBy('order', 'desc')
             ->where('enabled', true)->first();
+
+        // In case of a question is disabled, skip it. We have to set the order as the new stpId
+        $this->stepId = $question->order;
+        $this->jsonQuestion = $question;
+        $this->setSavedAnswers();
+        if ($this->stepId == 0) {
+            $this->getJsonIntro();
+        }
+
         $this->setActiveStep($question);
     }
 
@@ -65,12 +76,6 @@ class StepController extends Component
 
     public function boot()
     {
-        $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
-        if($this->stepId == 0) {
-            $this->getJsonIntro();
-        }
-
-        $this->setActiveStep($this->jsonQuestion);
     }
 
     public function continue()
@@ -85,6 +90,12 @@ class StepController extends Component
             }
         }
         $this->jsonQuestion = SurveyQuestion::where('order', $this->stepId)->where('enabled', true)->first();
+        $question = SurveyQuestion::where('order', '>=', $this->stepId)
+            ->orderBy('order', 'asc')
+            ->where('enabled', true)->first();
+        // In case of a question is disabled, skip it. We have to set the order as the new stpId
+        $this->stepId = $question->order;
+        $this->jsonQuestion = $question;
         $this->setSavedAnswers();
         if($this->stepId == 0) {
             $this->getJsonIntro();
@@ -139,6 +150,7 @@ class StepController extends Component
 
     public function render()
     {
+        $this->setQuestion();
         $this->setActiveStep($this->jsonQuestion);
         $this->setSavedAnswers();
         $this->setEnabledNext();
@@ -155,7 +167,9 @@ class StepController extends Component
         }
 
         if (isset($jsonQuestion->form_type)) {
-            $this->activeStep = 'forms.form-step-' . $jsonQuestion->form_type;
+            // If formtype is set, a dynamic form is used.
+            $this->activeStep = 'forms.form-step-'.$jsonQuestion->form_type;
+
             return;
         }
 
@@ -173,6 +187,52 @@ class StepController extends Component
 
         if($savedAnswer->exists()) {
             $this->savedAnswers =  $savedAnswer->first()->student_answer;
+        }
+    }
+
+    public function setQuestion()
+    {
+        $question = SurveyQuestion::where('order', '>=', $this->stepId)
+            ->orderBy('order', 'asc')
+            ->where('enabled', true)->first();
+        // In case of a question is disabled, skip it. We have to set the order as the new stpId
+        $this->stepId = $question->order;
+        $this->jsonQuestion = $question;
+
+        if (isset($this->jsonQuestion->depends_on_question)) {
+
+            if ($this->jsonQuestion->id == 36) {
+                $this->stepQuestionId36();
+            }
+        }
+    }
+
+    // Specific logic for question id 36
+    private function stepQuestionId36()
+    {
+        $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
+            ->where('student_id', Session::get('student-id'))
+            ->first();
+        $dependsOnQuestion = SurveyQuestion::find($this->jsonQuestion->depends_on_question);
+        foreach ($dependsOnQuestion->question_answer_options as $option) {
+            if ($option['id'] == $savedAnswer->student_answer['country_id']) {
+                $otherCountry = $option['value'];
+            }
+        }
+        switch ($savedAnswer->student_answer['country_id']) {
+            case 1:
+                $this->stepId++;
+                return $this->setQuestion();
+            case 2:
+            case 3:
+            case 4:
+                return $this->questionOptions = getCountriesByName()[$otherCountry];
+            case 5:
+                return $this->questionOptions = getCountriesByName()['Nederlandse Antillen'];
+            case 6:
+                return $this->questionOptions = getCountriesByName()[$savedAnswer->student_answer['other_country']];
+            default:
+                return false;
         }
     }
 }
