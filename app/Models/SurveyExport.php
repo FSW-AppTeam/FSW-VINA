@@ -47,10 +47,10 @@ class SurveyExport
         // sets the header
         foreach ($surveys as $survey) {
             if (!in_array($survey['question_title'], $header, true)) {
-
                 if($survey['question_type'] === "json") {
                     switch ($survey['question_id']) {
-                        case 12:
+                        case 7:
+                        case 9:
                         case 14:
                         case 15:
                         case 18:
@@ -126,6 +126,18 @@ class SurveyExport
                 case "json":
                 {
                     switch ($survey['question_id']) {
+                        case 7:
+                        {
+                            $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->country_id;
+                            $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->other_country;
+                            break;
+                        }
+                        case 9:
+                        {
+                            $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->religion;
+                            $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->other_religion;
+                            break;
+                        }
                         case 13:
                         {
                             $new = [];
