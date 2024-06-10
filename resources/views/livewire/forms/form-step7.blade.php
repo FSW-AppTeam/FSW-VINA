@@ -15,13 +15,37 @@
                            value="{{ $answer['id'] }}"/>
                     <label class="form-check-label" for="{{ $answer['id'] }}">
                         {{ ucfirst($answer['value']) }}
+                        @if($answer['id'] === 6 && !empty($otherCountry))
+                            <b><i>{{ $otherCountry }}</i></b>
+                        @endif
                     </label>
                 </button>
             @endforeach
         </div>
     </div>
 
-    <div class="form-group mb-4">
-        <input type="text" wire:model="otherCountry" class="form-control input-extra" name="otherCountry" />
+    <div class="modal fade" id="countryModal" tabindex="-1" aria-labelledby="countryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered rounded">
+
+            <div class="modal-content" style="height: 22rem;">
+                <div class="float-end">
+                    <button type="button" class="float-end p-3 btn-close " data-bs-dismiss="modal"
+                            aria-label="Sluit"></button>
+                </div>
+                <h5 class="modal-title text-center" id="countryModalLabel">Wat is het herkomstlant van je familie?</h5>
+                <div class="modal-body">
+                    @include('livewire.partials.modal-body-select-list')
+                    @yield('modal-body-select-list')
+
+                    <div class="mt-5 p-2 text-center">
+                        <button type="button" id="country-set-btn" disabled style="width:80%"
+                        wire:click="setCountry()"
+                                class="btn btn-outline-warning mt-5">OK
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </x-layouts.form>

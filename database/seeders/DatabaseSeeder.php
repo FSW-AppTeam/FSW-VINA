@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'daan2',
             'role_id' => 2,
             'email' => 'daan2@test.nl',
-            'solis_id' => 'assche011',
+            'solis_id' => 'assche001',
         ]);
     }
 }

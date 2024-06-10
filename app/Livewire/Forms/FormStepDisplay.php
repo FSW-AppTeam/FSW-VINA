@@ -4,7 +4,7 @@ namespace App\Livewire\Forms;
 
 use Livewire\Component;
 
-class FormStep17 extends Component
+class FormStepDisplay extends Component
 {
     public PostForm $form;
 
@@ -25,6 +25,6 @@ class FormStep17 extends Component
 
     public function render()
     {
-        return view('livewire.forms.form-step17');
+        return view('livewire.forms.form-step-display');
     }
 }

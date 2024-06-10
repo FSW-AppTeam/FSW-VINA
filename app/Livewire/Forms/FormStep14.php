@@ -111,7 +111,7 @@ class FormStep14 extends Component
 
         $answer = [
             'student_id' => $this->startStudent['id'],
-            'countries' => $this->flagsSelected,
+            'countries' => $this->flagsSelected
         ];
         $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
 
@@ -131,6 +131,7 @@ class FormStep14 extends Component
             $this->dispatch('set-step-id-up');
         }
     }
+
 
     public function stepDown(): void
     {

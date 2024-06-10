@@ -62,7 +62,7 @@ class FormStep13 extends Component
         if ($image == 'anders') {
             $image = $country;
         }
-        $isoFlag = array_search(strtolower($image), array_map('strtolower', getIsoCountries()));
+        $isoFlag = array_search(strtolower($image), array_map('strtolower', array_keys(getIsoCountries())));
 
         if (file_exists(public_path('build/images/flags/'.strtolower($isoFlag).'.svg'))) {
             $imageFile = asset('build/images/flags/'.strtolower($isoFlag).'.svg');
