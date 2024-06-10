@@ -5,17 +5,19 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
-use Illuminate\Support\Facades\Session;
 
 class FormStep16 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $answerSelected = null;
@@ -24,7 +26,7 @@ class FormStep16 extends Component
 
     protected array $messages = [];
 
-    public $basicTitle = "";
+    public $basicTitle = '';
 
     public array $students = [];
 
@@ -50,7 +52,7 @@ class FormStep16 extends Component
                         $fail($this->messages['answer_id.required']);
                     }
                 },
-                'array'
+                'array',
             ],
         ];
     }
@@ -64,7 +66,7 @@ class FormStep16 extends Component
 
     public function removeSelectedSquare(int $id): void
     {
-        if(in_array($id, $this->answerSelected)){
+        if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
 
@@ -94,6 +96,7 @@ class FormStep16 extends Component
     public function render()
     {
         $this->dispatch('set-enable-next');
+
         return view('livewire.forms.form-step16');
     }
 }

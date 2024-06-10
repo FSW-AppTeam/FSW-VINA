@@ -1,260 +1,45 @@
 <?php
 
-if (! function_exists('getIsoCountries')) {
+if (! function_exists('getCountriesByIso')) {
 
-    function getIsoCountries()
+    function getCountriesByIso()
     {
-        return [
-            'AF' => 'Afghanistan',
-            'AL' => 'Albanië',
-            'DZ' => 'Algerije',
-            'AS' => 'Amerikaans-Samoa',
-            'VI' => 'Amerikaanse Maagdeneilanden',
-            'AD' => 'Andorra',
-            'AO' => 'Angola',
-            'AI' => 'Anguilla',
-            'AQ' => 'Antarctica',
-            'AG' => 'Antigua en Barbuda',
-            'AR' => 'Argentinië',
-            'AM' => 'Armenië',
-            'AW' => 'Aruba',
-            'AU' => 'Australië',
-            'AZ' => 'Azerbeidzjan',
-            'BS' => 'Bahama\'s',
-            'BH' => 'Bahrein',
-            'BD' => 'Bangladesh',
-            'BB' => 'Barbados',
-            'BE' => 'België',
-            'BZ' => 'Belize',
-            'BJ' => 'Benin',
-            'BM' => 'Bermuda',
-            'BT' => 'Bhutan',
-            'BO' => 'Bolivia',
-            'BA' => 'Bosnië en Herzegovina',
-            'BW' => 'Botswana',
-            'BV' => 'Bouvet',
-            'BR' => 'Brazilië',
-            'IO' => 'Brits Territorium in de Indische Oceaan',
-            'VG' => 'Britse Maagdeneilanden',
-            'BN' => 'Brunei',
-            'BG' => 'Bulgarije',
-            'BF' => 'Burkina Faso',
-            'BI' => 'Burundi',
-            'KH' => 'Cambodja',
-            'CA' => 'Canada',
-            'CF' => 'Centraal-Afrikaanse Republiek',
-            'CL' => 'Chili',
-            'CN' => 'China',
-            'CX' => 'Christmaseiland',
-            'CC' => 'Cocoseilanden',
-            'CO' => 'Colombia',
-            'KM' => 'Comoren',
-            'CG' => 'Congo-Brazzaville',
-            'CD' => 'Congo-Kinshasa',
-            'CK' => 'Cookeilanden',
-            'CR' => 'Costa Rica',
-            'CU' => 'Cuba',
-            'CY' => 'Cyprus',
-            'DK' => 'Denemarken',
-            'DJ' => 'Djibouti',
-            'DM' => 'Dominica',
-            'DO' => 'Dominicaanse Republiek',
-            'DE' => 'Duitsland',
-            'EC' => 'Ecuador',
-            'EG' => 'Egypte',
-            'SV' => 'El Salvador',
-            'GQ' => 'Equatoriaal-Guinea',
-            'ER' => 'Eritrea',
-            'EE' => 'Estland',
-            'ET' => 'Ethiopië',
-            'FO' => 'Faeröer',
-            'FK' => 'Falklandeilanden',
-            'FJ' => 'Fiji',
-            'PH' => 'Filipijnen',
-            'FI' => 'Finland',
-            'FR' => 'Frankrijk',
-            'GF' => 'Frans-Guyana',
-            'PF' => 'Frans-Polynesië',
-            'TF' => 'Franse Zuidelijke en Antarctische Gebieden',
-            'GA' => 'Gabon',
-            'GM' => 'Gambia',
-            'GE' => 'Georgië',
-            'GH' => 'Ghana',
-            'GI' => 'Gibraltar',
-            'GD' => 'Grenada',
-            'GR' => 'Griekenland',
-            'GL' => 'Groenland',
-            'GP' => 'Guadeloupe',
-            'GU' => 'Guam',
-            'GT' => 'Guatemala',
-            'GG' => 'Guernsey',
-            'GN' => 'Guinee',
-            'GW' => 'Guinee-Bissau',
-            'GY' => 'Guyana',
-            'HT' => 'Haïti',
-            'HM' => 'Heard en McDonaldeilanden',
-            'HN' => 'Honduras',
-            'HU' => 'Hongarije',
-            'HK' => 'Hongkong',
-            'IE' => 'Ierland',
-            'IS' => 'IJsland',
-            'IN' => 'India',
-            'ID' => 'Indonesië',
-            'IQ' => 'Irak',
-            'IR' => 'Iran',
-            'IM' => 'Isle of Man',
-            'IL' => 'Israël',
-            'IT' => 'Italië',
-            'CI' => 'Ivoorkust',
-            'JM' => 'Jamaica',
-            'JP' => 'Japan',
-            'YE' => 'Jemen',
-            'JE' => 'Jersey',
-            'JO' => 'Jordanië',
-            'KY' => 'Kaaimaneilanden',
-            'CV' => 'Kaapverdië',
-            'CM' => 'Kameroen',
-            'KZ' => 'Kazachstan',
-            'KE' => 'Kenia',
-            'KG' => 'Kirgizië',
-            'KI' => 'Kiribati',
-            'UM' => 'Kleine Pacifische eilanden van de Verenigde Staten',
-            'KW' => 'Koeweit',
-            'HR' => 'Kroatië',
-            'LA' => 'Laos',
-            'LS' => 'Lesotho',
-            'LV' => 'Letland',
-            'LB' => 'Libanon',
-            'LR' => 'Liberia',
-            'LY' => 'Libië',
-            'LI' => 'Liechtenstein',
-            'LT' => 'Litouwen',
-            'LU' => 'Luxemburg',
-            'MO' => 'Macau',
-            'MK' => 'Macedonië',
-            'MG' => 'Madagaskar',
-            'MW' => 'Malawi',
-            'MV' => 'Maldiven',
-            'MY' => 'Maleisië',
-            'ML' => 'Mali',
-            'MT' => 'Malta',
-            'MA' => 'Marokko',
-            'MH' => 'Marshalleilanden',
-            'MQ' => 'Martinique',
-            'MR' => 'Mauritanië',
-            'MU' => 'Mauritius',
-            'YT' => 'Mayotte',
-            'MX' => 'Mexico',
-            'FM' => 'Micronesia',
-            'MD' => 'Moldavië',
-            'MC' => 'Monaco',
-            'MN' => 'Mongolië',
-            'ME' => 'Montenegro',
-            'MS' => 'Montserrat',
-            'MZ' => 'Mozambique',
-            'MM' => 'Myanmar',
-            'NA' => 'Namibië',
-            'NR' => 'Nauru',
-            'NL' => 'Nederland',
-            'AN' => 'Nederlandse Antillen',
-            'NP' => 'Nepal',
-            'NI' => 'Nicaragua',
-            'NC' => 'Nieuw-Caledonië',
-            'NZ' => 'Nieuw-Zeeland',
-            'NE' => 'Niger',
-            'NG' => 'Nigeria',
-            'NU' => 'Niue',
-            'KP' => 'Noord-Korea',
-            'MP' => 'Noordelijke Marianen',
-            'NO' => 'Noorwegen',
-            'NF' => 'Norfolk',
-            'UG' => 'Oeganda',
-            'UA' => 'Oekraïne',
-            'UZ' => 'Oezbekistan',
-            'OM' => 'Oman',
-            'TL' => 'Oost-Timor',
-            'AT' => 'Oostenrijk',
-            'PK' => 'Pakistan',
-            'PW' => 'Palau',
-            'PS' => 'Palestijnse Autoriteit',
-            'PA' => 'Panama',
-            'PG' => 'Papoea-Nieuw-Guinea',
-            'PY' => 'Paraguay',
-            'PE' => 'Peru',
-            'PN' => 'Pitcairneilanden',
-            'PL' => 'Polen',
-            'PT' => 'Portugal',
-            'PR' => 'Puerto Rico',
-            'QA' => 'Qatar',
-            'RO' => 'Roemenië',
-            'RU' => 'Rusland',
-            'RW' => 'Rwanda',
-            'RE' => 'Réunion',
-            'KN' => 'Saint Kitts en Nevis',
-            'LC' => 'Saint Lucia',
-            'VC' => 'Saint Vincent en de Grenadines',
-            'BL' => 'Saint-Barthélemy',
-            'PM' => 'Saint-Pierre en Miquelon',
-            'SB' => 'Salomonseilanden',
-            'WS' => 'Samoa',
-            'SM' => 'San Marino',
-            'ST' => 'Sao Tomé en Principe',
-            'SA' => 'Saoedi-Arabië',
-            'SN' => 'Senegal',
-            'RS' => 'Servië',
-            'SC' => 'Seychellen',
-            'SL' => 'Sierra Leone',
-            'SG' => 'Singapore',
-            'SH' => 'Sint-Helena',
-            'MF' => 'Sint-Maarten',
-            'SI' => 'Slovenië',
-            'SK' => 'Slowakije',
-            'SD' => 'Soedan',
-            'SO' => 'Somalië',
-            'ES' => 'Spanje',
-            'SJ' => 'Spitsbergen en Jan Mayen',
-            'LK' => 'Sri Lanka',
-            'SR' => 'Suriname',
-            'SZ' => 'Swaziland',
-            'SY' => 'Syrië',
-            'TJ' => 'Tadzjikistan',
-            'TW' => 'Taiwan',
-            'TZ' => 'Tanzania',
-            'TH' => 'Thailand',
-            'TG' => 'Togo',
-            'TK' => 'Tokelau-eilanden',
-            'TO' => 'Tonga',
-            'TT' => 'Trinidad en Tobago',
-            'TD' => 'Tsjaad',
-            'CZ' => 'Tsjechië',
-            'TN' => 'Tunesië',
-            'TR' => 'Turkije',
-            'TM' => 'Turkmenistan',
-            'TC' => 'Turks- en Caicoseilanden',
-            'TV' => 'Tuvalu',
-            'UY' => 'Uruguay',
-            'VU' => 'Vanuatu',
-            'VA' => 'Vaticaanstad',
-            'VE' => 'Venezuela',
-            'GB' => 'Verenigd Koninkrijk',
-            'AE' => 'Verenigde Arabische Emiraten',
-            'US' => 'Verenigde Staten',
-            'VN' => 'Vietnam',
-            'WF' => 'Wallis en Futuna',
-            'EH' => 'Westelijke Sahara',
-            'BY' => 'Wit-Rusland',
-            'ZM' => 'Zambia',
-            'ZW' => 'Zimbabwe',
-            'ZA' => 'Zuid-Afrika',
-            'GS' => 'Zuid-Georgië en de Zuidelijke Sandwicheilanden',
-            'KR' => 'Zuid-Korea',
-            'SE' => 'Zweden',
-            'CH' => 'Zwitserland',
-            'AX' => 'Aland'
-        ];
+        $fileContents = file(storage_path('app/country_list.csv'));
+        foreach ($fileContents as $line) {
+            $tempLine = str_getcsv($line);
+            $tempLine[0] = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $tempLine[0]);
+            $data[$tempLine[0]] = [
+                $tempLine[0],
+                $tempLine[1],
+                $tempLine[2],
+                $tempLine[3],
+            ];
+        }
 
+        return $data;
     }
 }
+
+if (! function_exists('getCountriesByName')) {
+    function getCountriesByName()
+    {
+        $fileContents = file(storage_path('app/country_list.csv'));
+
+        foreach ($fileContents as $line) {
+            $tempLine = str_getcsv($line);
+            $tempLine[0] = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $tempLine[0]);
+            $data[$tempLine[1]] = [
+                $tempLine[0],
+                $tempLine[1],
+                $tempLine[2],
+                $tempLine[3],
+            ];
+        }
+
+        return $data;
+    }
+}
+
 if (! function_exists('csvToArray')) {
     function csvToArray($filename = '', $headers = null, $delimiter = ';')
     {
@@ -296,3 +81,57 @@ if (! function_exists('get_flag_for_locale')) {
         }
     }
 }
+
+if (! function_exists('printWithQuestionOptions')) {
+    function printWithQuestionOptions($text, $replace, $key = null): string
+    {
+        if (is_array($replace) && isset($replace[$key])) {
+            $replace = $replace[$key];
+        }
+        if (empty($replace)) {
+            $replace = '';
+        }
+        return str_replace(':questionOptions', $replace, $text);
+    }
+}
+
+if (! function_exists('echoArray')) {
+    function echoArray($text): string
+    {
+        $print = '';
+        if (! is_array($text)) {
+
+            return $print;
+
+            return $text;
+        }
+
+        foreach ($text as $line) {
+            $print .= $line.'<br>';
+        }
+
+        return $print;
+    }
+}
+
+//if (! function_exists('compareVariables')) {
+//    function compareVariables($value1, $operator, $value2): string
+//    {
+//        switch ($operator) {
+//            case '<':
+//                return $value1 < $value2;
+//            case '<=':
+//                return $value1 <= $value2;
+//            case '>':
+//                return $value1 > $value2;
+//            case '>=':
+//                return $value1 >= $value2;
+//            case '==':
+//                return $value1 == $value2;
+//            case '!=':
+//                return $value1 != $value2;
+//            default:
+//                return false;
+//        }
+//    }
+//}

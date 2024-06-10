@@ -18,7 +18,6 @@ class BladeServiceProvider extends ServiceProvider
             }
         });
 
-
         Blade::directive('ray', function ($text) {
             if (config('app.debug')) {
                 return "<?php ray($text); ?>";
@@ -26,7 +25,7 @@ class BladeServiceProvider extends ServiceProvider
         });
 
         Blade::directive('ribbon', function ($text) {
-            if (config('app.debug') || !str_starts_with(config('app.env'), 'prod')){
+            if (config('app.debug') || ! str_starts_with(config('app.env'), 'prod')) {
                 return "<div class='ribbon-wrapper-green'>
                             <div class='ribbon-green'>
                                 <p>Environment: {{config('app.env')}}</p>

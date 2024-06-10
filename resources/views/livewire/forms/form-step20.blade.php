@@ -11,7 +11,7 @@
         @else
 
             <div class="container text-center">
-                <h6 class="pt-2 px-2">{{ $jsonQuestion->question_content }}</h6>
+                <h6 class="pb-2 pl-2"> {{ $jsonQuestion['question_content'] }}</h6>
             </div>
 
             <div class="mt-4 text-center block-students-vertical line-students step-list-15 " data-student-list>
@@ -49,7 +49,11 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-11 col-lg-8">
                     @foreach ($jsonQuestion->question_answer_options as $answer)
-                        <livewire:partials.answer-btn-block :id="$answer['id']" :value="ucfirst($answer['value'])" :answer-selected="$answerSelected" wire:key="step-form-q22-{{ $answer['id'] . time()}}" />
+                        <livewire:partials.answer-btn-block
+                            :id="$answer['id']"
+                            :value="ucfirst($answer['value'])"
+                            :answer-selected="$answerSelected"
+                            wire:key="step-form-q22-{{ $answer['id'] . time()}}" />
                     @endforeach
                 </div>
             </div>

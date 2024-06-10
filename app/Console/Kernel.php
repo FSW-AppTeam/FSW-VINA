@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Http\Controllers\SurveyController;
 use App\Jobs\SurveyExportJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -19,9 +18,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('app:export-csv-run')->hourly();
 
-//        $schedule->job(SurveyExportJob::class)
-//            ->name('Runs the csv export')
-//            ->hourly();
+        //        $schedule->job(SurveyExportJob::class)
+        //            ->name('Runs the csv export')
+        //            ->hourly();
 
         $schedule->call(function () {
             DB::table('survey_students')->delete();

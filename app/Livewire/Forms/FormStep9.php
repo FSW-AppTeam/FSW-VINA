@@ -9,14 +9,18 @@ class FormStep9 extends Component
 {
     public PostForm $form;
 
-    public int|null $religion = null;
-    public string|null $otherReligion;
+    public ?int $religion = null;
+
+    public ?string $otherReligion;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     protected $messages = [];
@@ -38,7 +42,7 @@ class FormStep9 extends Component
                         $this->firstRequired = false;
                         $fail($this->messages['religion.required']);
                     }
-                }
+                },
             ],
         ];
     }
@@ -55,15 +59,15 @@ class FormStep9 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if($this->religion != 6){
+        if ($this->religion != 6) {
             $this->otherReligion = null;
         }
         $answer = [
             'religion' => $this->religion,
-            'other_religion' => $this->otherReligion
+            'other_religion' => $this->otherReligion,
         ];
 
-        $this->form->createAnswer( $answer, $this->jsonQuestion, $this->stepId);
+        $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
 
         $this->dispatch('set-step-id-up');
     }
@@ -73,19 +77,19 @@ class FormStep9 extends Component
         $this->religion = $this->savedAnswers['religion'] ?? null;
         $this->otherReligion = $this->savedAnswers['other_religion'] ?? null;
 
-        if($this->religion) {
+        if ($this->religion) {
             $this->nextEnabled = true;
         }
     }
 
-    public function setAnswerBlockAnswerId(int $id, string $otherReligion = null): void
+    public function setAnswerBlockAnswerId(int $id, ?string $otherReligion = null): void
     {
         $this->religion = $id;
 
-        if($id == 6 && !is_null($otherReligion)){
+        if ($id == 6 && ! is_null($otherReligion)) {
             $this->otherReligion = $otherReligion;
         }
-        if($id != 6){
+        if ($id != 6) {
             $this->otherReligion = null;
         }
     }

@@ -5,17 +5,19 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\AnswerBtnBlock;
 use Closure;
 use Livewire\Component;
-use Illuminate\Support\Facades\Session;
 
 class FormStep25 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $answerSelected = [];
@@ -24,11 +26,12 @@ class FormStep25 extends Component
 
     protected array $messages = [];
 
-    public $basicTitle = "";
+    public $basicTitle = '';
 
     public array $students = [];
 
     public array $startStudent = [];
+
     public int $studentCounter = 1;
 
     public int $answerId;
@@ -54,7 +57,7 @@ class FormStep25 extends Component
                         }
                     }
                 },
-                'array'
+                'array',
             ],
 
         ];
@@ -69,7 +72,7 @@ class FormStep25 extends Component
 
     public function removeSelectedSquare(int $id): void
     {
-        if(in_array($id, $this->answerSelected)){
+        if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
 
@@ -92,10 +95,11 @@ class FormStep25 extends Component
         }
         $this->answerSelected['id'] = $this->savedAnswers ?? null;
         foreach ($this->jsonQuestion->question_answer_options as $answer) {
-            {
-                if($this->savedAnswers == $answer['id'])
-                    $this->answerSelected['value'] = ucfirst($answer['value']);
+
+            if ($this->savedAnswers == $answer['id']) {
+                $this->answerSelected['value'] = ucfirst($answer['value']);
             }
+
         }
     }
 

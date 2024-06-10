@@ -1,8 +1,6 @@
 <?php
 
-return array (
-  'en' => 'Engels',
-  'nl' => 'Nederlands',
-);
-
-?>
+return [
+    'en' => 'Engels',
+    'nl' => 'Nederlands',
+];

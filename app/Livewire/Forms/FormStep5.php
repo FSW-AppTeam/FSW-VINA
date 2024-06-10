@@ -9,13 +9,16 @@ class FormStep5 extends Component
 {
     public PostForm $form;
 
-    public int|null $educationDegree = null;
+    public ?int $educationDegree = null;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -37,7 +40,7 @@ class FormStep5 extends Component
                         $this->firstRequired = false;
                         $fail($this->messages['education-degree.required']);
                     }
-                }
+                },
             ],
 
         ];
@@ -48,7 +51,7 @@ class FormStep5 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-         $this->form->createAnswer($this->educationDegree, $this->jsonQuestion, $this->stepId);
+        $this->form->createAnswer($this->educationDegree, $this->jsonQuestion, $this->stepId);
 
         $this->dispatch('set-step-id-up');
     }
@@ -68,7 +71,7 @@ class FormStep5 extends Component
     public function mount(): void
     {
         $this->educationDegree = $this->savedAnswers ?? null;
-        if($this->educationDegree) {
+        if ($this->educationDegree) {
             $this->nextEnabled = true;
         }
     }

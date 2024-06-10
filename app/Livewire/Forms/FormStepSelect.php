@@ -9,13 +9,18 @@ class FormStepSelect extends Component
 {
     public PostForm $form;
 
-    public int|null $input = null;
+    public ?int $input = null;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
+    public $questionOptions = [];
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -28,7 +33,7 @@ class FormStepSelect extends Component
 
     public function rules(): array
     {
-        if(isset($this->jsonQuestion->question_options['error_empty_text'])) {
+        if (isset($this->jsonQuestion->question_options['error_empty_text'])) {
             $this->messages['input.required'] = $this->jsonQuestion->question_options['error_empty_text'];
         }
 
@@ -39,7 +44,7 @@ class FormStepSelect extends Component
                         $this->firstRequired = false;
                         $fail($this->messages['input.required']);
                     }
-                }
+                },
             ],
 
         ];
@@ -66,11 +71,10 @@ class FormStepSelect extends Component
         $this->dispatch('set-enable-next');
     }
 
-
     public function mount(): void
     {
         $this->input = $this->savedAnswers ?? null;
-        if($this->input) {
+        if ($this->input) {
             $this->nextEnabled = true;
         }
     }

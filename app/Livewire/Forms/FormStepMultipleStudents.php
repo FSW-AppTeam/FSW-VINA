@@ -3,11 +3,13 @@
 namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswer;
+use App\Models\SurveyQuestion;
 use Closure;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
-class FormStep15 extends Component
+class FormStepMultipleStudents extends Component
 {
     public PostForm $form;
 
@@ -19,7 +21,9 @@ class FormStep15 extends Component
 
     public $jsonQuestion;
 
-    public $savedAnswers;
+    public $savedAnswers = [];
+
+    public $questionOptions = [];
 
     public $answerSelected = [];
 
@@ -132,6 +136,15 @@ class FormStep15 extends Component
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->jsonQuestion->question_title = $this->basicTitle.' '.$this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
+        if ($this->jsonQuestion->depends_on_question !== null) {
+            $this->students = $this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question);
+
+            if (count($this->students) == 0) {
+                $this->dispatch('set-step-id-up');
+
+                return;
+            }
+        }
 
         shuffle($this->students);
         $this->shadowStudents = $this->students;
@@ -146,7 +159,31 @@ class FormStep15 extends Component
 
     public function render()
     {
-        return view('livewire.forms.form-step15');
+        $dependsOnQuestion = SurveyQuestion::find($this->jsonQuestion->depends_on_question);
+        foreach ($dependsOnQuestion->question_answer_options as $option) {
+            if ($option['id'] == json_decode($this->startStudent['student_answer'])->country_id) {
+                $otherCountry = $option['value'];
+            }
+        }
+        switch (json_decode($this->startStudent['student_answer'])->country_id) {
+            case 1:
+                $this->stepId++;
+                $this->dispatch('set-step-id-up');
+                return;
+            case 2:
+            case 3:
+            case 4:
+                $this->questionOptions = getCountriesByName()[$otherCountry];
+                break;
+            case 5:
+                $this->questionOptions = getCountriesByName()['Nederlandse Antillen'];
+                break;
+            case 6:
+                $this->questionOptions = getCountriesByName()[json_decode($this->startStudent['student_answer'])->other_country];
+                break;
+        }
+
+        return view('livewire.forms.form-step-multiple-students');
     }
 
     public function setDatabaseResponse()

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class SurveyFactory extends Factory
 {
     private static $counter = 1;
+
     /**
      * Define the model's default state.
      *
@@ -18,7 +19,7 @@ class SurveyFactory extends Factory
     public function definition(): array
     {
         return [
-            'survey_code' => 'test' . self::$counter++
+            'survey_code' => 'test'.self::$counter++,
         ];
     }
 }

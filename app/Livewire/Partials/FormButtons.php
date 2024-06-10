@@ -7,8 +7,11 @@ use Livewire\Component;
 class FormButtons extends Component
 {
     public $stepId;
+
     public $jsonQuestion;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     protected $listeners = [
@@ -18,10 +21,12 @@ class FormButtons extends Component
         'set-enable-back' => 'enableBack',
         'set-enable-all' => 'enableAll',
     ];
+
     public function enableNext()
     {
         $this->nextEnabled = true;
     }
+
     public function disableNext()
     {
         $this->nextEnabled = false;
@@ -48,5 +53,4 @@ class FormButtons extends Component
         $this->disableNext();
         $this->dispatch('set-sub-step-id-up');
     }
-
 }

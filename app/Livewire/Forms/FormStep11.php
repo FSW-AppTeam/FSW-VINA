@@ -3,20 +3,24 @@
 namespace App\Livewire\Forms;
 
 use Closure;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep11 extends Component
 {
     public PostForm $form;
-    public array|null $friends = [];
+
+    public ?array $friends = [];
+
     public array $selectedFriendsIds = [];
 
     public int $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -24,6 +28,7 @@ class FormStep11 extends Component
     protected array $messages = [];
 
     public $index = 0;
+
     public $friendsList = [];
 
     protected $listeners = [
@@ -38,13 +43,13 @@ class FormStep11 extends Component
         $this->friendsList = [];
         $index = -1;
 
-        foreach ($this->friends as $key => $friend){
-            if($key % 5 === 0){
+        foreach ($this->friends as $key => $friend) {
+            if ($key % 5 === 0) {
                 $index++;
             }
 
-            if(isset($this->friendsList[$index])){
-                if (count($this->friendsList[$index]) < 5){
+            if (isset($this->friendsList[$index])) {
+                if (count($this->friendsList[$index]) < 5) {
                     $this->friendsList[$index][] = $friend;
                 }
             } else {
@@ -57,17 +62,17 @@ class FormStep11 extends Component
     {
         $key = array_search($id, array_column($this->friends, 'id'));
 
-        if(is_int($key)){
+        if (is_int($key)) {
             array_splice($this->friends, $key, 1);
             array_splice($this->selectedFriendsIds, $key, 1);
 
-            $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
+            $this->dispatch('set-disable-student-fade-btn', $id)->component('StudentFadeComponent');
         }
 
-        foreach ($this->friendsList as $index => $friendList){
+        foreach ($this->friendsList as $index => $friendList) {
             $key = array_search($id, array_column($friendList, 'id'));
 
-            if(is_int($key)){
+            if (is_int($key)) {
                 array_splice($this->friendsList[$index], $key, 1);
             }
         }
@@ -85,8 +90,8 @@ class FormStep11 extends Component
                         $fail($this->messages['friends.required']);
                     }
                 },
-                'array'
-            ]
+                'array',
+            ],
         ];
     }
 
@@ -100,23 +105,22 @@ class FormStep11 extends Component
 
     public function mount(): void
     {
-        if(is_null($this->savedAnswers)) {
+        if (is_null($this->savedAnswers)) {
             return;
         }
         $allStudents = $this->form->getStudentsWithoutActiveStudent();
-        foreach($allStudents as $student) {
-            if(in_array($student['id'], $this->savedAnswers)) {
+        foreach ($allStudents as $student) {
+            if (in_array($student['id'], $this->savedAnswers)) {
                 $this->friends[] = [
                     'id' => $student['id'],
-                    'name' => $student['name']
+                    'name' => $student['name'],
                 ];
             }
         }
 
-
         $index = -1;
-        foreach ($this->friends as $key => $friend){
-            if($key % 5 === 0){
+        foreach ($this->friends as $key => $friend) {
+            if ($key % 5 === 0) {
                 $index++;
             }
 

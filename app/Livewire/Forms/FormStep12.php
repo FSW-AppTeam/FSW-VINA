@@ -6,28 +6,36 @@ use App\Models\SurveyAnswer;
 use App\Models\SurveyStudent;
 use Closure;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep12 extends Component
 {
     public PostForm $form;
-    public $basicTitle = "";
+
+    public $basicTitle = '';
+
     public array $friends = [];
+
     public array $selectedFriendsIds = [];
+
     public $lastSelectedFriendId = '';
 
     public $disappear = false;
 
     public array $students = [];
+
     public array $startFriend = [];
+
     public array $finishedFriend = [];
 
     public int $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -35,6 +43,7 @@ class FormStep12 extends Component
     public $studentCounter = 1;
 
     protected array $messages = [];
+
     public $index = 0;
 
     protected $listeners = [
@@ -55,10 +64,10 @@ class FormStep12 extends Component
     public function removeSelectedStudentId(int $id): void
     {
         $key = array_search($id, array_column($this->friends, 'id'));
-        if(is_int($key)){
+        if (is_int($key)) {
             array_splice($this->friends, $key, 1);
             array_splice($this->selectedFriendsIds, $key, 1);
-            $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
+            $this->dispatch('set-disable-student-fade-btn', $id)->component('StudentFadeComponent');
         }
     }
 
@@ -77,8 +86,8 @@ class FormStep12 extends Component
                         }
                     }
                 },
-                'array'
-            ]
+                'array',
+            ],
         ];
     }
 
@@ -90,22 +99,22 @@ class FormStep12 extends Component
             'student_id' => $this->startFriend['id'],
             'value' => array_column($this->friends, 'id'),
         ];
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startFriend['id'];
         $this->form->createJsonAnswer($answer, $this->jsonQuestion, $this->stepId);
         $this->disappear = false;
 
-        if(array_key_exists(1, $this->students)){
-            $this->studentCounter ++;
+        if (array_key_exists(1, $this->students)) {
+            $this->studentCounter++;
 
-            foreach ($this->selectedFriendsIds as $id){
-                $this->dispatch('set-disable-student-fade-btn',  $id)->component('StudentFadeComponent');
+            foreach ($this->selectedFriendsIds as $id) {
+                $this->dispatch('set-disable-student-fade-btn', $id)->component('StudentFadeComponent');
             }
 
             $this->friends = [];
             $this->selectedFriendsIds = [];
             $this->startFriend = array_shift($this->students);
             $this->finishedFriend[] = $this->startFriend;
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startFriend['id'];
             $this->setDatabaseResponse();
             $this->dispatch('set-enable-next');
         } else {
@@ -117,19 +126,20 @@ class FormStep12 extends Component
     public function stepDown(): void
     {
         $this->disappear = false;
-        if($this->studentCounter <= 1) {
+        if ($this->studentCounter <= 1) {
             $this->dispatch('set-step-id-down');
+
             return;
         }
         $this->friends = [];
-        if(!empty($this->finishedFriend)) {
+        if (! empty($this->finishedFriend)) {
             array_unshift($this->students, array_pop($this->finishedFriend));
             $this->startFriend = end($this->finishedFriend);
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startFriend['id'];
         }
         $this->selectedFriendsIds = [];
         $this->setDatabaseResponse();
-        $this->studentCounter --;
+        $this->studentCounter--;
     }
 
     public function stepUp(): void
@@ -146,7 +156,7 @@ class FormStep12 extends Component
 
         $this->startFriend = array_shift($this->students);
         $this->finishedFriend[] = $this->startFriend;
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startFriend['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startFriend['id'];
         $this->setDatabaseResponse();
         $this->lastSelectedFriendId = '';
     }
@@ -162,14 +172,15 @@ class FormStep12 extends Component
             ->where('question_id', $this->jsonQuestion->id)
             ->whereJsonContains('student_answer->student_id', $this->startFriend['id'])
             ->first();
-        if(!$response) {
-            Log::info('NIET gevonden' . $this->startFriend['id'] );
+        if (! $response) {
+            Log::info('NIET gevonden'.$this->startFriend['id']);
+
             return;
         }
 
         foreach ($response->student_answer['value'] as $responseItem) {
             $student = SurveyStudent::find($responseItem);
-            if($student) {
+            if ($student) {
                 $this->setSelectedStudentId($responseItem, $student->name);
             }
         }

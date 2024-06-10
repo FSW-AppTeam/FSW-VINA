@@ -188,13 +188,13 @@ class SurveyTable extends Component
         $surveyExport = new SurveyExport();
         try {
             $count = $surveyExport->checkExportCsv($surveyId);
-            if($count > 0) {
-                $this->refresh('Succesfully generated ' . $count . ' CSV files!');
+            if ($count > 0) {
+                $this->refresh('Succesfully generated '.$count.' CSV files!');
             } else {
                 session()->flash('error', 'No new CSV files generated!');
             }
-        } catch (\Exception $exception){
-            session()->flash('error', 'Ooops... Something went wrong with the CSV export job: ' . $exception);
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Ooops... Something went wrong with the CSV export job: '.$exception);
         }
 
     }
@@ -203,7 +203,7 @@ class SurveyTable extends Component
     {
         SurveyStudent::where('survey_id', $surveyId)
             ->update([
-                'name' => NULL,
+                'name' => null,
             ]);
     }
 

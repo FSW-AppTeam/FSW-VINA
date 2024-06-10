@@ -28,7 +28,7 @@ class ExportCsvRun extends Command
     {
         try {
             $surveyExport->checkExportCsv();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             dump($e->getMessage());
         }
     }

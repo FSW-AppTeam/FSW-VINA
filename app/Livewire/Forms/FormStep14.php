@@ -6,7 +6,6 @@ use App\Livewire\Partials\FlagImage;
 use App\Models\SurveyAnswer;
 use Closure;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep14 extends Component
@@ -14,19 +13,27 @@ class FormStep14 extends Component
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
+
     public $flagsSelected = [];
 
     public $firstRequired = true;
-    public $basicTitle = "";
+
+    public $basicTitle = '';
+
     public array $students = [];
 
     public array $startStudent = [];
+
     public array $finishedStudent = [];
+
     public $studentCounter = 1;
 
     protected array $messages = [];
@@ -54,7 +61,7 @@ class FormStep14 extends Component
                         $fail($this->messages['flags.required']);
                     }
                 },
-                'array'
+                'array',
             ],
 
         ];
@@ -62,34 +69,34 @@ class FormStep14 extends Component
 
     public function setSelectedFlagId(int $id, string $image, string $country): void
     {
-        if(count($this->flagsSelected) > 3){
+        if (count($this->flagsSelected) > 3) {
             return;
         }
         $imageFile = false;
 
-        if($image == 'anders'){
+        if ($image == 'anders') {
             $image = $country;
         }
 
-        if(file_exists(public_path($image))){
+        if (file_exists(public_path($image))) {
             $imageFile = $image;
         }
 
-        $isoFlag = array_search(ucfirst($image), getIsoCountries());
-        if(!$imageFile && file_exists(public_path('build/images/flags/' . strtolower($isoFlag) . '.svg'))){
-            $imageFile = 'build/images/flags/' . strtolower($isoFlag) . '.svg';
+        $isoFlag = array_search(ucfirst($image), array_keys(getIsoCountries()));
+        if (! $imageFile && file_exists(public_path('build/images/flags/'.strtolower($isoFlag).'.svg'))) {
+            $imageFile = 'build/images/flags/'.strtolower($isoFlag).'.svg';
         }
 
-        if(!$imageFile && file_exists(public_path('images/flags/' . strtolower($image) . '.jpg'))){
-            $imageFile = 'images/flags/' . strtolower($image) . '.jpg';
+        if (! $imageFile && file_exists(public_path('images/flags/'.strtolower($image).'.jpg'))) {
+            $imageFile = 'images/flags/'.strtolower($image).'.jpg';
         }
         $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
     }
 
     public function removeSelectedFlagId(int $id, string $country): void
     {
-        foreach ($this->flagsSelected as $key => $flagSelect){
-            if($flagSelect['id'] === $id && $flagSelect['country'] === $country){
+        foreach ($this->flagsSelected as $key => $flagSelect) {
+            if ($flagSelect['id'] === $id && $flagSelect['country'] === $country) {
                 array_splice($this->flagsSelected, $key, 1);
             }
         }
@@ -106,17 +113,17 @@ class FormStep14 extends Component
             'student_id' => $this->startStudent['id'],
             'countries' => $this->flagsSelected
         ];
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
 
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-        foreach ($this->flagsSelected as $flagSelect){
+        foreach ($this->flagsSelected as $flagSelect) {
             $this->dispatch('set-show-flag-true', $flagSelect['id'])->component(FlagImage::class);
         }
-        if(array_key_exists(0, $this->students)){
-            $this->studentCounter ++;
+        if (array_key_exists(0, $this->students)) {
+            $this->studentCounter++;
             $this->flagsSelected = [];  // db output
-            $this->startStudent =  array_shift($this->students);
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+            $this->startStudent = array_shift($this->students);
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID: '.$this->startStudent['id'];
             $this->finishedStudent[] = $this->startStudent;
             $this->setDatabaseResponse();
             $this->dispatch('set-enable-next');
@@ -129,19 +136,20 @@ class FormStep14 extends Component
     public function stepDown(): void
     {
         $this->disappear = false;
-        if($this->studentCounter <= 1) {
+        if ($this->studentCounter <= 1) {
             $this->dispatch('set-step-id-down');
+
             return;
         }
-        if(!empty($this->finishedStudent)) {
+        if (! empty($this->finishedStudent)) {
             array_unshift($this->students, array_pop($this->finishedStudent));
             $this->startStudent = end($this->finishedStudent);
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID: '.$this->startStudent['id'];
 
         }
         $this->flagsSelected = [];
         $this->setDatabaseResponse();
-        $this->studentCounter --;
+        $this->studentCounter--;
     }
 
     public function stepUp(): void
@@ -151,10 +159,10 @@ class FormStep14 extends Component
         $this->validate($this->rules());
         $this->dispatch('set-disapear-true');
 
-        if(count($this->students) >= 1) {
+        if (count($this->students) >= 1) {
             $this->dispatch('set-animation-flag-student');
         }
-        if(count($this->students) == 0 ) {
+        if (count($this->students) == 0) {
             $this->dispatch('set-save-answer');
         }
     }
@@ -165,7 +173,7 @@ class FormStep14 extends Component
         $this->students = $this->form->getStudentsWithoutActiveStudent();
         $this->startStudent = array_shift($this->students);
         $this->finishedStudent[] = $this->startStudent;
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
         $this->setDatabaseResponse();
     }
 
@@ -181,8 +189,9 @@ class FormStep14 extends Component
             ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
             ->first();
 
-        if(!$response) {
-            Log::info('NIET gevonden' . $this->startStudent['id'] );
+        if (! $response) {
+            Log::info('NIET gevonden'.$this->startStudent['id']);
+
             return;
         }
         foreach ($response->student_answer['countries'] as $responseItem) {

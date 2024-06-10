@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use Illuminate\Support\Facades\Session;
 use Closure;
 use Livewire\Component;
 
@@ -11,10 +10,13 @@ class FormStep20 extends Component
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $answerSelected = [];
@@ -23,14 +25,16 @@ class FormStep20 extends Component
 
     protected array $messages = [];
 
-    public $basicTitle = "";
+    public $basicTitle = '';
 
     public array $students = [];
 
     public array $startStudent = [];
+
     public int $studentCounter = 1;
 
     public int $answerId;
+
     public array $shadowStudents = [];
 
     protected $listeners = [
@@ -52,7 +56,7 @@ class FormStep20 extends Component
                         $fail($this->messages['answer_id.required']);
                     }
                 },
-                'array'
+                'array',
             ],
 
         ];
@@ -75,7 +79,7 @@ class FormStep20 extends Component
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
 
-        if(empty($this->startStudent)){
+        if (empty($this->startStudent)) {
             $this->dispatch('set-step-id-up');
 
             return;
@@ -84,16 +88,16 @@ class FormStep20 extends Component
             'id' => $this->startStudent['id'] ?? [],
             'value' => $this->answerSelected['id'] ?? [],
         ];
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
 
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-        if (!empty($this->students)) {
+        if (! empty($this->students)) {
             $this->startStudent = $this->students[0];
             $this->studentCounter++;
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
             $this->answerSelected = [];
             array_shift($this->students);
-            if(empty($answer['value'])){
+            if (empty($answer['value'])) {
                 $this->dispatch('set-block-btn-animation', null);
             }
 
@@ -106,8 +110,9 @@ class FormStep20 extends Component
     {
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->students = $this->form->getStudentsNotInFriendsSelected();
-        if(empty($this->students)){
+        if (empty($this->students)) {
             $this->dispatch('set-step-id-up');
+
             return;
         }
         shuffle($this->students);
@@ -116,7 +121,7 @@ class FormStep20 extends Component
         $this->shadowStudents = $this->students;
 
         $this->startStudent = $this->students[0];
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
 
         // shifts the student shadow
         array_shift($this->students);

@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/reset', function () {
         Session()->flush();
+
         return redirect('/');
     });
     Route::get('/step/{stepId}', function ($stepId) {
@@ -47,9 +48,6 @@ Route::group(['middleware' => ['auth']], function () {
             return view('livewire.surveyanswers.details', compact('surveyAnswer'));
         })->name('surveyanswersdetails');
 
-        Route::get('/surveyquestiontable', function () {
-            return view('livewire.surveyquestion.index');
-        });
         Route::get('/surveyquestiondetails/{surveyquestion}', function (App\Models\SurveyQuestion $surveyquestion) {
             return view('livewire.surveyquestion.details', compact('surveyquestion'));
         })->name('surveyquestiondetails');
@@ -61,6 +59,11 @@ Route::group(['middleware' => ['auth']], function () {
             return view('livewire.user.details', compact('user'));
         })->name('userdetails');
     });
+
+    Route::get('/surveyquestiontable', function () {
+        return view('livewire.surveyquestion.index');
+    });
+
     Route::get('/surveytable', function () {
         return view('livewire.survey.index');
     });

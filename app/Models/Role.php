@@ -17,24 +17,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property Collection|User[] $users
- *
- * @package App\Models
  */
 class Role extends Model
 {
-	protected $table = 'roles';
+    protected $table = 'roles';
 
     const USER = 1;
+
     const ADMINISTRATOR = 2;
 
-	protected $fillable = [
-		'name'
-	];
+    protected $fillable = [
+        'name',
+    ];
 
-	public function users()
-	{
-		return $this->hasMany(User::class);
-	}
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

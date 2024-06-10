@@ -7,12 +7,15 @@ use Livewire\Component;
 class StudentFadeComponent extends Component
 {
     public $showFade = false;
+
     public $showShrink = false;
+
     public $nextId = 0;
 
     public $id;
 
     public $name;
+
     public $selectedFriendsIds;
 
     protected $listeners = [
@@ -30,14 +33,14 @@ class StudentFadeComponent extends Component
 
     public function setShowFadeTrue($id): void
     {
-        if($id === $this->id){
+        if ($id === $this->id) {
             $this->showFade = true;
         }
     }
 
     public function setShowShrinkTrue(): void
     {
-        if($this->nextId === $this->id) {
+        if ($this->nextId === $this->id) {
             $this->showShrink = true;
         }
     }
@@ -56,19 +59,20 @@ class StudentFadeComponent extends Component
 
     public function disableShowFade($id): void
     {
-        if($id === $this->id){
+        if ($id === $this->id) {
             $this->showFade = false;
         }
     }
 
     public function mount()
     {
-        if(in_array($this->id, $this->selectedFriendsIds)){
+        if (in_array($this->id, $this->selectedFriendsIds)) {
             $this->showFade = true;
         }
     }
+
     public function render()
     {
-       return view('livewire.student-fade-component');
+        return view('livewire.student-fade-component');
     }
 }

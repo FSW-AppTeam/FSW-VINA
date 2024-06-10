@@ -7,7 +7,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -22,33 +21,30 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon|null $updated_at
  * @property string|null $solis_id
  * @property string|null $allowed_attributes
- *
  * @property Role $role
- *
- * @package App\Models
  */
 class User extends Authenticatable
 {
-	protected $table = 'users';
+    protected $table = 'users';
 
-	protected $casts = [
-		'role_id' => 'int',
-		'email_verified_at' => 'datetime'
-	];
+    protected $casts = [
+        'role_id' => 'int',
+        'email_verified_at' => 'datetime',
+    ];
 
-	protected $fillable = [
-		'name',
-		'role_id',
-		'email',
-		'email_verified_at',
-		'solis_id',
-		'allowed_attributes'
-	];
+    protected $fillable = [
+        'name',
+        'role_id',
+        'email',
+        'email_verified_at',
+        'solis_id',
+        'allowed_attributes',
+    ];
 
-	public function role()
-	{
-		return $this->belongsTo(Role::class);
-	}
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
     public function isAdmin()
     {

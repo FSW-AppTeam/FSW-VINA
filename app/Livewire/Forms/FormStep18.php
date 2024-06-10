@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use Closure;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStep18 extends Component
@@ -11,10 +10,13 @@ class FormStep18 extends Component
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $answerSelected = [];
@@ -23,7 +25,7 @@ class FormStep18 extends Component
 
     protected array $messages = [];
 
-    public $basicTitle = "";
+    public $basicTitle = '';
 
     public array $students = [];
 
@@ -49,13 +51,13 @@ class FormStep18 extends Component
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                        if ($this->firstRequired && empty($value)) {
-                            $this->firstRequired = false;
-                            $this->dispatch('set-enable-next');
-                            $fail($this->messages['answer_id.required']);
-                        }
+                    if ($this->firstRequired && empty($value)) {
+                        $this->firstRequired = false;
+                        $this->dispatch('set-enable-next');
+                        $fail($this->messages['answer_id.required']);
+                    }
                 },
-                'array'
+                'array',
             ],
         ];
     }
@@ -68,7 +70,7 @@ class FormStep18 extends Component
 
     public function removeSelectedSquare(int $id): void
     {
-        if(in_array($id, $this->answerSelected)){
+        if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
     }
@@ -82,16 +84,16 @@ class FormStep18 extends Component
             'id' => $this->startStudent['id'] ?? [],
             'value' => $this->answerSelected['id'] ?? [],
         ];
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
 
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-        if(!empty($this->students[0])){
+        if (! empty($this->students[0])) {
             $this->startStudent = $this->students[0];
-            $this->studentCounter ++;
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+            $this->studentCounter++;
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
             $this->answerSelected = [];
             array_shift($this->students);
-            if(empty($answer['value'])){
+            if (empty($answer['value'])) {
                 $this->dispatch('set-block-btn-animation', null);
             }
         } else {
@@ -104,11 +106,11 @@ class FormStep18 extends Component
         $this->basicTitle = $this->jsonQuestion->question_title;
         $this->students = $this->form->getStudentsSelfFriendsSelected();
 
-        if(!empty($this->students)){
+        if (! empty($this->students)) {
             shuffle($this->students);
             $this->shadowStudents = $this->students;
             $this->startStudent = $this->students[0];
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID:" .  $this->startStudent['id'];
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startStudent['id'];
 
             array_shift($this->students);
         }

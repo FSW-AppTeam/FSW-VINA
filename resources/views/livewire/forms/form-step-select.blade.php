@@ -4,8 +4,7 @@
                 :json-question="$jsonQuestion">
     <div class="mt-4">
         <div class="form-group set-fade-in">
-            <h6 class="pb-3 pl-4">{{ $jsonQuestion['question_content'] }}</h6>
-
+            <h6 class="pb-3 pl-4"> {{printWithQuestionOptions( $jsonQuestion['question_content'], $questionOptions, 2) }}</h6>
             <div class="form-group block-multi-question">
                 <div class="col d-flex justify-content-center align-items-center row">
                     @foreach ($jsonQuestion->question_answer_options as $key => $answer)
@@ -17,7 +16,7 @@
                                    wire:model.live="input" id="{{ $answer['id'] }}" value="{{ $answer['id'] }}"/>
 
                             <label class="form-check-label" for="{{ $answer['id'] }}">
-                                {{ ucfirst($answer['value']) }}
+                                {{ ucfirst(printWithQuestionOptions( $answer['value'], $questionOptions, 3)) }}
                             </label>
                         </button>
                     @endforeach

@@ -1,8 +1,6 @@
 <?php
 
-return array (
-  'previous' => 'pagination.previous',
-  'next' => 'pagination.next',
-);
-
-?>
+return [
+    'previous' => 'pagination.previous',
+    'next' => 'pagination.next',
+];
