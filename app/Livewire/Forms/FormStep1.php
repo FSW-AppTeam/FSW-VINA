@@ -4,17 +4,21 @@ namespace App\Livewire\Forms;
 
 use App\Models\Survey;
 use Closure;
-use Livewire\Component;
 use Illuminate\Support\Facades\Session;
+use Livewire\Component;
 
 class FormStep1 extends Component
 {
     public PostForm $form;
+
     public $surveyCode = '';
 
     public $jsonQuestion;
+
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     protected $rules = [
@@ -39,11 +43,11 @@ class FormStep1 extends Component
                         $fail($this->messages['surveyCode.exists']);
                     }
 
-                    if (!Survey::checkCode($value)) {
+                    if (! Survey::checkCode($value)) {
                         $this->dispatch('set-disable-next');
                         $fail($this->messages['surveyCode.exists']);
                     }
-                }
+                },
             ],
 
         ];
@@ -51,14 +55,14 @@ class FormStep1 extends Component
 
     public function mount(): void
     {
-        if(session::get('survey-id')) {
+        if (session::get('survey-id')) {
             $survey = Survey::where('id', session::get('survey-id'));
-            if($survey->exists()) {
+            if ($survey->exists()) {
                 $this->surveyCode = $survey->first()->survey_code;
             }
         }
 
-        if($this->surveyCode) {
+        if ($this->surveyCode) {
             $this->nextEnabled = true;
         }
     }

@@ -7,6 +7,7 @@ use Livewire\Component;
 class CreateSurvey extends Component
 {
     public $update;
+
     public $stepId;
 
     public function mount()

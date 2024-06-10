@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class SurveyStudent
@@ -16,29 +16,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $survey_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property Survey $survey
- *
- * @package App\Models
  */
 class SurveyStudent extends Model
 {
     use HasFactory;
-	protected $table = 'survey_students';
 
-	protected $casts = [
-		'finished_at' => 'datetime',
-		'exported_at' => 'datetime',
-		'survey_id' => 'int'
-	];
+    protected $table = 'survey_students';
 
-	protected $fillable = [
-		'name',
-		'finished_at',
-		'exported_at',
-		'survey_id'
-	];
+    protected $casts = [
+        'finished_at' => 'datetime',
+        'exported_at' => 'datetime',
+        'survey_id' => 'int',
+    ];
 
+    protected $fillable = [
+        'name',
+        'finished_at',
+        'exported_at',
+        'survey_id',
+    ];
 
     public function survey()
     {
@@ -62,7 +59,7 @@ class SurveyStudent extends Model
                 'question_type',
                 'survey_students.created_at',
                 'finished_at',
-                'exported_at'
+                'exported_at',
             ])->toArray();
     }
 
@@ -70,8 +67,7 @@ class SurveyStudent extends Model
     {
         SurveyStudent::where('survey_id', $surveyId)
             ->update([
-                'exported_at' => now()
+                'exported_at' => now(),
             ]);
     }
-
 }

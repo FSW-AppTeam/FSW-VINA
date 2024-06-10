@@ -9,13 +9,16 @@ class FormStep3 extends Component
 {
     public PostForm $form;
 
-    public int|null $age = null;
+    public ?int $age = null;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -25,6 +28,7 @@ class FormStep3 extends Component
     public function rules(): array
     {
         $this->messages['age.required'] = $this->jsonQuestion->question_options['error_empty_text'];
+
         return [
             'age' => [
                 function (string $attribute, mixed $value, Closure $fail) {
@@ -53,11 +57,10 @@ class FormStep3 extends Component
         $this->dispatch('set-enable-next');
     }
 
-
     public function mount(): void
     {
         $this->age = $this->savedAnswers ?? null;
-        if($this->age) {
+        if ($this->age) {
             $this->nextEnabled = true;
         }
     }

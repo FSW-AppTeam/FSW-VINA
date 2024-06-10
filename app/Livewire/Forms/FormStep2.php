@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Livewire\Component;
 
 class FormStep2 extends Component
 {
@@ -13,7 +13,9 @@ class FormStep2 extends Component
     public string $name = '';
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
@@ -27,7 +29,7 @@ class FormStep2 extends Component
                 'alpha_num:ascii',
                 Rule::unique('survey_students')
                     ->where('survey_id', session::get('survey-id'))
-                    ->ignore(session::get('student-id'))
+                    ->ignore(session::get('student-id')),
             ],
         ];
     }
@@ -35,8 +37,9 @@ class FormStep2 extends Component
     protected $messages = [
         'name.required' => 'Voornaam is verplicht',
         'name.min' => 'Je naam moet minimaal 1 karakter zijn.',
-        'name.alpha_num' => 'Je kunt alleen letters en cijfers invoeren.'
+        'name.alpha_num' => 'Je kunt alleen letters en cijfers invoeren.',
     ];
+
     public $setPage = true;
 
     public function updatedName()
@@ -59,9 +62,9 @@ class FormStep2 extends Component
 
     public function mount(): void
     {
-        $this->name = old('student-name') ?? session::get('student-name') ?? "";
+        $this->name = old('student-name') ?? session::get('student-name') ?? '';
 
-        if($this->name) {
+        if ($this->name) {
             $this->nextEnabled = true;
         }
     }

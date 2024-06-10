@@ -23,14 +23,14 @@ class FlagImage extends Component
 
     public function setShowFlagTrue(int $id): void
     {
-        if($id === $this->id){
+        if ($id === $this->id) {
             $this->showFlag = true;
         }
     }
 
     public function setFlag(int $id): void
     {
-        if((count($this->flagsSelected) <= 3)) {
+        if ((count($this->flagsSelected) <= 3)) {
             if ($id !== 6) {
                 $this->showFlag = false;
                 $this->dispatch('set-selected-flag-id', $id, $this->image, $this->country);
@@ -44,7 +44,7 @@ class FlagImage extends Component
 
     public function setFlagFromJs(string $country): void
     {
-        if($this->id === 6){
+        if ($this->id === 6) {
             $this->dispatch('set-selected-flag-id', 6, 'anders', $country);
         }
     }
@@ -57,8 +57,8 @@ class FlagImage extends Component
 
     public function mount()
     {
-        if(($this->id !== 6) && in_array($this->id, array_column($this->flagsSelected, 'id'))){
-            $this->showFlag = !$this->showFlag;
+        if (($this->id !== 6) && in_array($this->id, array_column($this->flagsSelected, 'id'))) {
+            $this->showFlag = ! $this->showFlag;
         }
     }
 

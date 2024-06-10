@@ -15,7 +15,6 @@ class DeleteAllSurveyData extends Command
     protected $signature = 'app:delete-all-survey-data';
 
     /**
-     *
      * @var string
      */
     protected $description = 'Deletes all the survey data from the database!!! Be carefully! This job runs once per night at 03:00.';

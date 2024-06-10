@@ -11,13 +11,17 @@ use Livewire\Component;
 class FormStep8 extends Component
 {
     public PostForm $form;
-    public int|null $indicationCountry = null;
+
+    public ?int $indicationCountry = null;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $depentsOnQuestion = 7;
@@ -43,7 +47,7 @@ class FormStep8 extends Component
                         $this->firstRequired = false;
                         $fail($this->messages['indicationCountry.required']);
                     }
-                }
+                },
             ],
         ];
     }
@@ -67,7 +71,7 @@ class FormStep8 extends Component
     public function mount(): void
     {
         $this->indicationCountry = $this->savedAnswers ?? null;
-        if($this->indicationCountry) {
+        if ($this->indicationCountry) {
             $this->nextEnabled = true;
         }
     }
@@ -82,27 +86,29 @@ class FormStep8 extends Component
         $savedAnswer = SurveyAnswer::where('question_id', $this->depentsOnQuestion)
             ->where('student_id', Session::get('student-id'));
 
-        if(!$savedAnswer->exists()) {
+        if (! $savedAnswer->exists()) {
             $this->dispatch('set-step-id-up');
+
             return view('livewire.partials.blanco');
         }
 
-        $depentsOnQuestionAnswers =  $savedAnswer->first()->student_answer;
+        $depentsOnQuestionAnswers = $savedAnswer->first()->student_answer;
 
-        if($depentsOnQuestionAnswers['country_id'] === 1) {
+        if ($depentsOnQuestionAnswers['country_id'] === 1) {
             $this->dispatch('set-step-id-up');
+
             return view('livewire.partials.blanco');
         }
 
         $depentsOnQuestion = SurveyQuestion::find($this->depentsOnQuestion);
 
-        foreach($depentsOnQuestion->question_answer_options as $option){
-            if($option['id'] === $depentsOnQuestionAnswers['country_id']) {
+        foreach ($depentsOnQuestion->question_answer_options as $option) {
+            if ($option['id'] === $depentsOnQuestionAnswers['country_id']) {
                 $this->originCountryName = $option['value'];
             }
         }
 
-        if($depentsOnQuestionAnswers['country_id'] === 6) {
+        if ($depentsOnQuestionAnswers['country_id'] === 6) {
             $this->originCountryName = $depentsOnQuestionAnswers['other_country'];
         }
 

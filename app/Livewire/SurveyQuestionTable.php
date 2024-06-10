@@ -110,17 +110,17 @@ class SurveyQuestionTable extends Component
         $this->question_type = $surveyquestion->question_type;
         $this->question_title = $surveyquestion->question_title;
         $this->question_content = $surveyquestion->question_content;
-        if(is_array($surveyquestion->question_answer_options)) {
+        if (is_array($surveyquestion->question_answer_options)) {
             $this->question_answer_options = $surveyquestion->question_answer_options;
         }
-        if(is_string($surveyquestion->question_answer_options)) {
+        if (is_string($surveyquestion->question_answer_options)) {
             $this->question_answer_options = json_decode($surveyquestion->question_answer_options);
         }
-        if(is_array($surveyquestion->question_options)) {
+        if (is_array($surveyquestion->question_options)) {
             $this->question_options = $surveyquestion->question_options;
         }
 
-        if(is_string($surveyquestion->question_options)) {
+        if (is_string($surveyquestion->question_options)) {
             $this->question_options = json_decode($surveyquestion->question_options);
         }
         $this->created_at = $surveyquestion->created_at;
@@ -218,11 +218,9 @@ class SurveyQuestionTable extends Component
         return redirect()->route($name, $id);
     }
 
-
     public function toggleEnable($row)
     {
         $model = SurveyQuestion::find($row['id']);
         $model->update(['enabled' => ! $model->enabled]);
     }
-
 }

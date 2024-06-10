@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('enabled')->default(true);
             $table->string('form_type')->nullable();
             $table->string('question_type');
+            $table->integer('depends_on_question')->nullable();
             $table->string('question_title');
             $table->string('question_content');
             $table->json('question_answer_options')->nullable();

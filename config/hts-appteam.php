@@ -10,7 +10,7 @@ return [
      * saml, oidc or local
      */
     'login_type' => [
-        'oidc'
+        'oidc',
     ],
 
     /*
@@ -54,8 +54,8 @@ return [
             [
                 'attribute' => 'affiliation',
                 'exp' => 'IS', // IN, IS, NOT_IN, NOT,
-                'value' => 'employee'
-            ]
+                'value' => 'employee',
+            ],
         ],
 
         /*
@@ -78,7 +78,7 @@ return [
             'uuLegacyDepartment' => 'faculty',
             'department' => 'department',
             'mail' => 'email',
-            'urn:mace:dir:attribute-def:eduPersonAffiliation' => 'affiliation'
+            'urn:mace:dir:attribute-def:eduPersonAffiliation' => 'affiliation',
         ],
 
         /*
@@ -88,7 +88,7 @@ return [
         'required_attributes' => [
             'solis_id',
             'email',
-            'affiliation'
+            'affiliation',
         ],
 
         /*
@@ -96,7 +96,7 @@ return [
          */
         'unique_attributes' => [
             'solis_id',
-            'email'
+            'email',
         ],
 
         /*
@@ -104,7 +104,7 @@ return [
          * For example in the 'allow_registration_filter'
          */
         'not_stored_attributes' => [
-            'affiliation'
+            'affiliation',
         ],
     ],
 
@@ -123,7 +123,7 @@ return [
          * Default scopes
          */
         'scopes' => [
-            'urn:uu.nl:idp:scope:oauth:fsw:appteam'
+            'urn:uu.nl:idp:scope:oauth:fsw:appteam',
         ],
 
         /*
@@ -151,8 +151,8 @@ return [
             [
                 'attribute' => 'locale',
                 'exp' => 'IS', // IN, IS, NOT_IN, NOT,
-                'value' => 'NL'
-            ]
+                'value' => 'NL',
+            ],
         ],
 
         /*
@@ -164,7 +164,7 @@ return [
         'requested_attributes' => [
             'uuShortID' => 'solis_id',
             'displayName' => 'name',
-            'mail' => 'email'
+            'mail' => 'email',
         ],
 
         /*
@@ -174,7 +174,7 @@ return [
         'required_attributes' => [
             'solis_id',
             'email',
-            'name'
+            'name',
         ],
 
         /*
@@ -182,7 +182,7 @@ return [
          */
         'unique_attributes' => [
             'solis_id',
-            'email'
+            'email',
         ],
 
         /*
@@ -190,7 +190,7 @@ return [
          * For example in the 'allow_registration_filter'
          */
         'not_stored_attributes' => [
-//            'locale'
+            //            'locale'
         ],
     ],
 
@@ -207,20 +207,20 @@ return [
             'solis_id' => 'solis_id',
             'name' => 'name',
             'email' => 'email',
-            'password' => 'password'
+            'password' => 'password',
         ],
 
         /*
          * For login_type = local we can define which routes we want to use.
          */
         'login_route' => [
-            'login'    => true,
-            'logout'   => true,
+            'login' => true,
+            'logout' => true,
             'register' => false,
-            'reset'    => true,   // for resetting passwords
+            'reset' => true,   // for resetting passwords
             // TODO: Confirm and verify is not finished jet.
-            'confirm'  => false,  // for additional password confirmations
-            'verify'   => false,  // for email verification
+            'confirm' => false,  // for additional password confirmations
+            'verify' => false,  // for email verification
         ],
 
         /*
@@ -228,6 +228,6 @@ return [
          * if you have multiple login types and you want to force UU users
          * to use SAML or OIDC login
          */
-        'exclude_uu_users_from_local_login' => true
+        'exclude_uu_users_from_local_login' => true,
     ],
 ];

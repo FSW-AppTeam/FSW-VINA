@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
 use Livewire\Features\SupportValidation\HandlesValidation;
 use Livewire\Form;
-use stdClass;
 
 class PostForm extends Form
 {
     use HandlesValidation;
+
     public ?SurveyAnswer $answers;
 
     #[Computed(persist: true)]
@@ -75,14 +75,14 @@ class PostForm extends Form
             ->get(['survey_answers.student_answer'])
             ->toArray();
 
-        $allFriends= [];
+        $allFriends = [];
         // flat student array for import
-        foreach ($answers as $answer){
-              if(isset($answer['student_answer']['value'])){
-                  foreach ($answer['student_answer']['value'] as $selectedFriend){
+        foreach ($answers as $answer) {
+            if (isset($answer['student_answer']['value'])) {
+                foreach ($answer['student_answer']['value'] as $selectedFriend) {
                     $allFriends[] = ['id' => $answer['student_answer']['student_id'], 'relation_id' => $selectedFriend];
-                  }
-              }
+                }
+            }
         }
 
         $uniqueStudents = [];
@@ -91,7 +91,7 @@ class PostForm extends Form
             $uniqueStudents = array_unique(
                 array_merge(array_column($allFriends, 'id'), array_column($allFriends, 'relation_id'))
             );
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             dd($e->getMessage(), $allFriends);
         }
 
@@ -119,7 +119,7 @@ class PostForm extends Form
         );
 
         session::put([
-            "step$stepId" => true
+            "step$stepId" => true,
         ]);
     }
 
@@ -129,7 +129,7 @@ class PostForm extends Form
             [
                 'student_id' => $this->getStudent()->id,
                 'question_id' => $jsonQuestions->id,
-                'question_title' => $jsonQuestions->question_title
+                'question_title' => $jsonQuestions->question_title,
             ],
             [
                 'student_answer' => $answer,
@@ -138,34 +138,34 @@ class PostForm extends Form
         );
 
         session::put([
-            "step$stepId" => true
+            "step$stepId" => true,
         ]);
     }
 
     public function createStudent(string $name, string $surveyId, bool $setSession = true): void
     {
-       $student = SurveyStudent::firstOrCreate([
+        $student = SurveyStudent::firstOrCreate([
             'name' => strip_tags($name),
-            'survey_id' => strip_tags($surveyId)
+            'survey_id' => strip_tags($surveyId),
         ]);
 
-       if($setSession){
-           session::put([
-               'student-name' => strip_tags($name),
-               'student-id' => strip_tags($student->id),
-               'survey-id' =>strip_tags($surveyId)
-           ]);
-       }
+        if ($setSession) {
+            session::put([
+                'student-name' => strip_tags($name),
+                'student-id' => strip_tags($student->id),
+                'survey-id' => strip_tags($surveyId),
+            ]);
+        }
     }
 
     public function setStudentFinishedSurvey(): void
     {
         SurveyStudent::where([
             'id' => $this->getStudent()->id,
-            ])
-        ->update([
-            'finished_at' => now()
-        ]);
+        ])
+            ->update([
+                'finished_at' => now(),
+            ]);
     }
 
     public function update()
@@ -174,5 +174,4 @@ class PostForm extends Form
             $this->all()
         );
     }
-
 }

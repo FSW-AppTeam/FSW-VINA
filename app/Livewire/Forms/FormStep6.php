@@ -8,13 +8,17 @@ use Livewire\Component;
 class FormStep6 extends Component
 {
     public PostForm $form;
-    public int|null $classTime = null;
+
+    public ?int $classTime = null;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -36,7 +40,7 @@ class FormStep6 extends Component
                         $this->firstRequired = false;
                         $fail($this->messages['classTime.required']);
                     }
-                }
+                },
             ],
         ];
     }
@@ -60,7 +64,7 @@ class FormStep6 extends Component
     public function mount(): void
     {
         $this->classTime = $this->savedAnswers ?? null;
-        if($this->classTime) {
+        if ($this->classTime) {
             $this->nextEnabled = true;
         }
     }

@@ -7,10 +7,13 @@ use Livewire\Component;
 class FormStepIntro extends Component
 {
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public function mount(): void

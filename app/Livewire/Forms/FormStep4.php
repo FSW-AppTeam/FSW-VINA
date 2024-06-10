@@ -9,13 +9,16 @@ class FormStep4 extends Component
 {
     public PostForm $form;
 
-    public int|null $gender = null;
+    public ?int $gender = null;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -37,7 +40,7 @@ class FormStep4 extends Component
                         $this->firstRequired = false;
                         $fail($this->messages['gender.required']);
                     }
-                }
+                },
             ],
 
         ];
@@ -64,11 +67,10 @@ class FormStep4 extends Component
         $this->dispatch('set-enable-next');
     }
 
-
     public function mount(): void
     {
         $this->gender = $this->savedAnswers ?? null;
-        if($this->gender) {
+        if ($this->gender) {
             $this->nextEnabled = true;
         }
     }

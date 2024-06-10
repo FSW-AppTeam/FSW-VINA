@@ -18,7 +18,6 @@ class Download extends Component
         return view('livewire.partials.download');
     }
 
-
     public function download()
     {
         return Storage::disk()->download($this->file);

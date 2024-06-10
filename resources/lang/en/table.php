@@ -1,7 +1,5 @@
 <?php
 
-return array (
-  'search_label' => 'Search',
-);
-
-?>
+return [
+    'search_label' => 'Search',
+];

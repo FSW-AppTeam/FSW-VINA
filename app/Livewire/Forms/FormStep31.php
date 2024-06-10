@@ -3,20 +3,22 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Session;
 
 class FormStep31 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
-    public $answerText = "";
+    public $answerText = '';
 
     protected $rules = [
         'answerText' => 'nullable|string|max:500',
@@ -38,7 +40,7 @@ class FormStep31 extends Component
 
     public function render()
     {
-        if($this->form->getStudent()->finished_at) {
+        if ($this->form->getStudent()->finished_at) {
             return view('livewire.forms.form-step-outro');
         }
 

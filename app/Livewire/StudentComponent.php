@@ -18,8 +18,8 @@ class StudentComponent extends Component
 
     public function setStudent($id): void
     {
-      $this->showDiv = false;
-      $this->dispatch('set-selected-student-id', $id, $this->name);
+        $this->showDiv = false;
+        $this->dispatch('set-selected-student-id', $id, $this->name);
     }
 
     public function setToggleView(): void

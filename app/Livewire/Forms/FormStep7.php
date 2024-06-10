@@ -9,14 +9,20 @@ class FormStep7 extends Component
 {
     public PostForm $form;
 
-    public int|null $originCountry = null;
-    public string|null $otherCountry = "";
+    public ?int $originCountry = null;
+
+    public ?string $otherCountry = '';
+
+    public $countryModal = true;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -25,6 +31,9 @@ class FormStep7 extends Component
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
+
+        //        'set-flag-from-js' => 'setSelectedFlagId',
+        //        'remove-selected-flag-id' => 'removeSelectedFlagId',
     ];
 
     public function rules(): array
@@ -38,7 +47,7 @@ class FormStep7 extends Component
                         $this->firstRequired = false;
                         $fail($this->messages['origin-country.required']);
                     }
-                }
+                },
             ],
         ];
     }
@@ -49,6 +58,7 @@ class FormStep7 extends Component
         $this->validate($this->rules());
         $this->dispatch('set-enable-next');
     }
+
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
@@ -56,7 +66,7 @@ class FormStep7 extends Component
 
         $answer = [
             'country_id' => $this->originCountry,
-            'other_country' => $this->otherCountry
+            'other_country' => $this->otherCountry,
         ];
 
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
@@ -65,11 +75,10 @@ class FormStep7 extends Component
 
     public function mount(): void
     {
-
         $this->originCountry = $this->savedAnswers['country_id'] ?? null;
         $this->otherCountry = $this->savedAnswers['other_country'] ?? null;
 
-        if($this->originCountry) {
+        if ($this->originCountry) {
             $this->nextEnabled = true;
         }
 
@@ -78,6 +87,17 @@ class FormStep7 extends Component
     public function setAnswerBlockAnswerId(int $id, string $countryName): void
     {
         $this->originCountry = $id;
+        if ($id === 6) {
+            $this->dispatch('set-modal-flag');
+        }
+        if ($id !== 6) {
+            $this->otherCountry = '';
+        }
+    }
+
+    public function setCountry(): void
+    {
+        $this->otherCountry = $this->countryModal;
     }
 
     public function render()

@@ -5,18 +5,21 @@ namespace App\Livewire\Forms;
 use App\Livewire\Partials\FlagImage;
 use Closure;
 use Livewire\Component;
-use Illuminate\Support\Facades\Session;
 
 class FormStep13 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
+
     public $flagsSelected = [];
 
     public $firstRequired = true;
@@ -44,7 +47,7 @@ class FormStep13 extends Component
                         }
                     }
                 },
-                'array'
+                'array',
             ],
         ];
     }
@@ -52,22 +55,22 @@ class FormStep13 extends Component
     public function setSelectedFlagId(int $id, string $image, string $country): void
     {
 
-        if(count($this->flagsSelected) > 3){
+        if (count($this->flagsSelected) > 3) {
             return;
         }
         $imageFile = false;
-        if($image == 'anders'){
+        if ($image == 'anders') {
             $image = $country;
         }
         $isoFlag = array_search(strtolower($image), array_map('strtolower', getIsoCountries()));
 
-        if(file_exists(public_path('build/images/flags/' . strtolower($isoFlag) . '.svg'))){
-            $imageFile = asset('build/images/flags/' . strtolower($isoFlag) . '.svg');
+        if (file_exists(public_path('build/images/flags/'.strtolower($isoFlag).'.svg'))) {
+            $imageFile = asset('build/images/flags/'.strtolower($isoFlag).'.svg');
 
         }
 
-        if(!$imageFile && file_exists(public_path('images/flags/' . strtolower($image) . '.jpg'))){
-            $imageFile = asset('images/flags/' . strtolower($image) . '.jpg');
+        if (! $imageFile && file_exists(public_path('images/flags/'.strtolower($image).'.jpg'))) {
+            $imageFile = asset('images/flags/'.strtolower($image).'.jpg');
         }
         $this->flagsSelected[] = ['id' => $id, 'image' => $imageFile, 'country' => $country];
 
@@ -75,8 +78,8 @@ class FormStep13 extends Component
 
     public function removeSelectedFlagId(int $id, string $country): void
     {
-        foreach ($this->flagsSelected as $key => $flagSelect){
-            if($flagSelect['id'] === $id && $flagSelect['country'] === $country){
+        foreach ($this->flagsSelected as $key => $flagSelect) {
+            if ($flagSelect['id'] === $id && $flagSelect['country'] === $country) {
                 array_splice($this->flagsSelected, $key, 1);
             }
         }

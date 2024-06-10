@@ -22,27 +22,30 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|array|null $student_answer
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
- * @package App\Models
  */
 class SurveyAnswer extends Model
 {
-
     use HasFactory;
-	protected $table = 'survey_answers';
 
-	protected $casts = [
-		'question_id' => 'int',
-        'student_answer' => 'array'
-	];
+    protected $table = 'survey_answers';
 
-	protected $fillable = [
-		'student_id',
-		'question_id',
-		'question_type',
-		'question_title',
-		'student_answer'
-	];
+    protected $casts = [
+        'question_id' => 'int',
+        'student_answer' => 'array',
+    ];
+
+    protected $fillable = [
+        'student_id',
+        'question_id',
+        'question_type',
+        'question_title',
+        'student_answer',
+    ];
+
+    public function student()
+    {
+        return $this->belongsTo(SurveyStudent::class);
+    }
 
     protected function data(): Attribute
     {

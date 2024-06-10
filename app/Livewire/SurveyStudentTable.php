@@ -163,7 +163,7 @@ class SurveyStudentTable extends Component
     public function clearFields()
     {
         $this->reset([
-//            'selectedSurveyStudents',
+            //            'selectedSurveyStudents',
             'bulkDisabled',
             'surveystudent_id',
             'name',

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Survey;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class surveySeeder extends Seeder
@@ -17,5 +16,6 @@ class surveySeeder extends Seeder
         Survey::factory()
             ->count(2)
             ->hasSurveyStudents(10)
-            ->create();    }
+            ->create();
+    }
 }

@@ -1,7 +1,5 @@
 <?php
 
-return array (
-  'admin' => 'user.admin',
-);
-
-?>
+return [
+    'admin' => 'user.admin',
+];

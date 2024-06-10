@@ -4,19 +4,21 @@ namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswer;
 use Closure;
-use Livewire\Component;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
+use Livewire\Component;
 
 class FormStep15 extends Component
 {
     public PostForm $form;
 
     public $stepId;
+
     public $nextEnabled;
+
     public $backEnabled;
 
     public $jsonQuestion;
+
     public $savedAnswers;
 
     public $answerSelected = [];
@@ -25,13 +27,16 @@ class FormStep15 extends Component
 
     protected array $messages = [];
 
-    public $basicTitle = "";
+    public $basicTitle = '';
 
     public array $students = [];
 
     public array $startStudent = [];
+
     public array $finishedStudent = [];
+
     public array $shadowStudents = [];
+
     public int $studentCounter = 1;
 
     public int $answerId;
@@ -56,7 +61,7 @@ class FormStep15 extends Component
                         $fail($this->messages['answer_id.required']);
                     }
                 },
-                'array'
+                'array',
             ],
         ];
     }
@@ -68,7 +73,7 @@ class FormStep15 extends Component
 
     public function removeSelectedSquare(int $id): void
     {
-        if(in_array($id, $this->answerSelected)){
+        if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
     }
@@ -79,23 +84,23 @@ class FormStep15 extends Component
         $this->validate($this->rules());
 
         $answer = [
-            'student_id'    => $this->startStudent['id'],
+            'student_id' => $this->startStudent['id'],
             'answer' => $this->answerSelected,
         ];
-        $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+        $this->jsonQuestion->question_title = $this->basicTitle.' ID: '.$this->startStudent['id'];
 
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-        if(array_key_exists(0, $this->students)){
-            $this->studentCounter ++;
+        if (array_key_exists(0, $this->students)) {
+            $this->studentCounter++;
             $this->answerSelected = [];
-            $this->startStudent =  array_shift($this->students);
+            $this->startStudent = array_shift($this->students);
 
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID: '.$this->startStudent['id'];
             $this->finishedStudent[] = $this->startStudent;
             $this->setDatabaseResponse();
             // next button skip question
 
-            if(empty($this->answerSelected['value'])) {
+            if (empty($this->answerSelected['value'])) {
                 $this->dispatch('set-block-btn-animation', null);
             }
         } else {
@@ -106,33 +111,34 @@ class FormStep15 extends Component
 
     public function stepDown(): void
     {
-        if($this->studentCounter <= 1) {
+        if ($this->studentCounter <= 1) {
             $this->dispatch('set-step-id-down');
+
             return;
         }
-        if(!empty($this->finishedStudent)) {
+        if (! empty($this->finishedStudent)) {
             array_unshift($this->students, array_pop($this->finishedStudent));
             $this->startStudent = end($this->finishedStudent);
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID: '.$this->startStudent['id'];
 
         }
         $this->answerSelected = [];
         $this->setDatabaseResponse();
-        $this->studentCounter --;
+        $this->studentCounter--;
     }
 
     public function mount(): void
     {
         $this->basicTitle = $this->jsonQuestion->question_title;
-        $this->jsonQuestion->question_title = $this->basicTitle . " " .  $this->studentCounter;
+        $this->jsonQuestion->question_title = $this->basicTitle.' '.$this->studentCounter;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
         shuffle($this->students);
         $this->shadowStudents = $this->students;
 
-        if(!empty($this->students)){
-            $this->startStudent =  array_shift($this->students);
-            $this->jsonQuestion->question_title = $this->basicTitle . " ID: " . $this->startStudent['id'];
+        if (! empty($this->students)) {
+            $this->startStudent = array_shift($this->students);
+            $this->jsonQuestion->question_title = $this->basicTitle.' ID: '.$this->startStudent['id'];
             $this->finishedStudent[] = $this->startStudent;
         }
         $this->setDatabaseResponse();
@@ -143,7 +149,6 @@ class FormStep15 extends Component
         return view('livewire.forms.form-step15');
     }
 
-
     public function setDatabaseResponse()
     {
         $response = SurveyAnswer::where('student_id', $this->form->getStudent()->id)
@@ -151,16 +156,18 @@ class FormStep15 extends Component
             ->whereJsonContains('student_answer->student_id', $this->startStudent['id'])
             ->first();
 
-        if(!$response) {
-            Log::info('NIET gevonden' . $this->startStudent['id'] );
+        if (! $response) {
+            Log::info('NIET gevonden'.$this->startStudent['id']);
+
             return;
         }
 
-        foreach($this->jsonQuestion->question_answer_options as $key => $option) {
-            if(!empty($response->student_answer['answer']) && $option['id'] == $response->student_answer['answer']['id']) {
+        foreach ($this->jsonQuestion->question_answer_options as $key => $option) {
+            if (! empty($response->student_answer['answer']) && $option['id'] == $response->student_answer['answer']['id']) {
                 $this->setAnswerButtonSquare(
                     $response->student_answer['answer']['id'],
                     $this->jsonQuestion->question_answer_options[$key]['value']);
+
                 return;
             }
         }

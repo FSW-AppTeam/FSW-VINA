@@ -16,16 +16,16 @@ class SurveyController extends Controller
         $surveyExport = new SurveyExport();
         try {
             $surveyExport->checkExportCsv($surveyId);
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
 
-            dump("Ooops... Something went wrong with the CSV export job!!");
+            dump('Ooops... Something went wrong with the CSV export job!!');
         }
 
     }
 
     public function index()
     {
-        $directory = "csv";
+        $directory = 'csv';
         $files = Storage::files($directory);
 
         foreach ($files as $key => $file) {
