@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use League\Csv\CannotInsertRecord;
 use League\Csv\Exception;
 use League\Csv\Writer;
+use App\Models\SurveyStudent;
 
 class SurveyExport
 {
@@ -14,6 +15,7 @@ class SurveyExport
      * older than 1 hour after last submission then
      * runs the csv export
      *
+     * @param int $surveyId
      * @throws Exception
      */
     public function checkExportCsv(int $surveyId): string
@@ -49,7 +51,8 @@ class SurveyExport
 
                 if ($survey['question_type'] === 'json') {
                     switch ($survey['question_id']) {
-                        case 12:
+                        case 7:
+                        case 9:
                         case 14:
                         case 15:
                         case 18:
@@ -120,6 +123,18 @@ class SurveyExport
                 case 'json':
 
                     switch ($survey['question_id']) {
+                        case 7:
+                        {
+                            $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->country_id;
+                            $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->other_country;
+                            break;
+                        }
+                        case 9:
+                        {
+                            $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->religion;
+                            $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->other_religion;
+                            break;
+                        }
                         case 13:
 
                             $new = [];
