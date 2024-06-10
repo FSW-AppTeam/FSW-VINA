@@ -207,10 +207,21 @@ class StepController extends Component
         $this->jsonQuestion = $question;
 
         if (isset($this->jsonQuestion->depends_on_question)) {
-
             if ($this->jsonQuestion->id == 36) {
                 $this->stepQuestionId36();
             }
+            if ($this->jsonQuestion->id == 37 || $this->jsonQuestion->id == 38) {
+                $this->stepQuestionId37();
+            }
+        }
+    }
+
+    // Specific logic for question id 37 and 38
+    private function stepQuestionId37()
+    {
+        if(empty($this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question))){
+            $this->stepId++;
+            return $this->setQuestion();
         }
     }
 

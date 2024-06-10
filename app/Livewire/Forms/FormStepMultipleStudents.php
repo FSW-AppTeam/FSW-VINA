@@ -21,7 +21,7 @@ class FormStepMultipleStudents extends Component
 
     public $jsonQuestion;
 
-    public $savedAnswers;
+    public $savedAnswers = [];
 
     public $questionOptions = [];
 
@@ -159,11 +159,6 @@ class FormStepMultipleStudents extends Component
 
     public function render()
     {
-//                dd(json_decode($this->startStudent['student_answer'])->country_id);
-//
-//        $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
-//            ->where('student_id', Session::get('student-id'))
-//            ->first();
         $dependsOnQuestion = SurveyQuestion::find($this->jsonQuestion->depends_on_question);
         foreach ($dependsOnQuestion->question_answer_options as $option) {
             if ($option['id'] == json_decode($this->startStudent['student_answer'])->country_id) {

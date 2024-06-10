@@ -11,7 +11,7 @@
         @else
 
             <div class="container text-center">
-                <h6 class="pb-2 pl-2"> {{printWithQuestionOptions( $jsonQuestion['question_content'], $questionOptions, ["country",2]) }}</h6>
+                <h6 class="pb-2 pl-2"> {{ $jsonQuestion['question_content'] }}</h6>
             </div>
 
             <div class="mt-4 text-center block-students-vertical line-students step-list-15 " data-student-list>
@@ -51,7 +51,7 @@
                     @foreach ($jsonQuestion->question_answer_options as $answer)
                         <livewire:partials.answer-btn-block
                             :id="$answer['id']"
-                            :value="ucfirst(ucfirst(printWithQuestionOptions( $answer['value'], $questionOptions, ['country', 3])))"
+                            :value="ucfirst($answer['value'])"
                             :answer-selected="$answerSelected"
                             wire:key="step-form-q22-{{ $answer['id'] . time()}}" />
                     @endforeach

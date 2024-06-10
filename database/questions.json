@@ -271,6 +271,7 @@
     {
         "question_id": 37,
         "order": 18,
+        "depends_on_question": 7,
         "form_type": "display",
         "question_type": "instruction",
         "question_title": "Etniciteit klasgenoten tussentext",
