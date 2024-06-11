@@ -81,7 +81,11 @@
                     <td>
                         <input wire:model.live="selectedSurveyAnswerss" id="{{$model->id}}" value="{{$model->id}}" type="checkbox">
                     </td>
-                    <td>{{$model->student_id}}</td><td>{{$model->question_id}}</td><td>{{$model->question_type}}</td><td>{{$model->question_title}}</td><td>{{$model->student_answer}}</td>
+                    <td>{{$model->student_id}}</td>
+                    <td>{{$model->question_id}}</td>
+                    <td>{{$model->question_type}}</td>
+                    <td>{{$model->question_title}}</td>
+                    <td>{{json_encode($model->student_answer)}}</td>
                     <td>
                         <a class="btn btn-outline-info btn-sm"
                            href="#" wire:click.stop.prevent="redirectToDetail('surveyanswersdetails', {{ $model->id }})" >
