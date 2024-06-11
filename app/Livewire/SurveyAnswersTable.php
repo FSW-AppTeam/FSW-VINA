@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\SurveyAnswers;
+use App\Models\SurveyAnswer;
 use DateTime;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +44,7 @@ class SurveyAnswersTable extends Component
 
     public ?int $surveyanswers_id = null;
 
-    public ?SurveyAnswers $surveyanswers = null;
+    public ?SurveyAnswer $surveyanswers = null;
 
     //Multiple Selection props
     public array $selectedSurveyAnswerss = [];
@@ -87,7 +87,7 @@ class SurveyAnswersTable extends Component
     {
         $validatedData = $this->validate();
         \DB::transaction(function () use ($validatedData) {
-            SurveyAnswers::create($validatedData);
+            SurveyAnswer::create($validatedData);
         });
         $this->refresh('SurveyAnswers successfully created!');
     }
@@ -102,7 +102,9 @@ class SurveyAnswersTable extends Component
         $this->question_id = $surveyanswers->question_id;
         $this->question_type = $surveyanswers->question_type;
         $this->question_title = $surveyanswers->question_title;
-        $this->student_answer = $surveyanswers->student_answer;
+        if (is_array($surveyanswers->student_answer)) {
+            $this->student_answer = $surveyanswers->student_answer;
+        }
         $this->created_at = $surveyanswers->created_at;
         $this->updated_at = $surveyanswers->updated_at;
 
@@ -126,7 +128,7 @@ class SurveyAnswersTable extends Component
     public function updateBulk()
     {
         $this->validate();
-        SurveyAnswers::whereIn('id', $this->selectedSurveyAnswerss)->update([]);
+        SurveyAnswer::whereIn('id', $this->selectedSurveyAnswerss)->update([]);
         $this->refresh('SurveyAnswers successfully updated!');
     }
 
@@ -134,7 +136,7 @@ class SurveyAnswersTable extends Component
     {
         if (! empty($this->selectedSurveyAnswerss)) {
             DB::transaction(function () {
-                SurveyAnswers::destroy($this->selectedSurveyAnswerss);
+                SurveyAnswer::destroy($this->selectedSurveyAnswerss);
             });
         }
 
@@ -184,7 +186,7 @@ class SurveyAnswersTable extends Component
      **/
     public function search($query)
     {
-        $surveyanswers = new SurveyAnswers();
+        $surveyanswers = new SurveyAnswer();
 
         return empty($query) ? $surveyanswers :
             $surveyanswers->where(function ($q) use ($query) {
