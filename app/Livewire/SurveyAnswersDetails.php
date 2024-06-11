@@ -2,12 +2,12 @@
 
 namespace App\Livewire;
 
-use App\Models\SurveyAnswers;
+use App\Models\SurveyAnswer;
 use Livewire\Component;
 
 class SurveyAnswersDetails extends Component
 {
-    public ?SurveyAnswers $surveyanswers = null;
+    public ?SurveyAnswer $surveyanswers = null;
 
     public function render()
     {
@@ -15,7 +15,7 @@ class SurveyAnswersDetails extends Component
     }
 
     //Get & assign selected post props
-    public function initData(SurveyAnswers $surveyanswers)
+    public function initData(SurveyAnswer $surveyanswers)
     {
         // assign values to public props
         $this->surveyanswers = $surveyanswers;
@@ -31,7 +31,7 @@ class SurveyAnswersDetails extends Component
         $this->selectedSurveyAnswers = [];
     }
 
-    public function mount(SurveyAnswers $surveyanswers)
+    public function mount(SurveyAnswer $surveyanswers)
     {
         $this->surveyanswers = $surveyanswers;
     }
