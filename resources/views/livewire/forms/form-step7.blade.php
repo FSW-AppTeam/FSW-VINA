@@ -37,9 +37,10 @@
                     @include('livewire.partials.modal-body-select-list')
                     @yield('modal-body-select-list')
 
-                    <div class="mt-5 p-2 text-center">
+                    <div class="mt-5 p-2 text-center"
+                         wire:click="setCountry()">
                         <button type="button" id="country-set-btn" disabled style="width:80%"
-                        wire:click="setCountry()"
+
                                 class="btn btn-outline-warning mt-5">OK
                         </button>
                     </div>
