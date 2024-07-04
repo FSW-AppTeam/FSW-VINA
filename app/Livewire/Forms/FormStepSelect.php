@@ -27,10 +27,6 @@ class FormStepSelect extends Component
 
     protected $messages = [];
 
-    protected $listeners = [
-        'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
-    ];
-
     public function rules(): array
     {
         if (isset($this->jsonQuestion->question_options['error_empty_text'])) {

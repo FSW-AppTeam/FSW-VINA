@@ -113,7 +113,6 @@ class FormStep15 extends Component
     {
         if ($this->studentCounter <= 1) {
             $this->dispatch('set-step-id-down');
-
             return;
         }
         if (! empty($this->finishedStudent)) {

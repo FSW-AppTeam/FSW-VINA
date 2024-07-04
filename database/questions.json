@@ -35,6 +35,7 @@
     {
         "question_id": 4,
         "order": 4,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Geslacht",
         "question_content": "Wat is jouw geslacht?",
@@ -103,6 +104,7 @@
     {
         "question_id": 5,
         "order": 8,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Opleidingsniveau",
         "question_content": "Welk niveau is jouw opleiding?",
@@ -118,6 +120,7 @@
     {
         "question_id": 6,
         "order": 9,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Tijd in klas",
         "question_content": "Hoe lang zit je al in deze klas?",
@@ -174,6 +177,7 @@
         "question_id": 8,
         "order": 12,
         "enabled": false,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Identificatie met herkomstland",
         "question_content": "Hoe sterk voel jij je horen bij mensen uit het herkomstland ",
@@ -339,6 +343,7 @@
     {
         "question_id": 16,
         "order": 22,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Immigratie houding – eigen",
         "question_content": "Wat zou je er van vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
@@ -439,6 +444,7 @@
     {
         "question_id": 23,
         "order": 29,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Culturele interesse",
         "question_content": "Ik verdiep me graag in de culturele achtergrond van anderen",
@@ -460,6 +466,7 @@
     {
         "question_id": 24,
         "order": 30,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Polarisatie in klas",
         "question_content": "In mijn klas denken mensen heel verschillend over migratie",
@@ -481,6 +488,7 @@
     {
         "question_id": 25,
         "order": 31,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "polarisatie in maatschappij",
         "question_content": "In Nederland worden verschillen van mening over migratie steeds groter",
@@ -502,6 +510,7 @@
     {
         "question_id": 26,
         "order": 32,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Verbinding met klas",
         "question_content": "Ik voel me sterk verbonden met mijn klas",
@@ -523,6 +532,7 @@
     {
         "question_id": 27,
         "order": 33,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Leuk",
         "question_content": "Hoe leuk vond je het om deze vragenlijst in te vullen?",
@@ -542,6 +552,7 @@
     {
         "question_id": 28,
         "order": 34,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Meedoen",
         "question_content": "Zou je nog een keer aan een vergelijkbaar onderzoek over je klas meedoen?",
@@ -560,6 +571,7 @@
     {
         "question_id": 29,
         "order": 35,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Interessant",
         "question_content": "Hoe interessant vond je deze vragenlijst?",
@@ -578,6 +590,7 @@
     {
         "question_id": 30,
         "order": 36,
+        "form_type": "select",
         "question_type": "int",
         "question_title": "Moeilijk",
         "question_content": "Vond je het moeilijk of makkelijk te begrijpen hoe je de antwoorden moest invullen?",
