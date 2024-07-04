@@ -147,7 +147,7 @@
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "error_invalid_option": "Je moet een land invoeren dat in de lijst staat?",
+            "error_invalid_option": "Je moet een land invoeren dat in de lijst staat.",
             "extra_text": "Als er meerdere zijn, kies dan het land dat jij het meest belangrijk vindt.",
             "question_custom_input_title": "Herkomstland (ander)"
         }
