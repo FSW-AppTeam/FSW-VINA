@@ -31,14 +31,12 @@ class FormStep7 extends Component
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
-
-        //        'set-flag-from-js' => 'setSelectedFlagId',
-        //        'remove-selected-flag-id' => 'removeSelectedFlagId',
     ];
 
     public function rules(): array
     {
         $this->messages['origin-country.required'] = $this->jsonQuestion->question_options['error_empty_text'];
+        $this->messages['origin-country.invalid'] = $this->jsonQuestion->question_options['error_invalid_option'];
 
         return [
             'originCountry' => [
@@ -46,6 +44,16 @@ class FormStep7 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['origin-country.required']);
+                    }
+                },
+            ],
+            'otherCountry' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+
+                    if (! empty($value)) {
+                        if (! array_key_exists($value, getCountriesByName())) {
+                            $fail($this->messages['origin-country.invalid']);
+                        }
                     }
                 },
             ],
@@ -87,13 +95,15 @@ class FormStep7 extends Component
     public function setAnswerBlockAnswerId(int $id, string $countryName): void
     {
         $this->originCountry = $id;
-        if( $id === 6) {
+        if ($id === 6) {
             $this->dispatch('set-modal-flag');
         }
-        if( $id !== 6) {
-            $this->otherCountry = "";
+
+        if ($id !== 6) {
+            $this->otherCountry = '';
         }
     }
+
     public function setCountry(): void
     {
         $this->otherCountry = $this->countryModal;
