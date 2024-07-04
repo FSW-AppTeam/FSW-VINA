@@ -80,6 +80,7 @@ class StepController extends Component
 
     public function boot()
     {
+        $this->continue();
     }
 
     public function continue()
