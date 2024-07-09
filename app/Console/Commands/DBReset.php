@@ -17,7 +17,7 @@ class DBReset extends Command
     /**
      * @var string
      */
-    protected $description = 'Deletes all the survey data from the database!!! Be carefully! This job runs once per night at 03:00.';
+    protected $description = 'Drops database and migrate and seed!!! Be carefully!';
 
     /**
      * Execute the console command.

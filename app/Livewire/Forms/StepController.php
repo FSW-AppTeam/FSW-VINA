@@ -4,6 +4,8 @@ namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -36,32 +38,32 @@ class StepController extends Component
         'set-refresh-stepper' => '$refresh',
     ];
 
-    public function next()
-    {
-        $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
-            ->orderBy('order', 'asc')
-            ->where('enabled', true)
-            ->first();
-
-        $this->setActiveStep($question);
-    }
-
-    public function back()
-    {
-        $question = SurveyQuestion::where('order', '<=', $this->stepId)
-            ->orderBy('order', 'desc')
-            ->where('enabled', true)->first();
-
-        // In case of a question is disabled, skip it. We have to set the order as the new stpId
-        $this->stepId = $question->order;
-        $this->jsonQuestion = $question;
-        $this->setSavedAnswers();
-        if ($this->stepId == 0) {
-            $this->getJsonIntro();
-        }
-
-        $this->setActiveStep($question);
-    }
+//    public function next()
+//    {
+//        $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
+//            ->orderBy('order', 'asc')
+//            ->where('enabled', true)
+//            ->first();
+//
+//        $this->setActiveStep($question);
+//    }
+//
+//    public function back()
+//    {
+//        $question = SurveyQuestion::where('order', '<=', $this->stepId)
+//            ->orderBy('order', 'desc')
+//            ->where('enabled', true)->first();
+//
+//        // In case of a question is disabled, skip it. We have to set the order as the new stpId
+//        $this->stepId = $question->order;
+//        $this->jsonQuestion = $question;
+//        $this->setSavedAnswers();
+//        if ($this->stepId == 0) {
+//            $this->getJsonIntro();
+//        }
+//
+//        $this->setActiveStep($question);
+//    }
 
     public function refreshComponent(): void
     {
@@ -78,8 +80,12 @@ class StepController extends Component
         $this->jsonQuestion = json_decode(file_get_contents(resource_path('surveys/q-outro.json')), false);
     }
 
-    public function boot()
+    public function mount()
     {
+        if (! Auth::guest() && Auth::user()->isAdmin() && str_starts_with(Request::path(), 'step/')) {
+            return;
+        }
+
         $this->continue();
     }
 
@@ -110,9 +116,7 @@ class StepController extends Component
 
     public function setStepIdUp(): void
     {
-        $this->next();
         $this->stepId++;
-
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
@@ -126,9 +130,7 @@ class StepController extends Component
 
     public function setStepIdDown(): void
     {
-        $this->back();
         $this->stepId--;
-
         $question = SurveyQuestion::where('order', '<=', $this->stepId)
             ->orderBy('order', 'desc')
             ->where('enabled', true)->first();
@@ -193,6 +195,7 @@ class StepController extends Component
         $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->id)
             ->where('student_id', Session::get('student-id'));
 
+        ray($savedAnswer->first(), $this->jsonQuestion->id, Session::get('student-id'));
         if ($savedAnswer->exists()) {
             $this->savedAnswers = $savedAnswer->first()->student_answer;
         }
@@ -200,6 +203,7 @@ class StepController extends Component
 
     public function setQuestion()
     {
+
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
@@ -220,8 +224,9 @@ class StepController extends Component
     // Specific logic for question id 37 and 38
     private function stepQuestionId37()
     {
-        if(empty($this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question))){
+        if (empty($this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question))) {
             $this->stepId++;
+
             return $this->setQuestion();
         }
     }

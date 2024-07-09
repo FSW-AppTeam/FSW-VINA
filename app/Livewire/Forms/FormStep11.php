@@ -31,10 +31,10 @@ class FormStep11 extends Component
 
     public $friendsList = [];
 
-    protected $listeners = [
-        'set-selected-student-id-comp' => 'setSelectedStudentId',
-        'remove-selected-student-id' => 'removeSelectedStudentId',
-    ];
+//    protected $listeners = [
+//        'set-selected-student-id-comp' => 'setSelectedStudentId',
+//        'remove-selected-student-id' => 'removeSelectedStudentId',
+//    ];
 
     public function setSelectedStudentId(int $id, string $name): void
     {

@@ -92,17 +92,17 @@ class FormStep7 extends Component
 
     }
 
-    public function setAnswerBlockAnswerId(int $id, string $countryName): void
-    {
-        $this->originCountry = $id;
-        if ($id === 6) {
-            $this->dispatch('set-modal-flag');
-        }
-
-        if ($id !== 6) {
-            $this->otherCountry = '';
-        }
-    }
+//    public function setAnswerBlockAnswerId(int $id, string $countryName): void
+//    {
+//        $this->originCountry = $id;
+//        if ($id === 6) {
+//            $this->dispatch('set-modal-flag');
+//        }
+//
+//        if ($id !== 6) {
+//            $this->otherCountry = '';
+//        }
+//    }
 
     public function setCountry(): void
     {

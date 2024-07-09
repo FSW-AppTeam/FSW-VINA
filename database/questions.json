@@ -217,6 +217,7 @@
     {
         "question_id": 10,
         "order": 14,
+        "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - basis",
         "question_content": "Met welke klasgenoten ga jij het beste om?",
@@ -229,6 +230,7 @@
     {
         "question_id": 11,
         "order": 15,
+        "form_type": "select_students",
         "question_type": "array",
         "question_title": "Vertrouwen",
         "question_content": "Met welke klasgenoten praat je als je ergens mee zit?",
@@ -241,6 +243,7 @@
     {
         "question_id": 12,
         "order": 16,
+        "form_type": "select_students",
         "question_type": "json",
         "question_title": "Vrienden van klasgenoten",
         "question_content": "Met wie gaat de volgende klasgenoot het beste om?",

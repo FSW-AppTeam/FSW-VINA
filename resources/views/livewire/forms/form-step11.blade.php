@@ -7,22 +7,23 @@
 
         <div class="form-group student-list col border-end d-flex justify-content-center align-items-center row">
             @if(!empty($friends))
-                    <?php $rowZindex = 100; ?>
+                <?php $rowZindex = 100; ?>
 
                 @foreach($friendsList as $key => $newFriends)
                     @if(count($friendsList[$key]) % 5 === 0)
                         <div class="justify-content-center row student-block selected-friends-row mb-1"
-                             id="selected-row-{{$key}}" style="z-index: {{$rowZindex - $key}}">
+                             id="selected-row-{{$key}}"
+                             style="z-index: {{$rowZindex - $key}}">
                     @else
                         <div
                             class="justify-content-center row student-block mb-1  @if($key !== 0) selected-friends-row-v2 @endif"
-                            id="selected-row-{{$key}}" style="z-index: 0">
+                            id="selected-row-{{$key}}"
+                            style="z-index: 0">
                     @endif
-
                         @foreach($newFriends as $k => $friend)
                             <button type="button"
-                                    wire:click="removeSelectedStudentId({{$friend['id'], $key}})"
                                     id="selected-friend-{{$k}}"
+                                    wire:click="removeSelectedStudentId({{$friend['id'], $key}})"
                                     class="p-2 btn-circle btn-xl selected-btn
                                     @if($k === 4) boxed-btn-4 @endif
                                     @if($k === 3) boxed-btn-3 @endif
@@ -33,7 +34,6 @@
                                 {{$friend['name']}}
                             </button>
                         @endforeach
-
                     </div>
                 @endforeach
             @else
@@ -42,7 +42,6 @@
         </div>
 
         <p class="sub-head-text pt-4 student-list">{{ $jsonQuestion->question_options['extra_text'] }}</p>
-
         <div class="form-group students-overview mb-3">
             <div class="">
                 <div class="row">

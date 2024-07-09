@@ -1,17 +1,17 @@
 <div class="card-footer">
     <div class="mb-2">
-        @php $backwardArray =[12, 14]; @endphp
-        @if(in_array($jsonQuestion->id, $backwardArray))
-            <button class="btn btn-secondary btn-survey float-start arrow"
-                    wire:click="$dispatch('set-sub-step-id-down')"
-                    wire:loading.attr="disabled"
-                    @if(!$backEnabled) disabled @endif
-                    type="button" name="back-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                </svg>
-            </button>
-        @else
+        @php $backwardArray =[12, 14, 15]; @endphp
+{{--        @if(in_array($jsonQuestion->id, $backwardArray))--}}
+{{--            <button class="btn btn-secondary btn-survey float-start arrow"--}}
+{{--                    wire:click="$dispatch('set-sub-step-id-down')"--}}
+{{--                    wire:loading.attr="disabled"--}}
+{{--                    @if(!$backEnabled) disabled @endif--}}
+{{--                    type="button" name="back-btn">--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">--}}
+{{--                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>--}}
+{{--                </svg>--}}
+{{--            </button>--}}
+{{--        @else--}}
             @if($stepId !== 0 && $stepId !== 1)
                 <button class="btn btn-secondary btn-survey float-start arrow"
                         wire:click="$dispatch('set-step-id-down')"
@@ -23,18 +23,18 @@
                     </svg>
                 </button>
             @endif
-        @endif
-        @if($jsonQuestion->id == 12 || $jsonQuestion->id == 14 )
-            <button class="btn btn-secondary btn-survey float-end arrow"
-                    wire:click="nextStep()"
-                    wire:loading.attr="disabled"
-                    @if(!$nextEnabled) disabled @endif
-                    type="button" name="back-btn">
-                <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                </svg>
-            </button>
-        @else
+{{--        @endif--}}
+{{--        @if($jsonQuestion->id == 12 || $jsonQuestion->id == 14 )--}}
+{{--            <button class="btn btn-secondary btn-survey float-end arrow"--}}
+{{--                    wire:click="nextStep()"--}}
+{{--                    wire:loading.attr="disabled"--}}
+{{--                    @if(!$nextEnabled) disabled @endif--}}
+{{--                    type="button" name="back-btn">--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">--}}
+{{--                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>--}}
+{{--                </svg>--}}
+{{--            </button>--}}
+{{--        @else--}}
             <button class="btn btn-secondary btn-survey float-end arrow" type="submit"
                     wire:loading.attr="disabled"
                     wire:target="nextEnabled"
@@ -44,6 +44,6 @@
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
             </button>
-        @endif
+{{--        @endif--}}
     </div>
 </div>

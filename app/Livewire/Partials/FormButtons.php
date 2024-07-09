@@ -19,6 +19,7 @@ class FormButtons extends Component
         'set-enable-next' => 'enableNext',
         'set-disable-next' => 'disableNext',
         'set-enable-back' => 'enableBack',
+        'set-disable-back' => 'disableBack',
         'set-enable-all' => 'enableAll',
     ];
 
@@ -28,6 +29,11 @@ class FormButtons extends Component
     }
 
     public function disableNext()
+    {
+        $this->nextEnabled = false;
+    }
+
+    public function disableBack()
     {
         $this->nextEnabled = false;
     }
@@ -48,9 +54,9 @@ class FormButtons extends Component
         return view('livewire.partials.form-buttons');
     }
 
-    public function nextStep()
-    {
-        $this->disableNext();
-        $this->dispatch('set-sub-step-id-up');
-    }
+//    public function nextStep()
+//    {
+//        $this->disableNext();
+//        $this->dispatch('set-sub-step-id-up');
+//    }
 }

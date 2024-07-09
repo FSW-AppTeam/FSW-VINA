@@ -6,7 +6,6 @@ use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
 use Closure;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class FormStepMultipleStudents extends Component
@@ -21,7 +20,7 @@ class FormStepMultipleStudents extends Component
 
     public $jsonQuestion;
 
-    public $savedAnswers = [];
+    public $savedAnswers;
 
     public $questionOptions = [];
 

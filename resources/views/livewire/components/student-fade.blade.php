@@ -6,14 +6,15 @@
                 wire:click="removeStudent({{$id}})"
                 class="p-2 btn-circle btn-xl"
                 style="opacity: 0.4">
-            {{$name}}
+            {{$name}} fadetrue
         </button>
     @else
         <button type="button"
                 wire:click="setStudent({{$id}})"
                 class="p-2 btn-circle btn-xl"
                 style="opacity: 1">
-            {{$name}}
+            {{$name}} fadefalse
+                {{$id}}
         </button>
     @endif
 </div>

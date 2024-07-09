@@ -6,7 +6,6 @@
 
         <div class="container text-center">
             <h6 class="py-2 mb-2">
-                @ray($questionOptions)
                 {{ ucfirst(printWithQuestionOptions( $jsonQuestion->question_content, $questionOptions[2])) }}
             </h6>
         </div>

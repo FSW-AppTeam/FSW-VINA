@@ -24,6 +24,12 @@
 @import 'animate.css';
 
 
+.selected-btn {
+    background-color: #dca351ff;
+    color: black;
+    border-color: #43277c;
+}
+
 .modal.fade .modal-dialog {
     //transition: transform 0.2s ease-out;
     transform: scaleZ(2) scale(2);
@@ -230,8 +236,7 @@ p {
         margin-top: 40px !important;
     }
 
-
-    .btn-circle.btn-xl.studentBtn {
+    .btn-circle.btn-xl.student-btn {
         margin-right: 10px;
 
         &.left {
@@ -659,9 +664,9 @@ and (-webkit-min-device-pixel-ratio: 3) {
         height: 40px;
     }
 
-    .students-overview {
-        padding-left: 6px;
-    }
+    //.students-overview {
+    //    padding-left: 6px;
+    //}
 
     .form-group.student-list .selected-friends-row-v2 .boxed-btn-0 {
         left: unset;

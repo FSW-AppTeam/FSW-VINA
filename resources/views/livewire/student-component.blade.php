@@ -1,4 +1,5 @@
 <div>
+        @dd("DEPRECATED?? - student-component.blade.php")
     @if ($showDiv)
         <button type="button"
                 wire:click="setStudent({{$id}})"
