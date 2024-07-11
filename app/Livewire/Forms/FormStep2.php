@@ -26,7 +26,7 @@ class FormStep2 extends Component
             'name' => [
                 'required',
                 'min:1',
-                'alpha_num:ascii',
+                'string',
                 Rule::unique('survey_students')
                     ->where('survey_id', session::get('survey-id'))
                     ->ignore(session::get('student-id')),

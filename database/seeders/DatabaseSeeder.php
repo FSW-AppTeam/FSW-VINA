@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Livewire\Students;
 use App\Models\Role;
+use App\Models\SurveyStudent;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
