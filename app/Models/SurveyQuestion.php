@@ -51,4 +51,11 @@ class SurveyQuestion extends Model
         'default_disable_next',
         'depends_on_question',
     ];
+
+    public function nextQuestion()
+    {
+        return SurveyQuestion::where('order', '>', $this->order)
+            ->orderBy('order', 'asc')
+            ->where('enabled', true)->first();
+    }
 }

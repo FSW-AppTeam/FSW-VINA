@@ -12,6 +12,7 @@
                                 wire:key="form-step-{{$key . time()}}"
                                 wire:click="setAnswerBlockAnswerId({{$answer['id'] }});">
                             <input class="form-check-input" type="radio"
+                                   dusk="select-answer-{{$answer['id']}}"
                                    wire:key="form-step-{{$key . time()}}"
                                    wire:model.live="input" id="{{ $answer['id'] }}" value="{{ $answer['id'] }}"/>
 

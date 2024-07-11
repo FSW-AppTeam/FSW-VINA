@@ -3,6 +3,7 @@
         @php $backwardArray =[12, 14]; @endphp
         @if(in_array($jsonQuestion->id, $backwardArray))
             <button class="btn btn-secondary btn-survey float-start arrow"
+                    dusk="previous"
                     wire:click="$dispatch('set-sub-step-id-down')"
                     wire:loading.attr="disabled"
                     @if(!$backEnabled) disabled @endif
@@ -14,6 +15,7 @@
         @else
             @if($stepId !== 0 && $stepId !== 1)
                 <button class="btn btn-secondary btn-survey float-start arrow"
+                        dusk="previous"
                         wire:click="$dispatch('set-step-id-down')"
                         wire:loading.attr="disabled"
                         @if(!$backEnabled) disabled @endif
@@ -26,6 +28,7 @@
         @endif
         @if($jsonQuestion->id == 12 || $jsonQuestion->id == 14 )
             <button class="btn btn-secondary btn-survey float-end arrow"
+                    dusk="next"
                     wire:click="nextStep()"
                     wire:loading.attr="disabled"
                     @if(!$nextEnabled) disabled @endif
@@ -36,6 +39,7 @@
             </button>
         @else
             <button class="btn btn-secondary btn-survey float-end arrow" type="submit"
+                    dusk="next"
                     wire:loading.attr="disabled"
                     wire:target="nextEnabled"
                     id="nextButton"
