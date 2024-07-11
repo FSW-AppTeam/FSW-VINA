@@ -26,7 +26,7 @@
         "order": 3,
         "question_type": "int",
         "question_title": "Leeftijd",
-        "question_content": "Hoe oud ben je?",
+        "question_content": "In welk jaar ben je geboren?",
         "question_answer_options": [],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
@@ -40,9 +40,10 @@
         "question_title": "Geslacht",
         "question_content": "Wat is jouw geslacht?",
         "question_answer_options": [
-            {"id": 1, "value": "Jongen"},
-            {"id": 2, "value": "Meisje"},
-            {"id": 3, "value": "Anders"}
+            {"id": 1, "value": "Man"},
+            {"id": 2, "value": "Vrouw"},
+            {"id": 3, "value": "Non-binair"},
+            {"id": 4, "value": "Anders"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
@@ -109,9 +110,10 @@
         "question_title": "Opleidingsniveau",
         "question_content": "Welk niveau is jouw opleiding?",
         "question_answer_options": [
-            {"id": 1, "value": "Niveau 2"},
-            {"id": 2, "value": "Niveau 3"},
-            {"id": 3, "value": "Niveau 4"}
+            {"id": 1, "value": "Niveau 1"},
+            {"id": 2, "value": "Niveau 2"},
+            {"id": 3, "value": "Niveau 3"},
+            {"id": 4, "value": "Niveau 4"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
@@ -175,49 +177,93 @@
         }
     },
     {
-        "question_id": 8,
-        "order": 12,
-        "enabled": false,
+        "question_id": 39,
+        "order":12,
         "form_type": "select",
         "question_type": "int",
-        "question_title": "Identificatie met herkomstland",
-        "question_content": "Hoe sterk voel jij je horen bij mensen uit het herkomstland ",
+        "depends_on_question": 7,
+        "question_title": "Identiteit denial class",
+        "question_content": "Hoe denk je dat de meeste klasgenoten jou zien?  \n\nDe meeste klasgenoten zien mij:",
         "question_answer_options": [
-            {"id": 1, "value": "Helemaal niet sterk"},
-            {"id": 2, "value": "Niet sterk"},
-            {"id": 3, "value": "Redelijk sterk"},
-            {"id": 4, "value": "Sterk"},
-            {"id": 5, "value": "Heel erg sterk"}
+            {"id": 1, "value": "Alleen als Nederlands"},
+            {"id": 2, "value": "Meer als Nederlands"},
+            {"id": 3, "value": "Evenveel Nederlands als :questionOptions"},
+            {"id": 4, "value": "Meer als :questionOptions"},
+            {"id": 5, "value": "Alleen als :questionOptions"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
-        "question_id": 9,
-        "order": 13,
+        "question_id": 40,
+        "order":13,
+        "form_type": "select",
         "question_type": "int",
-        "question_title": "Godsdienst",
-        "question_content": "Reken je jezelf tot een godsdienst? Zo ja, welke?",
+        "depends_on_question": 7,
+        "question_title": "Identiteit denial society",
+        "question_content": "Hoe denk je dat de meeste Nederlanders jou zien?   \n\nDe meeste Nederlanders  zien mij:",
         "question_answer_options": [
-            {"id": 1, "value": "Geen godsdienst"},
-            {"id": 2, "value": "Rooms Katholiek"},
-            {"id": 3, "value": "Protestants"},
-            {"id": 4, "value": "Moslim"},
-            {"id": 5, "value": "Joods"},
-            {"id": 6, "value": "Anders, namelijk"}
+            {"id": 1, "value": "Alleen als Nederlands"},
+            {"id": 2, "value": "Meer als Nederlands"},
+            {"id": 3, "value": "Evenveel Nederlands als :questionOptions"},
+            {"id": 4, "value": "Meer als :questionOptions"},
+            {"id": 5, "value": "Alleen als :questionOptions"}
         ],
         "question_options": {
-            "question_answer_id": 1,
-            "extra_text": "",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "question_custom_input_title": "Godsdienst (ander)"
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
+        "question_id": 41,
+        "order":14,
+        "form_type": "select",
+        "question_type": "int",
+        "depends_on_question": 7,
+        "question_title": "Identiteit denial minority",
+        "question_content": "Hoe denk je dat de meeste :questionOptions mensen in Nederland jou zien? \n\nDe meeste :questionOptions mensen in Nederland zien mij: ",
+        "question_answer_options": [
+            {"id": 1, "value": "Alleen als Nederlands"},
+            {"id": 2, "value": "Meer als Nederlands"},
+            {"id": 3, "value": "Evenveel Nederlands als :questionOptions"},
+            {"id": 4, "value": "Meer als :questionOptions"},
+            {"id": 5, "value": "Alleen als :questionOptions"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 42,
+        "order":15,
+        "form_type": "select",
+        "question_type": "int",
+        "depends_on_question": 7,
+        "question_title": "Identiteit denial minority",
+        "question_content": "Hoe vaak gebruik je :questionOptions woorden als je Nederlands spreekt op school? ",
+        "question_answer_options": [
+            {"id": 1, "value": "Nooit"},
+            {"id": 2, "value": "Zelden"},
+            {"id": 3, "value": "Af en toe"},
+            {"id": 4, "value": "Vaak"},
+            {"id": 5, "value": "Heel vaak"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 43,
+        "order": 16,
+        "depends_on_question": 7,
+        "form_type": "display",
+        "question_type": "instruction",
+        "question_title": "Eigen vriende tussentext",
+        "question_content": "De volgende vragen gaan over jouw klasgenoten."
+    },
+    {
         "question_id": 10,
-        "order": 14,
-        "form_type": "select_students",
+        "order": 17,
         "question_type": "array",
         "question_title": "Eigen vrienden - basis",
         "question_content": "Met welke klasgenoten ga jij het beste om?",
@@ -228,12 +274,47 @@
         }
     },
     {
-        "question_id": 11,
-        "order": 15,
-        "form_type": "select_students",
+        "question_id": 44,
+        "order": 18,
         "question_type": "array",
-        "question_title": "Vertrouwen",
-        "question_content": "Met welke klasgenoten praat je als je ergens mee zit?",
+        "question_title": "Eigen vrienden - school",
+        "question_content": "Welke klasgenoten zie je regelmatig buiten school? ",
+        "question_options": {
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 45,
+        "order": 19,
+        "question_type": "array",
+        "question_title": "Eigen vrienden - online",
+        "question_content": "Welke klasgenoten volg je op sociale media? ",
+        "question_options": {
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 46,
+        "order": 20,
+        "question_type": "array",
+        "question_title": "Eigen vrienden - dislike",
+        "question_content": "Welke klasgenoten vind je minder aardig? ",
+        "question_options": {
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 47,
+        "order": 21,
+        "question_type": "array",
+        "question_title": "Popularity",
+        "question_content": "Welke klasgenoten zijn het meest populair? ",
         "question_options": {
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
@@ -243,7 +324,6 @@
     {
         "question_id": 12,
         "order": 16,
-        "form_type": "select_students",
         "question_type": "json",
         "question_title": "Vrienden van klasgenoten",
         "question_content": "Met wie gaat de volgende klasgenoot het beste om?",
@@ -255,44 +335,26 @@
         }
     },
     {
-        "question_id": 13,
-        "order": 17,
-        "enabled": false,
+        "question_id": 48,
+        "order": 23,
         "question_type": "json",
-        "question_title": "Eigen etniciteit",
-        "question_content": "Bij welke cultuur of culturen hoor jij?",
-        "question_answer_options": [
-            {"id": 1, "value": "Nederlands", "flag": "nederland"},
-            {"id": 2, "value": "Turks", "flag": "turkije"},
-            {"id": 3, "value": "Marokkaans", "flag": "marokko"},
-            {"id": 4, "value": "Surinaams", "flag": "suriname"},
-            {"id": 5, "value": "Antilliaans", "flag": "antille"},
-            {"id": 6, "value": "Andere cultuur", "flag": "anders"}
-        ],
+        "question_title": "Migratie achtergrond klasgenoten",
+        "question_content": "Welke klasgenoten hebben volgens jou, naast Nederlands, ook een andere afkomst?",
         "question_options": {
-            "extra_text": "Je mag meerdere antwoorden aanvinken.",
-            "error_text": "Je kan maximaal 4 landen opgeven!",
-            "error_empty_text": "Je hebt geen etniciteit aangeklikt, je mag zo veel etniciteiten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": ""
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "error_text": "Je hebt geen vrienden opgeven!",
+            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },
     {
-        "question_id": 37,
-        "order": 18,
-        "depends_on_question": 7,
-        "form_type": "display",
-        "question_type": "instruction",
-        "question_title": "Etniciteit klasgenoten tussentext",
-        "question_content": "De volgende klasgenoten hebben aangegeven dat hun familie nog een ander herkomstland dan Nederlands heeft."
-    },
-    {
         "question_id": 38,
-        "order": 19,
+        "order":24,
+        "form_type": "select",
+        "question_type": "int",
         "depends_on_question": 7,
-        "form_type": "multiple_students",
-        "question_type": "select",
-        "question_title": "Etniciteit klasgenoten",
-        "question_content": "De volgende klasgenoot gaf aan dat zijn/haar familie ook nog een :questionOptions achtergrond heeft.Hoe zou jij deze klasgenoot beschrijven?",
+        "question_title": "Identiteit klasgenoten",
+        "question_content": "De volgende klasgenoot gaf aan dat hun familie ook nog een :questionOptions achtergrond heeft. \n\n \n\nHoe zie jij deze klasgenoot? ",
         "question_answer_options": [
             {"id": 1, "value": "Alleen als Nederlands"},
             {"id": 2, "value": "Meer als Nederlands"},
@@ -301,35 +363,47 @@
             {"id": 5, "value": "Alleen als :questionOptions"}
         ],
         "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 49,
+        "order": 25,
+        "depends_on_question": 7,
+        "form_type": "multiple_students",
+        "question_type": "select",
+        "question_title": "Etniciteit andere klasgenoten",
+        "question_content": "Hoe zie jij de volgende klasgenoot? ",
+        "question_answer_options": [
+            {
+                "id": 1,
+                "value": "Alleen als Nederlands"
+            },
+            {
+                "id": 2,
+                "value": "Meer als Nederlands"
+            },
+            {
+                "id": 3,
+                "value": "Als Nederlands en als iemand uit zijn/haar andere cultuur evenveel "
+            },
+            {
+                "id": 4,
+                "value": "Meer als iemand uit zijn/haar andere cultuur"
+            },
+            {
+                "id": 5,
+                "value": "Alleen als iemand uit zijn/haar andere cultuur"
+            }
+        ],
+        "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": ""
         }
     },
     {
-        "question_id": 14,
-        "order": 20,
-        "enabled": false,
-        "question_type": "json",
-        "question_title": "Etniciteit klasgenoten",
-        "question_content": "Bij welke cultuur of culturen denk jij dat de volgende klasgenoot hoort?",
-        "question_answer_options": [
-            {"id": 1, "value": "Nederlands", "flag": "nederland"},
-            {"id": 2, "value": "Turks", "flag": "turkije"},
-            {"id": 3, "value": "Marokkaans", "flag": "marokko"},
-            {"id": 4, "value": "Surinaams", "flag": "suriname"},
-            {"id": 5, "value": "Antilliaans", "flag": "antille"},
-            {"id": 6, "value": "Andere cultuur", "flag": "anders"}
-        ],
-        "question_options": {
-            "extra_text": "Je mag meerdere antwoorden aanvinken.",
-            "error_text": "Je kan maximaal 4 landen opgeven!",
-            "error_empty_text": "Je hebt geen cultuur aangeklikt, je mag zo veel culturen aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": ""
-        }
-    },
-    {
         "question_id": 15,
-        "order": 21,
+        "order": 26,
         "question_type": "json",
         "question_title": "Goed kennen",
         "question_content": "Hoe goed ken je de volgende klasgenoot?",
@@ -346,258 +420,48 @@
     },
     {
         "question_id": 16,
-        "order": 22,
+        "order": 27,
         "form_type": "select",
         "question_type": "int",
         "question_title": "Immigratie houding – eigen",
-        "question_content": "Wat zou je er van vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
+        "question_content": "In hoeverre ben je het eens met de volgende stelling? \n\n \n\nEr komen te veel immigranten naar Nederland ",
         "question_answer_options": [
-            {"id": 1, "value": "Helemaal verkeerd"},
-            {"id": 2, "value": "Verkeerd"},
-            {"id": 3, "value": "Niet goed, niet verkeerd"},
-            {"id": 4, "value": "Goed"},
-            {"id": 5, "value": "Heel goed"}
+            {"id": 1, "value": "Helemaal mee oneens"},
+            {"id": 2, "value": "Mee oneens"},
+            {"id": 3, "value": "Niet mee oneens, niet mee eens "},
+            {"id": 4, "value": "Mee eens "},
+            {"id": 5, "value": "Helemaal mee eens"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
-        "question_id": 17,
-        "order": 23,
-        "form_type": "display",
-        "question_type": "instruction",
-        "question_title": "immigratie houding – vrienden tussentekst",
-        "question_content": "De volgende vraag gaat over de klasgenoten met wie jij goed omgaat."
-    },
-    {
         "question_id": 18,
-        "order": 24,
+        "order": 28,
         "question_type": "json",
         "question_title": "Immigratie houding - vrienden",
-        "question_content": "Wat denk jij dat de volgende klasgenoot er van zou vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
+        "question_content": "Hoe denk je dat de volgende klasgenoot deze vraag zou beantwoorden? \n\n \n\nEr komen te veel immigranten naar Nederland ",
         "question_answer_options": [
-            {"id": 1, "value": "Helemaal verkeerd"},
-            {"id": 2, "value": "Verkeerd"},
-            {"id": 3, "value": "Niet verkeerd, niet goed"},
-            {"id": 4, "value": "Goed"},
-            {"id": 5, "value": "Heel goed"}
+            {"id": 1, "value": "Helemaal mee oneens"},
+            {"id": 2, "value": "Mee oneens"},
+            {"id": 3, "value": "Niet mee oneens, niet mee eens "},
+            {"id": 4, "value": "Mee eens "},
+            {"id": 5, "value": "Helemaal mee eens"}
         ],
         "question_options": {
             "error_text": "Je hebt geen vrienden opgeven!",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 19,
-        "order": 25,
-        "form_type": "display",
-        "question_type": "instruction",
-        "question_title": "Tussentekst willekeurige klasgenoten",
-        "question_content": "De volgende vraag gaat over drie willekeurige klasgenoten."
-    },
-    {
-        "question_id": 20,
-        "order": 26,
-        "question_type": "json",
-        "question_title": "Immigratie houding – willekeurige klasgenoten",
-        "question_content": "Wat denk jij dat de volgende klasgenoot er van zou vinden als Nederland in de toekomst meer immigranten binnen zou laten?",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal verkeerd"},
-            {"id": 2, "value": "Verkeerd"},
-            {"id": 3, "value": "Niet verkeerd, niet goed"},
-            {"id": 4, "value": "Goed"},
-            {"id": 5, "value": "Heel goed"}
-        ],
-        "question_options": {
-            "error_text": "Je hebt geen klassgenoten die je niet als vriend hebt geselecteerd!",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 21,
-        "order": 27,
-        "enabled": false,
-        "form_type": "display",
-        "question_type": "instruction",
-        "question_title": "Tussentekst band",
-        "question_content": "De volgende vragen gaan over de band tussen sommige van je klasgenoten."
-    },
-    {
-        "question_id": 22,
-        "order": 28,
-        "enabled": false,
-        "question_type": "json",
-        "question_title": "Band",
-        "question_content": "Hoe sterk is de band tussen:",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal niet sterk"},
-            {"id": 2, "value": "Niet sterk"},
-            {"id": 3, "value": "Redelijk sterk"},
-            {"id": 4, "value": "Sterk"},
-            {"id": 5, "value": "Heel erg sterk"}
-        ],
-        "question_options": {
-            "error_text": "Je hebt geen vrienden opgeven!",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 23,
-        "order": 29,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Culturele interesse",
-        "question_content": "Ik verdiep me graag in de culturele achtergrond van anderen",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal oneens"},
-            {"id": 2, "value": "Oneens"},
-            {"id": 3, "value": "Beetje oneens"},
-            {"id": 4, "value": "Niet eens, niet oneens"},
-            {"id": 5, "value": "Beetje eens"},
-            {"id": 6, "value": "Eens"},
-            {"id": 7, "value": "Helemaal eens"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 24,
-        "order": 30,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Polarisatie in klas",
-        "question_content": "In mijn klas denken mensen heel verschillend over migratie",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal oneens"},
-            {"id": 2, "value": "Oneens"},
-            {"id": 3, "value": "Beetje oneens"},
-            {"id": 4, "value": "Niet eens, niet oneens"},
-            {"id": 5, "value": "Beetje eens"},
-            {"id": 6, "value": "Eens"},
-            {"id": 7, "value": "Helemaal eens"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 25,
-        "order": 31,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "polarisatie in maatschappij",
-        "question_content": "In Nederland worden verschillen van mening over migratie steeds groter",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal oneens"},
-            {"id": 2, "value": "Oneens"},
-            {"id": 3, "value": "Beetje oneens"},
-            {"id": 4, "value": "Niet eens, niet oneens"},
-            {"id": 5, "value": "Beetje eens"},
-            {"id": 6, "value": "Eens"},
-            {"id": 7, "value": "Helemaal eens"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 26,
-        "order": 32,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Verbinding met klas",
-        "question_content": "Ik voel me sterk verbonden met mijn klas",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal oneens"},
-            {"id": 2, "value": "Oneens"},
-            {"id": 3, "value": "Beetje oneens"},
-            {"id": 4, "value": "Niet eens, niet oneens"},
-            {"id": 5, "value": "Beetje eens"},
-            {"id": 6, "value": "Eens"},
-            {"id": 7, "value": "Helemaal eens"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "extra_text": "In hoeverre ben je het eens met de volgende stelling?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 27,
-        "order": 33,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Leuk",
-        "question_content": "Hoe leuk vond je het om deze vragenlijst in te vullen?",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal niet leuk"},
-            {"id": 2, "value": "Niet leuk"},
-            {"id": 3, "value": "Een beetje leuk"},
-            {"id": 4, "value": "Leuk"},
-            {"id": 5, "value": "Heel leuk"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "extra_text": "Je bent bijna aan het einde van de vragenlijst. De laatste vragen gaan over wat je van de vragenlijst vond."
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 28,
-        "order": 34,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Meedoen",
-        "question_content": "Zou je nog een keer aan een vergelijkbaar onderzoek over je klas meedoen?",
-        "question_answer_options": [
-            {"id": 1, "value": "Zeker niet"},
-            {"id": 2, "value": "Waarschijnlijk niet"},
-            {"id": 3, "value": "Misschien"},
-            {"id": 4, "value": "Waarschijnlijk wel"},
-            {"id": 5, "value": "Zeker wel"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 29,
-        "order": 35,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Interessant",
-        "question_content": "Hoe interessant vond je deze vragenlijst?",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal niet interessant"},
-            {"id": 2, "value": "Niet interessant"},
-            {"id": 3, "value": "Een beetje interessant"},
-            {"id": 4, "value": "Interessant"},
-            {"id": 5, "value": "Heel erg interessant"}
-        ],
-        "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         },
         "default_disable_next": false
     },
     {
         "question_id": 30,
-        "order": 36,
+        "order": 29,
         "form_type": "select",
         "question_type": "int",
         "question_title": "Moeilijk",
-        "question_content": "Vond je het moeilijk of makkelijk te begrijpen hoe je de antwoorden moest invullen?",
+        "question_content": "Is het voor jou moeilijk of makkelijk om in te schatten hoe je klasgenoten over immigratie denken? ",
         "question_answer_options": [
             {"id": 1, "value": "Heel moeilijk"},
             {"id": 2, "value": "Moeilijk"},
@@ -612,10 +476,10 @@
     },
     {
         "question_id": 31,
-        "order": 38,
+        "order": 30,
         "question_type": "text",
         "question_title": "Einde",
-        "question_content": "Heeft u nog opmerkingen over de vragenlijst?",
+        "question_content": "Dit waren alle vragen over jouw klasgenoten. Hierna volgt het laatste gedeelte van de vragenlijst. ",
         "question_options": {
             "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!"
         }

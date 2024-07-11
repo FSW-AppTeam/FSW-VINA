@@ -18,6 +18,7 @@ RUN apt-get install -y wget
 RUN apt-get install -y sudo
 RUN apt-get install -y iputils-ping
 RUN apt-get install -y sendmail
+RUN apt-get install -y socat
 
 RUN apt-get install -y libpng-dev
 RUN apt-get install -y zlib1g-dev

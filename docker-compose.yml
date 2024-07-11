@@ -6,9 +6,11 @@ services:
       context: .
       dockerfile: docker/dualnets.dockerfile
     environment:
-      - VIRTUAL_HOST=dualnets.docker.dev
-      - VIRTUAL_PROTO=https
-      - VIRTUAL_PORT=443
+      VIRTUAL_HOST: dualnets.docker.dev
+      VIRTUAL_PROTO: https
+      VIRTUAL_PORT: 443
+      DUSK_DRIVER_URL: http://selenium.docker.dev:4444/wd/hub
+      DUSK_START_MAXIMIZED: true
     volumes:
       - ./:/var/www
     networks:
@@ -29,7 +31,7 @@ services:
           - default
           - hts-appteam-local-dev
   mariadb:
-    hostname: dualnets_mariadb.docker
+    hostname: dualnets_mariadb.docker.dev
     container_name: dualnets_mariadb
     image: "mariadb:latest"
     ports:
@@ -40,7 +42,7 @@ services:
       MYSQL_USER: "development"
       MYSQL_PASSWORD: "secret"
   mariadbtest:
-    hostname: dualnets_mariadb_test.docker
+    hostname: dualnets_mariadb_test.docker.dev
     container_name: dualnets_mariadb_test
     image: "mariadb:latest"
     ports:

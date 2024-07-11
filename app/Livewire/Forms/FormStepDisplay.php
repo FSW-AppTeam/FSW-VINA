@@ -20,6 +20,7 @@ class FormStepDisplay extends Component
 
     public function save(): void
     {
+        $this->form->createAnswer('Done', $this->jsonQuestion, $this->stepId);
         $this->dispatch('set-step-id-up');
     }
 

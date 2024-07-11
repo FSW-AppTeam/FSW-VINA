@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Survey;
 use Illuminate\Database\Seeder;
 
-class surveySeeder extends Seeder
+class SurveySeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -21,7 +21,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/reset', function () {
         Session()->flush();
-
         return redirect('/');
     });
     Route::get('/step/{stepId}', function ($stepId) {

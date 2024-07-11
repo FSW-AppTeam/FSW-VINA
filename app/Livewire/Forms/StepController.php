@@ -4,8 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -195,7 +193,6 @@ class StepController extends Component
         $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->id)
             ->where('student_id', Session::get('student-id'));
 
-        ray($savedAnswer->first(), $this->jsonQuestion->id, Session::get('student-id'));
         if ($savedAnswer->exists()) {
             $this->savedAnswers = $savedAnswer->first()->student_answer;
         }
@@ -203,7 +200,6 @@ class StepController extends Component
 
     public function setQuestion()
     {
-
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
@@ -226,7 +222,6 @@ class StepController extends Component
     {
         if (empty($this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question))) {
             $this->stepId++;
-
             return $this->setQuestion();
         }
     }
