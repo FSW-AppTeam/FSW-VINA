@@ -71,6 +71,7 @@
             <thead>
             <tr>
                 <th></th>
+                <th>id</th>
                 <th>order</th><th>question_type</th><th>question_title</th><th>question_content</th><th>question_answer_options</th>
                 <th>enabled</th>
                 <th>Actions</th>
@@ -82,7 +83,9 @@
                     <td>
                         <input wire:model.live="selectedSurveyQuestions" id="{{$model->id}}" value="{{$model->id}}" type="checkbox">
                     </td>
-                    <td>{{$model->order}}</td><td>{{$model->question_type}}</td>
+                    <td>{{$model->id}}</td>
+                    <td>{{$model->order}}</td>
+                    <td>{{$model->question_type}}</td>
                     <td>{{$model->question_title}}</td>
                     <td>{{$model->question_content}}</td>
                     <td>{{json_encode($model->question_options)}}</td>

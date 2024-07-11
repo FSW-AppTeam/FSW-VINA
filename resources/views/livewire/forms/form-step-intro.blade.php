@@ -6,7 +6,7 @@
     <div class="">
         <h5>Hartelijk welkom!</h5>
 
-        <p class="lh-sm mt-3">Het invullen van deze vragenlijst duurt ongeveer 10-15 minuten.</p>
+        <p class="lh-sm mt-3">Het invullen van deze vragenlijst duurt ongeveer 20 minuten.</p>
 
         <p class="lh-sm">Jouw antwoorden worden uiteraard anoniem verwerkt en strikt vertrouwelijk behandeld. Bovendien mag je elke vraag onbeantwoord laten als je die liever niet invult. Je mag ook op elk moment stoppen met de vragenlijst.</p>
         <p class="lh-sm">Voor vragen of opmerkingen over deze vragenlijst kunt je contact opnemen met dr. Tobias Stark, de projectleider: t.h.stark@uu.nl   </p>
