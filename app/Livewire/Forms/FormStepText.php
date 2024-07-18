@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Throwable;
 
 class FormStepText extends Component
 {
@@ -27,6 +28,7 @@ class FormStepText extends Component
 
     protected $listeners = [
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
+        'save' => 'save',
     ];
 
     public function rules(): array
@@ -40,6 +42,7 @@ class FormStepText extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
+                        $this->dispatch('set-enable-all');
                         $fail($this->messages['input.required']);
                     }
                 },
@@ -57,17 +60,22 @@ class FormStepText extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-enable-all');
+            throw $e;
+        }
         $this->form->createAnswer($this->input, $this->jsonQuestion, $this->stepId);
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
-    public function updatedGender()
-    {
-        $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-        $this->dispatch('set-enable-next');
-    }
+//    public function updatedGender()
+//    {
+//        $this->form->addRulesFromOutside($this->rules());
+//        $this->validate($this->rules());
+//        $this->dispatch('set-enable-next');
+//    }
 
     public function mount(): void
     {

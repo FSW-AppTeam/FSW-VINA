@@ -16,13 +16,17 @@ class FormStepIntro extends Component
 
     public $savedAnswers;
 
+    protected $listeners = [
+        'save' => 'save',
+    ];
+
     public function mount(): void
     {
     }
 
     public function save(): void
     {
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function render()

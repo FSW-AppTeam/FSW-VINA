@@ -40,7 +40,7 @@ class PostForm extends Form
     }
 
     #[Computed(persist: true)]
-    public function getStudentsWithResponse($questionId): array
+    public function getStudentsOtherEthnicityWithResponse($questionId): array
     {
         return SurveyStudent::where('survey_id', $this->getSurvey()->id)
             ->where('survey_students.id', '!=', $this->getStudent()->id)

@@ -12,21 +12,9 @@ class FormStep12 extends Component
 {
     public PostForm $form;
 
-    public $basicTitle = '';
-
     public array $friends = [];
 
     public array $selectedFriendsIds = [];
-
-    public $lastSelectedFriendId = '';
-
-    public $disappear = false;
-
-    public array $students = [];
-
-    public array $startFriend = [];
-
-    public array $finishedFriend = [];
 
     public int $stepId;
 
@@ -42,17 +30,27 @@ class FormStep12 extends Component
 
     public $studentCounter = 1;
 
-    protected array $messages = [];
-
     public $index = 0;
 
-    protected $listeners = [
-        'set-selected-student-id-comp' => 'setSelectedStudentId',
-        'remove-selected-student-id' => 'removeSelectedStudentId',
-        'set-sub-step-id-down' => 'stepDown',
-        'set-sub-step-id-up' => 'stepUp',
-        'set-save-answer' => 'save',
-    ];
+    public array $students = [];
+
+    public $lastSelectedFriendId = '';
+
+    public $disappear = false;
+
+    public array $startFriend = [];
+
+    public array $finishedFriend = [];
+
+    protected array $messages = [];
+
+//    protected $listeners = [
+//        'set-selected-student-id-comp' => 'setSelectedStudentId',
+//        'remove-selected-student-id' => 'removeSelectedStudentId',
+//        'set-sub-step-id-down' => 'stepDown',
+//        'set-sub-step-id-up' => 'stepUp',
+//        'set-save-answer' => 'save',
+//    ];
 
     public function setSelectedStudentId(int $id, string $name): void
     {
@@ -99,7 +97,9 @@ class FormStep12 extends Component
             'student_id' => $this->startFriend['id'],
             'value' => array_column($this->friends, 'id'),
         ];
-        $this->jsonQuestion->question_title = $this->basicTitle.' ID:'.$this->startFriend['id'];
+        if ($this->jsonQuestion->question_type == 'json') {
+            $this->jsonQuestion->question_title = $this->jsonQuestion->question_title.' ID:'.$this->startFriend['id'];
+        }
         $this->form->createJsonAnswer($answer, $this->jsonQuestion, $this->stepId);
         $this->disappear = false;
 
@@ -151,7 +151,6 @@ class FormStep12 extends Component
 
     public function mount(): void
     {
-        $this->basicTitle = $this->jsonQuestion->question_title;
         $this->students = $this->form->getStudentsWithoutActiveStudent();
 
         $this->startFriend = array_shift($this->students);

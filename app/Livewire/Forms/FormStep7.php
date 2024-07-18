@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Throwable;
 
 class FormStep7 extends Component
 {
@@ -30,6 +31,7 @@ class FormStep7 extends Component
     protected $messages = [];
 
     protected $listeners = [
+        'save' => 'save',
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
     ];
 
@@ -70,15 +72,19 @@ class FormStep7 extends Component
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-enable-all');
+            throw $e;
+        }
         $answer = [
             'country_id' => $this->originCountry,
             'other_country' => $this->otherCountry,
         ];
 
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function mount(): void
@@ -96,7 +102,7 @@ class FormStep7 extends Component
     {
         $this->originCountry = $id;
         if ($id === 6) {
-            $this->dispatch('set-modal-flag');
+            $this->dispatch('set-modal-othercountry');
         }
 
         if ($id !== 6) {

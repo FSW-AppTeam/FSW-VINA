@@ -31,37 +31,39 @@ class StepController extends Component
     public $steps;
 
     protected $listeners = [
-        'set-step-id-up' => 'setStepIdUp',
-        'set-step-id-down' => 'setStepIdDown',
+        'next' => 'next',
+        'back' => 'back',
+        'step-up' => 'stepUp',
+        'step-down' => 'stepDown',
         'set-refresh-stepper' => '$refresh',
     ];
 
-    public function next()
-    {
-        $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
-            ->orderBy('order', 'asc')
-            ->where('enabled', true)
-            ->first();
-
-        $this->setActiveStep($question);
-    }
-
-    public function back()
-    {
-        $question = SurveyQuestion::where('order', '<=', $this->stepId)
-            ->orderBy('order', 'desc')
-            ->where('enabled', true)->first();
-
-        // In case of a question is disabled, skip it. We have to set the order as the new stpId
-        $this->stepId = $question->order;
-        $this->jsonQuestion = $question;
-        $this->setSavedAnswers();
-        if ($this->stepId == 0) {
-            $this->getJsonIntro();
-        }
-
-        $this->setActiveStep($question);
-    }
+//    public function next()
+//    {
+//        $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
+//            ->orderBy('order', 'asc')
+//            ->where('enabled', true)
+//            ->first();
+//
+//        $this->setActiveStep($question);
+//    }
+//
+//    public function back()
+//    {
+//        $question = SurveyQuestion::where('order', '<=', $this->stepId)
+//            ->orderBy('order', 'desc')
+//            ->where('enabled', true)->first();
+//
+//        // In case of a question is disabled, skip it. We have to set the order as the new stpId
+//        $this->stepId = $question->order;
+//        $this->jsonQuestion = $question;
+//        $this->setSavedAnswers();
+//        if ($this->stepId == 0) {
+//            $this->getJsonIntro();
+//        }
+//
+//        $this->setActiveStep($question);
+//    }
 
     public function refreshComponent(): void
     {
@@ -78,9 +80,13 @@ class StepController extends Component
         $this->jsonQuestion = json_decode(file_get_contents(resource_path('surveys/q-outro.json')), false);
     }
 
-    public function boot()
+    public function mount()
     {
-//        $this->continue();
+        if (! Auth::guest() && Auth::user()->isAdmin() && str_starts_with(Request::path(), 'step/')) {
+            return;
+        }
+
+        $this->continue();
     }
 
     public function continue()
@@ -108,11 +114,22 @@ class StepController extends Component
         $this->setActiveStep($this->jsonQuestion);
     }
 
-    public function setStepIdUp(): void
+    /**
+     * @param $force
+     * @return void
+     *
+     * next is called from the FormButtons component.
+     * It saves the current step and moves to the next question, this can be a subquestion instead of next step.
+     * The handling of the next step is done in the form which is defined in $this->>activeStep.
+     */
+    public function next(): void
     {
-        $this->next();
-        $this->stepId++;
+        $this->dispatch('save')->component($this->activeStep);
+    }
 
+    public function stepUp(): void
+    {
+        $this->stepId++;
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
@@ -124,11 +141,14 @@ class StepController extends Component
         $this->setActiveStep($this->jsonQuestion);
     }
 
-    public function setStepIdDown(): void
+    public function back(): void
     {
-        $this->back();
-        $this->stepId--;
+        if ($this->hasSubQuestions()) {
+            $this->dispatch('set-sub-step-down');
 
+            return;
+        }
+        $this->stepId--;
         $question = SurveyQuestion::where('order', '<=', $this->stepId)
             ->orderBy('order', 'desc')
             ->where('enabled', true)->first();
@@ -137,6 +157,16 @@ class StepController extends Component
         $this->jsonQuestion = $question;
 
         $this->setActiveStep($this->jsonQuestion);
+    }
+
+    public function hasSubQuestions()
+    {
+        $subQuestion = ['select_for_subject', 'multiple_students'];
+        if (! in_array($this->jsonQuestion->form_type, $subQuestion)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function setEnabledNext(): void
@@ -220,7 +250,7 @@ class StepController extends Component
     // Specific logic for question id 37 and 38
     private function stepQuestionId37()
     {
-        if(empty($this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question))){
+        if (empty($this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question))) {
             $this->stepId++;
             return $this->setQuestion();
         }

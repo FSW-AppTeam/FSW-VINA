@@ -24,9 +24,9 @@ if (window.TouchEvent) {
 }
 
 document.addEventListener('livewire:initialized', (e) => {
-
-    // block answer buttons
+     // block answer buttons
     document.addEventListener('select-answer-block', (ev) => {
+        console.log('select-answer-block')
         ev.preventDefault();
         let blockBtn = ev.detail.event.target;
 
@@ -45,7 +45,7 @@ document.addEventListener('livewire:initialized', (e) => {
         }
     });
 
-    document.addEventListener('set-modal-flag', event => {
+    document.addEventListener('set-modal-othercountry', event => {
         // const options = {keyboard:false};
         const countryModal = new bootstrap.Modal(document.getElementById('countryModal'), {});
         countryModal.show();
@@ -71,13 +71,13 @@ document.addEventListener('livewire:initialized', (e) => {
                 });
 
                 btn.addEventListener('click', function (e) {
-                    const setFlag = new CustomEvent("set-flag-from-js", {
-                        detail: {
-                            country: countryVar,
-                        },
-                    });
-
-                    dispatchEvent(setFlag);
+                    // const setFlag = new CustomEvent("set-flag-from-js", {
+                    //     detail: {
+                    //         country: countryVar,
+                    //     },
+                    // });
+                    //
+                    // dispatchEvent(setFlag);
 
                     countryModal.hide();
                 }, {once: true})
@@ -90,27 +90,28 @@ document.addEventListener('livewire:initialized', (e) => {
     let index = 0;
 
     document.addEventListener('set-step-id-up', () => {
-        setTimeout(() => {
-            let formQuestion22 = document.querySelector('#scope-form-step22');
-            index = 0;
-            shadowPositionX = -90;
-
-            if(formQuestion22 !== null){
-                shadowPositionX = -210;
-            }
-        }, 500);
+        console.log("set-step-id-up")
+        // setTimeout(() => {
+        //     let formQuestion22 = document.querySelector('#scope-form-step22');
+        //     index = 0;
+        //     shadowPositionX = -90;
+        //
+        //     if(formQuestion22 !== null){
+        //         shadowPositionX = -210;
+        //     }
+        // }, 500);
     });
 
     document.addEventListener('set-step-id-down', () => {
-        setTimeout(() => {
-            let formQuestion22 = document.querySelector('#scope-form-step22');
-            index = 0;
-            shadowPositionX = -90;
-
-            if(formQuestion22 !== null){
-                shadowPositionX = -210;
-            }
-        }, 500);
+        // setTimeout(() => {
+        //     let formQuestion22 = document.querySelector('#scope-form-step22');
+        //     index = 0;
+        //     shadowPositionX = -90;
+        //
+        //     if(formQuestion22 !== null){
+        //         shadowPositionX = -210;
+        //     }
+        // }, 500);
     });
 
 
@@ -170,33 +171,17 @@ document.addEventListener('livewire:initialized', (e) => {
                         ], {duration: 400, easing: 'ease-in', fill: 'forwards', delay: 300});
 
 
-                        if (formQuestion22 !== null) {
-                            shadowPositionX -= 210;
-                            stepIndex++;
-                        } else {
-                            shadowPositionX -= 90;
-                        }
+            if(formQuestion22 !== null){
+                shadowPositionX = -210;
+            }
+        }, 500);
+    });
 
-                        index++;
-
-                        if (studentBtn !== null) {
-                            // form step 22 relation question animations
-                            studentBtn.animate([
-                                {opacity: 0, transform: `translate3d(0, 0, 0)`},
-                                {opacity: 1, transform: `translate3d(0, 0, 0)`}
-                            ], {duration: 500, easing: 'ease', fill: 'forwards', delay: 1000});
-                        }
-                    }
-                }
-
-                // animation used in step 15 and more
-                setTimeout(() => {
-                    if (blockBtn !== null) {
-                        dispatchEvent(new Event('set-save-answer'));
-
-                        blockBtn.animate([
-                            {opacity: 0, transform: `translateY(0)`},
-                        ], {duration: 100, fill: 'forwards'});
+    document.addEventListener('set-step-id-down', () => {
+        setTimeout(() => {
+            let formQuestion22 = document.querySelector('#scope-form-step22');
+            index = 0;
+            shadowPositionX = -90;
 
                         blockBtn.animate([
                             {opacity: 1},
@@ -259,21 +244,33 @@ document.addEventListener('livewire:initialized', (e) => {
         dispatchEvent(setBackBlockBtn);
     });
 
-    // Used in step 12
-    document.addEventListener('start-friend-bounce', () => {
-        //Timeout is nodig om de animatie eventlistner te laten werken. Let op, met deze methode kan je nog steeds niet de
-        // "animationstart" afvangen.
-        window.setTimeout(function() {
-            dispatchEvent(new Event('set-show-shrink-true'))
-            const shrink = document.getElementById('next-student')
-            shrink.addEventListener('animationend', function(){
-                dispatchEvent(new Event('set-save-answer'));
-            }, true);
+    document.addEventListener('top-of-page', () => {
+        document.getElementById('layout-wrapper')
+            .scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 
-        }, 50);
     });
 
-    // Used in step 14
+    // Used in the StudentSelected and
+    document.addEventListener('start-friend-bounce', function() {
+        console.log('start-friend-bounce')
+        // TODO for some reason I cant get this working with the following:
+        // const bounce = document.getElementById('start-friend-bounce')
+        // bounce.addEventListener('animationend', function(){
+        //     console.log('animationend')
+        // }, false);
+        // Therefor I'm using only the timeout function.
+        window.setTimeout(function() {
+            dispatchEvent(new Event('set-bounce-out-true'))
+        }, 50);
+        window.setTimeout(function() {
+            dispatchEvent(new Event('set-show-shrink-true'))
+        }, 1200);
+        window.setTimeout(function() {
+            dispatchEvent(new Event('set-sub-step-up'));
+        }, 1700);
+    });
+
+    // Used in question id 14
     document.addEventListener('set-animation-flag-student', () => {
         window.setTimeout(function() {
             const moveLeft = document.getElementById('step-student-button-0')

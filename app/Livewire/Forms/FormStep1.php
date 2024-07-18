@@ -6,6 +6,7 @@ use App\Models\Survey;
 use Closure;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
+use Throwable;
 
 class FormStep1 extends Component
 {
@@ -20,6 +21,10 @@ class FormStep1 extends Component
     public $nextEnabled;
 
     public $backEnabled;
+
+    protected $listeners = [
+        'save' => 'save',
+    ];
 
     protected $rules = [
         'surveyCode' => 'required|min:2',
@@ -36,15 +41,16 @@ class FormStep1 extends Component
 
         return [
             'surveyCode' => [
+                'required',
+                'min:3',
+                'string',
                 function (string $attribute, mixed $value, Closure $fail) {
                     if (empty($value)) {
                         $this->firstRequired = false;
-                        $this->dispatch('set-disable-next');
                         $fail($this->messages['surveyCode.exists']);
                     }
 
                     if (! Survey::checkCode($value)) {
-                        $this->dispatch('set-disable-next');
                         $fail($this->messages['surveyCode.exists']);
                     }
                 },
@@ -70,13 +76,18 @@ class FormStep1 extends Component
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-enable-all');
+            throw $e;
+        }
         $survey = Survey::where('survey_code', $this->surveyCode)->first();
         session::put([
             'survey-id' => $survey->id,
         ]);
 
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function updatedsurveyCode()

@@ -5,14 +5,16 @@
         <button type="button"
                 wire:click="removeStudent({{$id}})"
                 class="p-2 btn-circle btn-xl"
-                style="opacity: 0.4">
+                style="opacity: 0.4"
+                @if(!$buttonEnabled) disabled @endif>
             {{$name}}
         </button>
     @else
         <button type="button"
                 wire:click="setStudent({{$id}})"
                 class="p-2 btn-circle btn-xl"
-                style="opacity: 1">
+                style="opacity: 1"
+                @if(!$buttonEnabled) disabled @endif>
             {{$name}}
         </button>
     @endif

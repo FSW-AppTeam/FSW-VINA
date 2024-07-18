@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Throwable;
 
 class FormStepSelect extends Component
 {
@@ -26,6 +27,10 @@ class FormStepSelect extends Component
     public $firstRequired = true;
 
     protected $messages = [];
+
+    protected $listeners = [
+        'save' => 'save',
+    ];
 
     public function rules(): array
     {
@@ -54,17 +59,14 @@ class FormStepSelect extends Component
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-enable-all');
+            throw $e;
+        }
         $this->form->createAnswer($this->input, $this->jsonQuestion, $this->stepId);
-        $this->dispatch('set-step-id-up');
-    }
-
-    public function updatedGender()
-    {
-        $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-        $this->dispatch('set-enable-next');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function mount(): void

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
-class StudentFadeComponent extends Component
+class StudentFade extends Component
 {
     public $showFade = false;
 
@@ -16,7 +16,7 @@ class StudentFadeComponent extends Component
 
     public $name;
 
-    public $selectedFriendsIds;
+    public $selectedStudents = [];
 
     protected $listeners = [
         'set-disable-student-fade-btn' => 'disableShowFade',
@@ -48,13 +48,13 @@ class StudentFadeComponent extends Component
     public function setStudent($id): void
     {
         $this->showFade = true;
-        $this->dispatch('set-selected-student-id-comp', $id, $this->name);
+        $this->dispatch('set-selected-student-id', $id, $this->name);
     }
 
     public function removeStudent($id): void
     {
         $this->showFade = false;
-        $this->dispatch('remove-selected-student-id', $id, $this->name);
+        $this->dispatch('remove-selected-student-id', $id);
     }
 
     public function disableShowFade($id): void
@@ -66,13 +66,14 @@ class StudentFadeComponent extends Component
 
     public function mount()
     {
-        if (in_array($this->id, $this->selectedFriendsIds)) {
-            $this->showFade = true;
-        }
+
     }
 
     public function render()
     {
-        return view('livewire.student-fade-component');
+        if (array_search($this->id, array_column($this->selectedStudents, 'id')) !== false) {
+            $this->showFade = true;
+        }
+        return view('livewire.components.student-fade');
     }
 }
