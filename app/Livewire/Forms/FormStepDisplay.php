@@ -18,10 +18,14 @@ class FormStepDisplay extends Component
 
     public $savedAnswers;
 
+    protected $listeners = [
+        'save' => 'save',
+    ];
+
     public function save(): void
     {
         $this->form->createAnswer('Done', $this->jsonQuestion, $this->stepId);
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function render()

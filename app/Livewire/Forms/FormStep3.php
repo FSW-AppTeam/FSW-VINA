@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Throwable;
 
 class FormStep3 extends Component
 {
@@ -25,15 +26,24 @@ class FormStep3 extends Component
 
     protected $messages = [];
 
+    protected $listeners = [
+        'save' => 'save',
+    ];
+
     public function rules(): array
     {
         $this->messages['age.required'] = $this->jsonQuestion->question_options['error_empty_text'];
 
         return [
             'age' => [
+                'nullable',
+                'integer',
+                'min:1950',
+                'max:2020',
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
+                        $this->dispatch('set-enable-all');
                         $fail($this->messages['age.required']);
                     }
                 },
@@ -44,10 +54,14 @@ class FormStep3 extends Component
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-enable-all');
+            throw $e;
+        }
         $this->form->createAnswer($this->age, $this->jsonQuestion, $this->stepId);
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function updatedAge()

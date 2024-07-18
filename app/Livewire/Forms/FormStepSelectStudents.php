@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Throwable;
 
 class FormStepSelectStudents extends Component
 {
@@ -34,7 +35,7 @@ class FormStepSelectStudents extends Component
     protected $listeners = [
         'set-selected-student-id' => 'setSelectedStudent',
         'remove-selected-student-id' => 'removeSelectedStudent',
-        'set-save-answer' => 'save',
+        'save' => 'save',
     ];
 
     public function setSelectedStudent(int $id, string $name): void
@@ -71,28 +72,21 @@ class FormStepSelectStudents extends Component
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-
-        $this->validate($this->rules());
-        if ($this->jsonQuestion->question_type == 'json') {
-
-            $this->setSubjects();
-            $this->jsonQuestion->question_title = $this->jsonQuestion->question_title.' ID:'.$this->subject['id'];
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-enable-all');
+            throw $e;
         }
 
         $this->form->createAnswer(array_column($this->selectedStudents, 'id'), $this->jsonQuestion, $this->stepId);
 
-        if ($this->subStepUp()) {
-            return;
-        }
-
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function mount(): void
     {
         $this->students = $this->form->getStudentsWithoutActiveStudent();
-
-        $this->setSubjects();
 
         if (is_null($this->savedAnswers)) {
             return;
@@ -112,17 +106,6 @@ class FormStepSelectStudents extends Component
     public function render()
     {
         return view('livewire.forms.form-step-select-students');
-    }
-
-    public function setSubjects()
-    {
-        if ($this->jsonQuestion->question_type !== 'json') {
-            return;
-        }
-
-        $this->subject = array_shift($this->students);
-        $this->finishedSubjects[] = $this->subject;
-        $this->jsonQuestion->question_title = 'ID:'.$this->subject['id'];
     }
 
     public function subStepDown(): bool

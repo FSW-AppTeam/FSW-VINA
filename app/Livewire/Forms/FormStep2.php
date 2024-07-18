@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Throwable;
 
 class FormStep2 extends Component
 {
@@ -19,6 +20,10 @@ class FormStep2 extends Component
     public $backEnabled;
 
     public $jsonQuestion;
+
+    protected $listeners = [
+        'save' => 'save',
+    ];
 
     protected function rules()
     {
@@ -52,11 +57,15 @@ class FormStep2 extends Component
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-enable-all');
+            throw $e;
+        }
         if (session::has('survey-id')) {
             $this->form->createStudent($this->name, strtolower(session::get('survey-id')));
-            $this->dispatch('set-step-id-up');
+            $this->dispatch('step-up')->component(StepController::class);
         }
     }
 

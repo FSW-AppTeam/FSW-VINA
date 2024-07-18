@@ -31,8 +31,10 @@ class StepController extends Component
     public $steps;
 
     protected $listeners = [
-        'set-step-id-up' => 'setStepIdUp',
-        'set-step-id-down' => 'setStepIdDown',
+        'next' => 'next',
+        'back' => 'back',
+        'step-up' => 'stepUp',
+        'step-down' => 'stepDown',
         'set-refresh-stepper' => '$refresh',
     ];
 
@@ -112,7 +114,20 @@ class StepController extends Component
         $this->setActiveStep($this->jsonQuestion);
     }
 
-    public function setStepIdUp(): void
+    /**
+     * @param $force
+     * @return void
+     *
+     * next is called from the FormButtons component.
+     * It saves the current step and moves to the next question, this can be a subquestion instead of next step.
+     * The handling of the next step is done in the form which is defined in $this->>activeStep.
+     */
+    public function next(): void
+    {
+        $this->dispatch('save')->component($this->activeStep);
+    }
+
+    public function stepUp(): void
     {
         $this->stepId++;
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
@@ -126,8 +141,13 @@ class StepController extends Component
         $this->setActiveStep($this->jsonQuestion);
     }
 
-    public function setStepIdDown(): void
+    public function back(): void
     {
+        if ($this->hasSubQuestions()) {
+            $this->dispatch('set-sub-step-down');
+
+            return;
+        }
         $this->stepId--;
         $question = SurveyQuestion::where('order', '<=', $this->stepId)
             ->orderBy('order', 'desc')
@@ -137,6 +157,16 @@ class StepController extends Component
         $this->jsonQuestion = $question;
 
         $this->setActiveStep($this->jsonQuestion);
+    }
+
+    public function hasSubQuestions()
+    {
+        $subQuestion = ['select_for_subject', 'multiple_students'];
+        if (! in_array($this->jsonQuestion->form_type, $subQuestion)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function setEnabledNext(): void

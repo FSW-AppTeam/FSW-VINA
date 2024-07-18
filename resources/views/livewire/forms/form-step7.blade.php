@@ -39,9 +39,8 @@
 
                     <div class="mt-5 p-2 text-center">
                         <button type="button" id="country-set-btn" disabled style="width:80%"
-
-                                wire:click="setCountry()"
-                                class="btn btn-outline-warning mt-5">OK
+                            wire:click="setCountry()"
+                            class="btn btn-outline-warning mt-5">OK
                         </button>
                     </div>
 
