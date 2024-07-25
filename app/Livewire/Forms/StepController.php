@@ -40,33 +40,6 @@ class StepController extends Component
         'set-refresh-stepper' => '$refresh',
     ];
 
-//    public function next()
-//    {
-//        $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
-//            ->orderBy('order', 'asc')
-//            ->where('enabled', true)
-//            ->first();
-//
-//        $this->setActiveStep($question);
-//    }
-//
-//    public function back()
-//    {
-//        $question = SurveyQuestion::where('order', '<=', $this->stepId)
-//            ->orderBy('order', 'desc')
-//            ->where('enabled', true)->first();
-//
-//        // In case of a question is disabled, skip it. We have to set the order as the new stpId
-//        $this->stepId = $question->order;
-//        $this->jsonQuestion = $question;
-//        $this->setSavedAnswers();
-//        if ($this->stepId == 0) {
-//            $this->getJsonIntro();
-//        }
-//
-//        $this->setActiveStep($question);
-//    }
-
     public function refreshComponent(): void
     {
         $this->update = ! $this->update;
