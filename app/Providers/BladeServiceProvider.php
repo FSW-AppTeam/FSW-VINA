@@ -10,7 +10,12 @@ class BladeServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register(): void
+    public function register(): void {}
+
+    /**
+     * Bootstrap services.
+     */
+    public function boot(): void
     {
         Blade::directive('bladedebug', function ($text) {
             if (config('app.debug')) {
@@ -34,13 +39,5 @@ class BladeServiceProvider extends ServiceProvider
                         </div>";
             }
         });
-    }
-
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-        //
     }
 }

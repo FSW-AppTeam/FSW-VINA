@@ -12,9 +12,10 @@ class StudentSelected extends Component
 
     public $subject;
 
-    public $disappear = false;
+    public $bounceOut = false;
 
     protected $listeners = [
+        'set-bounce-out-true' => 'setBounceOutTrue',
     ];
 
     public function removeSelectedStudent($id): void
@@ -44,6 +45,11 @@ class StudentSelected extends Component
 
     }
 
+    public function setBounceOutTrue()
+    {
+        $this->bounceOut = true;
+    }
+
     public function appendSubject()
     {
         if (! $this->subject) {
@@ -52,7 +58,6 @@ class StudentSelected extends Component
 
         $subject = $this->subject;
 
-ray($this->selectedStudents, $this->subject['id'] );
         if (! array_search($this->subject['id'], array_column($this->selectedStudents, 'id'))) {
             array_unshift($this->selectedStudents, $subject);
         }

@@ -49,72 +49,77 @@ class PostForm extends Form
             ->join('survey_answers', 'survey_answers.student_id', '=', 'survey_students.id')
             ->get()
             ->toArray();
+
     }
 
-    public function getStudentsSelfFriendsSelected(): array
+    public function getStudentsFotQuestion49($questionId): array
     {
         $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
-            ->where('question_id', '=', 10)
+            ->where('question_id', '=', 48)
             ->get('student_answer')->first()->student_answer;
 
-        return $this->getStudent()
-            ->whereIn('id', $answers)
-            ->where('survey_id', $this->getSurvey()->id)
+        return SurveyStudent::where('survey_id', $this->getSurvey()->id)
+            ->select('survey_students.*' )
+            ->where('survey_students.id', '!=', $this->getStudent()->id)
+            ->whereIn('survey_students.id', $answers)
+            ->where('survey_answers.student_answer->country_id', '=', 1)
+            ->where('question_id', $questionId)
+            ->join('survey_answers', 'survey_students.id', '=', 'survey_answers.student_id')
             ->get()
             ->toArray();
     }
 
-    public function getStudentsNotInFriendsSelected(): array
-    {
-        $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
-            ->where('question_id', '=', 10)
-            ->get('student_answer')->first()->student_answer;
-
-        return $this->getStudent()
-            ->whereNot('id', $this->getStudent()->id)
-            ->whereNotIn('id', $answers)
-            ->where('survey_id', '=', $this->getSurvey()->id)
-            ->get()
-            ->toArray();
-    }
-
-    public function getStudentsFriendsRelationsSelected(): array
-    {
-        $answers = SurveyAnswer::where('survey_answers.student_id', $this->getStudent()->id)
-            ->where('survey_answers.question_id', 12) // friends of friends
-            ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
-            ->where('survey_students.survey_id', '=', $this->getSurvey()->id)
-            ->get(['survey_answers.student_answer'])
-            ->toArray();
-
-        $allFriends = [];
-        // flat student array for import
-        foreach ($answers as $answer) {
-            if (isset($answer['student_answer']['value'])) {
-                foreach ($answer['student_answer']['value'] as $selectedFriend) {
-                    $allFriends[] = ['id' => $answer['student_answer']['student_id'], 'relation_id' => $selectedFriend];
-                }
-            }
-        }
-
-        $uniqueStudents = [];
-
-        try {
-            $uniqueStudents = array_unique(
-                array_merge(array_column($allFriends, 'id'), array_column($allFriends, 'relation_id'))
-            );
-        } catch (\Exception $e) {
-            dd($e->getMessage(), $allFriends);
-        }
-
-        $students = $this->getStudent()
-            ->whereIn('id', $uniqueStudents)
-            ->where('survey_id', $this->getSurvey()->id)
-            ->get()
-            ->toArray();
-
-        return ['students' => $students, 'relations' => $allFriends];
-    }
+    //    public function getStudentsNotInFriendsSelected(): array
+    //    {
+    //        $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
+    //            ->where('question_id', '=', 10)
+    //            ->get('student_answer')->first()->student_answer;
+    //
+    //        return $this->getStudent()
+    //            ->whereNot('id', $this->getStudent()->id)
+    //            ->whereNotIn('id', $answers)
+    //            ->where('survey_id', '=', $this->getSurvey()->id)
+    //            ->get()
+    //            ->toArray();
+    //    }
+    //
+    //    public function getStudentsFriendsRelationsSelected(): array
+    //    {
+    //        $answers = SurveyAnswer::where('survey_answers.student_id', $this->getStudent()->id)
+    //            ->where('survey_answers.question_id', 12) // friends of friends
+    //            ->join('survey_students', 'survey_answers.student_id', '=', 'survey_students.id')
+    //            ->where('survey_students.survey_id', '=', $this->getSurvey()->id)
+    //            ->get(['survey_answers.student_answer'])
+    //            ->toArray();
+    //
+    //        $allFriends = [];
+    //        // flat student array for import
+    //        foreach ($answers as $answer) {
+    //            if (isset($answer['student_answer']['value'])) {
+    //                foreach ($answer['student_answer']['value'] as $selectedFriend) {
+    //                    $allFriends[] = ['id' => $answer['student_answer']['student_id'], 'relation_id' => $selectedFriend];
+    //                }
+    //            }
+    //        }
+    //
+    //        $uniqueStudents = [];
+    //
+    //        try {
+    //            $uniqueStudents = array_unique(
+    //                array_merge(array_column($allFriends, 'id'), array_column($allFriends, 'relation_id'))
+    //            );
+    //        } catch (\Exception $e) {
+    //            dd($e->getMessage(), $allFriends);
+    //        }
+    //
+    //        $students = $this->getStudent()
+    //            ->whereIn('id', $uniqueStudents)
+    //            ->where('survey_id', $this->getSurvey()->id)
+    //            ->get()
+    //            ->toArray();
+    //
+    //        return ['students' => $students, 'relations' => $allFriends];
+    //    }
 
     public function createAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
     {

@@ -71,14 +71,6 @@ document.addEventListener('livewire:initialized', (e) => {
                 });
 
                 btn.addEventListener('click', function (e) {
-                    // const setFlag = new CustomEvent("set-flag-from-js", {
-                    //     detail: {
-                    //         country: countryVar,
-                    //     },
-                    // });
-                    //
-                    // dispatchEvent(setFlag);
-
                     countryModal.hide();
                 }, {once: true})
             }
@@ -115,115 +107,72 @@ document.addEventListener('livewire:initialized', (e) => {
     });
 
 
-    document.addEventListener('set-block-btn-animation', (ev) => {
+    document.addEventListener('animate-shrink', (ev) => {
+        console.log('animate-shrink')
+        // answer buttons block animation from of question 15
+        window.setTimeout(function() {
+            dispatchEvent(new Event('set-show-shrink-true'));
+        }, 50);
+        window.setTimeout(function() {
+            dispatchEvent(new Event('set-sub-step-up'));
+        }, 2200);
+    }, {once: false});
+
+    // callback from button
+    document.addEventListener('set-square-animation', (e) => {
+        e.preventDefault();
+
+        let blockBtn = e.detail.event.target;
+
+        blockBtn.animate([
+            {opacity: 0}
+        ], {duration: 1000, easing: 'ease-out', fill: 'forwards', delay: 100});
+
+        const setBackBlockBtn = new CustomEvent("set-remove-selected-square", {
+            detail: {
+                id: blockBtn.id,
+            },
+        });
+
+        dispatchEvent(setBackBlockBtn);
+    });
+
+
+    document.addEventListener('block-btn-move-up-animation', (ev) => {
+        console.log('block-btn-move-up-animation')
         ev.preventDefault();
-
+        dispatchEvent(new Event('set-disable-next'));
         let setSquareArea = document.querySelector('#set-square-area');
-        let formQuestion22 = document.querySelector('#scope-form-step22');
-
         if(setSquareArea === null) return; // wrong btn block pressed
 
         let squareTop = setSquareArea.getBoundingClientRect().top;
         let blockBtn =  ev.detail.event !== undefined ? ev.detail.event.target : null;
-        let studentBtn = document.querySelector('[data-start-student]');
-        let studentShadowList = document.querySelector('[data-student-list]');
 
-        let setAnimationStudnetShadowListing = () => {
-            setTimeout(() => {
-                let squareBtn = document.querySelector('[data-start-square]');
+        let blockBtnTop = blockBtn.getBoundingClientRect().top;
+        blockBtn.style.setProperty('background-color', '#c2c0c0');
 
-                if (studentBtn !== null || studentShadowList !== null) {
-                    if (studentBtn !== null) {
-                        // animation to left
-                        studentBtn.animate([
-                            {opacity: 1, transform: `translate3d(10px, 0, 0) scaleX(1)`},
-                            {opacity: 0, transform: `translate3d(-2000px, 0, 0) scaleX(2)`}
-                        ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
-                    }
+        // answer buttons block animation from of question 15
+        blockBtn.animate([
+            {transform: `translateY(${(squareTop - blockBtnTop) - 2}px)`},
+        ], {duration: 400, easing: 'ease-in', fill: 'forwards'});
 
-                    if (squareBtn !== null) {
-                        squareBtn.animate([
-                            {opacity: 1, transform: `translate3d(10px, 0, 0) scaleX(1)`},
-                            {opacity: 0, transform: `translate3d(-2000px, 0, 0) scaleX(2)`}
-                        ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
-                    }
+        // blockBtn.animate([
+        //     {opacity: 0},
+        // ], {duration: 900, easing: 'ease-in', fill: 'forwards', delay: 400});
 
-                    if (studentShadowList !== null) {
-                        let shadowList = document.querySelectorAll('.student-shadow-flex');
-
-                        if (shadowList[index] !== undefined) {
-                            shadowList[index].animate([
-                                // {opacity: 1, transform: `translateX(-2000px)`},
-                                {opacity: 0, transform: `translateX(-2000px)`}
-                            ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
-
-                            if (shadowList[(index + 1)] !== undefined) {
-                                shadowList[(index + 1)].animate([
-                                    {opacity: 1}
-                                ], {duration: 300, easing: 'ease', fill: 'forwards', delay: 800});
-                            }
-                        }
-
-                        let studentShadowList = document.querySelector('[data-student-list]');
-
-                        studentShadowList.animate([
-                            {transform: 'translateX( ' + (shadowPositionX) + 'px)'}
-                        ], {duration: 400, easing: 'ease-in', fill: 'forwards', delay: 300});
-
-
-            if(formQuestion22 !== null){
-                shadowPositionX = -210;
-            }
-        }, 500);
-    });
-
-    document.addEventListener('set-step-id-down', () => {
-        setTimeout(() => {
-            let formQuestion22 = document.querySelector('#scope-form-step22');
-            index = 0;
-            shadowPositionX = -90;
-
-                        blockBtn.animate([
-                            {opacity: 1},
-                        ], {duration: 100, easing: 'ease-in', fill: 'forwards', delay: 200});
-                    }
-
-                }, 100);
-
-            }, 1200);
-        }
-
-        if(blockBtn !== null) {
-            let blockBtnTop = blockBtn.getBoundingClientRect().top;
-            blockBtn.style.setProperty('background-color', '#c2c0c0');
-
-            blockBtn.addEventListener('transitionend', (e) => {
-                const setBlockBtn = new CustomEvent("set-answer-button-block", {
-                    detail: {
-                        id: blockBtn.id,
-                        val: blockBtn.textContent
-                    },
-                });
-
-                dispatchEvent(setBlockBtn);
-
-                setAnimationStudnetShadowListing();
-            }, {once: true});
-            // answer buttons block animation from of question 15
-            blockBtn.animate([
-                {transform: `translateY(${(squareTop - blockBtnTop) - 2}px)`},
-            ], {duration: 400, easing: 'ease-in', fill: 'forwards'});
-
-            blockBtn.animate([
-                {opacity: 0},
-            ], {duration: 200, easing: 'ease-in', fill: 'forwards', delay: 400});
-
-        } else {
-            // from question 18, when no answer is giving
-            setAnimationStudnetShadowListing();
-        }
-    });
-
+        window.setTimeout(function() {
+            dispatchEvent(new CustomEvent('set-answer-button-block', {
+                detail: {
+                    id: blockBtn.id,
+                    val: blockBtn.textContent
+                },
+            }));
+        }, 700);
+        window.setTimeout(function() {
+            console.log('dispatch set-sub-step-up')
+            dispatchEvent(new Event('set-sub-step-up'));
+        }, 2000);
+    }, {once: false});
 
     // callback from button
     document.addEventListener('set-square-animation', (e) => {
@@ -255,7 +204,7 @@ document.addEventListener('livewire:initialized', (e) => {
         console.log('start-friend-bounce')
         // TODO for some reason I cant get this working with the following:
         // const bounce = document.getElementById('start-friend-bounce')
-        // bounce.addEventListener('animationend', function(){
+        // bounce.addEventListener('transitionend', function(){
         //     console.log('animationend')
         // }, false);
         // Therefor I'm using only the timeout function.

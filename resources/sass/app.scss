@@ -90,6 +90,10 @@ button {
     touch-action: manipulation;
 }
 
+.btn:active {
+    transform: translateY(4px);
+}
+
 .btn {
     font-size: 0.9rem;
 }
@@ -126,7 +130,7 @@ p {
     }
 
     .btn:hover {
-        background-color: #dca351ff !important;
+        background-color: #f89701 !important;
     }
 
     .bi.bi-arrow-right, .bi.bi-arrow-left {
