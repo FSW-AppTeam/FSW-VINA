@@ -14,9 +14,7 @@ class FormStepSelect extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -62,7 +60,7 @@ class FormStepSelect extends Component
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
-            $this->dispatch('set-enable-all');
+            $this->dispatch('set-loading-false');
             throw $e;
         }
         $this->form->createAnswer($this->input, $this->jsonQuestion, $this->stepId);
@@ -73,12 +71,13 @@ class FormStepSelect extends Component
     {
         $this->input = $this->savedAnswers ?? null;
         if ($this->input) {
-            $this->nextEnabled = true;
+            $this->loading = false;
         }
     }
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step-select');
     }
 }

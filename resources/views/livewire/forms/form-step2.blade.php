@@ -1,6 +1,5 @@
 <x-layouts.form :step-id="$stepId"
-                :next-enabled="$nextEnabled"
-                :back-enabled="$backEnabled"
+                :loading="$loading"
                 :json-question="$jsonQuestion">
     <div class="mt-4">
         <div class="form-group set-fade-in">

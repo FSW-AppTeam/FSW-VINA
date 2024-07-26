@@ -17,9 +17,7 @@ class FormStepSelectForSubject extends Component
 
     public int $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -80,7 +78,7 @@ class FormStepSelectForSubject extends Component
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
-            $this->dispatch('set-enable-all');
+            $this->dispatch('set-loading-false');
             throw $e;
         }
         $answer = [
@@ -93,7 +91,7 @@ class FormStepSelectForSubject extends Component
         $this->disappear = true;
 
         if (array_key_exists(1, $this->students)) {
-            $this->dispatch('set-disable-next');
+            $this->dispatch('set-loading-true');
             $this->disappear = true;
             $this->dispatch('start-friend-bounce');
         } else {
@@ -125,7 +123,7 @@ class FormStepSelectForSubject extends Component
 
         $this->setDatabaseResponse();
 
-        $this->dispatch('set-enable-next');
+        $this->dispatch('set-loading-false');
     }
 
     public function mount(): void
@@ -139,6 +137,7 @@ class FormStepSelectForSubject extends Component
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step-select-subjects');
     }
 

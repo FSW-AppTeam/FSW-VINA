@@ -18,9 +18,7 @@ class FormStep7 extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -66,7 +64,7 @@ class FormStep7 extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-        $this->dispatch('set-enable-next');
+        $this->dispatch('set-loading-false');
     }
 
     public function save(): void
@@ -75,7 +73,7 @@ class FormStep7 extends Component
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
-            $this->dispatch('set-enable-all');
+            $this->dispatch('set-loading-false');
             throw $e;
         }
         $answer = [
@@ -93,7 +91,7 @@ class FormStep7 extends Component
         $this->otherCountry = $this->savedAnswers['other_country'] ?? null;
 
         if ($this->originCountry) {
-            $this->nextEnabled = true;
+            $this->loadging = false;
         }
 
     }
@@ -117,6 +115,7 @@ class FormStep7 extends Component
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step7');
     }
 }

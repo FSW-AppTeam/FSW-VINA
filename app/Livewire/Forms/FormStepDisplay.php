@@ -10,9 +10,7 @@ class FormStepDisplay extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -30,6 +28,7 @@ class FormStepDisplay extends Component
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step-display');
     }
 }
