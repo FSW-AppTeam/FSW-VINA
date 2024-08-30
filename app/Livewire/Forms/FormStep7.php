@@ -99,7 +99,7 @@ class FormStep7 extends Component
 
     }
 
-    public function setAnswerBlockAnswerId(int $id, string $countryName): void
+    public function setAnswerBlockAnswerId(int $id): void
     {
         $this->originCountry = $id;
         if ($id === 6) {

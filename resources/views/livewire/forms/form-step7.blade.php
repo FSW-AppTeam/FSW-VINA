@@ -8,7 +8,7 @@
 
         <div class="form-group block-multi-question col d-flex justify-content-center align-items-center row mt-2">
             @foreach ($jsonQuestion->question_answer_options as $index => $answer)
-                <button class="form-check btn" type="button" wire:click="$dispatch('select-answer-block', {event: event});">
+                <button class="form-check btn" type="button" wire:click="setAnswerBlockAnswerId({{$answer['id']}})">
                     <input class="form-check-input" type="radio" wire:model.live="originCountry"
                            name="select-btn-block"
                            id="{{ $answer['id'] }}"
