@@ -4,6 +4,8 @@ namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -37,33 +39,6 @@ class StepController extends Component
         'step-down' => 'stepDown',
         'set-refresh-stepper' => '$refresh',
     ];
-
-//    public function next()
-//    {
-//        $question = SurveyQuestion::where('order', '>=', $this->stepId + 1)
-//            ->orderBy('order', 'asc')
-//            ->where('enabled', true)
-//            ->first();
-//
-//        $this->setActiveStep($question);
-//    }
-//
-//    public function back()
-//    {
-//        $question = SurveyQuestion::where('order', '<=', $this->stepId)
-//            ->orderBy('order', 'desc')
-//            ->where('enabled', true)->first();
-//
-//        // In case of a question is disabled, skip it. We have to set the order as the new stpId
-//        $this->stepId = $question->order;
-//        $this->jsonQuestion = $question;
-//        $this->setSavedAnswers();
-//        if ($this->stepId == 0) {
-//            $this->getJsonIntro();
-//        }
-//
-//        $this->setActiveStep($question);
-//    }
 
     public function refreshComponent(): void
     {
@@ -138,6 +113,7 @@ class StepController extends Component
             $this->stepId = $question->order;
             $this->jsonQuestion = $question;
         }
+
         $this->setActiveStep($this->jsonQuestion);
     }
 
@@ -238,26 +214,39 @@ class StepController extends Component
         $this->jsonQuestion = $question;
 
         if (isset($this->jsonQuestion->depends_on_question)) {
-            if ($this->jsonQuestion->id == 36) {
-                $this->stepQuestionId36();
+            if (in_array($this->jsonQuestion->id, [36, 38, 39, 40, 41, 42])) {
+                $this->checkNationality();
             }
-            if ($this->jsonQuestion->id == 37 || $this->jsonQuestion->id == 38) {
-                $this->stepQuestionId37();
+            if ($this->jsonQuestion->id == 38) {
+                $this->checkDependingQuestion38();
+            }
+            if ($this->jsonQuestion->id == 49) {
+                $this->checkDependingQuestion49();
             }
         }
     }
 
-    // Specific logic for question id 37 and 38
-    private function stepQuestionId37()
+    // Specific logic for question id 38
+    private function checkDependingQuestion38()
     {
-        if (empty($this->form->getStudentsWithResponse($this->jsonQuestion->depends_on_question))) {
+        if (empty($this->form->getStudentsOtherEthnicityWithResponse($this->jsonQuestion->depends_on_question))) {
+            // Skip this question when the depending question has no answer
             $this->stepId++;
-            return $this->setQuestion();
+            $this->setQuestion();
         }
     }
 
+    // Specific logic for question id 38
+    private function checkDependingQuestion49()
+    {
+        if (empty($this->form->getStudentsFotQuestion49($this->jsonQuestion->depends_on_question))) {
+            // Skip this question when the depending question has no answer
+            $this->stepId++;
+            $this->setQuestion();
+        }
+    }
     // Specific logic for question id 36
-    private function stepQuestionId36()
+    private function checkNationality()
     {
         $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
             ->where('student_id', Session::get('student-id'))
@@ -276,9 +265,10 @@ class StepController extends Component
 
         switch ($savedAnswer->student_answer['country_id']) {
             case 1:
+                // Only Dutch, zo no questions about different backgrounds. Skip to next question
                 $this->stepId++;
-
-                return $this->setQuestion();
+                $this->setQuestion();
+                break;
             case 2:
             case 3:
             case 4:
