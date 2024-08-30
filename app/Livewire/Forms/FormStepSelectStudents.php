@@ -26,10 +26,6 @@ class FormStepSelectStudents extends Component
 
     public array $students = [];
 
-    public $subject = false; // used to show the subject of the question
-
-    public array $finishedSubjects; //used to store the finished subjects.
-
     protected array $messages = [];
 
     protected $listeners = [

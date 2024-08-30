@@ -10,6 +10,8 @@ class StudentFade extends Component
 
     public $showShrink = false;
 
+    public $buttonEnabled = true;
+
     public $nextId = 0;
 
     public $id;
@@ -24,6 +26,8 @@ class StudentFade extends Component
         'set-refresh' => '$refresh',
         'set-show-fade-true' => 'setShowFadeTrue',
         'set-show-shrink-true' => 'setShowShrinkTrue',
+        'set-button-enable' => 'setButtonEnable',
+        'set-button-disable' => 'setButtonDisable',
     ];
 
     public function setShowFadeFalse(): void
@@ -45,9 +49,20 @@ class StudentFade extends Component
         }
     }
 
+    public function setButtonEnable(): void
+    {
+        $this->buttonEnabled = true;
+    }
+
+    public function setButtonDisable(): void
+    {
+        $this->buttonEnabled = false;
+    }
+
     public function setStudent($id): void
     {
         $this->showFade = true;
+        $this->buttonEnabled = false;
         $this->dispatch('set-selected-student-id', $id, $this->name);
     }
 

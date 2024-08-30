@@ -1,16 +1,17 @@
-<div class="mt-4 text-center block-students-vertical line-students " data-student-list>
+<div class="text-center block-students-vertical line-students " data-student-list>
     <button type="button"
             class="p-2 btn-circle btn-xl selected-btn boxed-btn-0 student-shadow-flex
-            @if($disappear) bounce-out-left-btn @endif"
-            id="{{$startStudent['id']}}">
-        {{$startStudent['name']}}
+             {{$showShrink?'selected-btn-shrink':''}}
+            @if($bounceOut) bounce-out-left-btn @endif"
+            id="{{isset($subject)?$subject['id']:''}}">
+        {{isset($subject)?$subject['name']:''}}
     </button>
     @foreach($students as $key => $student)
         <button type="button"
                 class="p-2 btn-circle btn-xl selected-btn boxed-btn-0 fadeOut student-shadow-flex
-                @if($disappear) move-to-left-btn @endif"
+                @if($bounceOut) move-to-left-btn @endif"
                 id="step-student-button-{{$key}}">
-            {{$student['name']}}
+            {{isset($student)?$student['name']:''}}
         </button>
     @endforeach
 </div>

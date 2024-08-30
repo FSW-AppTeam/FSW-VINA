@@ -10,6 +10,8 @@ class AnswerBtnBlock extends Component
 
     public string $value;
 
+    public $disabledBtn = false;
+
     public $showBtn = true;
 
     public int $current;
@@ -17,7 +19,7 @@ class AnswerBtnBlock extends Component
     public $answerSelected = [];
 
     protected $listeners = [
-        'set-answer-button-block' => 'setAnswer',
+        'set-answer-button-block' => 'setAnswerOption',
         'set-show-btn-false' => 'setShowBtnFalse',
         'set-show-btn-true' => 'setShowBtnTrue',
         'refreshAnswerBtnBlock' => '$refresh',
@@ -35,7 +37,7 @@ class AnswerBtnBlock extends Component
         return view('livewire.partials.answer-btn-block');
     }
 
-    public function setAnswer(int $id): void
+    public function setAnswerOption(int $id): void
     {
         if ($this->id === $id) {
             $this->dispatch('set-answer-button-square', $this->id, $this->value);
@@ -56,15 +58,15 @@ class AnswerBtnBlock extends Component
         }
     }
 
-    public function mount()
+    public function setDisabledBtnFalse()
     {
-
+        $this->disabledBtn = false;
     }
 
-    public function activateBtn(int $id): void
+    public function setDisabledBtnTrue(): void
     {
-        if ($this->id === $id) {
-            $this->showBtn = true;
-        }
+        $this->disabledBtn = true;
     }
+
+    public function mount() {}
 }

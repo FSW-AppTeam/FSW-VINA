@@ -1,5 +1,16 @@
 [
     {
+        "question_id": 50,
+        "order": 0,
+        "question_type": "text",
+        "question_title": "Intro ",
+        "question_content": "",
+        "question_answer_options": "",
+        "question_options": {
+            "extra_text": ""
+        }
+    },
+    {
         "question_id": 1,
         "order": 1,
         "question_type": "text",
@@ -159,7 +170,7 @@
     },
     {
         "question_id": 36,
-        "order":11,
+        "order": 11,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -178,7 +189,7 @@
     },
     {
         "question_id": 39,
-        "order":12,
+        "order": 12,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -197,7 +208,7 @@
     },
     {
         "question_id": 40,
-        "order":13,
+        "order": 13,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -216,7 +227,7 @@
     },
     {
         "question_id": 41,
-        "order":14,
+        "order": 14,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -235,7 +246,7 @@
     },
     {
         "question_id": 42,
-        "order":15,
+        "order": 15,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -264,6 +275,7 @@
     {
         "question_id": 10,
         "order": 17,
+        "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - basis",
         "question_content": "Met welke klasgenoten ga jij het beste om?",
@@ -276,6 +288,7 @@
     {
         "question_id": 44,
         "order": 18,
+        "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - school",
         "question_content": "Welke klasgenoten zie je regelmatig buiten school? ",
@@ -288,6 +301,7 @@
     {
         "question_id": 45,
         "order": 19,
+        "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - online",
         "question_content": "Welke klasgenoten volg je op sociale media? ",
@@ -300,6 +314,7 @@
     {
         "question_id": 46,
         "order": 20,
+        "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
         "question_content": "Welke klasgenoten vind je minder aardig? ",
@@ -312,6 +327,7 @@
     {
         "question_id": 47,
         "order": 21,
+        "form_type": "select_students",
         "question_type": "array",
         "question_title": "Popularity",
         "question_content": "Welke klasgenoten zijn het meest populair? ",
@@ -324,6 +340,7 @@
     {
         "question_id": 12,
         "order": 16,
+        "form_type": "select_for_subject",
         "question_type": "json",
         "question_title": "Vrienden van klasgenoten",
         "question_content": "Met wie gaat de volgende klasgenoot het beste om?",
@@ -337,6 +354,7 @@
     {
         "question_id": 48,
         "order": 23,
+        "form_type": "select_students",
         "question_type": "json",
         "question_title": "Migratie achtergrond klasgenoten",
         "question_content": "Welke klasgenoten hebben volgens jou, naast Nederlands, ook een andere afkomst?",
@@ -350,7 +368,7 @@
     {
         "question_id": 38,
         "order":24,
-        "form_type": "select",
+        "form_type": "select_multiple",
         "question_type": "int",
         "depends_on_question": 7,
         "question_title": "Identiteit klasgenoten",
@@ -363,15 +381,16 @@
             {"id": 5, "value": "Alleen als :questionOptions"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil."
         }
     },
     {
         "question_id": 49,
         "order": 25,
         "depends_on_question": 7,
-        "form_type": "multiple_students",
-        "question_type": "select",
+        "form_type": "select_multiple",
+        "question_type": "int",
         "question_title": "Etniciteit andere klasgenoten",
         "question_content": "Hoe zie jij de volgende klasgenoot? ",
         "question_answer_options": [
@@ -404,6 +423,7 @@
     {
         "question_id": 15,
         "order": 26,
+        "form_type": "select_multiple",
         "question_type": "json",
         "question_title": "Goed kennen",
         "question_content": "Hoe goed ken je de volgende klasgenoot?",
@@ -415,7 +435,9 @@
             {"id": 5, "value": "Helemaal niet"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },
     {
@@ -439,7 +461,8 @@
     {
         "question_id": 18,
         "order": 28,
-        "question_type": "json",
+        "form_type": "select_multiple",
+        "question_type": "int",
         "question_title": "Immigratie houding - vrienden",
         "question_content": "Hoe denk je dat de volgende klasgenoot deze vraag zou beantwoorden? \n\n \n\nEr komen te veel immigranten naar Nederland ",
         "question_answer_options": [
@@ -451,7 +474,9 @@
         ],
         "question_options": {
             "error_text": "Je hebt geen vrienden opgeven!",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         },
         "default_disable_next": false
     },
@@ -477,6 +502,7 @@
     {
         "question_id": 31,
         "order": 30,
+        "form_type": "display",
         "question_type": "text",
         "question_title": "Einde",
         "question_content": "Dit waren alle vragen over jouw klasgenoten. Hierna volgt het laatste gedeelte van de vragenlijst. ",
