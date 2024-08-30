@@ -274,7 +274,7 @@
     },
     {
         "question_id": 10,
-        "order": 18,
+        "order": 17,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - basis",
@@ -287,7 +287,7 @@
     },
     {
         "question_id": 44,
-        "order": 19,
+        "order": 18,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - school",
@@ -300,7 +300,7 @@
     },
     {
         "question_id": 45,
-        "order": 20,
+        "order": 19,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - online",
@@ -313,7 +313,7 @@
     },
     {
         "question_id": 46,
-        "order": 21,
+        "order": 20,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
@@ -326,7 +326,7 @@
     },
     {
         "question_id": 47,
-        "order": 22,
+        "order": 21,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Popularity",
@@ -339,7 +339,7 @@
     },
     {
         "question_id": 12,
-        "order": 17,
+        "order": 22,
         "form_type": "select_for_subject",
         "question_type": "json",
         "question_title": "Vrienden van klasgenoten",
