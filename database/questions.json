@@ -339,7 +339,7 @@
     },
     {
         "question_id": 12,
-        "order": 16,
+        "order": 22,
         "form_type": "select_for_subject",
         "question_type": "json",
         "question_title": "Vrienden van klasgenoten",
@@ -367,7 +367,7 @@
     },
     {
         "question_id": 38,
-        "order":24,
+        "order": 24,
         "form_type": "select_multiple",
         "question_type": "int",
         "depends_on_question": 7,
