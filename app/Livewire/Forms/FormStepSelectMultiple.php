@@ -164,6 +164,7 @@ class FormStepSelectMultiple extends Component
 
     public function render()
     {
+        $this->questionOptions = setNationalityOptions($this->jsonQuestion->depends_on_question, $this->subject['id']);
         return view('livewire.forms.form-step-select-multiple');
     }
 

@@ -214,8 +214,20 @@ class StepController extends Component
         $this->jsonQuestion = $question;
 
         if (isset($this->jsonQuestion->depends_on_question)) {
-            if (in_array($this->jsonQuestion->id, [36, 38, 39, 40, 41, 42])) {
-                $this->checkNationality();
+            if (in_array($this->jsonQuestion->id, [36, 39, 40, 41, 42])) {
+
+                $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
+                    ->where('student_id', session('student-id'))
+                    ->first();
+                if ($savedAnswer->student_answer['country_id'] == 1 ||
+                    $savedAnswer->student_answer['country_id'] == null) {
+                    // Only Dutch, zo no questions about different backgrounds. Skip to next question
+                    $this->stepId++;
+                    $this->setQuestion();
+                    return;
+                }
+
+                $this->questionOptions = setNationalityOptions($this->jsonQuestion->depends_on_question);
             }
             if ($this->jsonQuestion->id == 38) {
                 $this->checkDependingQuestion38();
@@ -236,43 +248,13 @@ class StepController extends Component
         }
     }
 
-    // Specific logic for question id 38
+    // Specific logic for question id 49
     private function checkDependingQuestion49()
     {
         if (empty($this->form->getStudentsFotQuestion49($this->jsonQuestion->depends_on_question))) {
             // Skip this question when the depending question has no answer
             $this->stepId++;
             $this->setQuestion();
-        }
-    }
-    // Specific logic for question id 36
-    private function checkNationality()
-    {
-        $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
-            ->where('student_id', Session::get('student-id'))
-            ->first();
-        $dependsOnQuestion = SurveyQuestion::find($this->jsonQuestion->depends_on_question);
-        foreach ($dependsOnQuestion->question_answer_options as $option) {
-            if ($option['id'] == $savedAnswer->student_answer['country_id']) {
-                $otherCountry = $option['value'];
-            }
-        }
-        switch ($savedAnswer->student_answer['country_id']) {
-            case 1:
-                // Only Dutch, zo no questions about different backgrounds. Skip to next question
-                $this->stepId++;
-                $this->setQuestion();
-                break;
-            case 2:
-            case 3:
-            case 4:
-                return $this->questionOptions = getCountriesByName()[$otherCountry];
-            case 5:
-                return $this->questionOptions = getCountriesByName()['Nederlandse Antillen'];
-            case 6:
-                return $this->questionOptions = getCountriesByName()[$savedAnswer->student_answer['other_country']];
-            default:
-                return false;
         }
     }
 }

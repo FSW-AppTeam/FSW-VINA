@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\SurveyAnswer;
+use App\Models\SurveyQuestion;
+
 if (! function_exists('getCountriesByIso')) {
 
     function getCountriesByIso()
@@ -37,6 +40,43 @@ if (! function_exists('getCountriesByName')) {
         }
 
         return $data;
+    }
+}
+
+if (! function_exists('setNationalityOptions')) {
+    function setNationalityOptions($dependsOnQuestionId, $studentId = null)
+    {
+        if ($studentId == null) {
+            $studentId = Session::get('student-id');
+        }
+        $savedAnswer = SurveyAnswer::where('question_id', $dependsOnQuestionId)
+            ->where('student_id', $studentId)
+            ->first();
+        $dependsOnQuestion = SurveyQuestion::find($dependsOnQuestionId);
+        if (! $savedAnswer) {
+            return [];
+        }
+        foreach ($dependsOnQuestion->question_answer_options as $option) {
+            if ($option['id'] == $savedAnswer->student_answer['country_id']) {
+                $otherCountry = $option['value'];
+            }
+        }
+        switch ($savedAnswer->student_answer['country_id']) {
+            case 1:
+                break;
+            case 2:
+            case 3:
+            case 4:
+                return getCountriesByName()[$otherCountry];
+            case 5:
+                return getCountriesByName()['Nederlandse Antillen'];
+            case 6:
+                return getCountriesByName()[$savedAnswer->student_answer['other_country']];
+                //            default:
+                //                return [];
+        }
+
+        return [];
     }
 }
 
