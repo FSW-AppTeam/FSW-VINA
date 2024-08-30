@@ -91,12 +91,12 @@ class FormStep7 extends Component
         $this->otherCountry = $this->savedAnswers['other_country'] ?? null;
 
         if ($this->originCountry) {
-            $this->loadging = false;
+            $this->loading = false;
         }
 
     }
 
-    public function setAnswerBlockAnswerId(int $id, string $countryName): void
+    public function setAnswerBlockAnswerId(int $id): void
     {
         $this->originCountry = $id;
         if ($id === 6) {

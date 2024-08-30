@@ -259,6 +259,12 @@ class StepController extends Component
                 $otherCountry = $option['value'];
             }
         }
+        if($savedAnswer->student_answer['country_id'] == null) {
+            $this->stepId++;
+            $this->setQuestion();
+            return true;
+        }
+
         switch ($savedAnswer->student_answer['country_id']) {
             case 1:
                 // Only Dutch, zo no questions about different backgrounds. Skip to next question
