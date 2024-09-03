@@ -164,7 +164,7 @@ class FormStepSelectMultiple extends Component
     public function render()
     {
         $this->loading = false;
-        if ($this->jsonQuestion->depends_on_question !== null) {
+        if ($this->jsonQuestion->depends_on_question !== null && $this->subject !== null) {
             $this->questionOptions = setNationalityOptions($this->jsonQuestion->depends_on_question, $this->subject['id']);
         }
 
