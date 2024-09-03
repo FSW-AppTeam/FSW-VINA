@@ -14,9 +14,7 @@ class FormStepText extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -42,7 +40,7 @@ class FormStepText extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-                        $this->dispatch('set-enable-all');
+                        $this->dispatch('set-loading-false');
                         $fail($this->messages['input.required']);
                     }
                 },
@@ -63,30 +61,24 @@ class FormStepText extends Component
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
-            $this->dispatch('set-enable-all');
+            $this->dispatch('set-loading-false');
             throw $e;
         }
         $this->form->createAnswer($this->input, $this->jsonQuestion, $this->stepId);
         $this->dispatch('step-up')->component(StepController::class);
     }
 
-//    public function updatedGender()
-//    {
-//        $this->form->addRulesFromOutside($this->rules());
-//        $this->validate($this->rules());
-//        $this->dispatch('set-enable-next');
-//    }
-
     public function mount(): void
     {
         $this->input = $this->savedAnswers ?? null;
         if ($this->input) {
-            $this->nextEnabled = true;
+            $this->loading = false;
         }
     }
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step-text');
     }
 }

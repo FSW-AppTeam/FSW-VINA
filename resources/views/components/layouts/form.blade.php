@@ -18,8 +18,7 @@
             @livewire('partials.form-buttons', [
                 'stepId' => $stepId,
                 'jsonQuestion' => $jsonQuestion,
-                'nextEnabled' => $nextEnabled,
-                'backEnabled' => $backEnabled])
+                'loading' => $loading])
         </div>
     </div>
 </div>
