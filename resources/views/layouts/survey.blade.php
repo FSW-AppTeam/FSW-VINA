@@ -21,9 +21,7 @@
     @vite(['resources/sass/app.scss'])
     @vite(['resources/js/app.js'])
 
-    <!-- Tailwind -->
-    @stack('styles')
-
+    @livewireStyles
 </head>
 <body>
     @bladedebug('<a href="/reset" class="skip-link">Reset</a>')

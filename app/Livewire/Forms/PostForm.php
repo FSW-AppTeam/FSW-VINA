@@ -45,11 +45,12 @@ class PostForm extends Form
         return SurveyStudent::where('survey_id', $this->getSurvey()->id)
             ->where('survey_students.id', '!=', $this->getStudent()->id)
             ->where('survey_answers.student_answer->country_id', '!=', 1)
+            ->where('survey_answers.student_answer->country_id', '!=', null)
             ->where('question_id', $questionId)
             ->join('survey_answers', 'survey_answers.student_id', '=', 'survey_students.id')
+            ->select('survey_students.*')
             ->get()
             ->toArray();
-
     }
 
     public function getStudentsFotQuestion49($questionId): array

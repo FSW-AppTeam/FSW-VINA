@@ -11,50 +11,36 @@ class FormButtons extends Component
 
     public $jsonQuestion;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     protected $listeners = [
         'refresh-from-buttons' => '$refresh',
-        'set-enable-next' => 'enableNext',
-        'set-disable-next' => 'disableNext',
-        'set-enable-all' => 'enableAll',
+        'set-loading-false' => 'loadingFalse',
+        'set-loading-true' => 'loadingTrue',
         'set-refresh-form' => '$refresh',
     ];
 
-    public function enableNext()
+    public function loadingTrue()
     {
-        $this->nextEnabled = true;
+        $this->loading = true;
     }
 
-    public function disableNext()
+    public function loadingFalse()
     {
-        $this->nextEnabled = false;
-    }
-
-    public function enableAll()
-    {
-        $this->nextEnabled = true;
-        $this->backEnabled = true;
-    }
-    public function disableAll()
-    {
-        $this->nextEnabled = false;
-        $this->backEnabled = false;
+        $this->loading = false;
     }
 
     public function clickBack()
     {
         $this->dispatch('top-of-page');
-        $this->disableAll();
+        $this->loadingTrue();
         $this->dispatch('back')->component(StepController::class);
     }
 
     public function clickNext()
     {
         $this->dispatch('top-of-page');
-        $this->disableAll();
+        $this->loadingTrue();
         $this->dispatch('next')->component(StepController::class);
     }
 
