@@ -138,6 +138,8 @@ class FormStepSelectForSubject extends Component
     public function render()
     {
         $this->loading = false;
+
+        $this->dispatch('set-loading-false');
         return view('livewire.forms.form-step-select-subjects');
     }
 

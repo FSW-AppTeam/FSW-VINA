@@ -834,3 +834,7 @@ and (-webkit-min-device-pixel-ratio: 3) {
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
 }
+
+.wait {
+    cursor: wait;
+}

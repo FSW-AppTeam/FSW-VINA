@@ -34,6 +34,7 @@ class FormStepSelectStudents extends Component
 
     public function setSelectedStudent(int $id, string $name): void
     {
+        $this->loading = true;
         $this->selectedStudents[] = ['id' => $id, 'name' => $name];
     }
 
@@ -65,6 +66,7 @@ class FormStepSelectStudents extends Component
 
     public function save(): void
     {
+        $this->dispatch('set-loading-true');
         $this->form->addRulesFromOutside($this->rules());
         try {
             $this->validate($this->rules());
@@ -100,6 +102,8 @@ class FormStepSelectStudents extends Component
     public function render()
     {
         $this->loading = false;
+
+        $this->dispatch('set-loading-false');
         return view('livewire.forms.form-step-select-students');
     }
 

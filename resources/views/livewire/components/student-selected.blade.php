@@ -28,4 +28,13 @@
             @endforeach
         </div>
     @endforeach
+    <div wire:loading
+         wire:target="removeSelectedStudent">
+        <div id="overlay">
+            <div id="overlaytext">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Remove...!
+            </div>
+        </div>
+    </div>
 </div>
