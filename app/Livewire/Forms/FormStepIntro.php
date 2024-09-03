@@ -8,9 +8,7 @@ class FormStepIntro extends Component
 {
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -31,6 +29,7 @@ class FormStepIntro extends Component
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step-intro');
     }
 }

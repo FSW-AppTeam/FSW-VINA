@@ -8,8 +8,7 @@
                 'questionOptions' => $questionOptions,
                 'savedAnswers' => $savedAnswers,
                 'stepId' => $stepId,
-                'nextEnabled' => $nextEnabled,
-                'backEnabled' => $backEnabled
+                'loading' => $loading
     ])
     @endif
 </div>

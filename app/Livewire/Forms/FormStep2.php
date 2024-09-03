@@ -15,9 +15,7 @@ class FormStep2 extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -51,7 +49,7 @@ class FormStep2 extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-        $this->dispatch('set-enable-next');
+        $this->dispatch('set-loading-false');
     }
 
     public function save(): void
@@ -60,7 +58,7 @@ class FormStep2 extends Component
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
-            $this->dispatch('set-enable-all');
+            $this->dispatch('set-loading-false');
             throw $e;
         }
         if (session::has('survey-id')) {
@@ -74,12 +72,13 @@ class FormStep2 extends Component
         $this->name = old('student-name') ?? session::get('student-name') ?? '';
 
         if ($this->name) {
-            $this->nextEnabled = true;
+            $this->loading = false;
         }
     }
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step2');
     }
 }

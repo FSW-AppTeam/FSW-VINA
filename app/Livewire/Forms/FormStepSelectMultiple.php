@@ -15,9 +15,7 @@ class FormStepSelectMultiple extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -66,7 +64,7 @@ class FormStepSelectMultiple extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-                        $this->dispatch('set-enable-all')->component(FormButtons::class);
+                        $this->dispatch('set-loading-false')->component(FormButtons::class);
                         $fail($this->messages['answerSelected.required']);
                     }
                 },
@@ -102,14 +100,14 @@ class FormStepSelectMultiple extends Component
 
     public function save(): void
     {
-        $this->dispatch('set-disable-next');
+        $this->dispatch('set-loading-true');
         $this->disabledBtn = true;
         $this->form->addRulesFromOutside($this->rules());
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
             $this->disabledBtn = false;
-            $this->dispatch('set-enable-all')->component(FormButtons::class);
+            $this->dispatch('set-loading-false')->component(FormButtons::class);
             throw $e;
         }
         $answer = [
@@ -135,7 +133,7 @@ class FormStepSelectMultiple extends Component
         if (count($this->students) == 0 && $this->subject == null) {
             $this->dispatch('step-up')->component(StepController::class);
         }
-        $this->dispatch('set-enable-all');
+        $this->dispatch('set-loading-false');
     }
 
     public function stepDown(): void
@@ -165,6 +163,7 @@ class FormStepSelectMultiple extends Component
 
     public function render()
     {
+        $this->loading = false;
         $this->questionOptions = setNationalityOptions($this->jsonQuestion->depends_on_question, $this->subject['id']);
         return view('livewire.forms.form-step-select-multiple');
     }

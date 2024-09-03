@@ -18,9 +18,7 @@ class FormStep7 extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -39,6 +37,7 @@ class FormStep7 extends Component
     {
         $this->messages['origin-country.required'] = $this->jsonQuestion->question_options['error_empty_text'];
         $this->messages['origin-country.invalid'] = $this->jsonQuestion->question_options['error_invalid_option'];
+        $this->messages['otherCountry.required_if'] = 'Een land selecteren is verplicht';
 
         return [
             'originCountry' => [
@@ -51,13 +50,13 @@ class FormStep7 extends Component
             ],
             'otherCountry' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-
                     if (! empty($value)) {
                         if (! array_key_exists($value, getCountriesByName())) {
                             $fail($this->messages['origin-country.invalid']);
                         }
                     }
                 },
+                'required_if:originCountry,6',
             ],
         ];
     }
@@ -66,7 +65,7 @@ class FormStep7 extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-        $this->dispatch('set-enable-next');
+        $this->dispatch('set-loading-false');
     }
 
     public function save(): void
@@ -75,7 +74,7 @@ class FormStep7 extends Component
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
-            $this->dispatch('set-enable-all');
+            $this->dispatch('set-loading-false');
             throw $e;
         }
         $answer = [
@@ -93,12 +92,12 @@ class FormStep7 extends Component
         $this->otherCountry = $this->savedAnswers['other_country'] ?? null;
 
         if ($this->originCountry) {
-            $this->nextEnabled = true;
+            $this->loading = false;
         }
 
     }
 
-    public function setAnswerBlockAnswerId(int $id, string $countryName): void
+    public function setAnswerBlockAnswerId(int $id): void
     {
         $this->originCountry = $id;
         if ($id === 6) {
@@ -117,6 +116,7 @@ class FormStep7 extends Component
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step7');
     }
 }

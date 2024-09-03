@@ -20,9 +20,7 @@ class StepController extends Component
 
     public $stepId = 0;
 
-    public $nextEnabled = false;
-
-    public $backEnabled = false;
+    public $loading = true;
 
     public $savedAnswers;
 
@@ -57,6 +55,10 @@ class StepController extends Component
 
     public function mount()
     {
+        // set stepId to the value of the stepId query parameter. This is for testing purposes.
+        // the url step/1 will set the stepId to 1 and is only available for login users.
+        $this->stepId = request('stepId', 0);
+
         if (! Auth::guest() && Auth::user()->isAdmin() && str_starts_with(Request::path(), 'step/')) {
             return;
         }
@@ -147,15 +149,15 @@ class StepController extends Component
 
     public function setEnabledNext(): void
     {
-        $this->nextEnabled = true;
+        $this->loading = false;
         if ($this->jsonQuestion->default_disable_next) {
-            $this->nextEnabled = false;
+            $this->loading = true;
         }
     }
 
     public function setEnabledBack(): void
     {
-        $this->backEnabled = true;
+        $this->loading = true;
     }
 
     public function render()

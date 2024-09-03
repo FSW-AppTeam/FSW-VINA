@@ -141,7 +141,7 @@ document.addEventListener('livewire:initialized', (e) => {
     document.addEventListener('block-btn-move-up-animation', (ev) => {
         console.log('block-btn-move-up-animation')
         ev.preventDefault();
-        dispatchEvent(new Event('set-disable-next'));
+        dispatchEvent(new Event('set-loading-true'));
         let setSquareArea = document.querySelector('#set-square-area');
         if(setSquareArea === null) return; // wrong btn block pressed
 
@@ -236,7 +236,7 @@ document.addEventListener('livewire:initialized', (e) => {
         if(slowanimation === null) return;
 
         slowanimation.addEventListener('animationend', function(){
-            dispatchEvent(new Event('set-enable-next'));
+            dispatchEvent(new Event('set-loading-false'));
         }, true);
     }, 50);
 });
