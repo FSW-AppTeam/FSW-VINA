@@ -37,6 +37,7 @@ class FormStep7 extends Component
     {
         $this->messages['origin-country.required'] = $this->jsonQuestion->question_options['error_empty_text'];
         $this->messages['origin-country.invalid'] = $this->jsonQuestion->question_options['error_invalid_option'];
+        $this->messages['otherCountry.required_if'] = 'Een land selecteren is verplicht';
 
         return [
             'originCountry' => [
@@ -49,13 +50,13 @@ class FormStep7 extends Component
             ],
             'otherCountry' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-
                     if (! empty($value)) {
                         if (! array_key_exists($value, getCountriesByName())) {
                             $fail($this->messages['origin-country.invalid']);
                         }
                     }
                 },
+                'required_if:originCountry,6',
             ],
         ];
     }
