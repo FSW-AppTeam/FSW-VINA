@@ -155,6 +155,7 @@ class FormStepSelectMultiple extends Component
     public function mount(): void
     {
         $this->setStudents();
+        shuffle($this->students);
         $this->subject = array_shift($this->students);
         $this->finishedSubjects[] = $this->subject;
         $this->setDatabaseResponse();
@@ -163,6 +164,7 @@ class FormStepSelectMultiple extends Component
     public function render()
     {
         $this->loading = false;
+        $this->questionOptions = setNationalityOptions($this->jsonQuestion->depends_on_question, $this->subject['id']);
         return view('livewire.forms.form-step-select-multiple');
     }
 
