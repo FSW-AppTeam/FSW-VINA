@@ -34,7 +34,6 @@ class FormStepSelectStudents extends Component
 
     public function setSelectedStudent(int $id, string $name): void
     {
-        $this->loading = true;
         $this->selectedStudents[] = ['id' => $id, 'name' => $name];
     }
 

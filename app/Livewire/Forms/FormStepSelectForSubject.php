@@ -46,6 +46,9 @@ class FormStepSelectForSubject extends Component
     public function setSelectedStudent(int $id, string $name): void
     {
         $this->selectedStudents[] = ['id' => $id, 'name' => $name];
+
+        $this->dispatch('set-loading-false');
+
     }
 
     public function removeSelectedStudent(int $id): void
