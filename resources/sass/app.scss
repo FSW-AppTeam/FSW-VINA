@@ -576,7 +576,8 @@ textarea:focus-visible, textarea:active {
 
 
 .students-overview {
-    width: 373px;
+    width: 85%;
+    max-width: 373px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 22px;
