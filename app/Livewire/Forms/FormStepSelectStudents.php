@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Livewire\Components\StudentFade;
 use Closure;
 use Livewire\Component;
 use Throwable;
@@ -101,7 +102,7 @@ class FormStepSelectStudents extends Component
     public function render()
     {
         $this->loading = false;
-
+        $this->dispatch('$refresh')->component(StudentFade::class);
         $this->dispatch('set-loading-false');
         return view('livewire.forms.form-step-select-students');
     }

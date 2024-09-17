@@ -6,6 +6,7 @@ use App\Models\Survey;
 use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
 use App\Models\SurveyStudent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
 use Livewire\Features\SupportValidation\HandlesValidation;
@@ -55,18 +56,17 @@ class PostForm extends Form
 
     public function getStudentsFotQuestion49($questionId): array
     {
-        $answers = SurveyAnswer::where('student_id', $this->getStudent()->id)
+        $selected = SurveyAnswer::where('student_id', $this->getStudent()->id)
             ->where('question_id', '=', 48);
-
-        if (! $answers->exists()) {
+        if (! $selected->exists()) {
             return [];
         }
-        $answers = $answers->get('student_answer')->first()->student_answer;
+        $selectedStudents = $selected->get('student_answer')->first()->student_answer;
 
-        return SurveyStudent::where('survey_id', $this->getSurvey()->id)
+        $students = SurveyStudent::where('survey_id', $this->getSurvey()->id)
             ->select('survey_students.*')
             ->where('survey_students.id', '!=', $this->getStudent()->id)
-            ->whereIn('survey_students.id', $answers)
+            ->whereIn('survey_students.id', $selectedStudents)
             ->where(function ($query) {
                 $query->where('survey_answers.student_answer->country_id', '=', 1)
                     ->orWhere('survey_answers.student_answer->country_id', '=', null);
@@ -75,6 +75,21 @@ class PostForm extends Form
             ->join('survey_answers', 'survey_students.id', '=', 'survey_answers.student_id')
             ->get()
             ->toArray();
+
+        // These students did not awnser the dependent question. So they are included.
+        $studentsLate = SurveyStudent::where('survey_id', $this->getSurvey()->id)
+            ->select('survey_students.*')
+            ->where('survey_students.id', '!=', $this->getStudent()->id)
+            ->whereIn('survey_students.id', $selectedStudents)
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('survey_answers')
+                    ->whereRaw('survey_students.id = survey_answers.student_id');
+            })
+            ->get()
+            ->toArray();
+
+        return array_merge($students, $studentsLate);
     }
 
     //    public function getStudentsNotInFriendsSelected(): array
