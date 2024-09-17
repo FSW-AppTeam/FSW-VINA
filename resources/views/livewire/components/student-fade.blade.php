@@ -16,24 +16,5 @@
             {{$name}}
         </button>
     @endif
-    <div wire:loading
-         wire:target="setStudent">
-            <div id="overlay">
-                <div id="overlaytext">
-                    <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
-                    Add...!
-                </div>
-            </div>
-    </div>
-
-    <div wire:loading
-         wire:target="removeStudent">
-        <div id="overlay">
-            <div id="overlaytext">
-                <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
-                Remove...!
-            </div>
-        </div>
-    </div>
 </div>
 

@@ -2,7 +2,7 @@
     <?php $rowZindex = 100; ?>
     @foreach($rowSelectedStudents as $keyRow => $students)
         <div class="justify-content-center row student-block selected-friends-row mb-1"
-             id="selected-row-{{$keyRow}}" wire:key="student-fade-div-key{{ time() }}"
+             id="selected-row-{{$keyRow}}" wire:key="student-fade-div-key-{{$keyRow}}-{{ time() }}"
              style="z-index: {{$rowZindex - 1}}">
             @foreach($students as $key => $student)
                 @if($subject && $subject['id'] == $student['id'])
@@ -33,7 +33,6 @@
         <div id="overlay">
             <div id="overlaytext">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Remove...!
             </div>
         </div>
     </div>

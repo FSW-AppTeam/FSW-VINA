@@ -18,11 +18,29 @@
                 @foreach ($this->students as $student)
                     <livewire:components.student-fade
                             wire:key="students-fade-{{ $student['id'] . time() }}"
+                            wire:model="$selectedStudents"
                             :id="$student['id']"
                             :name="$student['name']"
                             :nextId="$this->students[0]['id']"
                             :selectedStudents="$selectedStudents"/>
                 @endforeach
+                <div wire:loading
+                     wire:target="setStudent">
+                    <div id="overlay">
+                        <div id="overlaytext">
+                            <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div wire:loading
+                     wire:target="removeStudent">
+                    <div id="overlay">
+                        <div id="overlaytext">
+                            <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
