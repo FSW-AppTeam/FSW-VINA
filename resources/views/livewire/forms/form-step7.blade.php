@@ -33,7 +33,6 @@
                 <h5 class="modal-title text-center" id="countryModalLabel">Wat is het herkomstlant van je familie?</h5>
                 <div class="modal-body">
                     @include('livewire.partials.modal-body-select-list')
-                    @yield('modal-body-select-list')
 
                     <div class="mt-5 p-2 text-center">
                         <button type="button" id="country-set-btn" disabled style="width:80%"
