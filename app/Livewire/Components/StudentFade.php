@@ -10,8 +10,6 @@ class StudentFade extends Component
 
     public $showShrink = false;
 
-    public $buttonEnabled = true;
-
     public $nextId = 0;
 
     public $id;
@@ -49,20 +47,10 @@ class StudentFade extends Component
         }
     }
 
-    public function setButtonEnable(): void
-    {
-        $this->buttonEnabled = true;
-    }
-
-    public function setButtonDisable(): void
-    {
-        $this->buttonEnabled = false;
-    }
-
     public function setStudent($id): void
     {
         $this->showFade = true;
-        $this->buttonEnabled = false;
+        $this->dispatch('set-loading-true');
         $this->dispatch('set-selected-student-id', $id, $this->name);
     }
 
@@ -79,10 +67,7 @@ class StudentFade extends Component
         }
     }
 
-    public function mount()
-    {
-
-    }
+    public function mount() {}
 
     public function render()
     {

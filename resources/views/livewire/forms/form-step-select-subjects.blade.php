@@ -22,6 +22,23 @@
                             :nextId="$this->students[0]['id']"
                             :selectedStudents="$selectedStudents"/>
                 @endforeach
+                <div wire:loading
+                     wire:target="setStudent">
+                    <div id="overlay">
+                        <div id="overlaytext">
+                            <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div wire:loading
+                     wire:target="removeStudent">
+                    <div id="overlay">
+                        <div id="overlaytext">
+                            <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
