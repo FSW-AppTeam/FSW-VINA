@@ -9,18 +9,19 @@
                 wire:key="students-buttons-{{ time() }}"
                 :students="$students"
                 :subject="$subject"
-                :bounceOut="$bounceOut"
                 :showShrink="$showShrink"
         />
+
         <div class="container-sm">
             <div class="row justify-content-center align-items-center text-center">
                 <div class="col-11 col-lg-8">
                     @if(!empty($answerSelected))
-                        <button type="button" data-start-square
-                             id="{{$answerSelected['id']}}"
-                             class="btn press-buttons-inline rounded
-                             @if($bounceOut) bounce-out-left-btn @endif"
-                             style="height: 50px; border: solid 2px orange;padding-top: 10px;">
+                        <button type="button"
+                                data-start-square
+                                id="{{$answerSelected['id']}}"
+                                class="btn press-buttons-inline rounded"
+                                wire:click="removeSelectedSquare({{$answerSelected['id']}})"
+                                style="height: 50px; border: solid 2px orange;padding-top: 10px;">
                             {{ ucfirst(printWithQuestionOptions( $answerSelected['value'], $questionOptions, 3)) }}
                         </button>
                     @else
@@ -40,7 +41,7 @@
                                 :questionOptions="$questionOptions"
                                 :answer-selected="$answerSelected"
                                 :disabled-btn="$disabledBtn"
-                                wire:key="form-step-q15-{{ $answer['id'] . time() }}" />
+                                wire:key="form-step-{{ $answer['id'] . time() }}" />
                         @endforeach
                     </div>
                 </div>

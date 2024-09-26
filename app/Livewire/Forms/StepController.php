@@ -28,8 +28,6 @@ class StepController extends Component
 
     public $questionOptions = [];
 
-    public $steps;
-
     protected $listeners = [
         'next' => 'next',
         'back' => 'back',
@@ -77,6 +75,7 @@ class StepController extends Component
                 $this->stepId = $lastQuestion->order;
             }
         }
+
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
@@ -126,6 +125,7 @@ class StepController extends Component
 
             return;
         }
+
         $this->stepId--;
         $question = SurveyQuestion::where('order', '<=', $this->stepId)
             ->orderBy('order', 'desc')
@@ -137,9 +137,24 @@ class StepController extends Component
         $this->setActiveStep($this->jsonQuestion);
     }
 
+    public function stepDown(): void
+    {
+        $this->stepId--;
+        $question = SurveyQuestion::where('order', '>=', $this->stepId)
+            ->orderBy('order', 'asc')
+            ->where('enabled', true)->first();
+        if ($question) {
+            // In case of a question is disabled, skip it. We have to set the order as the new stpId
+            $this->stepId = $question->order;
+            $this->jsonQuestion = $question;
+        }
+
+        $this->setActiveStep($this->jsonQuestion);
+    }
+
     public function hasSubQuestions()
     {
-        $subQuestion = ['select_for_subject', 'multiple_students'];
+        $subQuestion = ['select_for_subject', 'multiple_students', 'select_multiple'];
         if (! in_array($this->jsonQuestion->form_type, $subQuestion)) {
             return false;
         }

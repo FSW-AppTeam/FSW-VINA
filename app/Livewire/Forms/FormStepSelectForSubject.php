@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Livewire\Partials\FormButtons;
 use App\Models\SurveyAnswer;
 use App\Models\SurveyStudent;
 use Closure;
@@ -46,9 +47,7 @@ class FormStepSelectForSubject extends Component
     public function setSelectedStudent(int $id, string $name): void
     {
         $this->selectedStudents[] = ['id' => $id, 'name' => $name];
-
         $this->dispatch('set-loading-false');
-
     }
 
     public function removeSelectedStudent(int $id): void
@@ -95,7 +94,9 @@ class FormStepSelectForSubject extends Component
 
         if (array_key_exists(1, $this->students)) {
             $this->dispatch('set-loading-true');
-            $this->disappear = true;
+
+
+
             $this->dispatch('start-friend-bounce');
         } else {
             $this->dispatch('step-up')->component(StepController::class);
@@ -104,9 +105,9 @@ class FormStepSelectForSubject extends Component
 
     public function stepDown(): void
     {
-        $this->disappear = false;
-        if (count($this->students) <= 1) {
-            $this->dispatch('set-step-id-down', true);
+        if (count($this->finishedSubjects) <= 1) {
+            $this->dispatch('step-down')->component(StepController::class);
+
             return;
         }
 
@@ -114,7 +115,8 @@ class FormStepSelectForSubject extends Component
             array_unshift($this->students, array_pop($this->finishedSubjects));
             $this->subject = end($this->finishedSubjects);
         }
-        $this->finishedSubjects = [];
+
+        $this->selectedStudents = [];
         $this->setDatabaseResponse();
     }
 
@@ -135,7 +137,10 @@ class FormStepSelectForSubject extends Component
 
         $this->subject = array_shift($this->students);
         $this->finishedSubjects[] = $this->subject;
-        $this->setDatabaseResponse();
+        while ($this->setDatabaseResponse()) {
+            $this->stepUp();
+        }
+
     }
 
     public function render()
@@ -153,7 +158,15 @@ class FormStepSelectForSubject extends Component
             ->first();
         if (! $response) {
             Log::info('NIET gevonden'.$this->subject['id']);
-            return;
+
+            return false;
+        }
+
+        if (! $response->student_answer['value']) {
+            //Participant heeft deze vraag overgeslagen.
+            $this->dispatch('set-loading-false')->component(FormButtons::class);
+
+            return true;
         }
 
         foreach ($response->student_answer['value'] as $responseItem) {
@@ -162,5 +175,7 @@ class FormStepSelectForSubject extends Component
                 $this->setSelectedStudent($responseItem, $student->name);
             }
         }
+
+        return true;
     }
 }

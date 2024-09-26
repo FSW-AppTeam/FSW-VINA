@@ -13,6 +13,8 @@ class FormStepSelectMultiple extends Component
 {
     public PostForm $form;
 
+    public $answerSelected = [];
+
     public $stepId;
 
     public $loading = true;
@@ -21,32 +23,26 @@ class FormStepSelectMultiple extends Component
 
     public $savedAnswers;
 
-    public $questionOptions = [];
-
-    public $answerSelected = [];
-
     public $firstRequired = true;
-
-    protected array $messages = [];
 
     public array $students = [];
 
     public $subject = false; // used to show the subject of the question
 
-    public $bounceOut = false;
+    public array $finishedSubjects; //used to store the finished subjects.
+
+    public $disappear = false;
+
+    protected array $messages = [];
+
+    public $questionOptions = [];
 
     public $showShrink;
 
     public $disabledBtn = false;
 
-    public array $finishedSubjects; //used to store the finished subjects.
-
-    public int $answerId;
-
     protected $listeners = [
-
         'set-show-shrink-true' => 'setShowShrinkTrue',
-        'set-bounce-out-true' => 'setBounceOutTrue',
         'set-answer-button-square' => 'setAnswerButtonSquare',
         'set-remove-student' => 'removeStudent',
         'set-remove-selected-square' => 'removeSelectedSquare',
@@ -73,11 +69,6 @@ class FormStepSelectMultiple extends Component
         ];
     }
 
-    public function setBounceOutTrue()
-    {
-        $this->bounceOut = true;
-    }
-
     public function setShowShrinkTrue(): void
     {
         $this->showShrink = true;
@@ -86,8 +77,6 @@ class FormStepSelectMultiple extends Component
     public function setAnswerButtonSquare(int $id, string $val): void
     {
         $this->answerSelected = ['id' => $id, 'value' => $val];
-        $this->setBounceOutTrue();
-
         $this->save();
     }
 
@@ -96,6 +85,7 @@ class FormStepSelectMultiple extends Component
         if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
+        $this->disabledBtn = false;
     }
 
     public function save(): void
@@ -116,8 +106,11 @@ class FormStepSelectMultiple extends Component
         ];
         $this->jsonQuestion->question_title = $this->jsonQuestion->question_title.' ID:'.$this->subject['id'];
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-        if (! array_key_exists('id', $this->answerSelected)) {
+
+        if (array_key_exists(0, $this->students)) {
             $this->stepUp();
+        } else {
+            $this->dispatch('step-up')->component(StepController::class);
         }
     }
 
@@ -126,20 +119,18 @@ class FormStepSelectMultiple extends Component
         $this->answerSelected = [];
         $this->subject = array_shift($this->students);
         $this->finishedSubjects[] = $this->subject;
-        $this->setDatabaseResponse();
-        $this->bounceOut = false;
-        $this->disabledBtn = false;
-        $this->showShrink = false;
+
         if (count($this->students) == 0 && $this->subject == null) {
             $this->dispatch('step-up')->component(StepController::class);
         }
+        $this->disabledBtn = $this->setDatabaseResponse();
         $this->dispatch('set-loading-false');
     }
 
     public function stepDown(): void
     {
-        if ($this->studentCounter <= 1) {
-            $this->dispatch('set-step-id-down');
+        if (count($this->finishedSubjects) <= 1) {
+            $this->dispatch('step-down')->component(StepController::class);
 
             return;
         }
@@ -148,8 +139,10 @@ class FormStepSelectMultiple extends Component
             array_unshift($this->students, array_pop($this->finishedSubjects));
             $this->subject = end($this->finishedSubjects);
         }
-        $this->finishedSubjects = [];
-        $this->setDatabaseResponse();
+
+        $this->answerSelected = [];
+
+        $this->disabledBtn = $this->setDatabaseResponse();
     }
 
     public function mount(): void
@@ -158,7 +151,8 @@ class FormStepSelectMultiple extends Component
         shuffle($this->students);
         $this->subject = array_shift($this->students);
         $this->finishedSubjects[] = $this->subject;
-        $this->setDatabaseResponse();
+
+        $this->disabledBtn = $this->setDatabaseResponse();
     }
 
     public function render()
@@ -174,7 +168,8 @@ class FormStepSelectMultiple extends Component
     public function setDatabaseResponse()
     {
         if (empty($this->subject)) {
-            return;
+            $this->dispatch('step-up')->component(StepController::class);
+            return false;
         }
         $response = SurveyAnswer::where('student_id', $this->form->getStudent()->id)
             ->where('question_id', $this->jsonQuestion->id)
@@ -183,18 +178,23 @@ class FormStepSelectMultiple extends Component
         if (! $response) {
             Log::info('NIET gevonden'.$this->subject['id']);
 
-            return;
+            return false;
+        }
+
+        if (! $response->student_answer['value']) {
+            //Participant heeft deze vraag overgeslagen.
+            $this->dispatch('set-loading-false')->component(FormButtons::class);
+            return true;
         }
 
         foreach ($this->jsonQuestion->question_answer_options as $key => $option) {
-            if (! empty($response->student_answer['answer']) && $option['id'] == $response->student_answer['answer']['id']) {
-                $this->setAnswerButtonSquare(
-                    $response->student_answer['answer']['id'],
-                    $this->jsonQuestion->question_answer_options[$key]['value']);
-
-                return;
+            if (! empty($response->student_answer['value']) && $option['id'] == $response->student_answer['value']) {
+                $this->answerSelected = ['id' => $response->student_answer['value'], 'value' => $this->jsonQuestion->question_answer_options[$key]['value']];
             }
         }
+
+        $this->dispatch('set-loading-false')->component(FormButtons::class);
+        return true;
     }
 
     public function setStudents(): void

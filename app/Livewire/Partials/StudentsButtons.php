@@ -11,10 +11,9 @@ class StudentsButtons extends Component
     public $subject;
 
     public $students;
-    public $bounceOut;
-
 
     public $showShrink;
+
     protected $listeners = [
         'refreshStudentButtons' => '$refresh',
 
