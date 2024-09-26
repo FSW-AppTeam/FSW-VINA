@@ -13,7 +13,6 @@ class StudentSelected extends Component
     public $subject;
 
     protected $listeners = [
-        'set-bounce-out-true' => 'setBounceOutTrue',
     ];
 
     public function removeSelectedStudent($id): void
