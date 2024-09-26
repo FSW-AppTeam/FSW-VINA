@@ -77,36 +77,6 @@ document.addEventListener('livewire:initialized', (e) => {
             ,500);
     })
 
-    let stepIndex = 1;
-    let shadowPositionX = -90;
-    let index = 0;
-
-    document.addEventListener('set-step-id-up', () => {
-        console.log("set-step-id-up")
-        // setTimeout(() => {
-        //     let formQuestion22 = document.querySelector('#scope-form-step22');
-        //     index = 0;
-        //     shadowPositionX = -90;
-        //
-        //     if(formQuestion22 !== null){
-        //         shadowPositionX = -210;
-        //     }
-        // }, 500);
-    });
-
-    document.addEventListener('set-step-id-down', () => {
-        // setTimeout(() => {
-        //     let formQuestion22 = document.querySelector('#scope-form-step22');
-        //     index = 0;
-        //     shadowPositionX = -90;
-        //
-        //     if(formQuestion22 !== null){
-        //         shadowPositionX = -210;
-        //     }
-        // }, 500);
-    });
-
-
     document.addEventListener('animate-shrink', (ev) => {
         console.log('animate-shrink')
         // answer buttons block animation from of question 15
@@ -117,26 +87,6 @@ document.addEventListener('livewire:initialized', (e) => {
             dispatchEvent(new Event('set-sub-step-up'));
         }, 2200);
     }, {once: false});
-
-    // callback from button
-    document.addEventListener('set-square-animation', (e) => {
-        e.preventDefault();
-
-        let blockBtn = e.detail.event.target;
-
-        blockBtn.animate([
-            {opacity: 0}
-        ], {duration: 1000, easing: 'ease-out', fill: 'forwards', delay: 100});
-
-        const setBackBlockBtn = new CustomEvent("set-remove-selected-square", {
-            detail: {
-                id: blockBtn.id,
-            },
-        });
-
-        dispatchEvent(setBackBlockBtn);
-    });
-
 
     document.addEventListener('block-btn-move-up-animation', (ev) => {
         console.log('block-btn-move-up-animation')
@@ -156,21 +106,31 @@ document.addEventListener('livewire:initialized', (e) => {
             {transform: `translateY(${(squareTop - blockBtnTop) - 2}px)`},
         ], {duration: 400, easing: 'ease-in', fill: 'forwards'});
 
-        // blockBtn.animate([
-        //     {opacity: 0},
-        // ], {duration: 900, easing: 'ease-in', fill: 'forwards', delay: 400});
+        blockBtn.animate([
+            {opacity: 0},
+        ], {duration: 900, easing: 'ease-in', fill: 'forwards', delay: 400});
 
         window.setTimeout(function() {
+            blockBtn.animate([
+                {transform: `translate3d(-2000px, ${(squareTop - blockBtnTop) - 2}px, 0) scaleX(1)`}
+            ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
+
+            let subjectBtn = document.querySelector('#step-student-button-subject');
+            if(subjectBtn !== null) {
+                subjectBtn.animate([
+                    {transform: `translateX(-2000px)`}
+                ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
+            }
+        }, 500);
+
+        window.setTimeout(function() {
+            // this sets the answer and call the save.
             dispatchEvent(new CustomEvent('set-answer-button-block', {
                 detail: {
                     id: blockBtn.id,
                     val: blockBtn.textContent
                 },
             }));
-        }, 700);
-        window.setTimeout(function() {
-            console.log('dispatch set-sub-step-up')
-            dispatchEvent(new Event('set-sub-step-up'));
         }, 2000);
     }, {once: false});
 
@@ -209,7 +169,13 @@ document.addEventListener('livewire:initialized', (e) => {
         // }, false);
         // Therefor I'm using only the timeout function.
         window.setTimeout(function() {
-            dispatchEvent(new Event('set-bounce-out-true'))
+            let subjectBtn = document.querySelector('#start-friend-bounce-all');
+            if(subjectBtn !== null) {
+                subjectBtn.animate([
+                    {transform: `translateX(-2000px)`}
+                ], {duration: 800, easing: 'ease-in', fill: 'forwards'});
+            }
+
         }, 50);
         window.setTimeout(function() {
             dispatchEvent(new Event('set-show-shrink-true'))
