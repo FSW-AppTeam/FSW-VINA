@@ -15,7 +15,19 @@
                     <h6 class="text-decoration-underline">Survey_code</h6>
                         <p class="text-muted">{{$survey_code}}</p>
                     <hr>
-            
+
+                    <h6 class="text-decoration-underline">Qualtrics name</h6>
+                        <p class="text-muted">{{$qualtrics_name}}</p>
+                    <hr>
+
+                    <h6 class="text-decoration-underline">Qualtrics ID</h6>
+                        <p class="text-muted">{{$qualtrics_id}}</p>
+                    <hr>
+
+                    <h6 class="text-decoration-underline">Qualtrics param</h6>
+                        <p class="text-muted">{{$qualtrics_param}}</p>
+                    <hr>
+
                     <h6 class="text-decoration-underline">Started_at</h6>
                         <p class="text-muted">{{$started_at}}</p>
                     <hr>

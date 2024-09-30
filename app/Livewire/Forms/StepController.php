@@ -179,15 +179,15 @@ class StepController extends Component
             return;
         }
 
-        if (isset($jsonQuestion->form_type)) {
-            // If formtype is set, a dynamic form is used.
-            $this->activeStep = 'forms.form-step-'.$jsonQuestion->form_type;
+        if ($this->isLastQuestion()) {
+            $this->activeStep = 'forms.form-step-outro';
 
             return;
         }
 
-        if (! isset($jsonQuestion->id)) {
-            $this->activeStep = 'forms.form-step-outro';
+        if (isset($jsonQuestion->form_type)) {
+            // If formtype is set, a dynamic form is used.
+            $this->activeStep = 'forms.form-step-'.$jsonQuestion->form_type;
 
             return;
         }
@@ -258,5 +258,15 @@ class StepController extends Component
             $this->stepId++;
             $this->setQuestion();
         }
+    }
+
+    private function isLastQuestion(): bool
+    {
+        $lastQuestion = SurveyQuestion::orderBy('order', 'desc')->first();
+        if ($this->stepId == $lastQuestion->order) {
+            return true;
+        }
+
+        return false;
     }
 }

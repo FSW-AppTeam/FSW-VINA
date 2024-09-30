@@ -72,6 +72,7 @@
             <tr>
                 <th></th>
                 <th>name</th>
+                <th>uuid</th>
                 <th>survey_id</th>
                 <th>Actions</th>
             </tr>
@@ -82,9 +83,10 @@
                     <td>
                         <input wire:model.live="selectedSurveyStudents" id="{{$model->id}}" value="{{$model->id}}" type="checkbox">
                     </td>
-                    <td class="col-md-4">{{$model->name}}</td>
-                    <td class="col-md-4">{{$model->survey->survey_code}}</td>
-                    <td class="col-md-4">
+                    <td class="col-md-3">{{$model->name}}</td>
+                    <td class="col-md-4">{{$model->uuid}}</td>
+                    <td class="col-md-2">{{$model->survey->survey_code}}</td>
+                    <td class="col-md-3">
                         <a class="btn btn-outline-info btn-sm"
                            href="#" wire:click.stop.prevent="redirectToDetail('surveystudentdetails', {{ $model->id }})" >
                             Details

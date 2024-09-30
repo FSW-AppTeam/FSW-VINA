@@ -187,6 +187,7 @@ class PostForm extends Form
         $student = SurveyStudent::firstOrCreate([
             'name' => strip_tags($name),
             'survey_id' => strip_tags($surveyId),
+            'uuid' => \Illuminate\Support\Str::uuid(),
         ]);
 
         if ($setSession) {
