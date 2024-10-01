@@ -12,10 +12,7 @@ class StudentSelected extends Component
 
     public $subject;
 
-    public $bounceOut = false;
-
     protected $listeners = [
-        'set-bounce-out-true' => 'setBounceOutTrue',
     ];
 
     public function removeSelectedStudent($id): void
@@ -43,11 +40,6 @@ class StudentSelected extends Component
             $this->rowSelectedStudents[$i + 1] = array_slice($selected, $i * 5, 5);
         }
 
-    }
-
-    public function setBounceOutTrue()
-    {
-        $this->bounceOut = true;
     }
 
     public function appendSubject()

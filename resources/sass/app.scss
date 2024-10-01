@@ -778,38 +778,6 @@ and (-webkit-min-device-pixel-ratio: 3) {
     }
 }
 
-.move-to-left-btn{
-    animation: moveToLeft ease 200ms 1;
-    animation-fill-mode: forwards;
-    animation-delay: 300ms
-}
-
-// Used for circle buttons to move to the left after the previous button has bounced to the left and off screen.
-@keyframes moveToLeft {
-    to {
-        transform: translate3d(-80px, 0, 0)
-    }
-}
-
-.bounce-out-left-btn {
-    animation: bounceOutLeft ease-in forwards;
-    animation-duration: 0.8s;
-    animation-fill-mode: forwards;
-}
-
-// Used for circle buttons to bounce to the left and off screen
-@keyframes bounceOutLeft {
-    from {
-        opacity: 1;
-        transform: translate3d(10px, 0, 0) scaleX(1);
-    }
-
-    to {
-        opacity: 0;
-        transform: translate3d(-2000px, 0, 0) scaleX(2);
-    }
-}
-
 #overlay {
     position: fixed;
     display: block;
