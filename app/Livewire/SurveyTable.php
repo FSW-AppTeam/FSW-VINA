@@ -32,6 +32,12 @@ class SurveyTable extends Component
     //Create, Edit, Delete, View Survey props
     public ?string $survey_code = null;
 
+    public ?string $qualtrics_name = null;
+
+    public ?string $qualtrics_id = null;
+
+    public ?string $qualtrics_param = null;
+
     public ?DateTime $started_at = null;
 
     public ?DateTime $finished_at = null;
@@ -53,6 +59,9 @@ class SurveyTable extends Component
     protected array $rules =
         [
             'survey_code' => 'string',
+            'qualtrics_name' => 'string',
+            'qualtrics_id' => 'string',
+            'qualtrics_param' => 'string',
         ];
 
     protected array $messages = [
@@ -71,13 +80,6 @@ class SurveyTable extends Component
         return view('livewire.survey.components.table', compact('paginatedSurveys'));
     }
 
-    //Toggle the $bulkDisabled on or off based on the count of selected posts
-    public function updatedselectedSurveys()
-    {
-        $this->bulkDisabled = count($this->selectedSurveys) < 2;
-        $this->survey = null;
-    }
-
     public function store()
     {
         $validatedData = $this->validate();
@@ -94,6 +96,9 @@ class SurveyTable extends Component
         $this->survey = $survey;
         $this->survey_id = $survey->id;
         $this->survey_code = $survey->survey_code;
+        $this->qualtrics_name = $survey->qualtrics_name;
+        $this->qualtrics_id = $survey->qualtrics_id;
+        $this->qualtrics_param = $survey->qualtrics_param;
         $this->started_at = $survey->started_at;
         $this->finished_at = $survey->finished_at;
         $this->created_at = $survey->created_at;
@@ -102,24 +107,10 @@ class SurveyTable extends Component
         $this->selectedSurvey = [];
     }
 
-    //Get & assign selected category
-    public function initDataBulk()
-    {
-
-    }
-
     public function update()
     {
         $validatedData = $this->validate();
         $this->survey->update($validatedData);
-        $this->refresh('Survey successfully updated!');
-    }
-
-    //Bulk update
-    public function updateBulk()
-    {
-        $this->validate();
-        Survey::whereIn('id', $this->selectedSurveys)->update([]);
         $this->refresh('Survey successfully updated!');
     }
 
@@ -148,10 +139,7 @@ class SurveyTable extends Component
         $this->dispatch('hideModal');
     }
 
-    public function mount()
-    {
-
-    }
+    public function mount() {}
 
     public function hydrate()
     {
@@ -163,6 +151,9 @@ class SurveyTable extends Component
         $this->reset(['selectedSurveys', 'bulkDisabled',
             'survey_id',
             'survey_code',
+            'qualtrics_name',
+            'qualtrics_id',
+            'qualtrics_param',
             'started_at',
             'finished_at',
             'created_at',
@@ -175,7 +166,7 @@ class SurveyTable extends Component
      **/
     public function search($query)
     {
-        $survey = new Survey();
+        $survey = new Survey;
 
         return empty($query) ? $survey :
             $survey->where(function ($q) use ($query) {
@@ -185,7 +176,7 @@ class SurveyTable extends Component
 
     public function checkSurvey($surveyId)
     {
-        $surveyExport = new SurveyExport();
+        $surveyExport = new SurveyExport;
         try {
             $count = $surveyExport->checkExportCsv($surveyId);
             if ($count > 0) {

@@ -24,6 +24,12 @@
 @import 'animate.css';
 
 
+.selected-btn {
+    background-color: #dca351ff;
+    color: black;
+    border-color: #43277c;
+}
+
 .modal.fade .modal-dialog {
     //transition: transform 0.2s ease-out;
     transform: scaleZ(2) scale(2);
@@ -36,6 +42,7 @@
 }
 
 .modal.show .modal-dialog {
+    margin-top: 10%;
     transform: translate3d(0, -10vh, 0);
 }
 
@@ -84,6 +91,10 @@ button {
     touch-action: manipulation;
 }
 
+.btn:active {
+    transform: translateY(4px);
+}
+
 .btn {
     font-size: 0.9rem;
 }
@@ -120,7 +131,7 @@ p {
     }
 
     .btn:hover {
-        background-color: #dca351ff !important;
+        background-color: #f89701 !important;
     }
 
     .bi.bi-arrow-right, .bi.bi-arrow-left {
@@ -230,8 +241,7 @@ p {
         margin-top: 40px !important;
     }
 
-
-    .btn-circle.btn-xl.studentBtn {
+    .btn-circle.btn-xl.student-btn {
         margin-right: 10px;
 
         &.left {
@@ -567,7 +577,8 @@ textarea:focus-visible, textarea:active {
 
 
 .students-overview {
-    width: 373px;
+    width: 85%;
+    max-width: 373px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 22px;
@@ -659,9 +670,9 @@ and (-webkit-min-device-pixel-ratio: 3) {
         height: 40px;
     }
 
-    .students-overview {
-        padding-left: 6px;
-    }
+    //.students-overview {
+    //    padding-left: 6px;
+    //}
 
     .form-group.student-list .selected-friends-row-v2 .boxed-btn-0 {
         left: unset;
@@ -768,34 +779,30 @@ and (-webkit-min-device-pixel-ratio: 3) {
     }
 }
 
-.move-to-left-btn{
-    animation: moveToLeft ease 200ms 1;
-    animation-fill-mode: forwards;
-    animation-delay: 300ms
+#overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    cursor: wait;
 }
 
-// Used for circle buttons to move to the left after the previous button has bounced to the left and off screen.
-@keyframes moveToLeft {
-    to {
-        transform: translate3d(-80px, 0, 0)
-    }
+#overlaytext{
+    -webkit-text-stroke: 1px white; /* width and color */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 75px;
+    color: #dca351ff;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
 }
 
-.bounce-out-left-btn {
-    animation: bounceOutLeft ease-in forwards;
-    animation-duration: 0.8s;
-    animation-fill-mode: forwards;
-}
-
-// Used for circle buttons to bounce to the left and off screen
-@keyframes bounceOutLeft {
-    from {
-        opacity: 1;
-        transform: translate3d(10px, 0, 0) scaleX(1);
-    }
-
-    to {
-        opacity: 0;
-        transform: translate3d(-2000px, 0, 0) scaleX(2);
-    }
+.wait {
+    cursor: wait;
 }

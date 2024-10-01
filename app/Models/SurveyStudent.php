@@ -31,6 +31,7 @@ class SurveyStudent extends Model
     ];
 
     protected $fillable = [
+        'uuid',
         'name',
         'finished_at',
         'exported_at',

@@ -16,6 +16,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $survey_code
+ * @property string $qualtrics_name
+ * @property string $qualtrics_id
+ * @property string $qualtrics_param
  * @property Carbon|null $started_at
  * @property Carbon|null $finished_at
  * @property Carbon|null $created_at
@@ -38,6 +41,9 @@ class Survey extends Model
         'survey_code',
         'started_at',
         'finished_at',
+        'qualtrics_name',
+        'qualtrics_id',
+        'qualtrics_param',
     ];
 
     public function surveyAnswers()

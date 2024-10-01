@@ -8,13 +8,13 @@ class StudentsButtons extends Component
 {
     public $disappear;
 
-    public $startStudent;
+    public $subject;
 
     public $students;
 
+    public $showShrink;
+
     protected $listeners = [
-        'set-disapear-false' => 'setDisapearFalse',
-        'set-disapear-true' => 'setDisapearTrue',
         'refreshStudentButtons' => '$refresh',
 
     ];
@@ -22,15 +22,5 @@ class StudentsButtons extends Component
     public function render()
     {
         return view('livewire.partials.students-buttons');
-    }
-
-    public function setDisapearTrue()
-    {
-        $this->disappear = true;
-    }
-
-    public function setDisapearFalse()
-    {
-        $this->disappear = false;
     }
 }

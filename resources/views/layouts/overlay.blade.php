@@ -1,33 +1,15 @@
-<style>
-    #overlay {
-        position: fixed;
-        display: block;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0,0,0,0.5);
-        z-index: 2;
-        cursor: pointer;
-    }
-
-    #text{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        font-size: 50px;
-        color: white;
-        transform: translate(-50%,-50%);
-        -ms-transform: translate(-50%,-50%);
-    }
-</style>
-<div wire:loading>
+<div wire:loading
+    wire:target="clickNext">
     <div id="overlay">
-        <div id="text">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Loading...
+        <div id="overlaytext">
+            <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
+        </div>
+    </div>
+</div>
+<div @if(empty($loading) || !$loading) style="display: none" @endif>
+    <div id="overlay">
+        <div id="overlaytext">
+            <span class="spinner-border spinner-border-sm wait" role="status" aria-hidden="true"></span>
         </div>
     </div>
 </div>

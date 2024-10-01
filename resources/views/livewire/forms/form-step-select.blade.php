@@ -1,6 +1,5 @@
 <x-layouts.form :step-id="$stepId"
-                :next-enabled="$nextEnabled"
-                :back-enabled="$backEnabled"
+                :loading="$loading"
                 :json-question="$jsonQuestion">
     <div class="mt-4">
         <div class="form-group set-fade-in">
@@ -10,8 +9,9 @@
                     @foreach ($jsonQuestion->question_answer_options as $key => $answer)
                         <button class="form-check btn" type="button"
                                 wire:key="form-step-{{$key . time()}}"
-                                wire:click="$dispatch('select-answer-block', {event: event});">
+                                wire:click="setAnswerBlockAnswerId({{$answer['id'] }});">
                             <input class="form-check-input" type="radio"
+                                   dusk="select-answer-{{$answer['id']}}"
                                    wire:key="form-step-{{$key . time()}}"
                                    wire:model.live="input" id="{{ $answer['id'] }}" value="{{ $answer['id'] }}"/>
 

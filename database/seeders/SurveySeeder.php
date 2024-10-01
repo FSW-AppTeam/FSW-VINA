@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Survey;
 use Illuminate\Database\Seeder;
 
-class surveySeeder extends Seeder
+class SurveySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class surveySeeder extends Seeder
 
         Survey::factory()
             ->count(2)
-            ->hasSurveyStudents(5)
+            ->hasSurveyStudents(10)
             ->create();
     }
 }

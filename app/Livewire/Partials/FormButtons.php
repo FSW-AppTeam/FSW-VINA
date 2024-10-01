@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Partials;
 
+use App\Livewire\Forms\StepController;
 use Livewire\Component;
 
 class FormButtons extends Component
@@ -10,47 +11,42 @@ class FormButtons extends Component
 
     public $jsonQuestion;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     protected $listeners = [
         'refresh-from-buttons' => '$refresh',
-        'set-enable-next' => 'enableNext',
-        'set-disable-next' => 'disableNext',
-        'set-enable-back' => 'enableBack',
-        'set-enable-all' => 'enableAll',
+        'set-loading-false' => 'loadingFalse',
+        'set-loading-true' => 'loadingTrue',
+        'set-refresh-form' => '$refresh',
     ];
 
-    public function enableNext()
+    public function loadingTrue()
     {
-        $this->nextEnabled = true;
+        $this->loading = true;
     }
 
-    public function disableNext()
+    public function loadingFalse()
     {
-        $this->nextEnabled = false;
+        $this->loading = false;
     }
 
-    public function enableBack()
+    public function clickBack()
     {
-        $this->backEnabled = true;
+        $this->dispatch('top-of-page');
+        $this->loadingTrue();
+        $this->dispatch('back')->component(StepController::class);
     }
 
-    public function enableAll()
+    public function clickNext()
     {
-        $this->nextEnabled = true;
-        $this->backEnabled = true;
+        $this->dispatch('top-of-page');
+        $this->loadingTrue();
+        $this->dispatch('next')->component(StepController::class);
     }
 
     public function render()
     {
+        $this->dispatch('top-of-page');
         return view('livewire.partials.form-buttons');
-    }
-
-    public function nextStep()
-    {
-        $this->disableNext();
-        $this->dispatch('set-sub-step-id-up');
     }
 }

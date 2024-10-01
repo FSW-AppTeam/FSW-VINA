@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Closure;
 use Livewire\Component;
+use Throwable;
 
 class FormStep7 extends Component
 {
@@ -17,9 +18,7 @@ class FormStep7 extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
 
@@ -30,15 +29,15 @@ class FormStep7 extends Component
     protected $messages = [];
 
     protected $listeners = [
+        'save' => 'save',
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
-
-        //        'set-flag-from-js' => 'setSelectedFlagId',
-        //        'remove-selected-flag-id' => 'removeSelectedFlagId',
     ];
 
     public function rules(): array
     {
         $this->messages['origin-country.required'] = $this->jsonQuestion->question_options['error_empty_text'];
+        $this->messages['origin-country.invalid'] = $this->jsonQuestion->question_options['error_invalid_option'];
+        $this->messages['otherCountry.required_if'] = 'Een land selecteren is verplicht';
 
         return [
             'originCountry' => [
@@ -49,6 +48,16 @@ class FormStep7 extends Component
                     }
                 },
             ],
+            'otherCountry' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+                    if (! empty($value)) {
+                        if (! array_key_exists($value, getCountriesByName())) {
+                            $fail($this->messages['origin-country.invalid']);
+                        }
+                    }
+                },
+                'required_if:originCountry,6',
+            ],
         ];
     }
 
@@ -56,21 +65,25 @@ class FormStep7 extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-        $this->dispatch('set-enable-next');
+        $this->dispatch('set-loading-false');
     }
 
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-loading-false');
+            throw $e;
+        }
         $answer = [
             'country_id' => $this->originCountry,
             'other_country' => $this->otherCountry,
         ];
 
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
-        $this->dispatch('set-step-id-up');
+        $this->dispatch('step-up')->component(StepController::class);
     }
 
     public function mount(): void
@@ -79,21 +92,23 @@ class FormStep7 extends Component
         $this->otherCountry = $this->savedAnswers['other_country'] ?? null;
 
         if ($this->originCountry) {
-            $this->nextEnabled = true;
+            $this->loading = false;
         }
 
     }
 
-    public function setAnswerBlockAnswerId(int $id, string $countryName): void
+    public function setAnswerBlockAnswerId(int $id): void
     {
         $this->originCountry = $id;
-        if( $id === 6) {
-            $this->dispatch('set-modal-flag');
+        if ($id === 6) {
+            $this->dispatch('set-modal-othercountry');
         }
-        if( $id !== 6) {
-            $this->otherCountry = "";
+
+        if ($id !== 6) {
+            $this->otherCountry = '';
         }
     }
+
     public function setCountry(): void
     {
         $this->otherCountry = $this->countryModal;
@@ -101,6 +116,7 @@ class FormStep7 extends Component
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step7');
     }
 }

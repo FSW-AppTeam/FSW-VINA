@@ -1,6 +1,5 @@
 # APP Dualnets Universiteit Utrecht
 
-
 ### Prerequisites
 
 - In order to run (or build) a Docker container on your local machine you will need to install the 'Docker-for-Desktop'
@@ -37,14 +36,16 @@ You should be able to access this SAML-IdP from your browser with the following 
 ### Development:
 Clone this repo and run `docker-compose up --build -d` in the root folder.
 
-###
+### Testing
+Tests can run from the host with `./test.sh` or from within the container with: `php artisan dusk`
+You can see all dusk tests on the url: http://localhost:7900/  (password: `secret`)
+
 
 ## Survey Application:
 
 Frontend is build with LiveWire
 
 Run `composer install` or `composer update` to install dependencies
-
 
 Run `npm install`
 
@@ -54,7 +55,14 @@ For the database setup run `php artisan migrate`
 
 If you want to use survey demo data run `php artisan migrate --seed`
 
-###
+#### Question types (form_type)
+
+- `text` - Open text question
+- `select` - Basic multiple choice question
+- `select_students` - Questions with students as options to choose from
+- `select_for_subject` - Questions with students as options to choose from for each student
+- `select_multiple` -  Multiple choice question for multiple students
+- `display` - Display question with text, this is not really a question but a text display
 
 #### Mobile Web App
 
@@ -62,42 +70,9 @@ The survey app is build for mobile web app tested on iPhone X and 11 with Safari
 
 Code for the survey questions and answers lives in directory `app/Livewire/Forms` and frontend in `resources/views/livewire/forms`
 
-The survey questions and answers text can be edited in the .json files from directory `storage/app/surveys`
-
-> [!WARNING]
-> Do not edit the json properties for:
->
->```json
->{
->"survey_id": 1,
->"question_id": 3,
->"question_type": "text"
->}
->```
-> 
-> Unless your really sure what you are doing!
-
-
-
 Survey steps are controlled by the StepController
 
 The html intro page can be edited in `form-step-intro.blade`
-
-
-###
-### Survey Insert Students Script
-
-There is an option to use demo data from the seeder with `php artisan migrate --seed` or you can use `prefilled-names.json` file to create your own students for testing. 
-Simply edit the `storage/app/surveys/prefilled-names.json` with your preferred names. You can add and remove more students to test the app. 
-
-
-> **Note:**
-> To start from the prefilled names script, the option for `active_list` must be set to `true`. If this is set to `false` the script is inactive!
-> 
-> The `active_student` property is the avctive student who is answering the survey questions. The other students for that class will be created automatically. 
-> 
-> You can change the `classcode` to run different tests 
->
 
 ###
 ### Survey CSV Export 

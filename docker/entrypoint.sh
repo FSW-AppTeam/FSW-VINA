@@ -51,5 +51,10 @@ chmod a+w -R /var/www/storage
 chmod a+w -R /var/www/vendor
 #chmod a+w -R /var/www/node_modules
 
+# enable port-forwarding for port 7040, to allow Dusk Test /w Selenium to work
+socat TCP-LISTEN:7038,fork TCP:frontend:7038 &
+
+chmod -R 0755 vendor/laravel/dusk/bin/.
+
 # run apache in foreground
 apache2-foreground

@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Throwable;
 
 class FormStep2 extends Component
 {
@@ -14,11 +15,13 @@ class FormStep2 extends Component
 
     public $stepId;
 
-    public $nextEnabled;
-
-    public $backEnabled;
+    public $loading = true;
 
     public $jsonQuestion;
+
+    protected $listeners = [
+        'save' => 'save',
+    ];
 
     protected function rules()
     {
@@ -26,7 +29,7 @@ class FormStep2 extends Component
             'name' => [
                 'required',
                 'min:1',
-                'alpha_num:ascii',
+                'string',
                 Rule::unique('survey_students')
                     ->where('survey_id', session::get('survey-id'))
                     ->ignore(session::get('student-id')),
@@ -46,17 +49,21 @@ class FormStep2 extends Component
     {
         $this->form->addRulesFromOutside($this->rules());
         $this->validate($this->rules());
-        $this->dispatch('set-enable-next');
+        $this->dispatch('set-loading-false');
     }
 
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
-
+        try {
+            $this->validate($this->rules());
+        } catch (Throwable $e) {
+            $this->dispatch('set-loading-false');
+            throw $e;
+        }
         if (session::has('survey-id')) {
             $this->form->createStudent($this->name, strtolower(session::get('survey-id')));
-            $this->dispatch('set-step-id-up');
+            $this->dispatch('step-up')->component(StepController::class);
         }
     }
 
@@ -65,12 +72,13 @@ class FormStep2 extends Component
         $this->name = old('student-name') ?? session::get('student-name') ?? '';
 
         if ($this->name) {
-            $this->nextEnabled = true;
+            $this->loading = false;
         }
     }
 
     public function render()
     {
+        $this->loading = false;
         return view('livewire.forms.form-step2');
     }
 }

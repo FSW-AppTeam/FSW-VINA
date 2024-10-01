@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Livewire\Students;
 use App\Models\Role;
+use App\Models\SurveyStudent;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -39,7 +41,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'daan2',
             'role_id' => 2,
             'email' => 'daan2@test.nl',
-            'solis_id' => 'assche001',
+            'solis_id' => 'assch001',
+        ]);
+        User::create([
+            'name' => 'Tom',
+            'role_id' => 1,
+            'email' => 'tom@test.nl',
+            'solis_id' => 'F131116',
         ]);
     }
 }
