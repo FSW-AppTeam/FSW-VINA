@@ -104,24 +104,10 @@ class SurveyStudentTable extends Component
         $this->selectedSurveyStudent = [];
     }
 
-    //Get & assign selected category
-    public function initDataBulk()
-    {
-
-    }
-
     public function update()
     {
         $validatedData = $this->validate();
         $this->surveystudent->update($validatedData);
-        $this->refresh('SurveyStudent successfully updated!');
-    }
-
-    //Bulk update
-    public function updateBulk()
-    {
-        $this->validate();
-        SurveyStudent::whereIn('id', $this->selectedSurveyStudents)->update([]);
         $this->refresh('SurveyStudent successfully updated!');
     }
 
@@ -150,10 +136,7 @@ class SurveyStudentTable extends Component
         $this->dispatch('hideModal');
     }
 
-    public function mount()
-    {
-
-    }
+    public function mount() {}
 
     public function hydrate()
     {
@@ -180,11 +163,12 @@ class SurveyStudentTable extends Component
      **/
     public function search($query)
     {
-        $surveystudent = new SurveyStudent();
+        $surveystudent = new SurveyStudent;
 
         return empty($query) ? $surveystudent :
             $surveystudent->where(function ($q) use ($query) {
-                $q->where('name', 'like', '%'.$query.'%');
+                $q->where('name', 'like', '%'.$query.'%')
+                    ->orWhere('uuid', 'like', '%'.$query.'%');
             });
     }
 

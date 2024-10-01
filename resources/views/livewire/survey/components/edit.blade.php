@@ -9,15 +9,27 @@
             <div class="modal-body">
                 <form wire:submit="update">
                         
-            <div class="form-group">
-                <label for="survey_code">Survey survey_code:</label>
-                <input wire:model="survey_code" type="text" class="form-control" name="survey_code"
-                       id="survey_code"
-                       title="Survey survey_code" placeholder="Enter survey survey_code..." autofocus>
-                @error("survey_code")
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
+                    <div class="form-group">
+                        <label for="survey_code">Survey survey code:</label>
+                        <input wire:model="survey_code" type="text" class="form-control" name="survey_code"
+                               id="survey_code"
+                               title="Survey survey_code" placeholder="Enter survey survey_code..." autofocus>
+                        <label for="qualtrics_name">Survey qualtrics name:</label>
+                        <input wire:model="qualtrics_name" type="text" class="form-control" name="qualtrics_name"
+                               id="qualtrics_name"
+                               title="Survey qualtrics_name" placeholder="Enter qualtrics name..." autofocus>
+                        <label for="qualtrics_id">Survey qualtrics_id:</label>
+                        <input wire:model="qualtrics_id" type="text" class="form-control" name="qualtrics_id"
+                               id="qualtrics_id"
+                               title="Survey qualtrics_id" placeholder="Enter qualtrics id..." autofocus>
+                        <label for="qualtrics_param">Survey qualtrics_param:</label>
+                        <input wire:model="qualtrics_param" type="text" class="form-control" name="qualtrics_param"
+                               id="qualtrics_param"
+                               title="Survey qualtrics_param" placeholder="Enter name of params to pass through qualtrics..." autofocus>
+                        @error("survey_code")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
                     <input wire:model.live="survey_id" type="hidden" name="id">
                 </form>
             </div>

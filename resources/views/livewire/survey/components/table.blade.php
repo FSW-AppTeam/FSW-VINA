@@ -16,8 +16,6 @@
 
     <!-- Edit Modal -->
     @include('livewire.survey.components.edit')
-    <!-- Edit Category Bulk Modal -->
-    @include('livewire.survey.components.edit-bulk')
     <!-- Create Modal -->
     @include('livewire.survey.components.create')
     <!-- Delete Confirmation Modal -->
@@ -28,15 +26,6 @@
 
     <button data-bs-toggle="modal" data-bs-target="#createModal"
             class="btn btn-outline-success btn-outline-md mb-2">Create New Survey
-    </button>
-
-    <button data-bs-toggle="modal" data-bs-target="#deleteModal"
-            class="btn btn-outline-danger btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Delete
-    </button>
-
-    <button wire:click.prevent="initDataBulk" data-bs-toggle="modal"
-            data-bs-target="#editBulkModal"
-            class="btn btn-outline-primary btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Edit
     </button>
 
     <div class="row">
@@ -77,6 +66,9 @@
             <tr>
                 <th></th>
                 <th>survey_code</th>
+                <th>qualtrics_name</th>
+                <th>qualtrics_id</th>
+                <th>qualtrics_param</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -86,7 +78,10 @@
                     <td>
                         <input wire:model.live="selectedSurveys" id="{{$model->id}}" value="{{$model->id}}" type="checkbox">
                     </td>
-                    <td class="col-md-6">{{$model->survey_code}}</td>
+                    <td class="col-md-2">{{$model->survey_code}}</td>
+                    <td class="col-md-2">{{$model->qualtrics_name}}</td>
+                    <td class="col-md-2">{{$model->qualtrics_id}}</td>
+                    <td class="col-md-1">{{$model->qualtrics_param}}</td>
                     <td class="col-md-6">
                         <a class="btn btn-outline-info btn-sm"
                            href="#" wire:click.stop.prevent="redirectToDetail('surveydetails', {{ $model->id }})" >
