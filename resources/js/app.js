@@ -49,26 +49,12 @@ document.addEventListener('livewire:initialized', (e) => {
         // const options = {keyboard:false};
         const countryModal = new bootstrap.Modal(document.getElementById('countryModal'), {});
         countryModal.show();
-
         setTimeout(() => {
-                let input = document.getElementById('countryDataList');
+                let input = document.getElementById('searchCountry');
                 input.value = '';
                 input.focus();
 
                 let btn = document.getElementById('country-set-btn');
-                let countryVar = "";
-
-                document.getElementById('countryDataList').addEventListener('input', function () {
-                    btn.disabled = true;
-                    const element = document.getElementById("countryDataList");
-                    for (var i = 0; i<  element.list.options.length; i++) {
-                        if (element.value === element.list.options[i].value) {
-                            btn.disabled = false;
-                            countryVar = element.value;
-                            break;
-                        }
-                    }
-                });
 
                 btn.addEventListener('click', function (e) {
                     countryModal.hide();
