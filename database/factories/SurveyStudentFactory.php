@@ -13,6 +13,7 @@ class SurveyStudentFactory extends Factory
     {
         return [
             'name' => fake()->firstName(),
+            'uuid' => \Illuminate\Support\Str::uuid(),
         ];
     }
 }

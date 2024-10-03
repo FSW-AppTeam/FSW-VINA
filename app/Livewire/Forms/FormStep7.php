@@ -14,8 +14,6 @@ class FormStep7 extends Component
 
     public ?string $otherCountry = '';
 
-    public $countryModal = true;
-
     public $stepId;
 
     public $loading = true;
@@ -31,6 +29,7 @@ class FormStep7 extends Component
     protected $listeners = [
         'save' => 'save',
         'set-answer-block-answer-id' => 'setAnswerBlockAnswerId',
+        'set-country' => 'setCountry',
     ];
 
     public function rules(): array
@@ -109,9 +108,9 @@ class FormStep7 extends Component
         }
     }
 
-    public function setCountry(): void
+    public function setCountry($country): void
     {
-        $this->otherCountry = $this->countryModal;
+        $this->otherCountry = $country;
     }
 
     public function render()
