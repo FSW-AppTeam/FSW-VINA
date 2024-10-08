@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Storage;
 use League\Csv\CannotInsertRecord;
 use League\Csv\Exception;
 use League\Csv\Writer;
-use App\Models\SurveyStudent;
 
 class SurveyExport
 {
@@ -15,7 +14,6 @@ class SurveyExport
      * older than 1 hour after last submission then
      * runs the csv export
      *
-     * @param int $surveyId
      * @throws Exception
      */
     public function checkExportCsv(int $surveyId): string
@@ -37,7 +35,9 @@ class SurveyExport
         }
 
         $fileName = $date.$survey->survey_code.'-export.csv';
-        Storage::disk('local')->put('csv/'.$fileName, $csv->toString());
+        if (! Storage::disk('local')->put('csv/'.$fileName, $csv->toString())) {
+            throw new Exception('Could not save the file: '.$fileName);
+        }
         SurveyStudent::setExportedFinished($surveyId);
 
         return $fileName;
@@ -48,29 +48,9 @@ class SurveyExport
         // sets the header
         foreach ($surveys as $survey) {
             if (! in_array($survey['question_title'], $header, true)) {
-
                 if ($survey['question_type'] === 'json') {
-                    switch ($survey['question_id']) {
-                        case 7:
-                        case 9:
-                        case 14:
-                        case 15:
-                        case 18:
-                        case 20:
-                            $header[] = $survey['question_title'].' ID';
-                            $header[] = $survey['question_title'].' waarde';
-                            break;
-
-                        case 22:
-                            $header[] = $survey['question_title'].' IDs';
-                            $header[] = $survey['question_title'].' waarde';
-                            break;
-
-                        default:
-
-                            $header[] = $survey['question_title'];
-
-                    }
+                    $header[] = $survey['question_title'].' IDs';
+                    $header[] = $survey['question_title'].' waarde';
                 } else {
                     $header[] = $survey['question_title'];
                 }
@@ -111,7 +91,6 @@ class SurveyExport
                 case 'int':
                 case 'text':
                 case 'string':
-
                     $answers[$survey['student_id']][$survey['question_title']] = empty($answer) ? '' : $answer;
                     break;
 
@@ -121,89 +100,21 @@ class SurveyExport
                     break;
 
                 case 'json':
-
-                    switch ($survey['question_id']) {
-                        case 7:
-                        {
-                            $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->country_id;
-                            $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->other_country;
-                            break;
-                        }
-                        case 9:
-                        {
-                            $answers[$survey['student_id']][$survey['question_title'] . " ID"] = $answer->religion;
-                            $answers[$survey['student_id']][$survey['question_title'] . " waarde"] = $answer->other_religion;
-                            break;
-                        }
-                        case 13:
-
-                            $new = [];
-                            foreach ($answer as $val) {
-                                if (isset($val->country)) {
-                                    if ($val->id === 6) {
-                                        $new[] = $val->country;
-                                    } else {
-                                        $new[] = $val->id;
-                                    }
-                                }
-                            }
-
-                            $answers[$survey['student_id']][$survey['question_title']] = implode(', ', $new);
-                            break;
-
-                        case 14:
-
-                            $new = [];
-                            foreach ($answer->countries as $country) {
-                                $new[] = $country->country;
-                            }
-
-                            if (in_array($survey['question_title'].' ID', $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->student_id;
-                                $answers[$survey['student_id']][$survey['question_title'].' waarde'] = implode(', ', $new);
-                            }
-
-                            break;
-
-                        case 12:
-
-                            if (in_array($survey['question_title'].' ID', $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->student_id;
-                                $answers[$survey['student_id']][$survey['question_title'].' waarde'] = implode(', ', $answer->value);
-                            }
-                            break;
-
-                        case 15:
-                            if (in_array($survey['question_title'].' ID', $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->student_id;
-                                if (isset($answer->answer->value)) {
-                                    $answers[$survey['student_id']][$survey['question_title'].' waarde'] = $answer->answer->value;
-                                } else {
-                                    $answers[$survey['student_id']][$survey['question_title'].' waarde'] = '';
-                                }
-                            }
-
-                            break;
-                        case 22:
-
-                            if (in_array($survey['question_title'].' IDs', $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'].' IDs'] = $answer[0]->id.', '.$answer[0]->relation_id;
-                                $answers[$survey['student_id']][$survey['question_title'].' waarde'] = is_array($answer[0]->value) ? '' : $answer[0]->value;
-                            }
-
-                            break;
-
-                        default:
-
-                            if (in_array($survey['question_title'].' ID', $header)) {
-                                $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->id;
-                                $answers[$survey['student_id']][$survey['question_title'].' waarde'] = $answer->value;
-                            }
-
+                    if (property_exists($answer, 'country_id')) {
+                        $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->country_id;
+                        $answers[$survey['student_id']][$survey['question_title'].' waarde'] = $answer->other_country;
                     }
+                    if (property_exists($answer, 'student_id')) {
+                        $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->student_id;
 
-                    break;
-
+                        if (is_array($answer->value)) {
+                            $answers[$survey['student_id']][$survey['question_title'].' waarde'] = implode(', ',
+                                $answer->value);
+                        }
+                        if (is_int($answer->value)) {
+                            $answers[$survey['student_id']][$survey['question_title'].' waarde'] = $answer->value;
+                        }
+                    }
             }
         }
 
