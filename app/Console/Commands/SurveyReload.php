@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\SurveyQuestion;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class SurveyReload extends Command
 {
