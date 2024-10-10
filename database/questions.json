@@ -319,7 +319,7 @@
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
-        "question_content": "Welke klasgenoten vind je <b>minder aardig</>? ",
+        "question_content": "Welke klasgenoten vind je <b>minder aardig</b>? ",
         "question_options": {
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
