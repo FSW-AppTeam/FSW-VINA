@@ -31,7 +31,7 @@
                     <button type="button" class="float-end p-3 btn-close " data-bs-dismiss="modal"
                             aria-label="Sluit"></button>
                 </div>
-                <h5 class="modal-title text-center" id="countryModalLabel">Wat is het herkomstlant van je familie?</h5>
+                <h5 class="modal-title text-center" id="countryModalLabel">Wat is het herkomstland van je familie?</h5>
                 <div class="modal-body">
                     @livewire('components.search-dropdown')
 
