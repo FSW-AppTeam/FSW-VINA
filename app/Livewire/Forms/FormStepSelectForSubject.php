@@ -26,6 +26,8 @@ class FormStepSelectForSubject extends Component
 
     public $firstRequired = true;
 
+    public $notRequiredAfter = 5; //After subject number 5 the question is not required anymore
+
     public array $students = [];
 
     public $subject = false; // used to show the subject of the question
@@ -65,7 +67,9 @@ class FormStepSelectForSubject extends Component
         return [
             'selectedStudents' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    if ($this->firstRequired && empty($value)) {
+                    if (($this->firstRequired &&
+                        count($this->finishedSubjects) <= $this->notRequiredAfter)
+                        && empty($value)) {
                         $this->firstRequired = false;
                         $fail($this->messages['selectedStudents.required']);
                     }
@@ -94,8 +98,6 @@ class FormStepSelectForSubject extends Component
 
         if (array_key_exists(1, $this->students)) {
             $this->dispatch('set-loading-true');
-
-
 
             $this->dispatch('start-friend-bounce');
         } else {
