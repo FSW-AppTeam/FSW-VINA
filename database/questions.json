@@ -355,7 +355,7 @@
         "question_id": 48,
         "order": 23,
         "form_type": "select_students",
-        "question_type": "json",
+        "question_type": "array",
         "question_title": "Migratie achtergrond klasgenoten",
         "question_content": "Welke klasgenoten hebben volgens jou, naast Nederlands, ook een andere afkomst?",
         "question_options": {
@@ -369,7 +369,7 @@
         "question_id": 38,
         "order": 24,
         "form_type": "select_multiple",
-        "question_type": "int",
+        "question_type": "json",
         "depends_on_question": 7,
         "question_title": "Identiteit klasgenoten",
         "question_content": "De volgende klasgenoot gaf aan dat hun familie ook nog een :questionOptions achtergrond heeft. \n\n \n\nHoe zie jij deze klasgenoot? ",
@@ -390,7 +390,7 @@
         "order": 25,
         "depends_on_question": 7,
         "form_type": "select_multiple",
-        "question_type": "int",
+        "question_type": "json",
         "question_title": "Etniciteit andere klasgenoten",
         "question_content": "Hoe zie jij de volgende klasgenoot? ",
         "question_answer_options": [
@@ -462,7 +462,7 @@
         "question_id": 18,
         "order": 28,
         "form_type": "select_multiple",
-        "question_type": "int",
+        "question_type": "json",
         "question_title": "Immigratie houding - vrienden",
         "question_content": "Hoe denk je dat de volgende klasgenoot deze vraag zou beantwoorden? \n\n \n\nEr komen te veel immigranten naar Nederland ",
         "question_answer_options": [

@@ -50,14 +50,16 @@ class SurveyStudent extends Model
     {
         return SurveyStudent::where('survey_students.survey_id', '=', $surveyId)
             ->join('survey_answers', 'survey_students.id', '=', 'survey_answers.student_id')
-            ->orderBy('survey_answers.question_id')
+            ->join('survey_questions', 'survey_questions.id', '=', 'survey_answers.question_id')
+            ->orderBy('survey_questions.order')
             ->get([
                 'name',
                 'survey_students.id as student_id',
                 'student_answer',
-                'question_title',
+                'survey_answers.question_title',
                 'question_id',
-                'question_type',
+                'survey_answers.question_type',
+                'survey_questions.order',
                 'survey_students.created_at',
                 'finished_at',
                 'exported_at',
