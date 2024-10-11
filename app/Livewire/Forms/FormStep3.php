@@ -31,13 +31,12 @@ class FormStep3 extends Component
     public function rules(): array
     {
         $this->messages['age.required'] = $this->jsonQuestion->question_options['error_empty_text'];
+        $this->messages['age.integer'] = __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]);
+        $this->messages['age.min:1950'] = __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]);
+        $this->messages['age.max:2020'] = __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]);
 
-        return [
+        $rules = [
             'age' => [
-                'nullable',
-                'integer',
-                'min:1950',
-                'max:2020',
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
@@ -47,6 +46,16 @@ class FormStep3 extends Component
                 },
             ],
         ];
+
+        if (isset($this->age)) {
+            $rules['age'] = ['integer', 'min:1950', 'max:2020'];
+        }
+
+        if (! $this->firstRequired) {
+            $rules['age'] = ['nullable'];
+        }
+
+        return $rules;
     }
 
     public function save(): void
@@ -80,6 +89,7 @@ class FormStep3 extends Component
     public function render()
     {
         $this->loading = false;
+
         return view('livewire.forms.form-step3');
     }
 }

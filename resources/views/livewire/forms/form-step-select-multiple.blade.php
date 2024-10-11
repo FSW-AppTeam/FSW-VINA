@@ -3,7 +3,7 @@
                 :json-question="$jsonQuestion">
     <div id="scope-form-step15" class="set-fade-in">
         <div class="container text-center">
-            <h6 class="pb-3 mt-4 text-center mx-4">{{ ucfirst(printWithQuestionOptions( $jsonQuestion->question_content, $questionOptions, 2)) }} </h6>
+            <h6 class="pb-3 mt-4 text-center mx-4">{!! ucfirst(printWithQuestionOptions( $jsonQuestion->question_content, $questionOptions, 2)) !!} </h6>
         </div>
         <livewire:partials.students-buttons
                 wire:key="students-buttons-{{ time() }}"
