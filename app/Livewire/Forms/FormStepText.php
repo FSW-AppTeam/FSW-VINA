@@ -35,7 +35,7 @@ class FormStepText extends Component
             $this->messages['input.required'] = $this->jsonQuestion->question_options['error_empty_text'];
         }
 
-        return [
+        $rules = [
             'input' => [
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
@@ -45,8 +45,20 @@ class FormStepText extends Component
                     }
                 },
             ],
-
         ];
+
+        if (isset($this->jsonQuestion->question_options['validation_max'])) {
+            $rules['input'] = 'max:'.$this->jsonQuestion->question_options['validation_max'];
+        }
+
+        return $rules;
+    }
+
+    public function updatedInput()
+    {
+        $this->form->addRulesFromOutside($this->rules());
+        $this->validate($this->rules());
+        $this->dispatch('set-loading-false');
     }
 
     public function setAnswerBlockAnswerId($id): void
@@ -57,7 +69,6 @@ class FormStepText extends Component
     public function save(): void
     {
         $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
@@ -79,6 +90,7 @@ class FormStepText extends Component
     public function render()
     {
         $this->loading = false;
+
         return view('livewire.forms.form-step-text');
     }
 }

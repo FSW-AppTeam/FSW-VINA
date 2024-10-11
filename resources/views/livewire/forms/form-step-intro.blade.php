@@ -10,7 +10,7 @@
         <p class="lh-sm">Jouw antwoorden worden uiteraard anoniem verwerkt en strikt vertrouwelijk behandeld. Bovendien mag je elke vraag onbeantwoord laten als je die liever niet invult. Je mag ook op elk moment stoppen met de vragenlijst.</p>
         <p class="lh-sm">Voor vragen of opmerkingen over deze vragenlijst kunt je contact opnemen met dr. Tobias Stark, de projectleider: t.h.stark@uu.nl   </p>
 
-        <p class="mb-1"><b>Door hieronder op de peil te klikken ga je akkoord met het volgende:</b></p>
+        <p class="mb-1"><b>Door hieronder op de pijl te klikken ga je akkoord met het volgende:</b></p>
 
         <div class="px-2">
             <ul>

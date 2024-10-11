@@ -38,6 +38,7 @@ class FormStep2 extends Component
     }
 
     protected $messages = [
+        'name.unique' => 'Iemand anders in je klas heeft deze naam al ingevuld. Voeg de eerste letter van je achternaam toe.',
         'name.required' => 'Voornaam is verplicht',
         'name.min' => 'Je naam moet minimaal 1 karakter zijn.',
         'name.alpha_num' => 'Je kunt alleen letters en cijfers invoeren.',

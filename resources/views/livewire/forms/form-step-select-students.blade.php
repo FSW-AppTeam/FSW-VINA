@@ -2,7 +2,7 @@
                 :loading="$loading"
                 :json-question="$jsonQuestion">
     <div class="set-fade-in">
-        <h6 class="pb-3 mt-4 text-center mx-4">{{ $jsonQuestion->question_content }}</h6>
+        <h6 class="pb-3 mt-4 text-center mx-4">{!! $jsonQuestion->question_content !!}</h6>
         <div class="form-group student-list col border-end d-flex justify-content-center align-items-center row">
             <livewire:components.student-selected
                 wire:key="students-selected-{{ time() }}"
