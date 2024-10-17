@@ -69,6 +69,8 @@ class StepController extends Component
         if (Session::has('student-name') && Session::has('student-id') && Session::has('survey-id')) {
             $answers = SurveyAnswer::where('student_id', Session::get('student-id'))
                 ->pluck('question_id')->toArray();
+            // name and survey id are set. But when no other answers are set, we start at the first question (step 3).
+            $this->stepId = 3;
             if ($answers) {
                 $lastQuestion = SurveyQuestion::whereIn('id', $answers)
                     ->orderBy('order', 'desc')->first();
