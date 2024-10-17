@@ -102,7 +102,14 @@ class SurveyExport
                 case 'json':
                     if (property_exists($answer, 'country_id')) {
                         $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->country_id;
-                        $answers[$survey['student_id']][$survey['question_title'].' waarde'] = $answer->other_country;
+                        $answers[$survey['student_id']][$survey['question_title'].' waarde'] = match ($answer->country_id) {
+                            1 => 'Geen ander land',
+                            2 => 'Turkije',
+                            3 => 'Marokko',
+                            4 => 'Suriname',
+                            5 => 'Voormalige Nederlandse Antillen',
+                            default => $answer->other_country
+                        };
                     }
                     if (property_exists($answer, 'student_id')) {
                         $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->student_id;
