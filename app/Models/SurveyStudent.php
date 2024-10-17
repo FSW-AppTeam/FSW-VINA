@@ -54,6 +54,7 @@ class SurveyStudent extends Model
             ->orderBy('survey_questions.order')
             ->get([
                 'name',
+                'uuid',
                 'survey_students.id as student_id',
                 'student_answer',
                 'survey_answers.question_title',

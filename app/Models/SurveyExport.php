@@ -65,8 +65,9 @@ class SurveyExport
      */
     protected function exportCsv(string $surveysId): array
     {
+        $surveyModel = Survey::find($surveysId);
         $surveys = SurveyStudent::getAnswersForExport($surveysId);
-        $header = ['Respondent code', 'Klas code', 'Starttijd', 'Eindtijd'];
+        $header = ['Respondent code', 'uuid', 'Klas code', 'Starttijd', 'Eindtijd'];
         $studentIds = [];
         $answers = [];
 
@@ -77,6 +78,8 @@ class SurveyExport
                 $studentIds[] = $survey['student_id'];
                 $answers[$survey['student_id']]['Respondent code'] = $survey['student_id'];
 
+                $answers[$survey['student_id']]['uuid'] = $survey['uuid'];
+                $answers[$survey['student_id']]['Klas code'] = $surveyModel->survey_code;
                 $startDateTime = SurveyAnswer::where('student_id', $survey['student_id'])->orderBy('created_at', 'asc')->first()->created_at;
                 $answers[$survey['student_id']]['Starttijd'] = date_create($startDateTime)->format('H:i');
 
