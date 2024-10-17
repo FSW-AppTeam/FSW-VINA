@@ -49,7 +49,7 @@ class SurveyExport
         foreach ($surveys as $survey) {
             if (! in_array($survey['question_title'], $header, true)) {
                 if ($survey['question_type'] === 'json') {
-                    $header[] = $survey['question_title'].' IDs';
+                    $header[] = $survey['question_title'].' ID';
                     $header[] = $survey['question_title'].' waarde';
                 } else {
                     $header[] = $survey['question_title'];
@@ -65,8 +65,9 @@ class SurveyExport
      */
     protected function exportCsv(string $surveysId): array
     {
+        $surveyModel = Survey::find($surveysId);
         $surveys = SurveyStudent::getAnswersForExport($surveysId);
-        $header = ['Respondent code', 'Klas code', 'Starttijd', 'Eindtijd'];
+        $header = ['Respondent code', 'uuid', 'Klas code', 'Starttijd', 'Eindtijd'];
         $studentIds = [];
         $answers = [];
 
@@ -77,6 +78,8 @@ class SurveyExport
                 $studentIds[] = $survey['student_id'];
                 $answers[$survey['student_id']]['Respondent code'] = $survey['student_id'];
 
+                $answers[$survey['student_id']]['uuid'] = $survey['uuid'];
+                $answers[$survey['student_id']]['Klas code'] = $surveyModel->survey_code;
                 $startDateTime = SurveyAnswer::where('student_id', $survey['student_id'])->orderBy('created_at', 'asc')->first()->created_at;
                 $answers[$survey['student_id']]['Starttijd'] = date_create($startDateTime)->format('H:i');
 
@@ -102,7 +105,14 @@ class SurveyExport
                 case 'json':
                     if (property_exists($answer, 'country_id')) {
                         $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->country_id;
-                        $answers[$survey['student_id']][$survey['question_title'].' waarde'] = $answer->other_country;
+                        $answers[$survey['student_id']][$survey['question_title'].' waarde'] = match ($answer->country_id) {
+                            1 => 'Geen ander land',
+                            2 => 'Turkije',
+                            3 => 'Marokko',
+                            4 => 'Suriname',
+                            5 => 'Voormalige Nederlandse Antillen',
+                            default => $answer->other_country
+                        };
                     }
                     if (property_exists($answer, 'student_id')) {
                         $answers[$survey['student_id']][$survey['question_title'].' ID'] = $answer->student_id;

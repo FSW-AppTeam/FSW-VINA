@@ -199,16 +199,6 @@ class PostForm extends Form
         }
     }
 
-    public function setStudentFinishedSurvey(): void
-    {
-        SurveyStudent::where([
-            'id' => $this->getStudent()->id,
-        ])
-            ->update([
-                'finished_at' => now(),
-            ]);
-    }
-
     public function update()
     {
         $this->answers->update(

@@ -3,7 +3,7 @@
     <form wire:submit="clickNext">
         @csrf
         <div class="mb-2">
-            @if($stepId !== 0 && $stepId !== 1)
+            @if($stepId !== 0 && $stepId !== 1  && $stepId !== 3)
                 <button class="btn btn-secondary btn-survey float-start arrow"
                         dusk="previous"
                         wire:click="clickBack()"
