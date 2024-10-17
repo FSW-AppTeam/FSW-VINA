@@ -45,4 +45,14 @@ class FormStepOutro extends Component
 
         return view('livewire.forms.form-step-outro');
     }
+
+    public function setStudentFinishedSurvey(): void
+    {
+        SurveyStudent::where([
+            'id' => $this->form->getStudent()->id,
+        ])
+            ->update([
+                'finished_at' => now(),
+            ]);
+    }
 }
