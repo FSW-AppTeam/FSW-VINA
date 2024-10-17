@@ -49,7 +49,7 @@ class SurveyExport
         foreach ($surveys as $survey) {
             if (! in_array($survey['question_title'], $header, true)) {
                 if ($survey['question_type'] === 'json') {
-                    $header[] = $survey['question_title'].' IDs';
+                    $header[] = $survey['question_title'].' ID';
                     $header[] = $survey['question_title'].' waarde';
                 } else {
                     $header[] = $survey['question_title'];
