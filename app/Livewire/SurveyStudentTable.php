@@ -82,6 +82,8 @@ class SurveyStudentTable extends Component
     public function store()
     {
         $validatedData = $this->validate();
+        $validatedData['uuid'] = \Illuminate\Support\Str::uuid();
+
         \DB::transaction(function () use ($validatedData) {
             SurveyStudent::create($validatedData);
         });
