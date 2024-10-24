@@ -233,7 +233,7 @@ class StepController extends Component
         $this->jsonQuestion = $question;
 
         if (isset($this->jsonQuestion->depends_on_question)) {
-            if (in_array($this->jsonQuestion->id, [36, 39, 40, 41, 42])) {
+            if (in_array($this->jsonQuestion->id, [36, 39, 40, 41, 42, 50, 51, 52])) {
 
                 $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
                     ->where('student_id', session('student-id'))

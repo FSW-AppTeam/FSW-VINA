@@ -25,15 +25,6 @@
 {{--            class="btn btn-outline-success btn-outline-md mb-2">Create New SurveyQuestion--}}
 {{--    </button>--}}
 
-{{--    <button data-bs-toggle="modal" data-bs-target="#deleteModal"--}}
-{{--            class="btn btn-outline-danger btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Delete--}}
-{{--    </button>--}}
-
-{{--    <button wire:click.prevent="initDataBulk" data-bs-toggle="modal"--}}
-{{--            data-bs-target="#editBulkModal"--}}
-{{--            class="btn btn-outline-primary btn-md mb-2" {{ $bulkDisabled ? 'disabled' : null }}>Bulk Edit--}}
-{{--    </button>--}}
-
     <div class="row">
         <div class="col-md-3">
             <label for="search">Search: </label>
@@ -43,7 +34,15 @@
         <div class="col-md-3">
             <label for="orderBy">Order By: </label>
             <select wire:model.live="orderBy" id="orderBy" class="form-select">
-                <option value="surveyquestion_id">Surveyquestion_id</option><option value="order">Order</option><option value="question_type">Question_type</option><option value="question_title">Question_title</option><option value="question_content">Question_content</option><option value="question_answer_options">Question_answer_options</option><option value="question_options">Question_options</option><option value="created_at">Created_at</option><option value="updated_at">Updated_at</option>
+                <option value="id">Surveyquestion_id</option>
+                <option value="order">Order</option>
+                <option value="question_type">Question_type</option>
+                <option value="question_title">Question_title</option>
+                <option value="question_content">Question_content</option>
+                <option value="question_answer_options">Question_answer_options</option>
+                <option value="question_options">Question_options</option>
+                <option value="created_at">Created_at</option>
+                <option value="updated_at">Updated_at</option>
             </select>
         </div>
 
