@@ -20,6 +20,8 @@ class FormStepSelect extends Component
 
     public $questionOptions = [];
 
+    public $questionOption = 2;
+
     public $savedAnswers;
 
     public $firstRequired = true;
@@ -69,6 +71,11 @@ class FormStepSelect extends Component
 
     public function mount(): void
     {
+        // Dit is niet ideaal, zou eigenlijk uit de database moeten komen welke questionOption er gebruikt moet worden.
+        if (in_array($this->jsonQuestion->id, [51, 52])) {
+            $this->questionOption = 3;
+        }
+
         $this->input = $this->savedAnswers ?? null;
         if ($this->input) {
             $this->loading = false;
@@ -78,6 +85,7 @@ class FormStepSelect extends Component
     public function render()
     {
         $this->loading = false;
+
         return view('livewire.forms.form-step-select');
     }
 }

@@ -33,6 +33,10 @@ class SurveyReload extends Command
         $data = json_decode($str); // decode the JSON into an array
         foreach ($data as $item) {
             $question = SurveyQuestion::find($item->question_id);
+            if ($question == null) {
+                $question = new SurveyQuestion;
+            }
+
             $question->order = $item->order;
             $question->enabled = true;
             if (isset($item->enabled)) {

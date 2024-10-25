@@ -144,7 +144,7 @@
             {"id": 1, "value": "Minder dan een jaar"},
             {"id": 2, "value": "1 tot 2 jaar"},
             {"id": 3, "value": "2 tot 3 jaar"},
-            {"id": 4, "value": "3 tot 4 jaar"}
+            {"id": 4, "value": "3 of langer"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
@@ -171,14 +171,74 @@
             "question_custom_input_title": "Herkomstland (ander)"
         }
     },
+
     {
-        "question_id": 36,
+        "question_id": 50,
         "order": 11,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
+        "question_title": "ethnic – eigen 1",
+        "question_content": "Je hebt aangegeven dat jouw familie ook nog een :questionOptions achtergrond heeft. In hoeverre ben je het eens met de volgende stelling?  <br> <br> Ik voel me verbonden met :questionOptions mensen. ",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee oneens"},
+            {"id": 2, "value": "Mee oneens"},
+            {"id": 3, "value": "Niet mee oneens, niet mee eens "},
+            {"id": 4, "value": "Mee eens "},
+            {"id": 5, "value": "Helemaal mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 51,
+        "order": 12,
+        "form_type": "select",
+        "question_type": "int",
+        "depends_on_question": 7,
+        "question_title": "ethnic – eigen 2",
+        "question_content": "Ik voel me sterk :questionOptions",
+
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee oneens"},
+            {"id": 2, "value": "Mee oneens"},
+            {"id": 3, "value": "Niet mee oneens, niet mee eens "},
+            {"id": 4, "value": "Mee eens "},
+            {"id": 5, "value": "Helemaal mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 52,
+        "order": 13,
+        "form_type": "select",
+        "question_type": "int",
+        "depends_on_question": 7,
+        "question_title": "ethnic – eigen 3",
+        "question_content": ":questionOptions zijn is belangrijk voor mij.",
+
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee oneens"},
+            {"id": 2, "value": "Mee oneens"},
+            {"id": 3, "value": "Niet mee oneens, niet mee eens "},
+            {"id": 4, "value": "Mee eens "},
+            {"id": 5, "value": "Helemaal mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 36,
+        "order": 14,
+        "form_type": "select",
+        "question_type": "int",
+        "depends_on_question": 7,
         "question_title": "Duale identiteit",
-        "question_content": "Je hebt aangegeven dat jouw familie ook nog een :questionOptions achtergrond heeft. Hoe zou je jezelf beschrijven?",
+        "question_content": "Hoe zou je jezelf beschrijven?",
         "question_answer_options": [
             {"id": 1, "value": "Alleen als Nederlands"},
             {"id": 2, "value": "Meer als Nederlands"},
@@ -192,7 +252,7 @@
     },
     {
         "question_id": 39,
-        "order": 12,
+        "order": 15,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -211,7 +271,7 @@
     },
     {
         "question_id": 40,
-        "order": 13,
+        "order": 16,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -268,7 +328,7 @@
     },
     {
         "question_id": 43,
-        "order": 16,
+        "order": 17,
         "depends_on_question": 7,
         "form_type": "display",
         "question_type": "instruction",
@@ -277,7 +337,7 @@
     },
     {
         "question_id": 10,
-        "order": 17,
+        "order": 18,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - basis",
@@ -290,7 +350,7 @@
     },
     {
         "question_id": 44,
-        "order": 18,
+        "order": 19,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - school",
@@ -303,11 +363,11 @@
     },
     {
         "question_id": 45,
-        "order": 19,
+        "order": 20,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - online",
-        "question_content": "Welke klasgenoten <b>volg je op sociale media</b>? ",
+        "question_content": "Met welke klasgenoten heb je regelmatig contact op <b> sociale media</b> (bijv. Instagram, Snapchat)?",
         "question_options": {
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
@@ -316,11 +376,11 @@
     },
     {
         "question_id": 46,
-        "order": 20,
+        "order": 21,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
-        "question_content": "Welke klasgenoten vind je <b>minder aardig</b>? ",
+        "question_content": "Met welke klasgenoten ga jij <b>liever niet om</b>? ",
         "question_options": {
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",

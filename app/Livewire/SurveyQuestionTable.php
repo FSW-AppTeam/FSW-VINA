@@ -130,10 +130,7 @@ class SurveyQuestionTable extends Component
     }
 
     //Get & assign selected category
-    public function initDataBulk()
-    {
-
-    }
+    public function initDataBulk() {}
 
     public function update()
     {
@@ -175,10 +172,7 @@ class SurveyQuestionTable extends Component
         $this->dispatch('hideModal');
     }
 
-    public function mount()
-    {
-
-    }
+    public function mount() {}
 
     public function hydrate()
     {
@@ -205,11 +199,16 @@ class SurveyQuestionTable extends Component
      **/
     public function search($query)
     {
-        $surveyquestion = new SurveyQuestion();
+        $surveyquestion = new SurveyQuestion;
 
         return empty($query) ? $surveyquestion :
             $surveyquestion->where(function ($q) use ($query) {
-                $q->where('name', 'like', '%'.$query.'%');
+                $q->where('order', 'like', '%'.$query.'%')
+                    ->orWhere('question_type', 'like', '%'.$query.'%')
+                    ->orWhere('question_title', 'like', '%'.$query.'%')
+                    ->orWhere('question_content', 'like', '%'.$query.'%')
+                    ->orWhere('question_answer_options', 'like', '%'.$query.'%')
+                    ->orWhere('question_options', 'like', '%'.$query.'%');
             });
     }
 
