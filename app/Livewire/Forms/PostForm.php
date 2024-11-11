@@ -46,6 +46,7 @@ class PostForm extends Form
         return SurveyStudent::where('survey_id', $this->getSurvey()->id)
             ->where('survey_students.id', '!=', $this->getStudent()->id)
             ->where('survey_answers.student_answer->country_id', '!=', 1)
+            ->where('survey_answers.student_answer->country_id', '!=', 7)
             ->where('survey_answers.student_answer->country_id', '!=', null)
             ->where('question_id', $questionId)
             ->join('survey_answers', 'survey_answers.student_id', '=', 'survey_students.id')
@@ -69,6 +70,7 @@ class PostForm extends Form
             ->whereIn('survey_students.id', $selectedStudents)
             ->where(function ($query) {
                 $query->where('survey_answers.student_answer->country_id', '=', 1)
+                    ->orWhere('survey_answers.student_answer->country_id', '=', 7)
                     ->orWhere('survey_answers.student_answer->country_id', '=', null);
             })
             ->where('question_id', $questionId)
