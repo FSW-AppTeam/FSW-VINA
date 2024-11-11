@@ -110,7 +110,7 @@
         "question_title": "Vrouwlijke verzorger",
         "question_content": "Wat is de eerste letter van de voornaam van jouw moeder (of vrouwelijke verzorger)?",
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "Je hebt geen antwoord gegeven. Weet je zeker dat je door wil gaan?",
             "validation_max": 1
         }
     },
@@ -499,7 +499,7 @@
         ],
         "question_options": {
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },
@@ -539,7 +539,7 @@
         "question_options": {
             "error_text": "Je hebt geen vrienden opgeven!",
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         },
         "default_disable_next": false

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Livewire\Partials\FormButtons;
 use Closure;
 use Livewire\Component;
 use Throwable;
@@ -40,7 +41,7 @@ class FormStepText extends Component
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-                        $this->dispatch('set-loading-false');
+                        $this->dispatch('set-loading-false')->component(FormButtons::class);
                         $fail($this->messages['input.required']);
                     }
                 },
@@ -48,7 +49,7 @@ class FormStepText extends Component
         ];
 
         if (isset($this->jsonQuestion->question_options['validation_max'])) {
-            $rules['input'] = 'max:'.$this->jsonQuestion->question_options['validation_max'];
+            $rules['input'][] = 'max:'.$this->jsonQuestion->question_options['validation_max'];
         }
 
         return $rules;
