@@ -30,11 +30,6 @@ class FormStep3 extends Component
 
     public function rules(): array
     {
-        $this->messages['age.required'] = $this->jsonQuestion->question_options['error_empty_text'];
-        $this->messages['age.integer'] = __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]);
-        $this->messages['age.min:1950'] = __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]);
-        $this->messages['age.max:2020'] = __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]);
-
         $rules = [
             'age' => [
                 function (string $attribute, mixed $value, Closure $fail) {
@@ -56,6 +51,16 @@ class FormStep3 extends Component
         }
 
         return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'age.required' => $this->jsonQuestion->question_options['error_empty_text'],
+            'age.integer' => __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]),
+            'age.min' => __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]),
+            'age.max' => __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]),
+        ];
     }
 
     public function save(): void
