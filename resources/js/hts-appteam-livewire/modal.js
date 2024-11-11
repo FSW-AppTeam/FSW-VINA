@@ -4,7 +4,7 @@ let modalsElement = document.getElementById('createModal');
 
 if(modalsElement) {
     modalsElement.addEventListener('hidden.bs.modal', () => {
-        Livewire.emit('resetModal');
+        Livewire.dispatch('resetModal');
     });
 
     Livewire.on('showBootstrapModal', () => {

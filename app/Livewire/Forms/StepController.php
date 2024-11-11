@@ -93,7 +93,7 @@ class StepController extends Component
     }
 
     /**
-     * @param $force
+     * @param  $force
      * @return void
      *
      * next is called from the FormButtons component.
@@ -142,9 +142,14 @@ class StepController extends Component
     public function stepDown(): void
     {
         $this->stepId--;
-        $question = SurveyQuestion::where('order', '>=', $this->stepId)
-            ->orderBy('order', 'asc')
-            ->where('enabled', true)->first();
+        $question = SurveyQuestion::where('order', '<=', $this->stepId)
+            ->orderBy('order', 'desc')
+            ->where('enabled', true)
+            ->whereHas('surveyAnswers', function ($q) {
+                $q->whereNotNull('student_answer')
+                    ->where('student_id', session('student-id'));
+            })->first();
+
         if ($question) {
             // In case of a question is disabled, skip it. We have to set the order as the new stpId
             $this->stepId = $question->order;
@@ -239,10 +244,12 @@ class StepController extends Component
                     ->where('student_id', session('student-id'))
                     ->first();
                 if ($savedAnswer->student_answer['country_id'] == 1 ||
+                    $savedAnswer->student_answer['country_id'] == 7 ||
                     $savedAnswer->student_answer['country_id'] == null) {
                     // Only Dutch, zo no questions about different backgrounds. Skip to next question
                     $this->stepId++;
                     $this->setQuestion();
+
                     return;
                 }
 

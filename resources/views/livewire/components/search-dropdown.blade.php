@@ -1,6 +1,6 @@
 <div class="container">
     <div class="select">
-        <input wire:model.live="search" id="searchCountry" type="text" placeholder="Zoek..." class="form-control">
+        <input wire:model.live="search" id="searchCountry" type="hidden" placeholder="Zoek..." class="form-control">
         <br>
         @if (count($searchResults) > 0)
             <select  wire:model.live="selectedCountry" required

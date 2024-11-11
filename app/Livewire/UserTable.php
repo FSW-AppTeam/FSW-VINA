@@ -59,7 +59,6 @@ class UserTable extends Component
             'name' => 'string',
             'role_id' => 'int',
             'email' => 'email',
-            'email_verified_at' => 'email',
             'solis_id' => 'string',
         ];
 
@@ -114,10 +113,7 @@ class UserTable extends Component
     }
 
     //Get & assign selected category
-    public function initDataBulk()
-    {
-
-    }
+    public function initDataBulk() {}
 
     public function update()
     {
@@ -159,10 +155,7 @@ class UserTable extends Component
         $this->dispatch('hideModal');
     }
 
-    public function mount()
-    {
-
-    }
+    public function mount() {}
 
     public function hydrate()
     {
@@ -189,7 +182,7 @@ class UserTable extends Component
      **/
     public function search($query)
     {
-        $user = new User();
+        $user = new User;
 
         return empty($query) ? $user :
             $user->where(function ($q) use ($query) {
