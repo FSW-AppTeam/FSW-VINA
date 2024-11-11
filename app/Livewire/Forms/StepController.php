@@ -244,6 +244,7 @@ class StepController extends Component
                     ->where('student_id', session('student-id'))
                     ->first();
                 if ($savedAnswer->student_answer['country_id'] == 1 ||
+                    $savedAnswer->student_answer['country_id'] == 7 ||
                     $savedAnswer->student_answer['country_id'] == null) {
                     // Only Dutch, zo no questions about different backgrounds. Skip to next question
                     $this->stepId++;
