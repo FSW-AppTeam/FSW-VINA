@@ -59,7 +59,6 @@ class UserTable extends Component
             'name' => 'string',
             'role_id' => 'int',
             'email' => 'email',
-            'email_verified_at' => 'email',
             'solis_id' => 'string',
         ];
 
