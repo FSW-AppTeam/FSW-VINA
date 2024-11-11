@@ -58,4 +58,10 @@ class SurveyQuestion extends Model
             ->orderBy('order', 'asc')
             ->where('enabled', true)->first();
     }
+
+    public function surveyAnswers()
+    {
+        return $this->hasMany(SurveyAnswer::class, 'question_id');
+    }
+
 }
