@@ -162,7 +162,8 @@
             {"id": 3, "value": "Marokko"},
             {"id": 4, "value": "Suriname"},
             {"id": 5, "value": "Voormalige Nederlandse Antillen"},
-            {"id": 6, "value": "Ander land, namelijk: "}
+            {"id": 6, "value": "Ander land, namelijk: "},
+            {"id": 7, "value": "Wil ik niet zeggen"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
