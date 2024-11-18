@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         Log::channel('cron_log')->info('cron is started');
-        $schedule->command('app:anonymize')->dailyAt('03:00');
+        $schedule->command('app:anonymize')->dailyAt('03:30');
     }
 
     /**
