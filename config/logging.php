@@ -52,6 +52,12 @@ return [
     */
 
     'channels' => [
+        'cron_log' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/cron.log'),
+            'level' => 'info',
+            // 'days' => 14,
+        ],
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
