@@ -16,10 +16,11 @@
             <ul>
                 <li><span>Ik ben geïnformeerd over het onderzoek.</span></li>
                 <li><span>Ik heb de schriftelijke informatie gelezen en begrepen.</span></li>
-                <li><span>Ik weet wie ik kan benaderen om benaderen om vragen te stellen over het onderzoek.</span></li>
-                <li><span>Ik heb de gelegenheid gekregen om over mijn deelname aan het onderzoek na te denken en mijn deelname is geheel vrijwillig.</span></li>
-                <li><span>Ik stem in met dat de antwoorden die ik geef op de vraag bij welke cultuur ik hoor, ook worden gebruikt om mijn klasgenoten naar mijn cultuur te vragen.</span></li>
-                <li><span>Ik stem in met het gebruik van mijn antwoorden voor wetenschappelijk onderzoek.</span></li>
+                <li><span>Ik heb vragen kunnen stellen en daar heb ik antwoord op gekregen. Ik heb genoeg tijd gehad om te bedenken of ik mee wilde doen en mijn deelname is geheel vrijwillig.</span></li>
+                <li><span>Ik weet dat er gegevens over mij worden verzameld.</span></li>
+                <li><span>Ik ga ermee akkoord dat de antwoorden die ik geef op de vraag bij welke cultuur ik hoor, ook worden gebruikt om mijn klasgenoten naar mijn cultuur te vragen.</span></li>
+                <li><span>Ik ga ermee akkoord dat die gegevens worden gebruikt wetenschappelijk onderzoek, zoals dat is uitgelegd in de informatiebrief.</span></li>
+                <li><span>Ik ga ermee akkoord dat andere onderzoekers mijn gegevens kunnen gebruiken voor hun eigen onderzoek op het gebied van (percepties van) culturele achtergrond en de effecten hiervan. Maar dan moeten mijn gegevens wel eerst zo veel mogelijk anoniem worden gemaakt.</span></li>
             </ul>
         </div>
     </div>
