@@ -180,7 +180,7 @@
         "question_type": "int",
         "depends_on_question": 7,
         "question_title": "ethnic – eigen 1",
-        "question_content": "Je hebt aangegeven dat jouw familie ook nog een :questionOptions achtergrond heeft. In hoeverre ben je het eens met de volgende stelling?  <br> <br> Ik voel me verbonden met :questionOptions mensen. ",
+        "question_content": "Je hebt aangegeven dat jouw familie ook nog een :questionOptions achtergrond heeft. Ben je het eens of oneens met de volgende stelling?  <br> <br> Ik hoor bij de  :questionOptions mensen. ",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee oneens"},
             {"id": 2, "value": "Mee oneens"},
@@ -219,8 +219,7 @@
         "question_type": "int",
         "depends_on_question": 7,
         "question_title": "ethnic – eigen 3",
-        "question_content": ":questionOptions zijn is belangrijk voor mij.",
-
+        "question_content": "Het is belangrijk voor mij dat ik :questionOptions ben. ",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee oneens"},
             {"id": 2, "value": "Mee oneens"},
@@ -510,8 +509,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "Immigratie houding – eigen",
-        "question_content": "In hoeverre ben je het eens met de volgende stelling? <br> <br> Er komen te veel immigranten naar Nederland ",
-
+        "question_content": "Ben je het eens of oneens met de volgende stelling?   <br> <br> Er komen te veel immigranten naar Nederland ",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee oneens"},
             {"id": 2, "value": "Mee oneens"},
