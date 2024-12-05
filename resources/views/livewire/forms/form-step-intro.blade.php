@@ -7,20 +7,20 @@
 
         <p class="lh-sm mt-3">Het invullen van deze vragenlijst duurt ongeveer 20 minuten.</p>
 
-        <p class="lh-sm">In de informatiebrief heb je kunnen lezen waar het onderzoek over gaat en dat jouw antwoorden uiteraard anoniem worden verwerkt en strikt vertrouwelijk worden behandeld. Bovendien mag je elke vraag onbeantwoord laten als je die liever niet invult. Je mag ook op elk moment stoppen met de vragenlijst.</p>
-        <p class="lh-sm">Voor vragen of opmerkingen over deze vragenlijst kunt je contact opnemen met het projectteam via zieelkaar@uu.nl.</p>
+        <p class="lh-sm">In de informatiebrief kon je lezen waar het onderzoek over gaat, dat jouw antwoorden anoniem zijn en op een beveiligde plek worden opgeslagen. Als je een vraag liever niet invult mag je deze overslaan. Je mag ook op elk moment stoppen met de vragenlijst.</p>
+        <p class="lh-sm">Heb je een vraag of opmerking over het onderzoek? Dan kun je de onderzoekers mailen: zieelkaar@uu.nl.</p>
 
-        <p class="mb-1"><b>Door hieronder op de pijl te klikken ga je akkoord met het volgende:</b></p>
+        <p class="mb-1"><b>Door hieronder op de pijl te klikken, ga je akkoord met het volgende:</b></p>
 
         <div class="px-2">
             <ul>
-                <li><span>Ik ben geïnformeerd over het onderzoek.</span></li>
+                <li><span>Ik heb informatie over het onderzoek gehad.</span></li>
                 <li><span>Ik heb de schriftelijke informatie gelezen en begrepen.</span></li>
-                <li><span>Ik heb vragen kunnen stellen en daar heb ik antwoord op gekregen. Ik heb genoeg tijd gehad om te bedenken of ik mee wilde doen en mijn deelname is geheel vrijwillig.</span></li>
+                <li><span>Ik heb vragen kunnen stellen en ik heb antwoord gekregen. Ik heb genoeg tijd gehad om te bedenken of ik mee wilde doen en mijn deelname is vrijwillig.</span></li>
                 <li><span>Ik weet dat er gegevens over mij worden verzameld.</span></li>
-                <li><span>Ik ga ermee akkoord dat de antwoorden die ik geef op de vraag bij welke cultuur ik hoor, ook worden gebruikt om mijn klasgenoten naar mijn cultuur te vragen.</span></li>
-                <li><span>Ik ga ermee akkoord dat die gegevens worden gebruikt wetenschappelijk onderzoek, zoals dat is uitgelegd in de informatiebrief.</span></li>
-                <li><span>Ik ga ermee akkoord dat andere onderzoekers mijn gegevens kunnen gebruiken voor hun eigen onderzoek op het gebied van (percepties van) culturele achtergrond en de effecten hiervan. Maar dan moeten mijn gegevens wel eerst zo veel mogelijk anoniem worden gemaakt.</span></li>
+                <li><span>Ik ga akkoord met dat mijn antwoord op de vraag bij welke cultuur ik hoor, wordt gebruikt in de vragenlijst van mijn klasgenoten.</span></li>
+                <li><span>Ik ga ermee akkoord dat die gegevens worden gebruikt wetenschappelijk onderzoek, zoals is uitgelegd in de informatiebrief.</span></li>
+                <li><span>Ik ga ermee akkoord dat andere onderzoekers mijn anonieme gegevens gebruiken voor hun eigen onderzoek naar (de kijk van mensen op) culturele achtergrond en wat de gevolgen hiervan zijn.</span></li>
             </ul>
         </div>
     </div>
