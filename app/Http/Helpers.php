@@ -154,7 +154,41 @@ if (! function_exists('echoArray')) {
     }
 }
 
-//if (! function_exists('compareVariables')) {
+if (! function_exists('langDatabase')) {
+    /**
+     * Translate the given message.
+     *
+     * @param  string|null  $key
+     * @param  array  $replace
+     * @param  string|null  $locale
+     * @return string|array|null
+     */
+    function langDatabase($key = null, $replace = [], $locale = null)
+    {
+        if (is_null($key)) {
+            return $key;
+        }
+
+        $locale = \App\Models\Setting::where('key', 'locale')->first()->value;
+        if ($locale) {
+            app()->setLocale($locale);
+        }
+        $locale = app()->getLocale();
+        $translation = \App\Models\Translation::where('slug', $key)->whereNotNull($locale)->first();
+
+        if ($translation) {
+            app('translator')->addLines([$key => $translation->$locale], $locale);
+        }
+        if (app('translator')->has($key)) {
+            return trans($key, $replace, $locale);
+        }
+
+        return $key;
+    }
+
+}
+
+// if (! function_exists('compareVariables')) {
 //    function compareVariables($value1, $operator, $value2): string
 //    {
 //        switch ($operator) {
@@ -174,4 +208,4 @@ if (! function_exists('echoArray')) {
 //                return false;
 //        }
 //    }
-//}
+// }

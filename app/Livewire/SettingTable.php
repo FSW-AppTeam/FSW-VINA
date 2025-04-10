@@ -5,13 +5,10 @@ namespace App\Livewire;
 use App\Models\Setting;
 use DateTime;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 
 class SettingTable extends Component
 {
