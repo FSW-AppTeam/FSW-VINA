@@ -35,6 +35,7 @@ export default defineConfig({
         }
     },
     server: {
+        cors: true,
         https: {
             key: fs.readFileSync('docker/certificates/apache/docker.dev.key'),
             cert: fs.readFileSync('docker/certificates/apache/docker.dev.crt'),

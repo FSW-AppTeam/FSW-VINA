@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/surveyquestiontable', function () {
         return view('livewire.surveyquestion.index');
-    });
+    })->name('surveyquestiontable');
 
     Route::get('/surveytable', function () {
         return view('livewire.survey.index');
@@ -69,6 +69,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/surveydetails/{survey}', function (App\Models\Survey $survey) {
         return view('livewire.survey.details', compact('survey'));
     })->name('surveydetails');
+
+    Route::get('/translationtable', function () {
+        return view('livewire.translation.index');
+    });
+
+    Route::get('/translationdetails/{translation}', function (App\Models\Translation $translation) {
+        return view('livewire.translation.details', compact('translation'));
+    })->name('translationdetails');
+
+    Route::get('/settingtable', function () {
+        return view('livewire.settings.index');
+    })->name('settingtable');
 
     Route::get('/surveystudenttable', function () {
         return view('livewire.surveystudent.index');
