@@ -43,6 +43,144 @@ class TranslationsTableSeeder extends Seeder
                 'nl' => '       <span style="text-decoration: underline">Let op!</span> Je moet je naam invullen zodat je                 klasgenoten ook vragen over jou kunnen beantwoorden. Je naam wordt na afloop van dit onderzoek verwijderd.',
                 'en' => 'step_two_note',
             ),
+            4 => 
+            array (
+                'slug' => 'nav.signed_in_as',
+                'nl' => 'signed_in_as',
+                'en' => 'signed_in_as',
+            ),
+            5 => 
+            array (
+                'slug' => 'nav.role_description',
+                'nl' => 'role_description',
+                'en' => 'role_description',
+            ),
+            6 => 
+            array (
+                'slug' => 'user.admin',
+                'nl' => 'admin',
+                'en' => 'admin',
+            ),
+            7 => 
+            array (
+                'slug' => 'nav.login',
+                'nl' => 'login',
+                'en' => 'login',
+            ),
+            8 => 
+            array (
+                'slug' => 'nav.surveyanswerstable',
+                'nl' => 'Antwoorden',
+                'en' => 'Responses',
+            ),
+            9 => 
+            array (
+                'slug' => 'nav.usertable',
+                'nl' => 'Gebruikers',
+                'en' => 'Users',
+            ),
+            10 => 
+            array (
+                'slug' => 'nav.roletable',
+                'nl' => 'Rollen',
+                'en' => 'Roles',
+            ),
+            11 => 
+            array (
+                'slug' => 'nav.surveyquestiontable',
+                'nl' => 'Vragen',
+                'en' => 'Questions',
+            ),
+            12 => 
+            array (
+                'slug' => 'nav.surveytable',
+                'nl' => 'Afnames',
+                'en' => 'Surveys',
+            ),
+            13 => 
+            array (
+                'slug' => 'nav.surveystudenttable',
+                'nl' => 'Participanten',
+                'en' => 'Participants',
+            ),
+            14 => 
+            array (
+                'slug' => 'nav.translationtable',
+                'nl' => 'Vertalingen',
+                'en' => 'Translations',
+            ),
+            15 => 
+            array (
+                'slug' => 'nav.settingtable',
+                'nl' => 'Instellingen',
+                'en' => 'Settings',
+            ),
+            16 => 
+            array (
+                'slug' => 'nav.install_questions',
+                'nl' => 'Installeer vragen',
+                'en' => 'Install questions',
+            ),
+            17 => 
+            array (
+                'slug' => 'nav.csv-export-list',
+                'nl' => 'csv-export-list',
+                'en' => 'csv-export-list',
+            ),
+            18 => 
+            array (
+                'slug' => 'nav.permissions',
+                'nl' => 'permissions',
+                'en' => 'permissions',
+            ),
+            19 => 
+            array (
+                'slug' => 'nav.signout',
+                'nl' => 'signout',
+                'en' => 'signout',
+            ),
+            20 => 
+            array (
+                'slug' => 'lang.en',
+                'nl' => 'en',
+                'en' => 'en',
+            ),
+            21 => 
+            array (
+                'slug' => 'lang.nl',
+                'nl' => 'nl',
+                'en' => 'nl',
+            ),
+            22 => 
+            array (
+                'slug' => 'app.download',
+                'nl' => 'download',
+                'en' => 'download',
+            ),
+            23 => 
+            array (
+                'slug' => 'app.Dashboard',
+                'nl' => 'Dashboard',
+                'en' => 'Dashboard',
+            ),
+            24 => 
+            array (
+                'slug' => 'app.You are logged in!',
+                'nl' => 'Je bent ingelogd!',
+                'en' => 'You are logged in!',
+            ),
+            25 => 
+            array (
+                'slug' => 'app.install_question_set',
+                'nl' => 'Installeer vragen set',
+                'en' => 'Install question set',
+            ),
+            26 => 
+            array (
+                'slug' => 'app.install_question_set_instruction',
+                'nl' => 'Je kunt alleen een vragenset installeren als er geen survey meer in het systeem staan. Deze moet je eerst verwijderen. Let op! als je surveys verwijderd verwijder je ook alle participant data.',
+                'en' => 'You can only install a question set when all surveys are removed. So remove them before you install a question set. When you remove a survey, all participants data will be removed as well.',
+            ),
         ));
         
         

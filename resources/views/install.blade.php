@@ -16,7 +16,7 @@
                                                     aria-label="Default select example"
                                                     name="questionsSet"
                                                     required>
-                                                <option value="" disabled selected>@langDatabase({{'app.select_questions_set'}})</option>
+                                                <option value="" disabled selected>@langDatabase('app.select_questions_set')</option>
                                                 @foreach($options as $key => $row)
                                                     <option value="{{$key}}"  {{old('questionsSet')==$key?'selected="selected"':''}}> {{$row}}</option>
                                                 @endforeach
@@ -26,7 +26,7 @@
                                     <div class="row mb-0">
                                         <div class="col-md-6 offset-md-4">
                                             <button type="submit" class="btn btn-outline-info btn-sm">
-                                                {{ langDatabase('app.install_questions_set') }}
+                                                {{ langDatabase('app.install_question_set') }}
                                             </button>
                                         </div>
                                     </div>

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header"> Beheer {{ __('download') }}</div>
+                    <div class="card-header"> Beheer {{ langDatabase('app.download') }}</div>
                     @foreach($files as $file)
                         <div class="row justify-content-center">
                             <div class="col-md-6">
