@@ -5,17 +5,17 @@
         </div>
         <div class="text-end">
             @if(!Auth::guest())
-                <p class="mb-sm-2">{{__('nav.signed_in_as')}} <strong>{{Auth::user()->name}}</strong></p>
+                <p class="mb-sm-2">{{langDatabase('nav.signed_in_as')}} <strong>{{Auth::user()->name}}</strong></p>
                 <small class="text-muted">
-                    {{__('nav.role_description')}} <em>{{ __('roles.' . Auth::user()->role->name) }}</em>
+                    {{langDatabase('nav.role_description')}} <em>{{ langDatabase('roles.' . Auth::user()->role->name) }}</em>
                     @if(Auth::user()->admin)
-                        <span class="badge rounded-pill bg-primary"><i class='fas fa-user-ninja'></i> {{__('user.admin')}}</span>
+                        <span class="badge rounded-pill bg-primary"><i class='fas fa-user-ninja'></i> {{langDatabase('user.admin')}}</span>
                     @endif
                 </small>
             @endif
             @if(Auth::guest())
                 <a class="nav-link" href="{{ route('auth.oidc.login') }}">
-                    <i class="fas fa-sign-in-alt"></i> {{__('nav.login')}}
+                    <i class="fas fa-sign-in-alt"></i> {{langDatabase('nav.login')}}
                 </a>
             @endif
         </div>
@@ -62,7 +62,6 @@
     @endif
     @if(Auth::guest())
         <div class="px-4">
-{{--            Element is nodig om de naam van de applicatie te centreren            --}}
         </div>
     @endif
     <a class="navbar-brand text-light px-4" href="#">FSW-Dualnets</a>
@@ -79,13 +78,13 @@
                 <menu class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownAvatar">
                     <li>
                         <a class="dropdown-item" href="{{ route('auth.oidc.permissions') }}">
-                            <i class="fas fa-list-ul"></i> {{__('nav.permissions')}}
+                            <i class="fas fa-list-ul"></i> {{langDatabase('nav.permissions')}}
                         </a>
                     </li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('auth.logout') }}">
-                            <i class="fas fa-sign-out-alt"></i> {{__('nav.signout')}}
+                            <i class="fas fa-sign-out-alt"></i> {{langDatabase('nav.signout')}}
                         </a>
                     </li>
                 </menu>
@@ -103,12 +102,12 @@
             <menu class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLanguage">
                 <li>
                     <a class="dropdown-item @if(App::getLocale() == 'en') active @endif" href="javascript:addOrUpdateUrlParam('lang', 'en');">
-                        <img src="/build/images/flags/gb.svg" width="16" alt="en"> {{__('lang.en')}}
+                        <img src="/build/images/flags/gb.svg" width="16" alt="en"> {{langDatabase('lang.en')}}
                     </a>
                 </li>
                 <li>
                     <a class="dropdown-item @if(App::getLocale() == 'nl') active @endif" href="javascript:addOrUpdateUrlParam('lang', 'nl');">
-                        <img src="/build/images/flags/nl.svg" width="16" alt="nl"> {{__('lang.nl')}}
+                        <img src="/build/images/flags/nl.svg" width="16" alt="nl"> {{langDatabase('lang.nl')}}
                     </a>
                 </li>
             </menu>
