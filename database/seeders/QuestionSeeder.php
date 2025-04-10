@@ -10,12 +10,16 @@ class QuestionSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run($questionsSet = 'default'): void
     {
         $str = file_get_contents(base_path('database/questions.json'));
+        if ($questionsSet == 'en') {
+            $str = file_get_contents(base_path('database/en_questions.json'));
+        }
+
         $data = json_decode($str); // decode the JSON into an array
         foreach ($data as $item) {
-            $question = new SurveyQuestion();
+            $question = new SurveyQuestion;
             $question->id = $item->question_id;
             $question->order = $item->order;
             if (isset($item->enabled)) {

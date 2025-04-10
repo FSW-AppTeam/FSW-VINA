@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Livewire\Students;
 use App\Models\Role;
-use App\Models\SurveyStudent;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(SurveySeeder::class);
         $this->call(QuestionSeeder::class);
-        //For convenience:
+        // For convenience:
 
         Role::create([
             'name' => 'user',
@@ -49,5 +46,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'tom@test.nl',
             'solis_id' => 'F131116',
         ]);
+        $this->call(TranslationsTableSeeder::class);
     }
 }
