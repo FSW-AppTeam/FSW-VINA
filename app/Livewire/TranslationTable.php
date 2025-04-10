@@ -242,7 +242,6 @@ class TranslationTable extends Component
             '--force' => true,
         ]);
 
-        Artisan::call('config:push');
         $this->refresh(langDatabase('translation.messages_extract_success'));
     }
 
