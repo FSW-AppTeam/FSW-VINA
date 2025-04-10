@@ -43,14 +43,17 @@
                     </li>
                     <li class="nav-item">
                         @if(Auth::user()->isAdmin())
-                            <a class="nav-link" href="/surveyanswerstable">{{__('nav.surveyanswerstable')}}</a>
-                            <a class="nav-link" href="/usertable">{{__('nav.usertable')}}</a>
-                            <a class="nav-link" href="/roletable">{{__('nav.roletable')}}</a>
+                            <a class="nav-link" href="/surveyanswerstable">{{langDatabase('nav.surveyanswerstable')}}</a>
+                            <a class="nav-link" href="/usertable">{{langDatabase('nav.usertable')}}</a>
+                            <a class="nav-link" href="/roletable">{{langDatabase('nav.roletable')}}</a>
                         @endif
-                        <a class="nav-link" href="/surveyquestiontable">{{__('nav.surveyquestiontable')}}</a>
-                        <a class="nav-link" href="/surveytable">{{__('nav.surveytable')}}</a>
-                        <a class="nav-link" href="/surveystudenttable">{{__('nav.surveystudenttable')}}</a>
-                        <a class="nav-link" href="/csv-export-list">{{__('nav.csv-export-list')}}</a>
+                        <a class="nav-link" href="/surveyquestiontable">{{langDatabase('nav.surveyquestiontable')}}</a>
+                        <a class="nav-link" href="/surveytable">{{langDatabase('nav.surveytable')}}</a>
+                        <a class="nav-link" href="/surveystudenttable">{{langDatabase('nav.surveystudenttable')}}</a>
+                        <a class="nav-link" href="/translationtable">{{langDatabase('nav.translationtable')}}</a>
+                        <a class="nav-link" href="/settingtable">{{langDatabase('nav.settingtable')}}</a>
+                        <a class="nav-link" href="/install-questions">{{langDatabase('nav.install_questions')}}</a>
+                        <a class="nav-link" href="/csv-export-list">{{langDatabase('nav.csv-export-list')}}</a>
                     </li>
 
                 </ul>
