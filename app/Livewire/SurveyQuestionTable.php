@@ -14,7 +14,7 @@ class SurveyQuestionTable extends Component
 {
     use AuthorizesRequests, WithPagination;
 
-    //DataTable props
+    // DataTable props
     public ?string $query = null;
 
     public ?string $resultCount;
@@ -27,7 +27,7 @@ class SurveyQuestionTable extends Component
 
     public ?array $selected = [];
 
-    //Create, Edit, Delete, View SurveyQuestion props
+    // Create, Edit, Delete, View SurveyQuestion props
     public ?int $order = null;
 
     public ?string $question_type = null;
@@ -48,12 +48,12 @@ class SurveyQuestionTable extends Component
 
     public ?SurveyQuestion $surveyquestion = null;
 
-    //Multiple Selection props
+    // Multiple Selection props
     public array $selectedSurveyQuestions = [];
 
     public bool $bulkDisabled = true;
 
-    //Update & Store Rules
+    // Update & Store Rules
     protected array $rules =
         [
             'order' => 'int',
@@ -72,14 +72,14 @@ class SurveyQuestionTable extends Component
     public function render()
     {
         $paginatedSurveyQuestions = $this->search($this->query)->orderBy($this->orderBy, $this->orderAsc)->paginate($this->perPage);
-        //results count available with search only
+        // results count available with search only
         $this->resultCount = empty($this->query) ? null :
             $paginatedSurveyQuestions->count().' '.Str::plural('surveyquestion', $paginatedSurveyQuestions->count()).' found';
 
         return view('livewire.surveyquestion.components.table', compact('paginatedSurveyQuestions'));
     }
 
-    //Toggle the $bulkDisabled on or off based on the count of selected posts
+    // Toggle the $bulkDisabled on or off based on the count of selected posts
     public function updatedselectedSurveyQuestions()
     {
         $this->bulkDisabled = count($this->selectedSurveyQuestions) < 2;
@@ -100,7 +100,7 @@ class SurveyQuestionTable extends Component
         $this->refresh('SurveyQuestion successfully created!');
     }
 
-    //Get & assign selected post props
+    // Get & assign selected post props
     public function initData(SurveyQuestion $surveyquestion)
     {
         // assign values to public props
@@ -129,7 +129,7 @@ class SurveyQuestionTable extends Component
         $this->selectedSurveyQuestion = [];
     }
 
-    //Get & assign selected category
+    // Get & assign selected category
     public function initDataBulk() {}
 
     public function update()
@@ -139,7 +139,7 @@ class SurveyQuestionTable extends Component
         $this->refresh('SurveyQuestion successfully updated!');
     }
 
-    //Bulk update
+    // Bulk update
     public function updateBulk()
     {
         $this->validate();
@@ -168,7 +168,7 @@ class SurveyQuestionTable extends Component
         session()->flash('message', $message);
         $this->clearFields();
 
-        //Close the active modal
+        // Close the active modal
         $this->dispatch('hideModal');
     }
 

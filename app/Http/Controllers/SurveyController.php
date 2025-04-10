@@ -7,13 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class SurveyController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function checkSurvey($surveyId)
     {
-        $surveyExport = new SurveyExport();
+        $surveyExport = new SurveyExport;
         try {
             $surveyExport->checkExportCsv($surveyId);
         } catch (\Exception $exception) {
