@@ -29,7 +29,7 @@
         "question_content": "What is your first name?",
         "question_answer_options": "",
         "question_options": {
-            "extra_text": "Je achternaam is niet nodig. Als iemand in je klas dezelfde voornaam heeft als jij, dan kun je de eerste letter van je achternaam toevoegen.\nLet op! Je moet je naam invullen zodat je klasgenoten ook vragen over jou kunnen beantwoorden. Je naam wordt na afloop van dit onderzoek verwijderd."
+            "extra_text": "Your last name is not required. If someone in your network has the same first name as you, you can add the first letter of your last name."
         }
     },
     {
@@ -42,11 +42,11 @@
         "question_answer_options": [
             {"id": 1, "value": "Male"},
             {"id": 2, "value": "Female"},
-            {"id": 3, "value": "Non-binair"},
-            {"id": 4, "value": "Orhter"}
+            {"id": 3, "value": "Non-binary"},
+            {"id": 4, "value": "Other"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "You have not selected an answer. Are you sure you want to continue?"
         }
     },
     {
@@ -63,7 +63,7 @@
             {"id": 4, "value": "3 or more"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "You have not selected an answer. Are you sure you want to continue?"
         }
     },
     {
@@ -88,7 +88,7 @@
             {"id": 12, "value": "December"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "You have not selected an answer. Are you sure you want to continue?"
         }
     },
     {
@@ -107,7 +107,7 @@
             {"id": 6, "value": "Level 6"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "You have not selected an answer. Are you sure you want to continue?"
         }
     },
     {
@@ -121,10 +121,10 @@
             {"id": 1, "value": "Less than a year"},
             {"id": 2, "value": "1 to 2 years"},
             {"id": 3, "value": "2 to 3 years"},
-            {"id": 4, "value": "3 years or more"}
+            {"id": 4, "value": "3 years or longer"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "You have not selected an answer. Are you sure you want to continue?"
         }
     },
     {
@@ -136,8 +136,8 @@
         "question_content": "Who is your <b>best</b> friend?",
         "question_options": {
             "extra_text": "You can tick as many as you want.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "You didn't select anyone, you can select as many people as you want. Are you sure you want to continue?",
+            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?"
         }
     },
     {
@@ -148,9 +148,9 @@
         "question_title": "Dislike",
         "question_content": "Who do you prefer <b>not</b> to interact with?",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+            "extra_text": "You can tick as many as you want.",
+            "error_empty_text": "You didn't select anyone, you can select as many people as you want. Are you sure you want to continue?",
+            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?"
         }
     },
     {
@@ -162,8 +162,8 @@
         "question_content": "Who is most <b>popular</b>? ",
         "question_options": {
             "extra_text": "You can tick as many as you want.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "You didn't select anyone, you can select as many people as you want. Are you sure you want to continue?",
+            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?"
         }
     },
     {
@@ -175,9 +175,9 @@
         "question_content": "Who are the friends with the following person?",
         "question_options": {
             "extra_text": "You can tick as many as you want.",
-            "error_text": "Je hebt geen vrienden opgeven!",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+            "error_text": "You did not indicate any friends!",
+            "error_empty_text": "You didn't select anyone, you can select as many people as you want. Are you sure you want to continue?",
+            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?"
         }
     },
     {
@@ -195,9 +195,9 @@
             {"id": 5, "value": "Not at all"}
         ],
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+            "extra_text": "You can tick as many as you want.",
+            "error_empty_text": "You have not selected an answer. Are you sure you want to continue?",
+            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?"
         }
     },
 
@@ -207,9 +207,9 @@
         "form_type": "display",
         "question_type": "text",
         "question_title": "End",
-        "question_content": "Dit waren alle vragen over jouw klasgenoten. Hierna volgt het laatste gedeelte van de vragenlijst. ",
+        "question_content": "This is the end of the survey.",
         "question_options": {
-            "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!"
+            "extra_text": "Thank you for your input!"
         }
     }
 ]
