@@ -46,11 +46,6 @@ class Survey extends Model
         'qualtrics_param',
     ];
 
-    public function surveyAnswers()
-    {
-        return $this->hasMany(SurveyAnswer::class, 'survey_id');
-    }
-
     public function surveyStudents()
     {
         return $this->hasMany(SurveyStudent::class);

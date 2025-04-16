@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\InstallQuestionsController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,7 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/surveyanswerstable', function () {
             return view('livewire.surveyanswers.index');
         });
-        Route::get('/surveyanswersdetails/{surveyanswers}', function (App\Models\SurveyAnswer $SurveyAnswer) {
+        Route::get('/surveyanswersdetails/{surveyanswers}', function (App\Models\SurveyAnswer $surveyAnswer) {
             return view('livewire.surveyanswers.details', compact('surveyAnswer'));
         })->name('surveyanswersdetails');
 
@@ -61,7 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/surveyquestiontable', function () {
         return view('livewire.surveyquestion.index');
-    });
+    })->name('surveyquestiontable');
 
     Route::get('/surveytable', function () {
         return view('livewire.survey.index');
@@ -70,13 +72,28 @@ Route::group(['middleware' => ['auth']], function () {
         return view('livewire.survey.details', compact('survey'));
     })->name('surveydetails');
 
+    Route::get('/translationtable', function () {
+        return view('livewire.translation.index');
+    });
+
+    Route::get('/translationdetails/{translation}', function (App\Models\Translation $translation) {
+        return view('livewire.translation.details', compact('translation'));
+    })->name('translationdetails');
+
+    Route::get('/settingtable', function () {
+        return view('livewire.settings.index');
+    })->name('settingtable');
+
     Route::get('/surveystudenttable', function () {
         return view('livewire.surveystudent.index');
     });
     Route::get('/surveystudentdetails/{surveystudent}', function (App\Models\SurveyStudent $surveystudent) {
         return view('livewire.surveystudent.details', compact('surveystudent'));
     })->name('surveystudentdetails');
-    Route::get('/csv-export', [App\Http\Controllers\SurveyController::class, 'checkSurvey'])->name('survey-check');
-    Route::get('/csv-export-list', [App\Http\Controllers\SurveyController::class, 'index'])->name('index');
+
+    Route::get('/install-questions', [InstallQuestionsController::class, 'index'])->name('index');
+    Route::post('/install', [InstallQuestionsController::class, 'install'])->name('install');
+    Route::get('/csv-export', [SurveyController::class, 'checkSurvey'])->name('survey-check');
+    Route::get('/csv-export-list', [SurveyController::class, 'index'])->name('index');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
