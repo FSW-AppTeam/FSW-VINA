@@ -124,6 +124,9 @@ class SurveyTable extends Component
 
         if (! empty($this->survey)) {
             DB::transaction(function () {
+                foreach ($this->survey->surveyStudents as $student){
+                    $student->delete();
+                }
                 $this->survey->delete();
             });
         }

@@ -55,6 +55,16 @@ For the database setup run `php artisan migrate`
 
 If you want to use survey demo data run `php artisan migrate --seed`
 
+## Install questionaire
+
+The application has two questionnaires: Default (dutch) and English. You can install the questionnaire via the 
+url: {your url}/install-questions. Only one questionnaire can be installed at a time. After installing the 
+questionnaire you can switch, but you have to remove all existing surveys, participant and results before you switch.
+
+For the questionnaire to work properly you need to define a setting on the page {your url}/settingtable. Add a new 
+setting with key: 'locale' and value: 'nl' or 'en', depending on the questionnaire you chose.
+
+
 #### Question types (form_type)
 
 - `text` - Open text question
