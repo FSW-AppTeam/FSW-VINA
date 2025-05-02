@@ -33,29 +33,57 @@
         </div>
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <h3 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        @if(Auth::user()->isAdmin())
-                            <a class="nav-link" href="/surveyanswerstable">{{langDatabase('nav.surveyanswerstable')}}</a>
-                            <a class="nav-link" href="/usertable">{{langDatabase('nav.usertable')}}</a>
-                            <a class="nav-link" href="/roletable">{{langDatabase('nav.roletable')}}</a>
-                        @endif
-                        <a class="nav-link" href="/surveyquestiontable">{{langDatabase('nav.surveyquestiontable')}}</a>
-                        <a class="nav-link" href="/surveytable">{{langDatabase('nav.surveytable')}}</a>
-                        <a class="nav-link" href="/surveystudenttable">{{langDatabase('nav.surveystudenttable')}}</a>
-                        <a class="nav-link" href="/translationtable">{{langDatabase('nav.translationtable')}}</a>
-                        <a class="nav-link" href="/settingtable">{{langDatabase('nav.settingtable')}}</a>
-                        <a class="nav-link" href="/install-questions">{{langDatabase('nav.install_questions')}}</a>
-                        <a class="nav-link" href="/csv-export-list">{{langDatabase('nav.csv-export-list')}}</a>
+                    @ray( Route::is('surveyanswerstable'))
+                    <li class="nav-item h3 {{ Route::is('home') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" aria-current="page" href="#">Home</a>
                     </li>
 
+                    @if(Auth::user()->isAdmin())
+                        <li class="nav-item  {{ Route::is('surveyanswerstable') ? 'active-menu-item' : '' }} ps-5 h4">
+                            <a class="nav-link" href="/surveyanswerstable">{{langDatabase('nav.surveyanswerstable')}}</a>
+                        </li>
+
+                        <li class="nav-item h4 {{ Route::is('usertable') ? 'active-menu-item' : '' }} ps-5">
+                            <a class="nav-link" href="/usertable">{{langDatabase('nav.usertable')}}</a>
+                        </li>
+
+                        <li class="nav-item {{ Route::is('roletable') ? 'active-menu-item' : '' }} h4 ps-5">
+                            <a class="nav-link" href="/roletable">{{langDatabase('nav.roletable')}}</a>
+                        </li>
+                    @endif
+
+                    <li class="nav-item h4 {{ Route::is('surveyquestiontable') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" href="/surveyquestiontable">{{langDatabase('nav.surveyquestiontable')}}</a>
+                    </li>
+
+                    <li class="nav-item active h4 {{ Route::is('surveytable') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" href="/surveytable">{{langDatabase('nav.surveytable')}}</a>
+                    </li>
+
+                    <li class="nav-item h4 {{ Route::is('surveystudenttable') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" href="/surveystudenttable">{{langDatabase('nav.surveystudenttable')}}</a>
+                    </li>
+
+                    <li class="nav-item h4 {{ Route::is('translationtable') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" href="/translationtable">{{langDatabase('nav.translationtable')}}</a>
+                    </li>
+
+                    <li class="nav-item h4 {{ Route::is('settingtable') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" href="/settingtable">{{langDatabase('nav.settingtable')}}</a>
+                    </li>
+
+                    <li class="nav-item h4 {{ Route::is('install-questions') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" href="/install-questions">{{langDatabase('nav.install_questions')}}</a>
+                    </li>
+
+                    <li class="nav-item h4 {{ Route::is('csv-export-list') ? 'active-menu-item' : '' }} ps-5">
+                        <a class="nav-link" href="/csv-export-list">{{langDatabase('nav.csv-export-list')}}</a>
+                    </li>
                 </ul>
             </div>
         </div>

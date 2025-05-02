@@ -35,6 +35,8 @@
 <body>
     @include('layouts.nav')
     <main class="py-5">
+
+        @include('layouts.messages')
         @yield('content')
     </main>
     @livewireScripts

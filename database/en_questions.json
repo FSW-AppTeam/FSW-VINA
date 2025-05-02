@@ -25,7 +25,7 @@
         "question_id": 2,
         "order": 2,
         "question_type": "text",
-        "question_title": "Frst name",
+        "question_title": "First name",
         "question_content": "What is your first name?",
         "question_answer_options": "",
         "question_options": {

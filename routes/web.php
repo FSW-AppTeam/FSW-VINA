@@ -37,14 +37,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::middleware(['can:administrate'])->group(function () {
         Route::get('/roletable', function () {
             return view('livewire.role.index');
-        });
+        })->name('roletable');
         Route::get('/roledetails/{role}', function (App\Models\Role $role) {
             return view('livewire.role.details', compact('role'));
         })->name('roledetails');
 
         Route::get('/surveyanswerstable', function () {
             return view('livewire.surveyanswers.index');
-        });
+        })->name('surveyanswerstable');
+
         Route::get('/surveyanswersdetails/{surveyanswers}', function (App\Models\SurveyAnswer $surveyAnswer) {
             return view('livewire.surveyanswers.details', compact('surveyAnswer'));
         })->name('surveyanswersdetails');
@@ -55,7 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/usertable', function () {
             return view('livewire.user.index');
-        });
+        })->name('usertable');
+
         Route::get('/userdetails/{user}', function (App\Models\User $user) {
             return view('livewire.user.details', compact('user'));
         })->name('userdetails');
@@ -67,14 +69,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/surveytable', function () {
         return view('livewire.survey.index');
-    });
+    })->name('surveytable');
     Route::get('/surveydetails/{survey}', function (App\Models\Survey $survey) {
         return view('livewire.survey.details', compact('survey'));
     })->name('surveydetails');
 
     Route::get('/translationtable', function () {
         return view('livewire.translation.index');
-    });
+    })->name('translationtable');
 
     Route::get('/translationdetails/{translation}', function (App\Models\Translation $translation) {
         return view('livewire.translation.details', compact('translation'));
@@ -86,14 +88,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/surveystudenttable', function () {
         return view('livewire.surveystudent.index');
-    });
+    })->name('surveystudenttable');
     Route::get('/surveystudentdetails/{surveystudent}', function (App\Models\SurveyStudent $surveystudent) {
         return view('livewire.surveystudent.details', compact('surveystudent'));
     })->name('surveystudentdetails');
 
-    Route::get('/install-questions', [InstallQuestionsController::class, 'index'])->name('index');
+    Route::get('/install-questions', [InstallQuestionsController::class, 'index'])->name('install-questions');
     Route::post('/install', [InstallQuestionsController::class, 'install'])->name('install');
     Route::get('/csv-export', [SurveyController::class, 'checkSurvey'])->name('survey-check');
-    Route::get('/csv-export-list', [SurveyController::class, 'index'])->name('index');
+    Route::get('/csv-export-list', [SurveyController::class, 'index'])->name('csv-export-list');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
