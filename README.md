@@ -55,11 +55,11 @@ You can see all dusk tests on the url: http://localhost:7900/  (password: `secre
 ## Running the application
 ### Run Survey Application:
 Frontend is build with LiveWire to run the application you have to run the following commands:
-Run `composer install` or `composer update` to install dependencies
-Run `npm install`
-To build the css and js run `npm build`
-For the database setup run `php artisan migrate`
-If you want to use survey demo data run `php artisan migrate --seed`
+- Run `composer install` or `composer update` to install dependencies
+- Run `npm install`
+- To build the css and js run `npm build`
+- For the database setup run `php artisan migrate`
+- If you want to use survey demo data run `php artisan migrate --seed`
 
 ### Install questionaire
 The application has two questionnaires: Default (dutch) and English. You can install the questionnaire via the 
