@@ -16,20 +16,29 @@ class ChangeOrder extends Component
     protected $listeners = [
     ];
 
-    public function moveUp($id)
+    public function moveUp($data)
     {
-        dd($model);
+        $newOrder = $this->order - 1;
+        if (! $this->checkDependency($newOrder)) {
+            $this->dispatch('error', 'Cannot move question up due to dependency constraints.');
 
-        $newOrder = $this->order + 1;
-        $this->switchOrder($model, $newOrder);
+            return;
+        }
+        $this->switchOrder($newOrder);
         $this->dispatch('created', 'Order updated successfully!');
 
     }
 
     public function moveDown($id)
     {
-        $newOrder = $this->order - 1;
-        $this->switchOrder($model, $newOrder);
+        $newOrder = $this->order + 1;
+
+        if (! $this->checkDependency($newOrder)) {
+            $this->dispatch('error', 'Cannot move question up due to dependency constraints.');
+
+            return;
+        }
+        $this->switchOrder($newOrder);
         $this->dispatch('created', 'Order updated successfully!');
     }
 
@@ -45,14 +54,35 @@ class ChangeOrder extends Component
         return view('livewire.components.change-order');
     }
 
+    public function checkDependency($newOrder)
+    {
+        $replaceModel = SurveyQuestion::where('order', $newOrder);
+        if ($this->model->depends_on_question == null) {
+            return true;
+        }
 
-    public function switchOrder($model, $newOrder)
+        if (! $replaceModel->exists()) {
+            return true;
+        }
+
+        if ($this->model->depends_on_question != $replaceModel->first()->id) {
+            return false;
+        }
+
+        if ($this->model->id != $replaceModel->first()->depends_on_question) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function switchOrder($newOrder)
     {
         $replaceModel = SurveyQuestion::where('order', $newOrder);
         if ($replaceModel->exists()) {
-            $replaceModel->first()->update(['order' => $model->order]);
+            $replaceModel->first()->update(['order' => $this->model->order]);
         }
-        $model->order = $newOrder;
-        $model->save();
+        $this->model->order = $newOrder;
+        $this->model->save();
     }
 }

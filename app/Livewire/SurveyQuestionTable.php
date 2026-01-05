@@ -7,6 +7,7 @@ use DateTime;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,9 +20,9 @@ class SurveyQuestionTable extends Component
 
     public ?string $resultCount;
 
-    public string $orderBy = 'created_at';
+    public string $orderBy = 'order';
 
-    public string $orderAsc = 'desc';
+    public string $orderAsc = 'asc';
 
     public int $perPage = 15;
 
@@ -86,7 +87,7 @@ class SurveyQuestionTable extends Component
         $this->surveyquestion = null;
     }
 
-    public function questionAnswerOptions(): Attribute
+    public function questionAnswerOptions()
     {
         $this->question_answer_options = json_decode($this->question_answer_options, true);
     }
@@ -163,6 +164,8 @@ class SurveyQuestionTable extends Component
         $this->refresh('Successfully deleted!');
     }
 
+
+    #[On('created')]
     public function refresh($message)
     {
         session()->flash('message', $message);
@@ -222,4 +225,6 @@ class SurveyQuestionTable extends Component
         $model = SurveyQuestion::find($row['id']);
         $model->update(['enabled' => ! $model->enabled]);
     }
+
+
 }

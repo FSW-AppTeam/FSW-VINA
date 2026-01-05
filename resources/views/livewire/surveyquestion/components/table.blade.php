@@ -71,9 +71,11 @@
             <tr>
                 <th></th>
                 <th>id</th>
-                <th>order</th><th>question_type</th><th>question_title</th><th>question_content</th><th>question_answer_options</th>
+                <th>order</th>
+                <th>question_type</th><th>question_title</th><th>question_content</th><th>question_answer_options</th>
                 <th>enabled</th>
-                <th>Actions</th>
+                <th>Move</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -98,6 +100,9 @@
                                    @if($model->enabled) checked @endif()
                             >
                         </div>
+                    </td>
+                    <td>
+                        @livewire('components.change-order', ['model' => $model], key('change-order-'.$model->id . now()))
                     </td>
                     <td>
 {{--                        <a class="btn btn-outline-info btn-sm"--}}

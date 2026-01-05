@@ -572,5 +572,45 @@
         "question_options": {
             "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!"
         }
+    },
+    {
+        "question_id": 54,
+        "order": 32,
+        "form_type": "select_multiple",
+        "question_type": "json",
+        "depends_on_question": 7,
+        "question_title": "Ethnic categorization",
+        "question_content": "De volgende klasgenoot gaf aan dat hun familie ook nog een <b> :questionOptions </b> achtergrond heeft. \n\n \n\nHoe <b> :questionOptions </b> vind je deze klasgenoot? [name of classmate 1]? ",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal niet"},
+            {"id": 2, "value": "Een beetje"},
+            {"id": 3, "value": "Best wel"},
+            {"id": 4, "value": "Redelijk sterk"},
+            {"id": 5, "value": "Helemaal wel"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil."
+        }
+    },
+    {
+        "question_id": 55,
+        "order": 33,
+        "depends_on_question": 7,
+        "form_type": "select_multiple",
+        "question_type": "json",
+        "question_title": "Ethnic categorization other classmates",
+        "question_content": "Je gaf aan dat de familie van de volgende klasgenoot ook nog een andere achtergrond heeft. <br> <br> In welke mate vind je dat deze klasgenoot bij de andere cultuur hoort? ",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal niet"},
+            {"id": 2, "value": "Een beetje"},
+            {"id": 3, "value": "Best wel"},
+            {"id": 4, "value": "Redelijk sterk"},
+            {"id": 5, "value": "Helemaal wel"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_one_text": ""
+        }
     }
 ]

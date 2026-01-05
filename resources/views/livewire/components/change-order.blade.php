@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center">
+<div class="d-flex align-items-center" id="change-order-{{$model->id}}">
     <button class="btn btn-outline-info btn-sm"
         wire:click="moveUp({{$model}})">
         <i class="fas fa-arrow-up"></i>
