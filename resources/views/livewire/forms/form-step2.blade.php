@@ -12,7 +12,7 @@
             </p>
 
             <p class="mt-3 sub-head-text">
-                {{langDatabase('form.step_two_note')}}
+                {!! langDatabase('form.step_two_note') !!}
             </p>
         </div>
     </div>
