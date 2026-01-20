@@ -32,7 +32,8 @@
                             aria-label="Sluit"></button>
                 </div>
                 <h5 class="modal-title text-center" id="countryModalLabel">
-                    {{langDatabase('form.step_seven_country_of_origin')}} Wat is het herkomstland van je familie?</h5>
+                    {{langDatabase('form.step_seven_country_of_origin')}}
+                </h5>
                 <div class="modal-body">
                     @livewire('components.search-dropdown')
 
