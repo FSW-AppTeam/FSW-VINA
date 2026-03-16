@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(SurveySeeder::class);
         $this->call(QuestionSeeder::class);
+        $this->call(SettingSeeder::class);
         // For convenience:
 
         Role::create([

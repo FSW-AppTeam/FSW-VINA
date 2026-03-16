@@ -30,9 +30,10 @@ return [
     ],
     'exclude_urls_for_auth_wildcard' => [
         // Example:
-        //'/students'
+        // '/students'
     ],
 
+    'redirect_after_login' => 'home',
     /*
      * All SAML Settings
      */
