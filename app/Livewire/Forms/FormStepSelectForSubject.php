@@ -154,6 +154,11 @@ class FormStepSelectForSubject extends Component
 
     public function setDatabaseResponse()
     {
+        if (empty($this->subject)) {
+            $this->dispatch('step-up')->component(StepController::class);
+
+            return false;
+        }
         $response = SurveyAnswer::where('student_id', $this->form->getStudent()->id)
             ->where('question_id', $this->jsonQuestion->id)
             ->whereJsonContains('student_answer->student_id', $this->subject['id'])
@@ -164,7 +169,7 @@ class FormStepSelectForSubject extends Component
                 ' for subject '.$this->subject['id'].
                 ' and current student '.$this->form->getStudent()->id);
 
-            return true;
+            return false;
         }
 
         if (! $response->student_answer['value']) {
