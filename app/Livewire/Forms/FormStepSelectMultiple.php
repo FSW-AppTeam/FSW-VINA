@@ -182,7 +182,7 @@ class FormStepSelectMultiple extends Component
                 ' for subject '.$this->subject['id'].
                 ' and current student '.$this->form->getStudent()->id);
 
-            return true;
+            return false;
         }
 
         if (! $response->student_answer['value']) {
