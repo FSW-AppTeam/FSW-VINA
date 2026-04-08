@@ -29,7 +29,7 @@ class FormStepSelectMultiple extends Component
 
     public $subject = false; // used to show the subject of the question
 
-    public array $finishedSubjects; //used to store the finished subjects.
+    public array $finishedSubjects; // used to store the finished subjects.
 
     public $disappear = false;
 
@@ -169,6 +169,7 @@ class FormStepSelectMultiple extends Component
     {
         if (empty($this->subject)) {
             $this->dispatch('step-up')->component(StepController::class);
+
             return false;
         }
         $response = SurveyAnswer::where('student_id', $this->form->getStudent()->id)
@@ -198,6 +199,7 @@ class FormStepSelectMultiple extends Component
         }
 
         $this->dispatch('set-loading-false')->component(FormButtons::class);
+
         return true;
     }
 

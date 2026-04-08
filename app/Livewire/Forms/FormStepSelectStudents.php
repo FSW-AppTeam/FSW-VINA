@@ -43,7 +43,7 @@ class FormStepSelectStudents extends Component
         $key = array_search($id, array_column($this->selectedStudents, 'id'));
 
         unset($this->selectedStudents[$key]);
-        //Rebase the key after the unset
+        // Rebase the key after the unset
         $this->selectedStudents = array_values($this->selectedStudents);
     }
 
@@ -104,6 +104,7 @@ class FormStepSelectStudents extends Component
         $this->loading = false;
         $this->dispatch('$refresh')->component(StudentFade::class);
         $this->dispatch('set-loading-false');
+
         return view('livewire.forms.form-step-select-students');
     }
 

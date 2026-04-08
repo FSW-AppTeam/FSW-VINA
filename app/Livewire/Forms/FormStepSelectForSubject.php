@@ -26,13 +26,13 @@ class FormStepSelectForSubject extends Component
 
     public $firstRequired = true;
 
-    public $notRequiredAfter = 5; //After subject number 5 the question is not required anymore
+    public $notRequiredAfter = 5; // After subject number 5 the question is not required anymore
 
     public array $students = [];
 
     public $subject = false; // used to show the subject of the question
 
-    public array $finishedSubjects; //used to store the finished subjects.
+    public array $finishedSubjects; // used to store the finished subjects.
 
     public $disappear = false;
 
