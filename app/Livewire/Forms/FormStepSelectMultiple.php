@@ -176,14 +176,18 @@ class FormStepSelectMultiple extends Component
             ->whereJsonContains('student_answer->student_id', $this->subject['id'])
             ->first();
         if (! $response) {
-            Log::info('NIET gevonden'.$this->subject['id']);
+            $this->dispatch('set-loading-false')->component(FormButtons::class);
+            Log::info('Could not find response to question '.$this->jsonQuestion->id.
+                ' for subject '.$this->subject['id'].
+                ' and current student '.$this->form->getStudent()->id);
 
-            return false;
+            return true;
         }
 
         if (! $response->student_answer['value']) {
-            //Participant heeft deze vraag overgeslagen.
+            // Participant heeft deze vraag overgeslagen.
             $this->dispatch('set-loading-false')->component(FormButtons::class);
+
             return true;
         }
 
