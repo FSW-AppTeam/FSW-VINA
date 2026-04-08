@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use ErrorException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -25,6 +27,16 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        // Blade view compilation race condition: two concurrent requests try to rename()
+        // the same compiled view temp file. Log a single line instead of a full stacktrace.
+        $this->reportable(function (ErrorException $e) {
+            if (str_contains($e->getMessage(), 'rename(') && str_contains($e->getMessage(), 'No such file or directory')) {
+                Log::warning('Blade view compilation race condition (safe to ignore): '.$e->getMessage());
+
+                return false;
+            }
         });
     }
 }
