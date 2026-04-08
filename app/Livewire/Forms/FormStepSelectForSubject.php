@@ -26,13 +26,13 @@ class FormStepSelectForSubject extends Component
 
     public $firstRequired = true;
 
-    public $notRequiredAfter = 5; //After subject number 5 the question is not required anymore
+    public $notRequiredAfter = 5; // After subject number 5 the question is not required anymore
 
     public array $students = [];
 
     public $subject = false; // used to show the subject of the question
 
-    public array $finishedSubjects; //used to store the finished subjects.
+    public array $finishedSubjects; // used to store the finished subjects.
 
     public $disappear = false;
 
@@ -159,13 +159,16 @@ class FormStepSelectForSubject extends Component
             ->whereJsonContains('student_answer->student_id', $this->subject['id'])
             ->first();
         if (! $response) {
-            Log::info('NIET gevonden'.$this->subject['id']);
+            $this->dispatch('set-loading-false')->component(FormButtons::class);
+            Log::info('Could not find response to question '.$this->jsonQuestion->id.
+                ' for subject '.$this->subject['id'].
+                ' and current student '.$this->form->getStudent()->id);
 
-            return false;
+            return true;
         }
 
         if (! $response->student_answer['value']) {
-            //Participant heeft deze vraag overgeslagen.
+            // Participant heeft deze vraag overgeslagen.
             $this->dispatch('set-loading-false')->component(FormButtons::class);
 
             return true;
