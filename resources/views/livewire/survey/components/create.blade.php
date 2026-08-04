@@ -26,6 +26,11 @@
                         <input wire:model="qualtrics_param" type="text" class="form-control" name="qualtrics_param"
                                id="qualtrics_param"
                                title="Survey qualtrics_param" placeholder="Enter name of params to pass through qualtrics..." autofocus>
+                        <label for="participant_source">Participant source:</label>
+                        <select wire:model="participant_source" class="form-select" name="participant_source" id="participant_source">
+                            <option value="">Default</option>
+                            <option value="friends">Friends</option>
+                        </select>
                         @error("survey_code")
                             <span class="text-danger">{{$message}}</span>
                         @enderror

@@ -38,6 +38,8 @@ class SurveyTable extends Component
 
     public ?string $qualtrics_param = null;
 
+    public ?string $participant_source = null;
+
     public ?DateTime $started_at = null;
 
     public ?DateTime $finished_at = null;
@@ -62,6 +64,7 @@ class SurveyTable extends Component
             'qualtrics_name' => 'string',
             'qualtrics_id' => 'string',
             'qualtrics_param' => 'string',
+            'participant_source' => 'nullable|string',
         ];
 
     protected array $messages = [
@@ -99,6 +102,7 @@ class SurveyTable extends Component
         $this->qualtrics_name = $survey->qualtrics_name;
         $this->qualtrics_id = $survey->qualtrics_id;
         $this->qualtrics_param = $survey->qualtrics_param;
+        $this->participant_source = $survey->participant_source;
         $this->started_at = $survey->started_at;
         $this->finished_at = $survey->finished_at;
         $this->created_at = $survey->created_at;
@@ -157,6 +161,7 @@ class SurveyTable extends Component
             'qualtrics_name',
             'qualtrics_id',
             'qualtrics_param',
+            'participant_source',
             'started_at',
             'finished_at',
             'created_at',

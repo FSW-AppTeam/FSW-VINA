@@ -326,14 +326,39 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
+   
     {
-        "question_id": 43,
+        "question_id": 54,
         "order": 17,
-        "depends_on_question": 7,
-        "form_type": "display",
-        "question_type": "instruction",
-        "question_title": "Eigen vriende tussentext",
-        "question_content": "De volgende vragen gaan over jouw klasgenoten."
+        "form_type": "multi_text",
+        "question_type": "array",
+        "question_title": "Wie zijn jouw vrienden?",
+        "question_content": "Noem de namen van je vrienden.",
+        "question_options": {
+            "extra_text": "Deze selectie wordt gebruikt als groep voor de volgende vragen.",
+            "error_empty_text": "Selecteer minimaal één persoon.", 
+            "friend_source": true
+        }
+    },
+    {
+        "question_id": 55,
+        "order": 17.6,
+        "form_type": "friend_ethnicity",
+        "question_type": "json",
+        "question_title": "Herkomstland van {subject}",
+        "question_content": "Heeft de familie van {subject} een ander herkomstland dan Nederland? Zo ja, welk land is dat?",
+        "question_answer_options": [
+            { "id": 1, "value": "Geen ander land" },
+            { "id": 2, "value": "Turkije" },
+            { "id": 3, "value": "Marokko" },
+            { "id": 4, "value": "Suriname" },
+            { "id": 5, "value": "Voormalige Nederlandse Antillen" },
+            { "id": 6, "value": "Ander land, namelijk:" },
+            { "id": 7, "value": "Weet ik niet" }
+        ],
+        "question_options": {
+            "question_custom_input_title": "Herkomstland (ander)"
+        }
     },
     {
         "question_id": 10,
@@ -345,7 +370,8 @@
         "question_options": {
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "student_group_source_question_id": 54
         }
     },
     {

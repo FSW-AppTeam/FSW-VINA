@@ -82,14 +82,16 @@ class FormStepSelectStudents extends Component
 
     public function mount(): void
     {
-        $this->students = $this->form->getStudentsWithoutActiveStudent();
+        $this->students = $this->form->getSelectablesForQuestion($this->jsonQuestion);
 
         if (is_null($this->savedAnswers)) {
             return;
         }
 
+        $savedIds = $this->savedAnswers;
+
         foreach ($this->students as $student) {
-            if (in_array($student['id'], $this->savedAnswers)) {
+            if (in_array($student['id'], $savedIds)) {
                 $this->selectedStudents[] = [
                     'id' => $student['id'],
                     'name' => $student['name'],

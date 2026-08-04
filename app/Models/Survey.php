@@ -44,13 +44,18 @@ class Survey extends Model
         'qualtrics_name',
         'qualtrics_id',
         'qualtrics_param',
+        'participant_source',
     ];
 
     public function surveyStudents()
     {
         return $this->hasMany(SurveyStudent::class);
     }
-
+    public function usesFriends(): bool
+    {   
+        return true;
+        // return $this->participant_source === 'friends';
+    }
     public static function checkCode($code)
     {
         return Survey::where('survey_code', $code)->exists();

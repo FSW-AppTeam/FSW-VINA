@@ -135,7 +135,7 @@ class FormStepSelectForSubject extends Component
 
     public function mount(): void
     {
-        $this->students = $this->form->getStudentsWithoutActiveStudent();
+        $this->students = $this->form->getSelectablesForQuestion($this->jsonQuestion);
 
         $this->subject = array_shift($this->students);
         $this->finishedSubjects[] = $this->subject;

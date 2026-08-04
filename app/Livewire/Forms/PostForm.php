@@ -40,6 +40,33 @@ class PostForm extends Form
             ->toArray();
     }
 
+    
+    public function getSelectablesForQuestion(?SurveyQuestion $question): array
+    {   
+        
+        if (! $question) {
+            return $this->getSurvey()->usesFriends()
+                ? $this->getStudent()->friends()->orderBy('position')->get()->toArray()
+                : $this->getStudentsWithoutActiveStudent();
+        }
+
+        if ($question->id == 49) {
+            return $this->getSurvey()->usesFriends()
+                ? $this->getFriendsForQuestion49()
+                : $this->getStudentsFotQuestion49($question->depends_on_question);
+        }
+
+        if ($question->depends_on_question) {
+            return $this->getSurvey()->usesFriends()
+                ? $this->getFriendsOtherEthnicity()
+                : $this->getStudentsOtherEthnicityWithResponse($question->depends_on_question);
+        }
+
+        return $this->getSurvey()->usesFriends()
+            ? $this->getStudent()->friends()->orderBy('position')->get()->toArray()
+            : $this->getStudentsWithoutActiveStudent();
+    }
+
     #[Computed(persist: true)]
     public function getStudentsOtherEthnicityWithResponse($questionId): array
     {
@@ -51,6 +78,16 @@ class PostForm extends Form
             ->where('question_id', $questionId)
             ->join('survey_answers', 'survey_answers.student_id', '=', 'survey_students.id')
             ->select('survey_students.*')
+            ->get()
+            ->toArray();
+    }
+    public function getFriendsOtherEthnicity(): array
+    {
+        return $this->getStudent()
+            ->friends()
+            ->whereNotIn('country_id', [1, 7])
+            ->whereNotNull('country_id')
+            ->orderBy('position')
             ->get()
             ->toArray();
     }
@@ -92,6 +129,28 @@ class PostForm extends Form
             ->toArray();
 
         return array_merge($students, $studentsLate);
+    }
+    public function getFriendsForQuestion49(): array
+    {
+        $selected = SurveyAnswer::where('student_id', $this->getStudent()->id)
+            ->where('question_id', 48)
+            ->first();
+
+        if (! $selected) {
+            return [];
+        }
+
+        $selectedFriends = $selected->student_answer;
+
+        return SurveyFriend::where('owner_student_id', $this->getStudent()->id)
+            ->whereIn('id', $selectedFriends)
+            ->where(function ($query) {
+                $query->whereIn('country_id', [1, 7])
+                    ->orWhereNull('country_id');
+            })
+            ->orderBy('position')
+            ->get()
+            ->toArray();
     }
 
     //    public function getStudentsNotInFriendsSelected(): array
@@ -148,7 +207,7 @@ class PostForm extends Form
 
     public function createAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void
     {
-        SurveyAnswer::updateOrCreate(
+        $surveyAnswer = SurveyAnswer::updateOrCreate(
             [
                 'student_id' => $this->getStudent()->id,
                 'question_id' => $jsonQuestions->id,
@@ -159,6 +218,9 @@ class PostForm extends Form
                 'question_type' => $jsonQuestions->question_type,
             ]
         );
+        if (data_get($jsonQuestions, 'question_options.friend_source')) {
+            $this->getStudent()->syncFriends($surveyAnswer->student_answer);
+        }
 
         session::put([
             "step$stepId" => true,
@@ -178,6 +240,10 @@ class PostForm extends Form
                 'question_type' => $jsonQuestions->question_type,
             ]
         );
+
+        if (data_get($jsonQuestions, 'question_options.friend_source')) {
+            $this->getStudent()->syncFriends($surveyAnswer->student_answer);
+        }
 
         session::put([
             "step$stepId" => true,

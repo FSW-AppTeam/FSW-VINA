@@ -43,6 +43,32 @@ class SurveyStudent extends Model
         return $this->belongsTo(Survey::class);
     }
 
+    public function friends()
+    {
+        return $this->hasMany(
+            SurveyFriend::class,
+            'owner_student_id'
+        )->orderBy('position');
+    }
+
+    public function syncFriends(array $friendNames): void
+    {
+        $this->friends()->delete();
+
+        foreach ($friendNames as $index => $name) {
+            $name = trim((string) $name);
+
+            if ($name === '') {
+                continue;
+            }
+
+            $this->friends()->create([
+                'survey_id' => $this->survey_id,
+                'name' => $name,
+                'position' => $index + 1,
+            ]);
+        }
+    }
     /**
      *  Get export answers for csv
      */

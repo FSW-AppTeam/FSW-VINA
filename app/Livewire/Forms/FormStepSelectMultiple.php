@@ -206,14 +206,14 @@ class FormStepSelectMultiple extends Component
     public function setStudents(): void
     {
         // By default, set al students:
-        $this->students = $this->form->getStudentsWithoutActiveStudent();
-        if ($this->jsonQuestion->depends_on_question) {
-            // Get students based on the response of another question:
-            $this->students = $this->form->getStudentsOtherEthnicityWithResponse($this->jsonQuestion->depends_on_question);
-        }
-        if ($this->jsonQuestion->id == 49) {
-            // exception, question id 49 had specific logic.
-            $this->students = $this->form->getStudentsFotQuestion49($this->jsonQuestion->depends_on_question);
-        }
+        $this->students = $this->form->getSelectableForQuestion($this->jsonQuestion);
+        // if ($this->jsonQuestion->depends_on_question) {
+        //     // Get students based on the response of another question:
+        //     $this->students = $this->form->getStudentsOtherEthnicityWithResponse($this->jsonQuestion->depends_on_question);
+        // }
+        // if ($this->jsonQuestion->id == 49) {
+        //     // exception, question id 49 had specific logic.
+        //     $this->students = $this->form->getStudentsFotQuestion49($this->jsonQuestion->depends_on_question);
+        // }
     }
 }

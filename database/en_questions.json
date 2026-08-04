@@ -128,6 +128,18 @@
         }
     },
     {
+        "question_id": 54,
+        "order": 8.5,
+        "form_type": "select_students",
+        "question_type": "array",
+        "question_title": "Who are your friends?",
+        "question_content": "Name the names of your friends.",
+        "question_options": {
+            "extra_text": "This selection is used as a group for the following questions.",
+            "error_empty_text": "Select at least one person."
+        }
+    },
+    {
         "question_id": 10,
         "order": 9,
         "form_type": "select_students",
@@ -137,7 +149,8 @@
         "question_options": {
             "extra_text": "You can tick as many as you want.",
             "error_empty_text": "You didn't select anyone, you can select as many people as you want. Are you sure you want to continue?",
-            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?"
+            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?",
+            "student_group_source_question_id": 54
         }
     },
     {
