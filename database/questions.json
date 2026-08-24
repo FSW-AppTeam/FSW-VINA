@@ -226,6 +226,7 @@
         "question_content": "De volgende vragen gaan over uw sociale netwerk. Hiermee bedoelen we mensen met wie u praat over dingen die voor u belangrijk zijn. Noem alstublieft 15 voornamen van mensen van wie u vindt dat ze tot uw sociale netwerk behoren. Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
         "question_options": {
             "error_empty_text": "Selecteer minimaal één persoon.", 
+            "error_unique_text": "Naam is al bezet.",
             "friend_source": true
         }
     },
@@ -435,14 +436,25 @@
         }
     },
     {
+        "question_id": 17,
+        "order": 30,
+        "form_type": "text",
+        "question_type": "string",
+        "question_title": "Comments",
+        "question_content": "Dit is het einde van de vragenlijst. <br> <br> Hartelijk bedankt voor je deelname! Heeft u nog opmerkingen over de vragenlijst?",
+        "question_options": {
+            "validation_max": 300
+        }
+    },
+    {
         "question_id": 31,
         "order": 31,
-        "form_type": "display",
         "question_type": "text",
         "question_title": "Einde",
-        "question_content": "Dit waren alle vragen over jouw klasgenoten. Hierna volgt het laatste gedeelte van de vragenlijst. ",
+        "question_content": "De vragenlijst is voltooid",
         "question_options": {
-            "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!"
+            "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!",
+            "validation_max": 300
         }
     }
 ]

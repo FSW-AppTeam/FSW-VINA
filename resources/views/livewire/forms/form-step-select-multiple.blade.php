@@ -21,7 +21,7 @@
                                 id="{{$answerSelected['id']}}"
                                 class="btn press-buttons-inline rounded"
                                 wire:click="removeSelectedSquare({{$answerSelected['id']}})"
-                                style="height: 50px; border: solid 2px orange;padding-top: 10px;">
+                                style="min-height: 50px; height: auto; border: solid 2px orange;padding-top: 10px; white-space: normal">
                             {{ ucfirst(printWithQuestionOptions( $answerSelected['value'], $questionOptions, 3)) }}
                         </button>
                     @else

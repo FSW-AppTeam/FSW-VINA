@@ -7,7 +7,7 @@
             @if(isset($jsonQuestion->question_options['extra_text']))
                 <h6>{{ $jsonQuestion->question_options['extra_text'] }}</h6>
             @endif
-            <h6>{{ $jsonQuestion->question_content }}</h6>
+            <h6>{!! $jsonQuestion->question_content !!}</h6>
             <input type="text"
                    id="{{$jsonQuestion->id}}"
                    wire:model.live.debounce="input"

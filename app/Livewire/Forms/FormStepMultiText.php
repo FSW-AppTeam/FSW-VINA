@@ -34,6 +34,7 @@ class FormStepMultiText extends Component
     {
         if (isset($this->jsonQuestion->question_options['error_empty_text'])) {
             $this->messages['input.required'] = $this->jsonQuestion->question_options['error_empty_text'];
+            $this->messages['input.unique'] = $this->jsonQuestion->question_options['error_unique_text'];
         }
 
         $rules = [
@@ -47,6 +48,16 @@ class FormStepMultiText extends Component
                         $this->firstRequired = false;
                         $this->dispatch('set-loading-false')->component(FormButtons::class);
                         $fail($this->messages['input.required']);
+                    }
+
+                    // Check for duplicate names
+                    $normalizedNames = array_map(
+                        fn ($name) => mb_strtolower(trim((string) $name)),
+                        $filledValues
+                    );
+
+                    if (count($normalizedNames) !== count(array_unique($normalizedNames))) {
+                        $fail($this->messages['input.unique']);
                     }
                 },
             ],
