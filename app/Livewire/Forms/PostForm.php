@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Survey;
+use App\Models\SurveyFriend;
 use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
 use App\Models\SurveyStudent;
@@ -50,10 +51,12 @@ class PostForm extends Form
                 : $this->getStudentsWithoutActiveStudent();
         }
 
-        if ($question->id == 49) {
-            return $this->getSurvey()->usesFriends()
-                ? $this->getFriendsForQuestion49()
-                : $this->getStudentsFotQuestion49($question->depends_on_question);
+        if ($this->getSurvey()->usesFriends() && in_array($question->id, [38, 49, 39])) {
+            return $this->getFriendsForQuestion49();
+        }
+
+        if (! $this->getSurvey()->usesFriends() && $question->id == 49) {
+            return $this->getStudentsFotQuestion49($question->depends_on_question);
         }
 
         if ($question->depends_on_question) {
@@ -133,21 +136,15 @@ class PostForm extends Form
     public function getFriendsForQuestion49(): array
     {
         $selected = SurveyAnswer::where('student_id', $this->getStudent()->id)
-            ->where('question_id', 48)
-            ->first();
-
-        if (! $selected) {
+            ->where('question_id', '=', 48);
+        if (! $selected->exists()) {
             return [];
         }
 
-        $selectedFriends = $selected->student_answer;
+        $selectedFriends =  $selected->get('student_answer')->first()->student_answer;
 
         return SurveyFriend::where('owner_student_id', $this->getStudent()->id)
             ->whereIn('id', $selectedFriends)
-            ->where(function ($query) {
-                $query->whereIn('country_id', [1, 7])
-                    ->orWhereNull('country_id');
-            })
             ->orderBy('position')
             ->get()
             ->toArray();

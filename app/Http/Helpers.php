@@ -80,6 +80,35 @@ if (! function_exists('setNationalityOptions')) {
     }
 }
 
+if (! function_exists('setFriendNationalityOptions')) {
+    function setFriendNationalityOptions($dependsOnQuestionId, $countryId, $otherCountry = null)
+    {
+        $dependsOnQuestion = SurveyQuestion::find($dependsOnQuestionId);
+        if (! $dependsOnQuestion || ! $countryId) {
+            return [];
+        }
+
+        foreach ($dependsOnQuestion->question_answer_options as $option) {
+            if ($option['id'] == $countryId) {
+                $country = $option['value'];
+            }
+        }
+
+        switch ($countryId) {
+            case 1:
+           case 2:
+            case 3:
+                return getCountriesByName()[$country] ?? [];
+            case 4:
+                return getCountriesByName()['Nederlandse Antillen'] ?? [];
+            case 5:
+                return getCountriesByName()[$otherCountry] ?? [];
+        }
+
+        return [];
+    }
+}
+
 if (! function_exists('csvToArray')) {
     function csvToArray($filename = '', $headers = null, $delimiter = ';')
     {

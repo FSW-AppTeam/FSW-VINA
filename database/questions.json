@@ -66,7 +66,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "Broers en zussen",
-        "question_content": "Hoeveel <b>oudere</b> broers en zussen heb je in totaal?",
+        "question_content": "Hoeveel <b>oudere</b> broers en zussen heb jij in totaal?",
         "question_answer_options": [
             {"id": 1, "value": "0"},
             {"id": 2, "value": "1"},
@@ -83,7 +83,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "Geboren",
-        "question_content": "In welke maand ben je geboren?",
+        "question_content": "In welke maand ben j geboren?",
         "question_answer_options": [
             {"id": 1, "value": "Januari"},
             {"id": 2, "value": "Februari"},
@@ -112,42 +112,6 @@
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord gegeven. Weet je zeker dat je door wil gaan?",
             "validation_max": 1
-        }
-    },
-    {
-        "question_id": 5,
-        "order": 8,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Opleidingsniveau",
-        "question_content": "Welk niveau is jouw opleiding?",
-        "question_answer_options": [
-            {"id": 1, "value": "Niveau 1"},
-            {"id": 2, "value": "Niveau 2"},
-            {"id": 3, "value": "Niveau 3"},
-            {"id": 4, "value": "Niveau 4"},
-            {"id": 5, "value": "Havo"},
-            {"id": 6, "value": "VWO"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
-        "question_id": 6,
-        "order": 9,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Tijd in klas",
-        "question_content": "Hoe lang zit je al in deze klas?",
-        "question_answer_options": [
-            {"id": 1, "value": "Minder dan een jaar"},
-            {"id": 2, "value": "1 tot 2 jaar"},
-            {"id": 3, "value": "2 tot 3 jaar"},
-            {"id": 4, "value": "3 jaar of langer"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
@@ -250,125 +214,31 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
-    {
-        "question_id": 39,
-        "order": 15,
-        "form_type": "select",
-        "question_type": "int",
-        "depends_on_question": 7,
-        "question_title": "Identiteit denial class",
-        "question_content": "Hoe denk je dat de meeste klasgenoten jou zien? <br> <br> <b>De meeste klasgenoten</b> zien mij:",
-        "question_answer_options": [
-            {"id": 1, "value": "Alleen als Nederlands"},
-            {"id": 2, "value": "Meer als Nederlands"},
-            {"id": 3, "value": "Evenveel Nederlands en :questionOptions"},
-            {"id": 4, "value": "Meer als :questionOptions"},
-            {"id": 5, "value": "Alleen als :questionOptions"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
-        "question_id": 40,
-        "order": 16,
-        "form_type": "select",
-        "question_type": "int",
-        "depends_on_question": 7,
-        "question_title": "Identiteit denial society",
-        "question_content": "Hoe denk je dat de meeste Nederlanders jou zien? <br> <br> <b>De meeste Nederlanders </b> zien mij:",
-        "question_answer_options": [
-            {"id": 1, "value": "Alleen als Nederlands"},
-            {"id": 2, "value": "Meer als Nederlands"},
-            {"id": 3, "value": "Evenveel Nederlands en :questionOptions"},
-            {"id": 4, "value": "Meer als :questionOptions"},
-            {"id": 5, "value": "Alleen als :questionOptions"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
-        "question_id": 41,
-        "order": 14,
-        "form_type": "select",
-        "question_type": "int",
-        "depends_on_question": 7,
-        "question_title": "Identiteit denial minority",
-        "question_content": "Hoe denk je dat de meeste :questionOptions mensen in Nederland jou zien? <br> <br> <b>De meeste :questionOptions mensen in Nederland </b> zien mij: ",
-        "question_answer_options": [
-            {"id": 1, "value": "Alleen als Nederlands"},
-            {"id": 2, "value": "Meer als Nederlands"},
-            {"id": 3, "value": "Evenveel Nederlands en :questionOptions"},
-            {"id": 4, "value": "Meer als :questionOptions"},
-            {"id": 5, "value": "Alleen als :questionOptions"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
-        "question_id": 42,
-        "order": 15,
-        "form_type": "select",
-        "question_type": "int",
-        "depends_on_question": 7,
-        "question_title": "Identiteit denial minority",
-        "question_content": "Hoe vaak gebruik je :questionOptions woorden als je Nederlands spreekt op school? ",
-        "question_answer_options": [
-            {"id": 1, "value": "Nooit"},
-            {"id": 2, "value": "Zelden"},
-            {"id": 3, "value": "Af en toe"},
-            {"id": 4, "value": "Vaak"},
-            {"id": 5, "value": "Heel vaak"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
+    
+    
    
     {
         "question_id": 54,
-        "order": 17,
+        "order": 15,
         "form_type": "multi_text",
         "question_type": "array",
         "question_title": "Wie zijn jouw vrienden?",
-        "question_content": "Noem de namen van je vrienden.",
+        "question_content": "De volgende vragen gaan over uw sociale netwerk. Hiermee bedoelen we mensen met wie u praat over dingen die voor u belangrijk zijn. Noem alstublieft 15 voornamen van mensen van wie u vindt dat ze tot uw sociale netwerk behoren. Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
         "question_options": {
-            "extra_text": "Deze selectie wordt gebruikt als groep voor de volgende vragen.",
             "error_empty_text": "Selecteer minimaal één persoon.", 
             "friend_source": true
         }
     },
-    {
-        "question_id": 55,
-        "order": 17.6,
-        "form_type": "friend_ethnicity",
-        "question_type": "json",
-        "question_title": "Herkomstland van {subject}",
-        "question_content": "Heeft de familie van {subject} een ander herkomstland dan Nederland? Zo ja, welk land is dat?",
-        "question_answer_options": [
-            { "id": 1, "value": "Geen ander land" },
-            { "id": 2, "value": "Turkije" },
-            { "id": 3, "value": "Marokko" },
-            { "id": 4, "value": "Suriname" },
-            { "id": 5, "value": "Voormalige Nederlandse Antillen" },
-            { "id": 6, "value": "Ander land, namelijk:" },
-            { "id": 7, "value": "Weet ik niet" }
-        ],
-        "question_options": {
-            "question_custom_input_title": "Herkomstland (ander)"
-        }
-    },
+    
     {
         "question_id": 10,
         "order": 18,
         "form_type": "select_students",
         "question_type": "array",
-        "question_title": "Eigen vrienden - basis",
-        "question_content": "Met welke klasgenoten ga jij <b>het beste</b> om?",
+        "question_title": "Eigen vrienden",
+        "question_content": "Wie van deze personen zijn mannen?",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "student_group_source_question_id": 54
@@ -379,10 +249,10 @@
         "order": 19,
         "form_type": "select_students",
         "question_type": "array",
-        "question_title": "Eigen vrienden - school",
-        "question_content": "Welke klasgenoten zie je regelmatig <b>buiten school?</b>",
+        "question_title": "Outfriends",
+        "question_content": "Wie van deze personen is ouder dan jij?",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
@@ -393,9 +263,9 @@
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - online",
-        "question_content": "Met welke klasgenoten heb je regelmatig contact op <b> sociale media</b> (bijv. Instagram, Snapchat)?",
+        "question_content": "Wie van deze personen is hoger opgeleid (HBO, universiteit)?",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
@@ -406,9 +276,9 @@
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
-        "question_content": "Met welke klasgenoten ga jij <b>liever niet om</b>? ",
+        "question_content": "Wie van deze personen behoort tot de lagere sociale klasse in Nederland?",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
@@ -419,9 +289,9 @@
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Popularity",
-        "question_content": "Welke klasgenoten zijn het meest <b>populair</b>? ",
+        "question_content": "Wie van deze personen is Muslim?",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
@@ -432,9 +302,9 @@
         "form_type": "select_for_subject",
         "question_type": "json",
         "question_title": "Vrienden van klasgenoten",
-        "question_content": "Met wie gaat de volgende klasgenoot het beste om?",
+        "question_content": "Wie van uw netwerk heeft regelmatig contact met deze persoon?",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_text": "Je hebt geen vrienden opgeven!",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
@@ -446,22 +316,57 @@
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Migratie achtergrond klasgenoten",
-        "question_content": "Welke klasgenoten hebben volgens jou, naast Nederlands, ook een <b>andere afkomst</b>?",
+        "question_content": "Wie van deze personen heeft een migratieachtergrond? (D.w.z. ze of hun ouders zijn niet in Nederland geboren)",
         "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_text": "Je hebt geen vrienden opgeven!",
             "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },
     {
-        "question_id": 38,
-        "order": 25,
-        "form_type": "select_multiple",
+        "question_id": 49,
+        "order": 25, 
         "question_type": "json",
-        "depends_on_question": 7,
+        "question_title": "Etniciteit andere klasgenoten",
+        "question_content": "Je gaaf aan dat volgeden persoon een migratieachtergrond heeft. Uit welk land komt de familie van deze persoon? ",
+        "question_answer_options": [
+            {
+                "id": 1,
+                "value": "Turkije"
+            },
+            {
+                "id": 2,
+                "value": "Marokko"
+            },
+            {
+                "id": 3,
+                "value": "Suriname"
+            },
+            {
+                "id": 4,
+                "value": "Nederlandse Antillen / Aruba"
+            },
+            {
+                "id": 5,
+                "value": "Ander land, namelijk: "
+            }
+        ],
+        "question_options": {
+            "extra_text": "Als er meerdere zijn, kies dan het land dat jij het meest belangrijk vindt.",
+            "error_invalid_option": "Je moet een land invoeren dat in de lijst staat.",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_one_text": ""
+        }
+    },
+    {
+        "question_id": 38,
+        "order": 26,
+        "form_type": "select_multiple",
+        "depends_on_question": 49,
+        "question_type": "json",
         "question_title": "Identiteit klasgenoten",
-        "question_content": "De volgende klasgenoot gaf aan dat hun familie ook nog een<b> :questionOptions </b>achtergrond heeft. \n\n \n\nHoe zie jij deze klasgenoot? ",
+        "question_content": "Hoe zie jij deze persoon?",
         "question_answer_options": [
             {"id": 1, "value": "Alleen als Nederlands"},
             {"id": 2, "value": "Meer als Nederlands"},
@@ -470,58 +375,40 @@
             {"id": 5, "value": "Alleen als :questionOptions"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil."
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
-        "question_id": 49,
-        "order": 26,
-        "depends_on_question": 7,
+        "question_id": 39,
+        "order": 27,
         "form_type": "select_multiple",
         "question_type": "json",
-        "question_title": "Etniciteit andere klasgenoten",
-        "question_content": "Je gaf aan dat de familie van de volgende klasgenoot ook nog een andere achtergrond heeft. <br> <br> Hoe zie jij de volgende klasgenoot? ",
+        "question_title": "Friends of contacts",
+        "question_content": "Tot zover u weet, heeft deze persoon meer Nederlandse vrienden of meer vrienden met een migratieachtergrond? ",
         "question_answer_options": [
-            {
-                "id": 1,
-                "value": "Alleen als Nederlands"
-            },
-            {
-                "id": 2,
-                "value": "Meer als Nederlands"
-            },
-            {
-                "id": 3,
-                "value": "Evenveel Nederlands en de andere cultuur"
-            },
-            {
-                "id": 4,
-                "value": "Meer als iemand uit de andere cultuur"
-            },
-            {
-                "id": 5,
-                "value": "Alleen als iemand uit de andere cultuur"
-            }
+            {"id": 1, "value": "Alleen Nederlandse vrienden"},
+            {"id": 2, "value": "Voornamelijk Nederlandse vrienden"},
+            {"id": 3, "value": "Evenveel vrienden met een Nederlandse en een migratieachtergrond "},
+            {"id": 4, "value": "Voornamelijk vrienden met een migratieachtergrond"},
+            {"id": 5, "value": "Alleen vrienden met een migratieachtergrond"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "error_one_text": ""
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
         "question_id": 15,
-        "order": 27,
+        "order": 28,
         "form_type": "select_multiple",
         "question_type": "json",
         "question_title": "Goed kennen",
-        "question_content": "Hoe goed ken je de volgende klasgenoot?",
+        "question_content": "Hoe hecht is uw band met deze personen? ",
         "question_answer_options": [
-            {"id": 1, "value": "Heel goed"},
-            {"id": 2, "value": "Goed"},
-            {"id": 3, "value": "Een beetje"},
-            {"id": 4, "value": "Niet zo goed"},
-            {"id": 5, "value": "Helemaal niet"}
+            {"id": 1, "value": "Heel hecht"},
+            {"id": 2, "value": "Hecht"},
+            {"id": 3, "value": "Een beetje hecht"},
+            {"id": 4, "value": "Niet hecht"},
+            {"id": 5, "value": "Helemaal niet hecht"}
         ],
         "question_options": {
             "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
@@ -531,7 +418,7 @@
     },
     {
         "question_id": 16,
-        "order": 28,
+        "order": 29,
         "form_type": "select",
         "question_type": "int",
         "question_title": "Immigratie houding – eigen",
@@ -546,47 +433,6 @@
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
-    },
-    {
-        "question_id": 18,
-        "order": 29,
-        "form_type": "select_multiple",
-        "question_type": "json",
-        "question_title": "Immigratie houding - vrienden",
-        "question_content": "Hoe denk je dat de volgende klasgenoot deze vraag zou beantwoorden?  <br> <br> Er komen te veel immigranten naar Nederland ",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal mee oneens"},
-            {"id": 2, "value": "Mee oneens"},
-            {"id": 3, "value": "Niet mee oneens, niet mee eens "},
-            {"id": 4, "value": "Mee eens "},
-            {"id": 5, "value": "Helemaal mee eens"}
-        ],
-        "question_options": {
-            "error_text": "Je hebt geen vrienden opgeven!",
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
-        },
-        "default_disable_next": false
-    },
-    {
-        "question_id": 30,
-        "order": 30,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Moeilijk",
-        "question_content": "Is het voor jou moeilijk of makkelijk om in te schatten hoe je klasgenoten over immigratie denken? ",
-        "question_answer_options": [
-            {"id": 1, "value": "Heel moeilijk"},
-            {"id": 2, "value": "Moeilijk"},
-            {"id": 3, "value": "Niet moeilijk, maar ook niet makkelijk"},
-            {"id": 4, "value": "Makkelijk"},
-            {"id": 5, "value": "Heel makkelijk"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        },
-        "default_disable_next": false
     },
     {
         "question_id": 31,

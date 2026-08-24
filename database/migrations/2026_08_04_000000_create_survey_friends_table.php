@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedInteger('position');
             $table->unsignedBigInteger('country_id')->nullable();
+            $table->string('other_country')->nullable();
             $table->timestamps();
         });
     }

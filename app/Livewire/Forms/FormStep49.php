@@ -2,17 +2,12 @@
 
 namespace App\Livewire\Forms;
 
-use App\Livewire\Partials\FormButtons;
-use App\Models\Survey;
-use App\Models\SurveyAnswer;
-use App\Models\SurveyFriend;
 use Closure;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Throwable;
 
-class FormStepSelectMultiple extends Component
+class FormStep49 extends Component
 {
     public PostForm $form;
 
@@ -30,50 +25,57 @@ class FormStepSelectMultiple extends Component
 
     public array $students = [];
 
-    public $subject = false; // used to show the subject of the question
+    public array $questionOptions = [];
 
-    public array $finishedSubjects; // used to store the finished subjects.
+    public $subject = false;
 
-    public $disappear = false;
+    public array $finishedSubjects = [];
 
-    protected array $messages = [];
-
-    public $questionOptions = [];
+    public ?string $otherCountry = '';
 
     public $showShrink;
 
     public $disabledBtn = false;
+
+    protected array $messages = [];
 
     protected $listeners = [
         'set-show-shrink-true' => 'setShowShrinkTrue',
         'set-answer-button-square' => 'setAnswerButtonSquare',
         'set-remove-student' => 'removeStudent',
         'set-remove-selected-square' => 'removeSelectedSquare',
+        'set-country' => 'setCountry',
         'set-sub-step-down' => 'stepDown',
         'set-sub-step-up' => 'stepUp',
         'save' => 'save',
     ];
 
-    #[Computed(persist: true)]
-    public function getSurvey(): Survey
-    {
-        return Survey::find(session::get('survey-id'));
-    }
-
     public function rules(): array
     {
-        $this->messages['answerSelected.required'] = $this->jsonQuestion->question_options['error_empty_text'];
-
+        $this->messages['answer-selected.required'] = $this->jsonQuestion->question_options['error_empty_text'];
+        $this->messages['answer-selected.invalid'] = $this->jsonQuestion->question_options['error_invalid_option'];
+        $this->messages['otherCountry.required_if'] = 'Een land selecteren is verplicht';
         return [
             'answerSelected' => [
                 function (string $attribute, mixed $value, Closure $fail) {
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
-                        $this->dispatch('set-loading-false')->component(FormButtons::class);
+                        $this->dispatch('set-loading-false')->component(\App\Livewire\Partials\FormButtons::class);
                         $fail($this->messages['answerSelected.required']);
                     }
                 },
                 'array',
+            ],
+            'otherCountry' => [
+                function (string $attribute, mixed $value, Closure $fail) {
+                    if (($this->answerSelected['id'] ?? null) === 5 && empty($value)) {
+                        $fail('Een land selecteren is verplicht');
+                    }
+                    if (! empty($value) && ! array_key_exists($value, getCountriesByName())) {
+                        $fail('Ongeldige landkeuze');
+                    }
+                },
+                'nullable',
             ],
         ];
     }
@@ -86,7 +88,27 @@ class FormStepSelectMultiple extends Component
     public function setAnswerButtonSquare(int $id, string $val): void
     {
         $this->answerSelected = ['id' => $id, 'value' => $val];
-        $this->save();
+        $this->loading = false;
+
+        if ($id === 5) {
+            $this->dispatch('set-loading-false');
+            $this->dispatch('set-modal-othercountry');
+
+            return;
+        }
+
+        $this->otherCountry = '';
+        $this->dispatch('set-loading-false');
+  
+    }
+
+    public function setCountry(string $country): void
+    {
+        $this->otherCountry = $country;
+        $this->loading = false;
+
+        $this->dispatch('set-loading-false');
+        // $this->dispatch('set-loading-false')->component(\App\Livewire\Partials\FormButtons::class);
     }
 
     public function removeSelectedSquare(int $id): void
@@ -94,6 +116,7 @@ class FormStepSelectMultiple extends Component
         if (in_array($id, $this->answerSelected)) {
             $this->answerSelected = [];
         }
+        $this->otherCountry = '';
         $this->disabledBtn = false;
     }
 
@@ -102,19 +125,32 @@ class FormStepSelectMultiple extends Component
         $this->dispatch('set-loading-true');
         $this->disabledBtn = true;
         $this->form->addRulesFromOutside($this->rules());
+
         try {
             $this->validate($this->rules());
         } catch (Throwable $e) {
             $this->disabledBtn = false;
-            $this->dispatch('set-loading-false')->component(FormButtons::class);
+            $this->dispatch('set-loading-false')->component(\App\Livewire\Partials\FormButtons::class);
             throw $e;
         }
+
         $answer = [
-            'student_id' => $this->subject['id'],
-            'value' => array_key_exists('id', $this->answerSelected) ? $this->answerSelected['id'] : 99,
+            'friend_id' => $this->subject['id'],
+            'country_id' => array_key_exists('id', $this->answerSelected) ? $this->answerSelected['id'] : null,
+            'other_country' => $this->answerSelected['id'] == 5 ? $this->otherCountry : null,
         ];
+
         $this->jsonQuestion->question_title = $this->jsonQuestion->question_title.' ID:'.$this->subject['id'];
         $this->form->createAnswer($answer, $this->jsonQuestion, $this->stepId);
+
+        if (isset($this->subject['id'])) {
+            \App\Models\SurveyFriend::where('id', $this->subject['id'])
+                ->where('owner_student_id', $this->form->getStudent()->id)
+                ->update([
+                    'country_id' => $this->answerSelected['id'] ?? null,
+                    'other_country' => $this->otherCountry,
+                ]);
+        }
 
         if (array_key_exists(0, $this->students)) {
             $this->stepUp();
@@ -126,6 +162,7 @@ class FormStepSelectMultiple extends Component
     public function stepUp(): void
     {
         $this->answerSelected = [];
+        $this->otherCountry = '';
         $this->subject = array_shift($this->students);
         $this->finishedSubjects[] = $this->subject;
 
@@ -150,7 +187,7 @@ class FormStepSelectMultiple extends Component
         }
 
         $this->answerSelected = [];
-
+        $this->otherCountry = '';
         $this->disabledBtn = $this->setDatabaseResponse();
     }
 
@@ -167,16 +204,8 @@ class FormStepSelectMultiple extends Component
     public function render()
     {
         $this->loading = false;
-        if ($this->jsonQuestion->depends_on_question !== null && $this->subject !== null) {
-            if ($this->getSurvey()->usesFriends() && $this->jsonQuestion->depends_on_question == 49) {
-                $this->questionOptions = setFriendNationalityOptions($this->jsonQuestion->depends_on_question, $this->subject['country_id'], $this->subject['other_country']);
-            } else {
-                $this->questionOptions = setNationalityOptions($this->jsonQuestion->depends_on_question, $this->subject['id']);
-            }
-        }
 
-
-        return view('livewire.forms.form-step-select-multiple');
+        return view('livewire.forms.form-step49');
     }
 
     public function setDatabaseResponse()
@@ -186,12 +215,14 @@ class FormStepSelectMultiple extends Component
 
             return false;
         }
-        $response = SurveyAnswer::where('student_id', $this->form->getStudent()->id)
+
+        $response = \App\Models\SurveyAnswer::where('student_id', $this->form->getStudent()->id)
             ->where('question_id', $this->jsonQuestion->id)
             ->whereJsonContains('student_answer->student_id', $this->subject['id'])
             ->first();
+
         if (! $response) {
-            $this->dispatch('set-loading-false')->component(FormButtons::class);
+            $this->dispatch('set-loading-false')->component(\App\Livewire\Partials\FormButtons::class);
             Log::info('Could not find response to question '.$this->jsonQuestion->id.
                 ' for subject '.$this->subject['id'].
                 ' and current student '.$this->form->getStudent()->id);
@@ -199,35 +230,25 @@ class FormStepSelectMultiple extends Component
             return false;
         }
 
-        if (! $response->student_answer['value']) {
-            // Participant heeft deze vraag overgeslagen.
-            $this->dispatch('set-loading-false')->component(FormButtons::class);
+        $answer = $response->student_answer ?? [];
+        $this->answerSelected = [];
+        $this->otherCountry = $answer['other_country'] ?? '';
 
-            return true;
-        }
-
-        foreach ($this->jsonQuestion->question_answer_options as $key => $option) {
-            if (! empty($response->student_answer['value']) && $option['id'] == $response->student_answer['value']) {
-                $this->answerSelected = ['id' => $response->student_answer['value'], 'value' => $this->jsonQuestion->question_answer_options[$key]['value']];
+        if (! empty($answer['country_id'])) {
+            foreach ($this->jsonQuestion->question_answer_options as $key => $option) {
+                if ($option['id'] == $answer['country_id']) {
+                    $this->answerSelected = ['id' => $answer['country_id'], 'value' => $option['value']];
+                }
             }
         }
 
-        $this->dispatch('set-loading-false')->component(FormButtons::class);
+        $this->dispatch('set-loading-false')->component(\App\Livewire\Partials\FormButtons::class);
 
         return true;
     }
 
     public function setStudents(): void
     {
-        // By default, set al students:
         $this->students = $this->form->getSelectablesForQuestion($this->jsonQuestion);
-        // if ($this->jsonQuestion->depends_on_question) {
-        //     // Get students based on the response of another question:
-        //     $this->students = $this->form->getStudentsOtherEthnicityWithResponse($this->jsonQuestion->depends_on_question);
-        // }
-        // if ($this->jsonQuestion->id == 49) {
-        //     // exception, question id 49 had specific logic.
-        //     $this->students = $this->form->getStudentsFotQuestion49($this->jsonQuestion->depends_on_question);
-        // }
     }
 }

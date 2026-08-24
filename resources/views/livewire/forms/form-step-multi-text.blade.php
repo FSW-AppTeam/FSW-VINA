@@ -16,7 +16,7 @@
                               wire:model.live.debounce="input.{{ $i }}"
                               class="form-control style-input"
                               name="{{ $jsonQuestion->question_content }}[{{ $i }}]"
-                              rows="2"></textarea>
+                              rows="1"></textarea>
                 </div>
             @endfor
         </div>

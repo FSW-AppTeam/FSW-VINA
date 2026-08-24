@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
+use App\Models\Survey;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
@@ -50,6 +51,13 @@ class StepController extends Component
     {
         $this->jsonQuestion = json_decode(file_get_contents(resource_path('surveys/q-outro.json')), false);
     }
+
+     #[Computed(persist: true)]
+    public function getSurvey(): Survey
+    {
+        return Survey::find(session::get('survey-id'));
+    }
+
 
     public function mount()
     {
@@ -238,6 +246,11 @@ class StepController extends Component
         $this->jsonQuestion = $question;
 
         if (isset($this->jsonQuestion->depends_on_question)) {
+
+            if ($this->getSurvey()->usesFriends() and !$this->jsonQuestion->id === 36){
+                return;
+            }
+
             if (in_array($this->jsonQuestion->id, [36, 39, 40, 41, 42, 50, 51, 52])) {
 
                 $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
@@ -252,7 +265,7 @@ class StepController extends Component
 
                     return;
                 }
-
+                
                 $this->questionOptions = setNationalityOptions($this->jsonQuestion->depends_on_question);
             }
             if ($this->jsonQuestion->id == 38) {

@@ -26,6 +26,8 @@ class SurveyFriend extends Model
         'survey_id' => 'int',
         'owner_student_id' => 'int',
         'position' => 'int',
+        'country_id' => 'int',
+        'other_country' => 'string'
     ];
 
     protected $fillable = [
@@ -34,6 +36,7 @@ class SurveyFriend extends Model
         'name',
         'position',
         'country_id',
+        'other_country'
     ];
 
     /**

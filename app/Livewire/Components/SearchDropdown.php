@@ -12,9 +12,26 @@ class SearchDropdown extends Component
 
     public $selectedCountry;
 
-    public function mount()
+    public string $targetComponent = 'forms.form-step7';
+
+    public function mount(?string $targetComponent = null)
     {
         $this->searchResults = getCountriesByIso();
+
+        if ($targetComponent) {
+            $this->targetComponent = $targetComponent;
+        }
+    }
+
+    public function updatedSelectedCountry($value): void
+    {
+        if (empty($value)) {
+            return;
+        }
+
+        $country = $value;
+        $this->selectedCountry = null;
+        $this->dispatch('set-country', $country)->component($this->targetComponent);
     }
 
     public function render()
@@ -28,9 +45,11 @@ class SearchDropdown extends Component
             });
         }
 
-        if ($this->selectedCountry) {
-            $this->dispatch('set-country', $this->selectedCountry)->component('forms.form-step7');
-        }
+        // if ($this->selectedCountry) {
+        //     $country = $this->selectedCountry;
+        //     $this->selectedCountry = null;
+        //     $this->dispatch('set-country', $country)->component($this->targetComponent);
+        // }
 
         return view('livewire.components.search-dropdown');
     }

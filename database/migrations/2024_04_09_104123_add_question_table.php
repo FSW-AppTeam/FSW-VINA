@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('question_type');
             $table->integer('depends_on_question')->nullable();
             $table->string('question_title');
-            $table->string('question_content');
+            $table->text('question_content');
             $table->json('question_answer_options')->nullable();
             $table->json('question_options')->nullable();
 
