@@ -23,6 +23,8 @@ class FormStepMultiText extends Component
 
     public $firstRequired = true;
 
+    public $maxEntries = 15;
+
     protected $messages = [];
 
     protected $listeners = [
@@ -114,11 +116,11 @@ class FormStepMultiText extends Component
 
     private function normalizeInput(mixed $value): array
     {
-        $values = array_fill(0, 20, '');
+        $values = array_fill(0, $this->maxEntries, '');
 
         if (is_array($value)) {
             foreach ($value as $index => $item) {
-                if ($index < 20) {
+                if ($index < $this->maxEntries) {
                     $values[$index] = (string) $item;
                 }
             }
@@ -130,7 +132,7 @@ class FormStepMultiText extends Component
             $decoded = json_decode($value, true);
             if (is_array($decoded)) {
                 foreach ($decoded as $index => $item) {
-                    if ($index < 20) {
+                    if ($index < $this->maxEntries) {
                         $values[$index] = (string) $item;
                     }
                 }
@@ -140,7 +142,7 @@ class FormStepMultiText extends Component
 
             $lines = preg_split('/\r\n|\r|\n/', $value) ?: [];
             foreach ($lines as $index => $line) {
-                if ($index < 20) {
+                if ($index < $this->maxEntries) {
                     $values[$index] = $line;
                 }
             }

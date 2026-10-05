@@ -9,7 +9,7 @@
             @endif
             <h6>{{ $jsonQuestion->question_content }}</h6>
 
-            @for ($i = 0; $i < 20; $i++)
+            @for ($i = 0; $i < $this->maxEntries; $i++)
                 <div class="mb-2">
                     <label for="{{ $jsonQuestion->id }}-{{ $i + 1 }}" class="form-label">{{ $i + 1 }}</label>
                     <textarea id="{{ $jsonQuestion->id }}-{{ $i + 1 }}"
