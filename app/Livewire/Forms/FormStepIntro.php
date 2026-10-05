@@ -6,6 +6,8 @@ use Livewire\Component;
 
 class FormStepIntro extends Component
 {
+    public PostForm $form;
+
     public $stepId;
 
     public $loading = true;
@@ -24,6 +26,10 @@ class FormStepIntro extends Component
 
     public function save(): void
     {
+        if (! session()->has('student-id') || ! session()->has('survey-id')) {
+            $this->form->createAnonymousStudent();
+        }
+
         $this->dispatch('step-up')->component(StepController::class);
     }
 

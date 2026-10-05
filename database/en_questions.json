@@ -13,6 +13,7 @@
     {
         "question_id": 1,
         "order": 1,
+        "enabled": false,
         "question_type": "text",
         "question_title": "Class code ",
         "question_content": "What is the code of your network?",
@@ -24,6 +25,7 @@
     {
         "question_id": 2,
         "order": 2,
+        "enabled": false,
         "question_type": "text",
         "question_title": "Frst name",
         "question_content": "What is your first name?",

@@ -9,6 +9,7 @@ use App\Models\SurveyQuestion;
 use App\Models\SurveyStudent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Features\SupportValidation\HandlesValidation;
 use Livewire\Form;
@@ -262,6 +263,32 @@ class PostForm extends Form
                 'survey-id' => strip_tags($surveyId),
             ]);
         }
+    }
+
+    public function createAnonymousStudent(): SurveyStudent
+    {
+        $survey = Survey::query()
+            ->where('survey_code', 'test1')
+            ->first();
+
+        if (! $survey) {
+            throw new \RuntimeException('Survey with code test1 was not found.');
+        }
+
+        $studentUuid = (string) Str::uuid();
+        $student = SurveyStudent::create([
+            'name' => $studentUuid,
+            'uuid' => $studentUuid,
+            'survey_id' => $survey->id,
+        ]);
+
+        session()->put([
+            'student-name' => $student->uuid,
+            'student-id' => (string) $student->id,
+            'survey-id' => (string) $survey->id,
+        ]);
+
+        return $student;
     }
 
     public function update()
