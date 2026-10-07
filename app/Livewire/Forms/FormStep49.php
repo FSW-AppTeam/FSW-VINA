@@ -98,8 +98,7 @@ class FormStep49 extends Component
         }
 
         $this->otherCountry = '';
-        $this->dispatch('set-loading-false');
-  
+        $this->save();
     }
 
     public function setCountry(string $country): void

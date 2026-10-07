@@ -68,6 +68,7 @@
 
                     <div class="mt-1 p-2 text-center">
                         <button type="button" id="country-set-btn"
+                            wire:click="save"
                                 style="width:80%"
                                 class="btn btn-outline-warning mt-5">OK
                         </button>
