@@ -10,6 +10,7 @@
                 :students="$students"
                 :subject="$subject"
                 :showShrink="$showShrink"
+                :center-subject="true"
         />
 
         <div class="container-sm">
