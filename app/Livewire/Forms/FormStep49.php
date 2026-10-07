@@ -61,7 +61,7 @@ class FormStep49 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $this->dispatch('set-loading-false')->component(\App\Livewire\Partials\FormButtons::class);
-                        $fail($this->messages['answerSelected.required']);
+                        $fail($this->messages['answer-selected.required']);
                     }
                 },
                 'array',

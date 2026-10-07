@@ -70,6 +70,10 @@ html, body {
     margin: 0;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 .card {
     height: 100vh; /* Fallback for browsers that do not support Custom Properties */
     height: calc(var(--vh, 1vh) * 100 - 90px  );
@@ -814,3 +818,4 @@ and (-webkit-min-device-pixel-ratio: 3) {
 .wait {
     cursor: wait;
 }
+

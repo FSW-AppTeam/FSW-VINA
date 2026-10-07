@@ -5,12 +5,19 @@
         <div class="container text-center">
             <h6 class="pb-3 mt-4 text-center mx-4">{!! ucfirst(printWithQuestionOptions( $jsonQuestion->question_content, $questionOptions, 2)) !!} </h6>
         </div>
-        <livewire:partials.students-buttons
-                wire:key="students-buttons-{{ time() }}"
-                :students="$students"
-                :subject="$subject"
-                :showShrink="$showShrink"
-        />
+        <div class="container-sm">
+            <div class="row justify-content-center">
+                <div class="col-11 col-lg-8 select-multiple-subject">
+                    <livewire:partials.students-buttons
+                            wire:key="students-buttons-{{ time() }}"
+                            :students="$students"
+                            :subject="$subject"
+                            :showShrink="$showShrink"
+                                :center-subject="true"
+                    />
+                </div>
+            </div>
+        </div>
 
         <div class="container-sm">
             <div class="row justify-content-center align-items-center text-center">

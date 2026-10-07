@@ -14,6 +14,8 @@ class StudentsButtons extends Component
 
     public $showShrink;
 
+    public $centerSubject = false;
+
     protected $listeners = [
         'refreshStudentButtons' => '$refresh',
 
