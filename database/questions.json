@@ -39,7 +39,7 @@
         "order": 3,
         "question_type": "int",
         "question_title": "Leeftijd",
-        "question_content": "In welk jaar ben je geboren?",
+        "question_content": "In welk jaar bent u geboren?",
         "question_answer_options": [],
         "question_options": {
             "error_empty_text": "Je hebt geen geboortejaar ingevoerd. Weet je zeker dat je door wil gaan?"
@@ -51,7 +51,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "Geslacht",
-        "question_content": "Wat is jouw geslacht?",
+        "question_content": "Wat is uw geslacht?",
         "question_answer_options": [
             {"id": 1, "value": "Man"},
             {"id": 2, "value": "Vrouw"},
@@ -65,6 +65,7 @@
     {
         "question_id": 33,
         "order": 5,
+        "enabled": false,
         "form_type": "select",
         "question_type": "int",
         "question_title": "Broers en zussen",
@@ -82,10 +83,11 @@
     {
         "question_id": 34,
         "order": 6,
+        "enabled": false,
         "form_type": "select",
         "question_type": "int",
         "question_title": "Geboren",
-        "question_content": "In welke maand ben j geboren?",
+        "question_content": "In welke maand bent u geboren?",
         "question_answer_options": [
             {"id": 1, "value": "Januari"},
             {"id": 2, "value": "Februari"},
@@ -107,6 +109,7 @@
     {
         "question_id": 35,
         "order": 7,
+        "enabled": false,
         "form_type": "text",
         "question_type": "string",
         "question_title": "Vrouwlijke verzorger",
@@ -120,16 +123,15 @@
         "question_id": 7,
         "order":10,
         "question_type": "json",
-        "question_title": "Herkomstland",
-        "question_content": "Heeft jouw familie nog een ander herkomstland dan Nederland? Zo ja, welk land is dat? ",
+        "question_title": "born",
+        "question_content": "In welk land bent u geboren?",
         "question_answer_options": [
-            {"id": 1, "value": "Geen ander land"},
+            {"id": 1, "value": "Nederland"},
             {"id": 2, "value": "Turkije"},
             {"id": 3, "value": "Marokko"},
             {"id": 4, "value": "Suriname"},
-            {"id": 5, "value": "Voormalige Nederlandse Antillen"},
-            {"id": 6, "value": "Ander land, namelijk: "},
-            {"id": 7, "value": "Wil ik niet zeggen"}
+            {"id": 5, "value": "Nederlandse Antillen"},
+            {"id": 6, "value": "Ander land, namelijk: "}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
@@ -138,9 +140,83 @@
             "question_custom_input_title": "Herkomstland (ander)"
         }
     },
+    
+    {
+        "question_id": 8,
+        "order": 11,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "bornparents",
+        "question_content": "Zijn uw ouders in Nederland geboren?",
+        "question_answer_options": [
+            {"id": 1, "value": "Ja, allebai"},
+            {"id": 2, "value": "Ja, een van mijn ouders"},
+            {"id": 3, "value": "Nee, geen van beiden"},
+            {"id": 4, "value": "Weet ik niet"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
 
     {
+        "question_id": 9,
+        "order": 12,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "educ",
+        "question_content": "Wat is uw hoogst afgeronde opleiding? Als u nu een opleiding volgt, kies dan het niveau van die opleiding.",
+        "question_answer_options": [
+            {"id": 1, "value": "Geen"},
+            {"id": 2, "value": "Basisschool"},
+            {"id": 3, "value": "VMBO"},
+            {"id": 4, "value": "Havo/Vwo"},
+            {"id": 5, "value": "MBO"},
+            {"id": 6, "value": "MBO"},
+            {"id": 7, "value": "WO"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 13,
+        "order": 13,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "werk",
+        "question_content": "Hebt u op dit moment betaald werk of niet? Welke situatie in onderstaande lijst is het meest op u van toepassing. Indien u meer dan één baan hebt, dan gaat het over uw belangrijkste baan.",
+        "question_answer_options": [
+            {"id": 1, "value": "30 of meer uur per week"},
+            {"id": 2, "value": "Minder dan 30 uur per week"},
+            {"id": 3, "value": "Zelfstandig"},
+            {"id": 4, "value": "Militaire dienst"},
+            {"id": 5, "value": "Gepensioneerd"},
+            {"id": 6, "value": "Huisman/huisvrouw en geen betaald werk"},
+            {"id": 7, "value": "Student"},
+            {"id": 8, "value": "Werkloos"},
+            {"id": 9, "value": "Arbeidsongeschikt"},
+            {"id": 10, "value": "Anders"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 58,
+        "order": 14,
+        "form_type": "display",
+        "question_type": "text",
+        "question_title": "Info",
+        "question_content": "De volgende vragen gaan over uw vrienden of goede kennissen. Door technische problemen loopt de vragenlijst hier soms vast. Mocht dit gebeuren, refresh dan de pagina in uw browser. ",
+        "question_answer_options": "",
+        "question_options": {
+            "extra_text": ""
+        }
+    },
+    {
         "question_id": 50,
+        "enabled": false,
         "order": 11,
         "form_type": "select",
         "question_type": "int",
@@ -160,6 +236,7 @@
     },
     {
         "question_id": 51,
+        "enabled": false,
         "order": 12,
         "form_type": "select",
         "question_type": "int",
@@ -180,6 +257,7 @@
     },
     {
         "question_id": 52,
+        "enabled": false,
         "order": 13,
         "form_type": "select",
         "question_type": "int",
@@ -200,6 +278,7 @@
     {
         "question_id": 36,
         "order": 14,
+        "enabled": false,
         "form_type": "select",
         "question_type": "int",
         "depends_on_question": 7,
@@ -457,6 +536,18 @@
         "question_options": {
             "extra_text": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname!",
             "validation_max": 300
+        }
+    },
+    {
+        "question_id": 57,
+        "order":32,
+        "enabled": false,
+        "form_type": "display",
+        "question_type": "text",
+        "question_title": "Niet geschikt",
+        "question_content": "Beste deelnemer, <br><br> U heeft aangegeven dat u zelf of (een van) uw ouders niet in Nederland geboren zijn. Bedankt voor u interesse, maar u valt helaas niet binnen de doelgroep van dit onderzoek. <br><br> Voor vragen of klachten over dit onderzoek kunt u contact opnemen met de hoofdonderzoeker van dit project: T. Stark (t.h.stark@uu.nl). <br><br> We willen u hartelijk danken voor uw deelname aan ons onderzoek!",
+        "question_options": {
+            "extra_text": "Hartelijk dank voor uw tijd."
         }
     }
 ]

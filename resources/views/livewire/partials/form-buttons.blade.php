@@ -13,7 +13,7 @@
                     </svg>
                 </button>
             @endif
-            @if($jsonQuestion->id !== 31)
+            @if(!session()->has('survey-ineligible') && $jsonQuestion->id !== 31)
                 <button class="btn btn-secondary btn-survey float-end arrow"
                         id="nextButton">
                     <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">

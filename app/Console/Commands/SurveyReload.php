@@ -35,6 +35,7 @@ class SurveyReload extends Command
             $question = SurveyQuestion::find($item->question_id);
             if ($question == null) {
                 $question = new SurveyQuestion;
+                $question->id = $item->question_id;
             }
 
             $question->order = $item->order;

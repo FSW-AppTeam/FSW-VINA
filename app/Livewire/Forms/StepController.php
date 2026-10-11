@@ -130,6 +130,18 @@ class StepController extends Component
 
     public function back(): void
     {
+        if (($this->jsonQuestion->id ?? null) === 57 || Session::get('survey-ineligible')) {
+            $returnQuestionId = Session::get('survey-ineligible-return-question', 7);
+            Session::forget('survey-ineligible');
+            Session::forget('survey-ineligible-return-question');
+            $this->jsonQuestion = SurveyQuestion::findOrFail($returnQuestionId);
+            $this->stepId = $this->jsonQuestion->order;
+            $this->setActiveStep($this->jsonQuestion);
+            $this->setSavedAnswers();
+
+            return;
+        }
+
         if ($this->hasSubQuestions()) {
             $this->dispatch('set-sub-step-down');
 
@@ -209,15 +221,15 @@ class StepController extends Component
             return;
         }
 
-        if ($this->isLastQuestion()) {
-            $this->activeStep = 'forms.form-step-outro';
+        if (isset($jsonQuestion->form_type)) {
+            // If formtype is set, a dynamic form is used.
+            $this->activeStep = 'forms.form-step-'.$jsonQuestion->form_type;
 
             return;
         }
 
-        if (isset($jsonQuestion->form_type)) {
-            // If formtype is set, a dynamic form is used.
-            $this->activeStep = 'forms.form-step-'.$jsonQuestion->form_type;
+        if ($this->isLastQuestion()) {
+            $this->activeStep = 'forms.form-step-outro';
 
             return;
         }
@@ -238,9 +250,18 @@ class StepController extends Component
 
     public function setQuestion()
     {
+        if (Session::get('survey-ineligible')) {
+            $this->jsonQuestion = SurveyQuestion::findOrFail(57);
+            $this->stepId = $this->jsonQuestion->order;
+            $this->activeStep = 'forms.form-step-display';
+
+            return;
+        }
+
         $question = SurveyQuestion::where('order', '>=', $this->stepId)
             ->orderBy('order', 'asc')
-            ->where('enabled', true)->first();
+            ->where('enabled', true)
+            ->first();
         // In case of a question is disabled, skip it. We have to set the order as the new stpId
         $this->stepId = $question->order;
         $this->jsonQuestion = $question;

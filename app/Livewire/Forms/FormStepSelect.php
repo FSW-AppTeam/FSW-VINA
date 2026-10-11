@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Throwable;
 
@@ -66,6 +67,14 @@ class FormStepSelect extends Component
             throw $e;
         }
         $this->form->createAnswer($this->input, $this->jsonQuestion, $this->stepId);
+
+        if ($this->jsonQuestion->id === 8 && (int) $this->input !== 1) {
+            Session::put('survey-ineligible', true);
+            Session::put('survey-ineligible-return-question', 8);
+        } elseif ($this->jsonQuestion->id === 8) {
+            Session::forget(['survey-ineligible', 'survey-ineligible-return-question']);
+        }
+
         $this->dispatch('step-up')->component(StepController::class);
     }
 
