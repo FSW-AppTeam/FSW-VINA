@@ -4,16 +4,15 @@
     <div id="scope-form-step31" class="set-fade-in">
 
         <div class="container mt-3">
+            <h6>{!! $jsonQuestion->question_content !!}</h6>
             @if(isset($jsonQuestion->question_options['extra_text']))
-                <h6>{{ $jsonQuestion->question_options['extra_text'] }}</h6>
+                <p class="sub-head-text ms-0">{!! $jsonQuestion->question_options['extra_text'] !!}</p>
             @endif
-            <h6>{{ $jsonQuestion->question_content }}</h6>
-
             @for ($i = 0; $i < $this->maxEntries; $i++)
                 <div class="mb-2">
                     <label for="{{ $jsonQuestion->id }}-{{ $i + 1 }}" class="form-label">{{ $i + 1 }}</label>
                     <textarea id="{{ $jsonQuestion->id }}-{{ $i + 1 }}"
-                              wire:model.live.debounce="input.{{ $i }}"
+                              wire:model="input.{{ $i }}"
                               class="form-control style-input"
                               name="{{ $jsonQuestion->question_content }}[{{ $i }}]"
                               rows="1"></textarea>

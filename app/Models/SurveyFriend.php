@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $owner_student_id
  * @property string $name
  * @property int $position
+ * @property bool $has_migratory_background
  * @property Survey $survey
  * @property SurveyStudent $owner
  */
@@ -26,6 +27,7 @@ class SurveyFriend extends Model
         'survey_id' => 'int',
         'owner_student_id' => 'int',
         'position' => 'int',
+        'has_migratory_background' => 'bool',
         'country_id' => 'int',
         'other_country' => 'string'
     ];
@@ -35,6 +37,7 @@ class SurveyFriend extends Model
         'owner_student_id',
         'name',
         'position',
+        'has_migratory_background',
         'country_id',
         'other_country'
     ];

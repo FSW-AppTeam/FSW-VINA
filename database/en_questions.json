@@ -132,13 +132,33 @@
     {
         "question_id": 54,
         "order": 8.5,
-        "form_type": "select_students",
+        "form_type": "multi_text",
         "question_type": "array",
         "question_title": "Who are your friends?",
-        "question_content": "Name the names of your friends.",
+        "question_content": "Please list the first names of 10 friends or acquaintances without a migratory background. You may use nicknames or initials as long as you know who you mean.",
         "question_options": {
-            "extra_text": "This selection is used as a group for the following questions.",
-            "error_empty_text": "Select at least one person."
+            "extra_text": "Use the same name for a person if you list them in both questions.",
+            "error_empty_text": "Please fill in all 10 names.",
+            "error_unique_text": "This name has already been entered.",
+            "available_inputs": 10,
+            "mandatory_inputs": 10,
+            "friend_source": true
+        }
+    },
+    {
+        "question_id": 55,
+        "order": 8.4,
+        "form_type": "multi_text",
+        "question_type": "array",
+        "question_title": "Friends with a migratory background",
+        "question_content": "List the first names of up to five friends or acquaintances with a migratory background (they or one or both of their parents were born outside the Netherlands).",
+        "question_options": {
+            "extra_text": "Enter the names of your friends or acquaintances with a migratory background.",
+            "error_empty_text": "Enter at least one name.",
+            "error_unique_text": "This name has already been entered.",
+            "available_inputs": 5,
+            "mandatory_inputs": 1,
+            "friend_source_migratory_background": true
         }
     },
     {

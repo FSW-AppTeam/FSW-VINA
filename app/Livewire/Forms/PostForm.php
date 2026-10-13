@@ -216,13 +216,50 @@ class PostForm extends Form
                 'question_type' => $jsonQuestions->question_type,
             ]
         );
-        if (data_get($jsonQuestions, 'question_options.friend_source')) {
-            $this->getStudent()->syncFriends($surveyAnswer->student_answer);
+        if (
+            data_get($jsonQuestions, 'question_options.friend_source')
+            || data_get($jsonQuestions, 'question_options.friend_source_migratory_background')
+        ) {
+            $this->syncFriendListFromAnswers();
         }
 
         session::put([
             "step$stepId" => true,
         ]);
+    }
+
+    private function syncFriendListFromAnswers(): void
+    {
+        $sourceQuestions = SurveyQuestion::query()
+            ->get(['id', 'order', 'question_options'])
+            ->filter(fn (SurveyQuestion $question) =>
+                data_get($question, 'question_options.friend_source')
+                || data_get($question, 'question_options.friend_source_migratory_background')
+            )
+            ->sortBy('order')
+            ->values();
+
+        $migratoryQuestionIds = $sourceQuestions
+            ->filter(fn (SurveyQuestion $question) => data_get($question, 'question_options.friend_source_migratory_background'))
+            ->pluck('id');
+
+        $answers = SurveyAnswer::query()
+            ->where('student_id', $this->getStudent()->id)
+            ->whereIn('question_id', $sourceQuestions->pluck('id'))
+            ->get()
+            ->keyBy('question_id');
+
+        $friendNames = $sourceQuestions
+            ->flatMap(fn (SurveyQuestion $question) => $answers->get($question->id)?->student_answer ?? [])
+            ->all();
+        $migratoryNames = $migratoryQuestionIds
+            ->flatMap(fn ($questionId) => $answers->get($questionId)?->student_answer ?? [])
+            ->all();
+
+        $this->getStudent()->syncFriends(
+            $friendNames,
+            $migratoryNames
+        );
     }
 
     public function createJsonAnswer($answer, SurveyQuestion $jsonQuestions, int $stepId): void

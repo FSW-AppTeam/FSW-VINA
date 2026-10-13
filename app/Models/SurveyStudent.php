@@ -51,24 +51,49 @@ class SurveyStudent extends Model
         )->orderBy('position');
     }
 
-    public function syncFriends(array $friendNames): void
+    public function syncFriends(array $friendNames, array $migratoryFriendNames = []): void
     {
-        $this->friends()->delete();
+        $existingFriends = $this->friends()->get();
+        $existingFriendsByName = $existingFriends->keyBy('name');
+        $migratoryNames = array_fill_keys($migratoryFriendNames, true);
+        $allFriendNames = [];
 
-        foreach ($friendNames as $index => $name) {
+        foreach ($friendNames as $name) {
             $name = trim((string) $name);
 
             if ($name === '') {
                 continue;
             }
 
-            $this->friends()->create([
-                'survey_id' => $this->survey_id,
-                'name' => $name,
-                'position' => $index + 1,
-            ]);
+            $allFriendNames[$name] = $name;
         }
+
+        $keptFriendIds = [];
+
+        foreach ($allFriendNames as $name) {
+            $friend = $existingFriendsByName->get($name);
+            $attributes = [
+                'survey_id' => $this->survey_id,
+                'name' => $friend?->name ?? $name,
+                'position' => count($keptFriendIds) + 1,
+                'has_migratory_background' => isset($migratoryNames[$name]),
+            ];
+
+            if ($friend) {
+                $friend->update($attributes);
+            } else {
+                $friend = $this->friends()->create($attributes);
+            }
+
+            $keptFriendIds[] = $friend->id;
+        }
+
+        $existingFriends
+            ->reject(fn (SurveyFriend $friend) => in_array($friend->id, $keptFriendIds, true))
+            ->each
+            ->delete();
     }
+
     /**
      *  Get export answers for csv
      */

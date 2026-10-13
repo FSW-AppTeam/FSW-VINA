@@ -3,6 +3,8 @@
 namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\FormButtons;
+use App\Models\SurveyAnswer;
+use App\Models\SurveyQuestion;
 use Closure;
 use Livewire\Component;
 use Throwable;
@@ -20,8 +22,6 @@ class FormStepMultiText extends Component
     public $jsonQuestion;
 
     public $savedAnswers;
-
-    public $firstRequired = true;
 
     public $maxEntries = 15;
 
@@ -46,8 +46,8 @@ class FormStepMultiText extends Component
                         return trim((string) $item) !== '';
                     });
 
-                    if ($this->firstRequired && empty($filledValues)) {
-                        $this->firstRequired = false;
+                    $requiredInputs = $this->jsonQuestion->question_options['mandatory_inputs'] ?? 1;
+                    if (count($filledValues) < $requiredInputs) {
                         $this->dispatch('set-loading-false')->component(FormButtons::class);
                         $fail($this->messages['input.required']);
                     }
@@ -60,6 +60,32 @@ class FormStepMultiText extends Component
 
                     if (count($normalizedNames) !== count(array_unique($normalizedNames))) {
                         $fail($this->messages['input.unique']);
+                    }
+
+                    if (
+                        data_get($this->jsonQuestion, 'question_options.friend_source')
+                        || data_get($this->jsonQuestion, 'question_options.friend_source_migratory_background')
+                    ) {
+                        $friendQuestionIds = SurveyQuestion::query()
+                            ->get(['id', 'question_options'])
+                            ->filter(fn (SurveyQuestion $question) =>
+                                data_get($question, 'question_options.friend_source')
+                                || data_get($question, 'question_options.friend_source_migratory_background')
+                            )
+                            ->pluck('id')
+                            ->reject(fn (int $id) => $id === $this->jsonQuestion->id);
+
+                        $otherFriendNames = SurveyAnswer::query()
+                            ->where('student_id', $this->form->getStudent()->id)
+                            ->whereIn('question_id', $friendQuestionIds)
+                            ->get()
+                            ->flatMap(fn (SurveyAnswer $answer) => $answer->student_answer ?? [])
+                            ->map(fn ($name) => mb_strtolower(trim((string) $name)))
+                            ->all();
+
+                        if (array_intersect($normalizedNames, $otherFriendNames)) {
+                            $fail($this->messages['input.unique']);
+                        }
                     }
                 },
             ],
@@ -74,8 +100,7 @@ class FormStepMultiText extends Component
 
     public function updatedInput()
     {
-        $this->form->addRulesFromOutside($this->rules());
-        $this->validate($this->rules());
+        $this->resetValidation('input');
         $this->dispatch('set-loading-false');
     }
 
@@ -99,6 +124,7 @@ class FormStepMultiText extends Component
 
     public function mount(): void
     {
+        $this->maxEntries = $this->jsonQuestion->question_options['available_inputs'] ?? $this->maxEntries;
         $this->input = $this->normalizeInput($this->savedAnswers);
         if (! empty(array_filter($this->input, function ($item) {
             return trim((string) $item) !== '';

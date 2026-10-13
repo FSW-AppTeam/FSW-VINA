@@ -295,19 +295,52 @@
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
-    
-    
-   
-    {
-        "question_id": 54,
+     {
+        "question_id": 56,
         "order": 15,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "FrMig",
+        "question_content": "Heeft u vrienden of goede kennissen met een migratieachtergrond (wie zelf of wiens ouders niet in Nederland zijn geboren)?",
+        "question_answer_options": [
+            {"id": 1, "value": "Ja"},
+            {"id": 2, "value": "Nee"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    
+   {
+        "question_id": 55,
+        "order": 16,
         "form_type": "multi_text",
         "question_type": "array",
-        "question_title": "Wie zijn jouw vrienden?",
-        "question_content": "De volgende vragen gaan over uw sociale netwerk. Hiermee bedoelen we mensen met wie u praat over dingen die voor u belangrijk zijn. Noem alstublieft 15 voornamen van mensen van wie u vindt dat ze tot uw sociale netwerk behoren. Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
+        "question_title": "migrant Names",
+        "question_content": "Wat zijn de voornamen van uw vrienden of kennissen met een migratieachtergrond?",
         "question_options": {
-            "error_empty_text": "Selecteer minimaal één persoon.", 
+            "extra_text": "U mag er maximaal vijf noemen. Als u meer vrienden of kennissen met een migratieachtergrond heeft, noem dan de vijf die het meest belangrijk voor u zijn.<br><br>Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
+            "error_empty_text": "Vul minimaal één naam in.",
             "error_unique_text": "Naam is al bezet.",
+            "available_inputs": 5,
+            "mandatory_inputs": 1,
+            "friend_source_migratory_background": true
+        }
+    },
+    
+    {
+        "question_id": 54,
+        "order": 17,
+        "form_type": "multi_text",
+        "question_type": "array",
+        "question_title": "netwerk",
+        "question_content": "We willen ook graag vragen stellen over uw vrienden of kennissen zonder migratieachtergrond. Hiermee bedoelen we mensen die alleen een Nederlandse achtergrond hebben. <br><br>Noem alstublieft 10 voornamen van Nederlandse vrienden of kennissen. Denk hierbij aan mensen met wie u praat over dingen die voor u belangrijk zijn.",
+        "question_options": {
+            "extra_text": "Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
+            "error_empty_text": "U kunt pas verder als u 10 namen hebt ingevuld. Denk aan mensen met wie je over het nieuws, politiek of maatschappelijke onderwerpen praat. Denk aan familieleden en collega’s.",
+            "error_unique_text": "Naam is al bezet.",
+            "available_inputs": 10,
+            "mandatory_inputs": 10,
             "friend_source": true
         }
     },

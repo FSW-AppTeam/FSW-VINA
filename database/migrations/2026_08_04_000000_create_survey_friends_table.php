@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedInteger('position');
             $table->unsignedBigInteger('country_id')->nullable();
+            $table->boolean('has_migratory_background')->default(false);
             $table->string('other_country')->nullable();
             $table->timestamps();
         });
