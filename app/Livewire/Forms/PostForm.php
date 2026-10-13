@@ -44,31 +44,44 @@ class PostForm extends Form
 
     
     public function getSelectablesForQuestion(?SurveyQuestion $question): array
-    {   
-        
+    {
+        $usesFriends = $this->getSurvey()->usesFriends();
+
         if (! $question) {
-            return $this->getSurvey()->usesFriends()
-                ? $this->getStudent()->friends()->orderBy('position')->get()->toArray()
+            return $usesFriends
+                ? $this->getStudent()->friends()->reorder('name')->get()->toArray()
                 : $this->getStudentsWithoutActiveStudent();
         }
 
-        if ($this->getSurvey()->usesFriends() && in_array($question->id, [38, 49, 39])) {
-            return $this->getFriendsForQuestion49();
+        if (
+            $usesFriends
+            && data_get($question, 'question_options.answers_source') === 'migratory_background'
+        ) {
+            return $this->getStudent()
+                ->friends()
+                ->where('has_migratory_background', true)
+                ->orderBy('name')
+                ->get()
+                ->toArray();
         }
 
-        if (! $this->getSurvey()->usesFriends() && $question->id == 49) {
+        if (! $usesFriends && $question->id == 49) {
             return $this->getStudentsFotQuestion49($question->depends_on_question);
         }
 
         if ($question->depends_on_question) {
-            return $this->getSurvey()->usesFriends()
-                ? $this->getFriendsOtherEthnicity()
-                : $this->getStudentsOtherEthnicityWithResponse($question->depends_on_question);
+            if (! $usesFriends) {
+                return $this->getStudentsOtherEthnicityWithResponse($question->depends_on_question);
+            }
+
+            $selectables = $this->getFriendsOtherEthnicity();
+        } else {
+            $selectables = $usesFriends
+                ? $this->getStudent()->friends()->reorder('name')->get()->toArray()
+                : $this->getStudentsWithoutActiveStudent();
         }
 
-        return $this->getSurvey()->usesFriends()
-            ? $this->getStudent()->friends()->orderBy('position')->get()->toArray()
-            : $this->getStudentsWithoutActiveStudent();
+        return $selectables;
     }
 
     #[Computed(persist: true)]
@@ -91,7 +104,7 @@ class PostForm extends Form
             ->friends()
             ->whereNotIn('country_id', [1, 7])
             ->whereNotNull('country_id')
-            ->orderBy('position')
+            ->reorder('name')
             ->get()
             ->toArray();
     }
@@ -146,7 +159,7 @@ class PostForm extends Form
 
         return SurveyFriend::where('owner_student_id', $this->getStudent()->id)
             ->whereIn('id', $selectedFriends)
-            ->orderBy('position')
+            ->orderBy('name')
             ->get()
             ->toArray();
     }

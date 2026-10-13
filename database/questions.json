@@ -350,18 +350,112 @@
         "order": 18,
         "form_type": "select_students",
         "question_type": "array",
-        "question_title": "Eigen vrienden",
-        "question_content": "Wie van deze personen zijn mannen?",
+        "question_title": "men",
+        "question_content": "Wie van deze personen zijn mannen? Klik op de namen van alle mannen in uw netwerk.",
         "question_options": {
-            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "student_group_source_question_id": 54
+            "extra_text": "U mag zo veel namen aanklikken als u wil.",
+            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
+            }
+    },
+    {
+        "question_id": 49,
+        "order": 19, 
+        "question_type": "json",
+        "question_title": "ethnicity persons",
+        "question_content": "U gaaf aan dat deze persoon een migratieachtergrond heeft. Uit welk land komt de familie van deze persoon? ",
+        "question_answer_options": [
+            {
+                "id": 1,
+                "value": "Turkije"
+            },
+            {
+                "id": 2,
+                "value": "Marokko"
+            },
+            {
+                "id": 3,
+                "value": "Suriname"
+            },
+            {
+                "id": 4,
+                "value": "Nederlandse Antillen / Aruba"
+            },
+            {
+                "id": 5,
+                "value": "Ander land, namelijk: "
+            }
+        ],
+        "question_options": {
+            "extra_text": "Als er meerdere zijn, kies dan het land dat jij het meest belangrijk vindt.",
+            "error_invalid_option": "Je moet een land invoeren dat in de lijst staat.",
+            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?", 
+            "answers_source": "migratory_background"
+        }
+    },
+    {
+        "question_id": 15,
+        "order": 20,
+        "form_type": "select_multiple",
+        "question_type": "json",
+        "question_title": "dutch identity",
+        "question_content": "Hoe Nederlands is deze persoon in uw ogen?",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal Nederlands"},
+            {"id": 2, "value": "Redelijk sterk Nederlands"},
+            {"id": 3, "value": "Een beetje Nederlands"},
+            {"id": 4, "value": "Niet Nederlands"},
+            {"id": 5, "value": "Helemaal niet Nederlands"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "answers_source": "migratory_background"
+        }
+    },
+    {
+        "question_id": 38,
+        "order": 21,
+        "form_type": "select_multiple",
+        "depends_on_question": 49,
+        "question_type": "json",
+        "question_title": "ethnic identity",
+        "question_content": "Hoe :questionOptions is deze persoon in uw ogen?",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal :questionOptions"},
+            {"id": 2, "value": "Redelijk sterk :questionOptions"},
+            {"id": 3, "value": "Een beetje :questionOptions"},
+            {"id": 4, "value": "Niet :questionOptions"},
+            {"id": 5, "value": "Helemaal niet :questionOptions"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?", 
+            "answers_source": "migratory_background"
+        }
+    },
+    {
+        "question_id": 39,
+        "order": 22,
+        "form_type": "select_multiple",
+        "question_type": "json",
+        "question_title": "friends of contacts",
+        "question_content": "Tot zover u weet, heeft deze persoon meer Nederlandse vrienden of meer vrienden met een migratieachtergrond? ",
+        "question_answer_options": [
+            {"id": 1, "value": "Bijna alleen Nederlandse vrienden"},
+            {"id": 2, "value": "Voornamelijk Nederlandse vrienden"},
+            {"id": 3, "value": "Evenveel vrienden met een Nederlandse en een migratieachtergrond "},
+            {"id": 4, "value": "Voornamelijk vrienden met een migratieachtergrond"},
+            {"id": 5, "value": "Bijna alleen vrienden met een migratieachtergrond"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?", 
+            "answers_source": "migratory_background"
         }
     },
     {
         "question_id": 44,
-        "order": 19,
+        "order": 25,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Outfriends",
@@ -374,7 +468,7 @@
     },
     {
         "question_id": 45,
-        "order": 20,
+        "order": 28,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - online",
@@ -387,7 +481,7 @@
     },
     {
         "question_id": 46,
-        "order": 21,
+        "order": 26,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
@@ -400,7 +494,7 @@
     },
     {
         "question_id": 47,
-        "order": 22,
+        "order": 27,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Popularity",
@@ -439,80 +533,11 @@
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },
+    
+    
+    
     {
-        "question_id": 49,
-        "order": 25, 
-        "question_type": "json",
-        "question_title": "Etniciteit andere klasgenoten",
-        "question_content": "Je gaaf aan dat volgeden persoon een migratieachtergrond heeft. Uit welk land komt de familie van deze persoon? ",
-        "question_answer_options": [
-            {
-                "id": 1,
-                "value": "Turkije"
-            },
-            {
-                "id": 2,
-                "value": "Marokko"
-            },
-            {
-                "id": 3,
-                "value": "Suriname"
-            },
-            {
-                "id": 4,
-                "value": "Nederlandse Antillen / Aruba"
-            },
-            {
-                "id": 5,
-                "value": "Ander land, namelijk: "
-            }
-        ],
-        "question_options": {
-            "extra_text": "Als er meerdere zijn, kies dan het land dat jij het meest belangrijk vindt.",
-            "error_invalid_option": "Je moet een land invoeren dat in de lijst staat.",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "error_one_text": ""
-        }
-    },
-    {
-        "question_id": 38,
-        "order": 26,
-        "form_type": "select_multiple",
-        "depends_on_question": 49,
-        "question_type": "json",
-        "question_title": "Identiteit klasgenoten",
-        "question_content": "Hoe zie jij deze persoon?",
-        "question_answer_options": [
-            {"id": 1, "value": "Alleen als Nederlands"},
-            {"id": 2, "value": "Meer als Nederlands"},
-            {"id": 3, "value": "Evenveel Nederlands en :questionOptions"},
-            {"id": 4, "value": "Meer als :questionOptions"},
-            {"id": 5, "value": "Alleen als :questionOptions"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
-        "question_id": 39,
-        "order": 27,
-        "form_type": "select_multiple",
-        "question_type": "json",
-        "question_title": "Friends of contacts",
-        "question_content": "Tot zover u weet, heeft deze persoon meer Nederlandse vrienden of meer vrienden met een migratieachtergrond? ",
-        "question_answer_options": [
-            {"id": 1, "value": "Alleen Nederlandse vrienden"},
-            {"id": 2, "value": "Voornamelijk Nederlandse vrienden"},
-            {"id": 3, "value": "Evenveel vrienden met een Nederlandse en een migratieachtergrond "},
-            {"id": 4, "value": "Voornamelijk vrienden met een migratieachtergrond"},
-            {"id": 5, "value": "Alleen vrienden met een migratieachtergrond"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
-        "question_id": 15,
+        "question_id": 61,
         "order": 28,
         "form_type": "select_multiple",
         "question_type": "json",

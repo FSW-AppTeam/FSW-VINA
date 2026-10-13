@@ -272,7 +272,7 @@ class StepController extends Component
                 return;
             }
 
-            if (in_array($this->jsonQuestion->id, [36, 39, 40, 41, 42, 50, 51, 52])) {
+            if (in_array($this->jsonQuestion->id, [36, 40, 41, 42, 50, 51, 52])) {
 
                 $savedAnswer = SurveyAnswer::where('question_id', $this->jsonQuestion->depends_on_question)
                     ->where('student_id', session('student-id'))
@@ -301,7 +301,11 @@ class StepController extends Component
     // Specific logic for question id 38
     private function checkDependingQuestion38()
     {
-        if (empty($this->form->getStudentsOtherEthnicityWithResponse($this->jsonQuestion->depends_on_question))) {
+        $selectables = $this->getSurvey()->usesFriends()
+            ? $this->form->getSelectablesForQuestion($this->jsonQuestion)
+            : $this->form->getStudentsOtherEthnicityWithResponse($this->jsonQuestion->depends_on_question);
+
+        if (empty($selectables)) {
             // Skip this question when the depending question has no answer
             $this->stepId++;
             $this->setQuestion();
