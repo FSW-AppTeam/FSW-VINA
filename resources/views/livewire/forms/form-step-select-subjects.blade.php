@@ -14,12 +14,13 @@
         <p class="sub-head-text pt-4 student-list">{{ $jsonQuestion->question_options['extra_text'] }}</p>
         <div class="form-group students-overview mb-3">
             <div class="row">
-                @foreach ($this->students as $student)
+                @php($answerOptions = $this->getAnswerOptions())
+                @foreach ($answerOptions as $student)
                     <livewire:components.student-fade
                             wire:key="students-fade-{{ $student['id'] . time() }}"
                             :id="$student['id']"
                             :name="$student['name']"
-                            :nextId="$this->students[0]['id']"
+                            :nextId="$answerOptions[0]['id'] ?? 0"
                             :selectedStudents="$selectedStudents"/>
                 @endforeach
                 <div wire:loading

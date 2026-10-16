@@ -65,6 +65,19 @@ class PostForm extends Form
                 ->toArray();
         }
 
+        if (
+            $usesFriends
+            && data_get($question, 'question_options.answers_order') === 'migratory_background_first'
+        ) {
+            return $this->getStudent()
+                ->friends()
+                ->reorder()
+                ->orderByDesc('has_migratory_background')
+                ->orderBy('name')
+                ->get()
+                ->toArray();
+        }
+
         if (! $usesFriends && $question->id == 49) {
             return $this->getStudentsFotQuestion49($question->depends_on_question);
         }
@@ -82,6 +95,23 @@ class PostForm extends Form
         }
 
         return $selectables;
+    }
+
+    public function getSubjectsForQuestion(?SurveyQuestion $question): array
+    {
+        if (
+            $this->getSurvey()->usesFriends()
+            && data_get($question, 'question_options.subjects_source') === 'migratory_background'
+        ) {
+            return $this->getStudent()
+                ->friends()
+                ->where('has_migratory_background', true)
+                ->orderBy('name')
+                ->get()
+                ->toArray();
+        }
+
+        return $this->getSelectablesForQuestion($question);
     }
 
     #[Computed(persist: true)]

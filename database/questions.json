@@ -454,8 +454,92 @@
         }
     },
     {
-        "question_id": 44,
+        "question_id": 40,
+        "order": 23,
+        "form_type": "select",
+        "question_type": "json",
+        "question_title": "eigenKlas",
+        "question_content": "Er wordt wel eens gesproken over het bestaan van verschillende sociale klassen en groepen. Als u zichzelf tot een bepaalde sociale klasse zou moeten rekenen, tot welke klasse zou u zich dan rekenen?",
+        "question_answer_options": [
+            {"id": 1, "value": "De hogere klasse"},
+            {"id": 2, "value": "De hogere middenklasse"},
+            {"id": 3, "value": "De middenklasse"},
+            {"id": 4, "value": "De hogere arbeidersklasse"},
+            {"id": 5, "value": "De arbeidersklasse"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 41,
+        "order": 24,
+        "form_type": "select_multiple",
+        "question_type": "json",
+        "question_title": "Klas vriend 1",
+        "question_content": "Tot zover u weet, tot welke klasse zou u deze personen rekenen? ",
+        "question_answer_options": [
+            {"id": 1, "value": "De hogere klasse"},
+            {"id": 2, "value": "De hogere middenklasse"},
+            {"id": 3, "value": "De middenklasse"},
+            {"id": 4, "value": "De hogere arbeidersklasse"},
+            {"id": 5, "value": "De arbeidersklasse"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
+        }
+    },
+    {
+        "question_id": 42,
         "order": 25,
+        "form_type": "select",
+        "question_type": "json",
+        "question_title": "eigenInequal",
+        "question_content": "Veel mensen in Nederland maken zich zorgen over de toenemende ongelijkheid in onze maatschappij. In hoeverre denkt u dat immigratie een oorzaak is voor de toenemende ongelijkheid.",
+        "question_answer_options": [
+            {"id": 1, "value": "Immigratie is de hoofdoorzaak"},
+            {"id": 2, "value": "Immigratie is een belangrijke oorzaak"},
+            {"id": 3, "value": "Immigratie is een oorzaak naast vele andere"},
+            {"id": 4, "value": "Immigratie is geen belangrijke oorzaak"},
+            {"id": 5, "value": "Immigratie is geen oorzaak"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+     {
+        "question_id": 43,
+        "order": 26,
+        "form_type": "select_students",
+        "question_type": "array",
+        "question_title": "vriendenInequal",
+        "question_content": "Tot zover u weet, welke van deze personen denken dat immigratie een belangrijke oorzaak is voor de toenemende ongelijkheid?",
+        "question_options": {
+            "extra_text": "U mag zo veel namen aanklikken als u wil.",
+            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
+            }
+    },
+    {
+        "question_id": 12,
+        "order": 27,
+        "form_type": "select_for_subject",
+        "question_type": "json",
+        "question_title": "Vrienden van klasgenoten",
+        "question_content": "Wie van uw netwerk heeft regelmatig contact met deze persoon?",
+        "question_options": {
+            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
+            "error_text": "Je hebt geen vrienden opgeven!",
+            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "subjects_source": "migratory_background",
+            "answers_order": "migratory_background_first"
+        }
+    },
+    {
+        "question_id": 44,
+        "order": 34,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Outfriends",
@@ -481,7 +565,7 @@
     },
     {
         "question_id": 46,
-        "order": 26,
+        "order": 37,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
@@ -494,7 +578,7 @@
     },
     {
         "question_id": 47,
-        "order": 27,
+        "order": 29,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Popularity",
@@ -505,23 +589,10 @@
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },
-    {
-        "question_id": 12,
-        "order": 23,
-        "form_type": "select_for_subject",
-        "question_type": "json",
-        "question_title": "Vrienden van klasgenoten",
-        "question_content": "Wie van uw netwerk heeft regelmatig contact met deze persoon?",
-        "question_options": {
-            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
-            "error_text": "Je hebt geen vrienden opgeven!",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
-        }
-    },
+    
     {
         "question_id": 48,
-        "order": 24,
+        "order": 33,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Migratie achtergrond klasgenoten",
@@ -536,29 +607,10 @@
     
     
     
-    {
-        "question_id": 61,
-        "order": 28,
-        "form_type": "select_multiple",
-        "question_type": "json",
-        "question_title": "Goed kennen",
-        "question_content": "Hoe hecht is uw band met deze personen? ",
-        "question_answer_options": [
-            {"id": 1, "value": "Heel hecht"},
-            {"id": 2, "value": "Hecht"},
-            {"id": 3, "value": "Een beetje hecht"},
-            {"id": 4, "value": "Niet hecht"},
-            {"id": 5, "value": "Helemaal niet hecht"}
-        ],
-        "question_options": {
-            "extra_text": "Je mag zo veel klasgenoten aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
-        }
-    },
+    
     {
         "question_id": 16,
-        "order": 29,
+        "order": 30,
         "form_type": "select",
         "question_type": "int",
         "question_title": "Immigratie houding – eigen",
@@ -576,7 +628,7 @@
     },
     {
         "question_id": 17,
-        "order": 30,
+        "order": 34,
         "form_type": "text",
         "question_type": "string",
         "question_title": "Comments",

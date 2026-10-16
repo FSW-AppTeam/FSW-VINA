@@ -212,7 +212,9 @@
             "extra_text": "You can tick as many as you want.",
             "error_text": "You did not indicate any friends!",
             "error_empty_text": "You didn't select anyone, you can select as many people as you want. Are you sure you want to continue?",
-            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?"
+            "error_one_text": "You only selected one person, you can select as many people as you want. Are you sure you want to continue?",
+            "subjects_source": "migratory_background",
+            "answers_order": "migratory_background_first"
         }
     },
     {

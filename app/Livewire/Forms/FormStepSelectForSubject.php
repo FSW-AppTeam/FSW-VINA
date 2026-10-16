@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Livewire\Partials\FormButtons;
 use App\Models\SurveyAnswer;
-use App\Models\SurveyStudent;
 use Closure;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -30,9 +29,11 @@ class FormStepSelectForSubject extends Component
 
     public array $students = [];
 
+    public array $subjects = [];
+
     public $subject = false; // used to show the subject of the question
 
-    public array $finishedSubjects; // used to store the finished subjects.
+    public array $finishedSubjects = []; // used to store the finished subjects.
 
     public $disappear = false;
 
@@ -96,7 +97,7 @@ class FormStepSelectForSubject extends Component
         $this->form->createJsonAnswer($answer, $this->jsonQuestion, $this->stepId);
         $this->disappear = true;
 
-        if (array_key_exists(1, $this->students)) {
+        if (! empty($this->subjects)) {
             $this->dispatch('set-loading-true');
 
             $this->dispatch('start-friend-bounce');
@@ -114,7 +115,7 @@ class FormStepSelectForSubject extends Component
         }
 
         if (! empty($this->finishedSubjects)) {
-            array_unshift($this->students, array_pop($this->finishedSubjects));
+            array_unshift($this->subjects, array_pop($this->finishedSubjects));
             $this->subject = end($this->finishedSubjects);
         }
 
@@ -125,7 +126,13 @@ class FormStepSelectForSubject extends Component
     public function stepUp(): void
     {
         $this->selectedStudents = [];
-        $this->subject = array_shift($this->students);
+        $this->subject = array_shift($this->subjects);
+        if ($this->subject === null) {
+            $this->dispatch('step-up')->component(StepController::class);
+
+            return;
+        }
+
         $this->finishedSubjects[] = $this->subject;
 
         $this->setDatabaseResponse();
@@ -136,13 +143,29 @@ class FormStepSelectForSubject extends Component
     public function mount(): void
     {
         $this->students = $this->form->getSelectablesForQuestion($this->jsonQuestion);
+        $this->subjects = $this->form->getSubjectsForQuestion($this->jsonQuestion);
 
-        $this->subject = array_shift($this->students);
-        $this->finishedSubjects[] = $this->subject;
-        while ($this->setDatabaseResponse()) {
-            $this->stepUp();
+        $this->subject = array_shift($this->subjects);
+        if ($this->subject !== null) {
+            $this->finishedSubjects[] = $this->subject;
         }
 
+        while ($this->subject !== null && $this->setDatabaseResponse() && ! empty($this->subjects)) {
+            $this->selectedStudents = [];
+            $this->subject = array_shift($this->subjects);
+            $this->finishedSubjects[] = $this->subject;
+        }
+
+    }
+
+    public function getAnswerOptions(): array
+    {
+        $excludedIds = array_column($this->finishedSubjects, 'id');
+
+        return array_values(array_filter(
+            $this->students,
+            fn (array $student) => ! in_array($student['id'], $excludedIds)
+        ));
     }
 
     public function render()
@@ -180,9 +203,9 @@ class FormStepSelectForSubject extends Component
         }
 
         foreach ($response->student_answer['value'] as $responseItem) {
-            $student = SurveyStudent::find($responseItem);
+            $student = collect($this->students)->firstWhere('id', $responseItem);
             if ($student) {
-                $this->setSelectedStudent($responseItem, $student->name);
+                $this->setSelectedStudent($responseItem, $student['name']);
             }
         }
 
