@@ -259,6 +259,11 @@ class PostForm extends Form
                 'question_type' => $jsonQuestions->question_type,
             ]
         );
+
+        if ($jsonQuestions->id === 56) {
+            $this->syncFriendListFromAnswers();
+        }
+
         if (
             data_get($jsonQuestions, 'question_options.friend_source')
             || data_get($jsonQuestions, 'question_options.friend_source_migratory_background')
@@ -273,11 +278,19 @@ class PostForm extends Form
 
     private function syncFriendListFromAnswers(): void
     {
+        $includeMigratoryFriends = (int) SurveyAnswer::query()
+            ->where('student_id', $this->getStudent()->id)
+            ->where('question_id', 56)
+            ->value('student_answer') === 1;
+
         $sourceQuestions = SurveyQuestion::query()
             ->get(['id', 'order', 'question_options'])
             ->filter(fn (SurveyQuestion $question) =>
                 data_get($question, 'question_options.friend_source')
-                || data_get($question, 'question_options.friend_source_migratory_background')
+                || (
+                    $includeMigratoryFriends
+                    && data_get($question, 'question_options.friend_source_migratory_background')
+                )
             )
             ->sortBy('order')
             ->values();

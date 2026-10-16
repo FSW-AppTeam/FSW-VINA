@@ -209,7 +209,6 @@
         "question_type": "text",
         "question_title": "Info",
         "question_content": "De volgende vragen gaan over uw vrienden of goede kennissen. Door technische problemen loopt de vragenlijst hier soms vast. Mocht dit gebeuren, refresh dan de pagina in uw browser. ",
-        "question_answer_options": "",
         "question_options": {
             "extra_text": ""
         }
@@ -316,6 +315,7 @@
         "order": 16,
         "form_type": "multi_text",
         "question_type": "array",
+        "depends_on_question": 56,
         "question_title": "migrant Names",
         "question_content": "Wat zijn de voornamen van uw vrienden of kennissen met een migratieachtergrond?",
         "question_options": {
@@ -526,7 +526,7 @@
         "order": 27,
         "form_type": "select_for_subject",
         "question_type": "json",
-        "question_title": "Vrienden van klasgenoten",
+        "question_title": "alter",
         "question_content": "Wie van uw netwerk heeft regelmatig contact met deze persoon?",
         "question_options": {
             "extra_text": "Je mag zo veel namen aanklikken als je wil.",
@@ -538,8 +538,339 @@
         }
     },
     {
+        "question_id": 45,
+        "order": 28,
+        "form_type": "select_multiple",
+        "question_type": "json",
+        "question_title": "hecht",
+        "question_content": "Hoe hecht is uw band met deze personen?",
+        "question_answer_options": [
+            {"id": 1, "value": "Heel erg hecht"},
+            {"id": 2, "value": "Heel erg hecht"},
+            {"id": 3, "value": "Redelijk hecht"},
+            {"id": 4, "value": "Een beetje hecht"},
+            {"id": 5, "value": "Helemaal niet hecht"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
+        }
+    },
+    {
+        "question_id": 47,
+        "order": 29,
+        "form_type": "display",
+        "question_type": "text",
+        "question_title": "Info",
+        "question_content": "Nu volgt het laatste gedeelde van deze vragenlijst. ",
+        "question_options": {
+            "extra_text": ""
+        }
+    },
+    {
+        "question_id": 16,
+        "order": 30,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "plezierig",
+        "question_content": "Hoe plezierig vond u het om de vragen over uw vrienden en kennissen in te vullen?",
+        "question_answer_options": [
+            {"id": 1, "value": "Heel erg plezierig"},
+            {"id": 2, "value": "Erg plezierig"},
+            {"id": 3, "value": "Redelijk plezierig"},
+            {"id": 4, "value": "Een beetje plezierig"},
+            {"id": 5, "value": "Helemaal niet plezierig"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 17,
+        "order": 31,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "interessant",
+        "question_content": "Hoe interessant vond u het om de vragen over uw vrienden en kennissen?",
+        "question_answer_options": [
+            {"id": 1, "value": "Heel erg interessant"},
+            {"id": 2, "value": "Erg interessant"},
+            {"id": 3, "value": "Redelijk interessant"},
+            {"id": 4, "value": "Een beetje interessant"},
+            {"id": 5, "value": "Helemaal niet interessant"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 18,
+        "order": 32,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "opnieuw",
+        "question_content": "Hoe waarschijnlijk is het dat u opnieuw aan een soortgelijke studie over uw vrienden en kennissen zou deelnemen?",
+        "question_answer_options": [
+            {"id": 1, "value": "Heel erg waarschijnlijk"},
+            {"id": 2, "value": "Erg waarschijnlijk "},
+            {"id": 3, "value": "Redelijk waarschijnlijk "},
+            {"id": 4, "value": "Een beetje waarschijnlijk "},
+            {"id": 5, "value": "Helemaal niet waarschijnlijk "}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 19,
+        "order": 33,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "ISPP inkom",
+        "question_content": "In hoeverre bent u het eens of oneens met de volgende stellingen? <br><br>De inkomensverschillen zijn in Nederland te groot.",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee eens"},
+            {"id": 2, "value": "Mee eens"},
+            {"id": 3, "value": "Niet eens, niet oneens "},
+            {"id": 4, "value": "Niet mee eens"},
+            {"id": 5, "value": "Helemaal niet mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 20,
+        "order": 34,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "ISPP vermogen",
+        "question_content": "De vermogensverschillen zijn in Nederland te groot.",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee eens"},
+            {"id": 2, "value": "Mee eens"},
+            {"id": 3, "value": "Niet eens, niet oneens "},
+            {"id": 4, "value": "Niet mee eens"},
+            {"id": 5, "value": "Helemaal niet mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 21,
+        "order": 35,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "ISPP redi",
+        "question_content": "Het is een taak van de overheid om de verschillen tussen den hoge en de lage inkomens te verkleinen.",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee eens"},
+            {"id": 2, "value": "Mee eens"},
+            {"id": 3, "value": "Niet eens, niet oneens "},
+            {"id": 4, "value": "Niet mee eens"},
+            {"id": 5, "value": "Helemaal niet mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 22,
+        "order": 36,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "ESS redi",
+        "question_content": "De overheid zou maatregelen moeten nemen om vermogensverschillen te verminderen.",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee eens"},
+            {"id": 2, "value": "Mee eens"},
+            {"id": 3, "value": "Niet eens, niet oneens "},
+            {"id": 4, "value": "Niet mee eens"},
+            {"id": 5, "value": "Helemaal niet mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 23,
+        "order": 37,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "anti immigratie",
+        "question_content": "Er komen te veel immigranten naar Nederland.",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee eens"},
+            {"id": 2, "value": "Mee eens"},
+            {"id": 3, "value": "Niet eens, niet oneens "},
+            {"id": 4, "value": "Niet mee eens"},
+            {"id": 5, "value": "Helemaal niet mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 24,
+        "order": 38,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "grenzen",
+        "question_content": "We moeten de Nederlandse grenzen voor nieuwe immigranten sluiten",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee eens"},
+            {"id": 2, "value": "Mee eens"},
+            {"id": 3, "value": "Niet eens, niet oneens "},
+            {"id": 4, "value": "Niet mee eens"},
+            {"id": 5, "value": "Helemaal niet mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 25,
+        "order": 39,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "minderen",
+        "question_content": "Er moet meer worden gedaan om immigratie naar Nederland te verminderen.",
+        "question_answer_options": [
+            {"id": 1, "value": "Helemaal mee eens"},
+            {"id": 2, "value": "Mee eens"},
+            {"id": 3, "value": "Niet eens, niet oneens "},
+            {"id": 4, "value": "Niet mee eens"},
+            {"id": 5, "value": "Helemaal niet mee eens"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 26,
+        "order": 40,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "attNL",
+        "question_content": "Hoe positief of negatief zijn uw gevoelens tegenover verschillende groepen in Nederland? Kies een nummer tussen de 0 (heel negatief) en 10 (heel positief)<br><br>Hoe is uw gevoel over Nederlanders in het algemeen?",
+        "question_answer_options": [
+            {"id": 1, "value": "0 (heel negatief)"},
+            {"id": 2, "value": "1"},
+            {"id": 3, "value": "2"},
+            {"id": 4, "value": "3"},
+            {"id": 5, "value": "4"},
+            {"id": 6, "value": "5 (neutraal)"},
+            {"id": 7, "value": "6"},
+            {"id": 8, "value": "7"},
+            {"id": 9, "value": "8"},
+            {"id": 10, "value": "9"},
+            {"id": 11, "value": "10 (heel positief)"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 27,
+        "order": 41,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "attTurk",
+        "question_content": "Hoe is uw gevoel over Turken in Nederland?",
+        "question_answer_options": [
+            {"id": 1, "value": "0 (heel negatief)"},
+            {"id": 2, "value": "1"},
+            {"id": 3, "value": "2"},
+            {"id": 4, "value": "3"},
+            {"id": 5, "value": "4"},
+            {"id": 6, "value": "5 (neutraal)"},
+            {"id": 7, "value": "6"},
+            {"id": 8, "value": "7"},
+            {"id": 9, "value": "8"},
+            {"id": 10, "value": "9"},
+            {"id": 11, "value": "10 (heel positief)"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 28,
+        "order": 42,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "attMarok",
+        "question_content": "Hoe is uw gevoel over Marokkanen in Nederland?",
+        "question_answer_options": [
+            {"id": 1, "value": "0 (heel negatief)"},
+            {"id": 2, "value": "1"},
+            {"id": 3, "value": "2"},
+            {"id": 4, "value": "3"},
+            {"id": 5, "value": "4"},
+            {"id": 6, "value": "5 (neutraal)"},
+            {"id": 7, "value": "6"},
+            {"id": 8, "value": "7"},
+            {"id": 9, "value": "8"},
+            {"id": 10, "value": "9"},
+            {"id": 11, "value": "10 (heel positief)"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 29,
+        "order": 43,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "attSuri",
+        "question_content": "Hoe is uw gevoel over Surinamers in Nederland?",
+        "question_answer_options": [
+            {"id": 1, "value": "0 (heel negatief)"},
+            {"id": 2, "value": "1"},
+            {"id": 3, "value": "2"},
+            {"id": 4, "value": "3"},
+            {"id": 5, "value": "4"},
+            {"id": 6, "value": "5 (neutraal)"},
+            {"id": 7, "value": "6"},
+            {"id": 8, "value": "7"},
+            {"id": 9, "value": "8"},
+            {"id": 10, "value": "9"},
+            {"id": 11, "value": "10 (heel positief)"}
+        ],
+        "question_options": {
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
+        "question_id": 30,
+        "order": 44,
+        "form_type": "select",
+        "question_type": "int",
+        "question_title": "attMig",
+        "question_content": "Hoe is uw gevoel over mensen met een migratieachtergrond in het algemeen?",
+        "question_answer_options": [
+            {"id": 1, "value": "0 (heel negatief)"},
+            {"id": 2, "value": "1"},
+            {"id": 3, "value": "2"},
+            {"id": 4, "value": "3"},
+            {"id": 5, "value": "4"},
+            {"id": 6, "value": "5 (neutraal)"},
+            {"id": 7, "value": "6"},
+            {"id": 8, "value": "7"},
+            {"id": 9, "value": "8"},
+            {"id": 10, "value": "9"},
+            {"id": 11, "value": "10 (heel positief)"}
+        ],
+        "question_options": {
+            "error_empty_text":"Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
+        }
+    },
+    {
         "question_id": 44,
         "order": 34,
+        "enabled": false,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Outfriends",
@@ -551,21 +882,9 @@
         }
     },
     {
-        "question_id": 45,
-        "order": 28,
-        "form_type": "select_students",
-        "question_type": "array",
-        "question_title": "Eigen vrienden - online",
-        "question_content": "Wie van deze personen is hoger opgeleid (HBO, universiteit)?",
-        "question_options": {
-            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
         "question_id": 46,
         "order": 37,
+        "enabled": false,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Eigen vrienden - dislike",
@@ -577,22 +896,9 @@
         }
     },
     {
-        "question_id": 47,
-        "order": 29,
-        "form_type": "select_students",
-        "question_type": "array",
-        "question_title": "Popularity",
-        "question_content": "Wie van deze personen is Muslim?",
-        "question_options": {
-            "extra_text": "Je mag zo veel namen aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    
-    {
         "question_id": 48,
         "order": 33,
+        "enabled": false,
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "Migratie achtergrond klasgenoten",
@@ -607,39 +913,20 @@
     
     
     
-    
     {
-        "question_id": 16,
-        "order": 30,
-        "form_type": "select",
-        "question_type": "int",
-        "question_title": "Immigratie houding – eigen",
-        "question_content": "Ben je het eens of oneens met de volgende stelling?   <br> <br> Er komen te veel immigranten naar Nederland ",
-        "question_answer_options": [
-            {"id": 1, "value": "Helemaal mee oneens"},
-            {"id": 2, "value": "Mee oneens"},
-            {"id": 3, "value": "Niet mee oneens, niet mee eens "},
-            {"id": 4, "value": "Mee eens "},
-            {"id": 5, "value": "Helemaal mee eens"}
-        ],
-        "question_options": {
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
-        }
-    },
-    {
-        "question_id": 17,
-        "order": 34,
+        "question_id": 32,
+        "order": 45,
         "form_type": "text",
         "question_type": "string",
         "question_title": "Comments",
-        "question_content": "Dit is het einde van de vragenlijst. <br> <br> Hartelijk bedankt voor je deelname! Heeft u nog opmerkingen over de vragenlijst?",
+        "question_content": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname! <br><br>Heeft u nog opmerkingen over de vragenlijst?",
         "question_options": {
             "validation_max": 300
         }
     },
     {
         "question_id": 31,
-        "order": 31,
+        "order": 46,
         "question_type": "text",
         "question_title": "Einde",
         "question_content": "De vragenlijst is voltooid",

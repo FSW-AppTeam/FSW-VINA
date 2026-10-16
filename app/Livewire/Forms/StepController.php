@@ -152,6 +152,13 @@ class StepController extends Component
         $question = SurveyQuestion::where('order', '<=', $this->stepId)
             ->orderBy('order', 'desc')
             ->where('enabled', true)->first();
+
+        while ($question && $this->shouldSkipQuestion($question)) {
+            $question = SurveyQuestion::where('order', '<', $question->order)
+                ->orderBy('order', 'desc')
+                ->where('enabled', true)->first();
+        }
+
         // In case of a question is disabled, skip it. We have to set the order as the new stpId
         $this->stepId = $question->order;
         $this->jsonQuestion = $question;
@@ -266,6 +273,13 @@ class StepController extends Component
         $this->stepId = $question->order;
         $this->jsonQuestion = $question;
 
+        if ($this->shouldSkipQuestion($this->jsonQuestion)) {
+            $this->stepId++;
+            $this->setQuestion();
+
+            return;
+        }
+
         if (isset($this->jsonQuestion->depends_on_question)) {
 
             if ($this->getSurvey()->usesFriends() and !$this->jsonQuestion->id === 36){
@@ -296,6 +310,33 @@ class StepController extends Component
                 $this->checkDependingQuestion49();
             }
         }
+    }
+
+    private function shouldSkipQuestion(SurveyQuestion $question): bool
+    {
+        if ($question->id === 55 && $question->depends_on_question) {
+            $answer = SurveyAnswer::where('question_id', $question->depends_on_question)
+                ->where('student_id', session('student-id'))
+                ->value('student_answer');
+
+            if ((int) $answer !== 1) {
+                return true;
+            }
+        }
+
+        if (! $this->getSurvey()->usesFriends()) {
+            return false;
+        }
+
+        if (data_get($question, 'question_options.answers_source') === 'migratory_background') {
+            return empty($this->form->getSelectablesForQuestion($question));
+        }
+
+        if (data_get($question, 'question_options.subjects_source') === 'migratory_background') {
+            return empty($this->form->getSubjectsForQuestion($question));
+        }
+
+        return false;
     }
 
     // Specific logic for question id 38
