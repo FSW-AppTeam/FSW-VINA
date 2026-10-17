@@ -596,6 +596,7 @@ textarea:focus-visible, textarea:active {
     padding-left: 22px;
     overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-gutter: stable;
 
     .btn:active {
       border: none;
@@ -818,4 +819,3 @@ and (-webkit-min-device-pixel-ratio: 3) {
 .wait {
     cursor: wait;
 }
-

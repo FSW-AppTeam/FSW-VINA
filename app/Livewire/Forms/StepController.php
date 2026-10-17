@@ -324,19 +324,21 @@ class StepController extends Component
             }
         }
 
-        if (! $this->getSurvey()->usesFriends()) {
+        $usesMigratoryFriends = data_get($question, 'question_options.answers_source') === 'migratory_background'
+            || data_get($question, 'question_options.subjects_source') === 'migratory_background';
+
+        if (! $usesMigratoryFriends) {
             return false;
         }
 
-        if (data_get($question, 'question_options.answers_source') === 'migratory_background') {
-            return empty($this->form->getSelectablesForQuestion($question));
+        $survey = Survey::find(session('survey-id'));
+        if (! $survey || ! $survey->usesFriends()) {
+            return false;
         }
 
-        if (data_get($question, 'question_options.subjects_source') === 'migratory_background') {
-            return empty($this->form->getSubjectsForQuestion($question));
-        }
-
-        return false;
+        return data_get($question, 'question_options.answers_source') === 'migratory_background'
+            ? empty($this->form->getSelectablesForQuestion($question))
+            : empty($this->form->getSubjectsForQuestion($question));
     }
 
     // Specific logic for question id 38
