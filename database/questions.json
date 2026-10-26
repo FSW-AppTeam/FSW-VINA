@@ -187,16 +187,15 @@
         "question_title": "werk",
         "question_content": "Hebt u op dit moment betaald werk of niet? Welke situatie in onderstaande lijst is het meest op u van toepassing. Indien u meer dan één baan hebt, dan gaat het over uw belangrijkste baan.",
         "question_answer_options": [
-            {"id": 1, "value": "30 of meer uur per week"},
-            {"id": 2, "value": "Minder dan 30 uur per week"},
+            {"id": 1, "value": "30 of meer uur per week in dienstverband"},
+            {"id": 2, "value": "Minder dan 30 uur per week in dienstverband"},
             {"id": 3, "value": "Zelfstandig"},
-            {"id": 4, "value": "Militaire dienst"},
-            {"id": 5, "value": "Gepensioneerd"},
-            {"id": 6, "value": "Huisman/huisvrouw en geen betaald werk"},
-            {"id": 7, "value": "Student"},
-            {"id": 8, "value": "Werkloos"},
-            {"id": 9, "value": "Arbeidsongeschikt"},
-            {"id": 10, "value": "Anders"}
+            {"id": 4, "value": "Gepensioneerd"},
+            {"id": 5, "value": "Huisman/huisvrouw en geen betaald werk"},
+            {"id": 6, "value": "Student"},
+            {"id": 7, "value": "Werkloos"},
+            {"id": 8, "value": "Arbeidsongeschikt"},
+            {"id": 9, "value": "Anders"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
@@ -208,7 +207,7 @@
         "form_type": "display",
         "question_type": "text",
         "question_title": "Info",
-        "question_content": "De volgende vragen gaan over uw vrienden of goede kennissen. Door technische problemen loopt de vragenlijst hier soms vast. Mocht dit gebeuren, refresh dan de pagina in uw browser. ",
+        "question_content": "<strong>De volgende vragen gaan over uw vrienden of goede kennissen. Door technische problemen loopt de vragenlijst hier soms vast. Mocht dit gebeuren, refresh dan de pagina in uw browser. U hoeft dan niet helemaal opnieuw te beginnen. </strong>",
         "question_options": {
             "extra_text": ""
         }
@@ -321,7 +320,7 @@
         "question_options": {
             "extra_text": "U mag er maximaal vijf noemen. Als u meer vrienden of kennissen met een migratieachtergrond heeft, noem dan de vijf die het meest belangrijk voor u zijn.<br><br>Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
             "error_empty_text": "Vul minimaal één naam in.",
-            "error_unique_text": "Naam is al bezet.",
+            "error_unique_text": "Naam is al eerder gebruik.",
             "available_inputs": 5,
             "mandatory_inputs": 1,
             "friend_source_migratory_background": true
@@ -514,7 +513,7 @@
         "form_type": "select_students",
         "question_type": "array",
         "question_title": "vriendenInequal",
-        "question_content": "Tot zover u weet, welke van deze personen denken dat immigratie een belangrijke oorzaak is voor de toenemende ongelijkheid?",
+        "question_content": "Voor zover u weet, welke van de volgende personen denken dat immigratie een belangrijke oorzaak is voor de toenemende ongelijkheid?",
         "question_options": {
             "extra_text": "U mag zo veel namen aanklikken als u wil.",
             "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
@@ -527,7 +526,7 @@
         "form_type": "select_for_subject",
         "question_type": "json",
         "question_title": "alter",
-        "question_content": "Wie van uw netwerk heeft regelmatig contact met deze persoon?",
+        "question_content": "Wie van uw netwerk heeft regelmatig contact met de volgende persoon?",
         "question_options": {
             "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_text": "Je hebt geen vrienden opgeven!",
@@ -543,12 +542,12 @@
         "form_type": "select_multiple",
         "question_type": "json",
         "question_title": "hecht",
-        "question_content": "Hoe hecht is uw band met deze personen?",
+        "question_content": "Hoe hecht is uw band met volgende persoon??",
         "question_answer_options": [
             {"id": 1, "value": "Heel erg hecht"},
-            {"id": 2, "value": "Heel erg hecht"},
+            {"id": 2, "value": "Erg hecht"},
             {"id": 3, "value": "Redelijk hecht"},
-            {"id": 4, "value": "Een beetje hecht"},
+            {"id": 4, "value": "Niet zo hechtt"},
             {"id": 5, "value": "Helemaal niet hecht"}
         ],
         "question_options": {
