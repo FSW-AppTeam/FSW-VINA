@@ -93,6 +93,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/install-questions', [InstallQuestionsController::class, 'index'])->name('index');
     Route::post('/install', [InstallQuestionsController::class, 'install'])->name('install');
+    Route::post('/install-questions/delete', [InstallQuestionsController::class, 'deleteSurvey'])
+        ->middleware('can:administrate')
+        ->name('install-questions.delete');
     Route::get('/csv-export', [SurveyController::class, 'checkSurvey'])->name('survey-check');
     Route::get('/csv-export-list', [SurveyController::class, 'index'])->name('index');
 });

@@ -57,19 +57,15 @@ class SurveyTable extends Component
 
     public bool $bulkDisabled = true;
 
-    //Update & Store Rules
-    protected array $rules =
-        [
-            'survey_code' => 'string',
-            'qualtrics_name' => 'string',
-            'qualtrics_id' => 'string',
-            'qualtrics_param' => 'string',
-            'participant_source' => 'nullable|string',
-        ];
-
-    protected array $messages = [
-        //
+    protected array $rules = [
+        'survey_code' => 'required|string|unique:surveys,survey_code',
+        'qualtrics_name' => 'nullable|string',
+        'qualtrics_id' => 'nullable|string',
+        'qualtrics_param' => 'nullable|string',
+        'participant_source' => 'nullable|string|in:friends',
     ];
+
+    protected array $messages = [];
 
     protected string $paginationTheme = 'bootstrap';
 
@@ -113,7 +109,9 @@ class SurveyTable extends Component
 
     public function update()
     {
-        $validatedData = $this->validate();
+        $rules = $this->rules;
+        $rules['survey_code'] = 'required|string|unique:surveys,survey_code,'.$this->survey_id;
+        $validatedData = $this->validate($rules);
         $this->survey->update($validatedData);
         $this->refresh('Survey successfully updated!');
     }
