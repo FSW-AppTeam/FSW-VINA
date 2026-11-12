@@ -37,46 +37,47 @@
                             </div>
                         </div>
                         @can('administrate')
-                            <hr>
-                            <h5>Delete survey(s)</h5>
-                            <p>This permanently deletes the selected survey(s) and all their participant, answer, and friend data. The shared question set will not be deleted.</p>
-                            <form id="deleteSurveyForm" method="POST" action="{{ route('install-questions.delete') }}">
-                                @csrf
-                                <div class="row g-2">
-                                    <div class="col-md-8">
-                                        <label class="form-label" for="surveyToDelete">Survey</label>
-                                        <select id="surveyToDelete" class="form-select" name="survey_id" required>
-                                            <option value="" selected disabled>Select a survey</option>
-                                            @foreach($surveys as $survey)
-                                                <option value="{{ $survey->id }}">{{ $survey->survey_code }}</option>
-                                            @endforeach
-                                            <option value="all">All surveys</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 d-flex align-items-end">
-                                        <button type="button" class="btn btn-outline-danger"
-                                                data-bs-toggle="modal" data-bs-target="#deleteSurveyConfirmation"
-                                                @disabled($surveys->isEmpty())>
-                                            Delete survey
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="card mt-4">
+                                <div class="card-header">{{langDatabase('app.delete_survey')}}</div>
+                                <div class="card-body">{{langDatabase('app.delete_survey_instruction')}}
+                                    <form id="deleteSurveyForm" method="POST" action="{{ route('install-questions.delete') }}">
+                                        @csrf
+                                        <div class="row g-2">
+                                            <div class="col-md-8">
+                                                <select id="surveyToDelete" class="form-select" name="survey_id" required>
+                                                    <option value="" selected disabled>Select a survey</option>
+                                                    @foreach($surveys as $survey)
+                                                        <option value="{{ $survey->id }}">{{ $survey->survey_code }}</option>
+                                                    @endforeach
+                                                    <option value="all">All surveys</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 d-flex align-items-end">
+                                                <button type="button" class="btn btn-outline-danger"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteSurveyConfirmation"
+                                                        @disabled($surveys->isEmpty())>
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
 
-                            <div class="modal fade" id="deleteSurveyConfirmation" tabindex="-1"
-                                 aria-labelledby="deleteSurveyConfirmationLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteSurveyConfirmationLabel">Confirm survey deletion</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure? The selected survey(s) and all their participant, answer, and friend data will be permanently deleted. The shared question set will remain.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" form="deleteSurveyForm" class="btn btn-danger">Accept</button>
+                                    <div class="modal fade" id="deleteSurveyConfirmation" tabindex="-1"
+                                         aria-labelledby="deleteSurveyConfirmationLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteSurveyConfirmationLabel">Confirm survey deletion</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure? The selected survey(s) and all their participant, answer, and friend data will be permanently deleted. The shared question set will remain.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" form="deleteSurveyForm" class="btn btn-danger">Accept</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

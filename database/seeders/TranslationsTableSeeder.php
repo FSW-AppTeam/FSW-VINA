@@ -152,6 +152,16 @@ class TranslationsTableSeeder extends Seeder
                 'nl' => 'Je kunt alleen een vragenset installeren als er geen survey meer in het systeem staan. Deze moet je eerst verwijderen. Let op! als je surveys verwijderd verwijder je ook alle participant data.',
                 'en' => 'You can only install a question set when all surveys are removed. So remove them before you install a question set. When you remove a survey, all participants data will be removed as well.',
             ],
+            27 => [
+                'slug' => 'app.delete_survey',
+                'nl' => 'Verwijder survey(s)',
+                'en' => 'Delete survey(s)',
+            ],
+            28 => [
+                'slug' => 'app.delete_survey_instruction',
+                'nl' => 'Hiermee verwijder je de geselecteerde survey(s) en alle participant, antwoord en vriend data permanent. De gedeelde vragenset wordt niet verwijderd.',
+                'en' => 'This permanently deletes the selected survey(s) and all their participant, answer, and friend data. The shared question set will not be deleted.',
+            ],
         ]);
 
     }
