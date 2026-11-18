@@ -42,7 +42,7 @@
         "question_content": "In welk jaar bent u geboren?",
         "question_answer_options": [],
         "question_options": {
-            "error_empty_text": "Je hebt geen geboortejaar ingevoerd. Weet je zeker dat je door wil gaan?"
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
@@ -135,8 +135,8 @@
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "extra_text": "",
             "error_invalid_option": "Je moet een land invoeren dat in de lijst staat.",
-            "extra_text": "Als er meerdere zijn, kies dan het land dat jij het meest belangrijk vindt.",
             "question_custom_input_title": "Herkomstland (ander)"
         }
     },
@@ -172,7 +172,7 @@
             {"id": 3, "value": "VMBO"},
             {"id": 4, "value": "Havo/Vwo"},
             {"id": 5, "value": "MBO"},
-            {"id": 6, "value": "MBO"},
+            {"id": 6, "value": "HBO"},
             {"id": 7, "value": "WO"}
         ],
         "question_options": {
@@ -207,7 +207,7 @@
         "form_type": "display",
         "question_type": "text",
         "question_title": "Info",
-        "question_content": "<strong>De volgende vragen gaan over uw vrienden of goede kennissen. Door technische problemen loopt de vragenlijst hier soms vast. Mocht dit gebeuren, refresh dan de pagina in uw browser. U hoeft dan niet helemaal opnieuw te beginnen. </strong>",
+        "question_content": "<strong>De volgende vragen gaan over uw vrienden of kennissen. Door technische problemen loopt de vragenlijst hier soms vast. Mocht dit gebeuren, refresh dan de pagina in uw browser. U hoeft dan niet helemaal opnieuw te beginnen. </strong>",
         "question_options": {
             "extra_text": ""
         }
@@ -299,7 +299,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "FrMig",
-        "question_content": "Heeft u vrienden of goede kennissen met een migratieachtergrond (wie zelf of wiens ouders niet in Nederland zijn geboren)?",
+        "question_content": "Heeft u vrienden of kennissen met een migratieachtergrond (wie zelf of wiens ouders niet in Nederland zijn geboren)?",
         "question_answer_options": [
             {"id": 1, "value": "Ja"},
             {"id": 2, "value": "Nee"}
@@ -316,7 +316,7 @@
         "question_type": "array",
         "depends_on_question": 56,
         "question_title": "migrant Names",
-        "question_content": "Wat zijn de voornamen van uw vrienden of kennissen met een migratieachtergrond?",
+        "question_content": "Wat zijn de voornamen van uw vrienden of kennissen <strong>met een migratieachtergrond</strong>?",
         "question_options": {
             "extra_text": "U mag er maximaal vijf noemen. Als u meer vrienden of kennissen met een migratieachtergrond heeft, noem dan de vijf die het meest belangrijk voor u zijn.<br><br>Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
             "error_empty_text": "Vul minimaal één naam in.",
@@ -333,10 +333,10 @@
         "form_type": "multi_text",
         "question_type": "array",
         "question_title": "netwerk",
-        "question_content": "We willen ook graag vragen stellen over uw vrienden of kennissen zonder migratieachtergrond. Hiermee bedoelen we mensen die alleen een Nederlandse achtergrond hebben. <br><br>Noem alstublieft 10 voornamen van Nederlandse vrienden of kennissen. Denk hierbij aan mensen met wie u praat over dingen die voor u belangrijk zijn.",
+        "question_content": "We willen ook graag vragen stellen over uw vrienden of kennissen <strong>zonder migratieachtergrond</strong>. Hiermee bedoelen we mensen die alleen een Nederlandse achtergrond hebben. <br><br>Noem alstublieft 10 voornamen van Nederlandse vrienden of kennissen. Denk hierbij aan mensen met wie u praat over dingen die voor u belangrijk zijn.",
         "question_options": {
             "extra_text": "Als u wilt, mag u ook bijnamen of voorletters geven, als u maar onthoudt over wie het gaat.",
-            "error_empty_text": "U kunt pas verder als u 10 namen hebt ingevuld. Denk aan mensen met wie je over het nieuws, politiek of maatschappelijke onderwerpen praat. Denk aan familieleden en collega’s.",
+            "error_empty_text": "U kunt pas verder als u 10 namen hebt ingevuld. Denk aan mensen met wie u over het nieuws, politiek of maatschappelijke onderwerpen praat. Denk aan familieleden en collega’s.",
             "error_unique_text": "Naam is al bezet.",
             "available_inputs": 10,
             "mandatory_inputs": 10,
@@ -353,7 +353,7 @@
         "question_content": "Wie van deze personen zijn mannen? Klik op de namen van alle mannen in uw netwerk.",
         "question_options": {
             "extra_text": "U mag zo veel namen aanklikken als u wil.",
-            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
             }
     },
@@ -388,7 +388,7 @@
         "question_options": {
             "extra_text": "Als er meerdere zijn, kies dan het land dat jij het meest belangrijk vindt.",
             "error_invalid_option": "Je moet een land invoeren dat in de lijst staat.",
-            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?", 
             "answers_source": "migratory_background"
         }
@@ -408,7 +408,7 @@
             {"id": 5, "value": "Helemaal niet Nederlands"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
             "answers_source": "migratory_background"
         }
@@ -430,7 +430,8 @@
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?", 
-            "answers_source": "migratory_background"
+            "answers_source": "migratory_background",
+            "question_content_option": 3
         }
     },
     {
@@ -485,8 +486,8 @@
             {"id": 5, "value": "De arbeidersklasse"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
-            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
@@ -495,13 +496,13 @@
         "form_type": "select",
         "question_type": "json",
         "question_title": "eigenInequal",
-        "question_content": "Veel mensen in Nederland maken zich zorgen over de toenemende ongelijkheid in onze maatschappij. In hoeverre denkt u dat immigratie een oorzaak is voor de toenemende ongelijkheid.",
+        "question_content": "Veel mensen in Nederland maken zich zorgen over de toenemende ongelijkheid in onze maatschappij. In hoeverre denkt u dat immigratie een oorzaak is voor de toenemende ongelijkheid?",
         "question_answer_options": [
             {"id": 1, "value": "Immigratie is de hoofdoorzaak"},
             {"id": 2, "value": "Immigratie is een belangrijke oorzaak"},
             {"id": 3, "value": "Immigratie is een oorzaak naast vele andere"},
             {"id": 4, "value": "Immigratie is geen belangrijke oorzaak"},
-            {"id": 5, "value": "Immigratie is geen oorzaak"}
+            {"id": 5, "value": "Immigratie is helemaal geen oorzaak"}
         ],
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
@@ -516,7 +517,7 @@
         "question_content": "Voor zover u weet, welke van de volgende personen denken dat immigratie een belangrijke oorzaak is voor de toenemende ongelijkheid?",
         "question_options": {
             "extra_text": "U mag zo veel namen aanklikken als u wil.",
-            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
             }
     },
@@ -530,8 +531,8 @@
         "question_options": {
             "extra_text": "Je mag zo veel namen aanklikken als je wil.",
             "error_text": "Je hebt geen vrienden opgeven!",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
-            "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
             "subjects_source": "migratory_background",
             "answers_order": "migratory_background_first"
         }
@@ -542,22 +543,23 @@
         "form_type": "select_multiple",
         "question_type": "json",
         "question_title": "hecht",
-        "question_content": "Hoe hecht is uw band met volgende persoon??",
+        "question_content": "Hoe hecht is uw band met volgende persoon?",
         "question_answer_options": [
             {"id": 1, "value": "Heel erg hecht"},
             {"id": 2, "value": "Erg hecht"},
             {"id": 3, "value": "Redelijk hecht"},
-            {"id": 4, "value": "Niet zo hechtt"},
+            {"id": 4, "value": "Niet zo hecht"},
             {"id": 5, "value": "Helemaal niet hecht"}
         ],
         "question_options": {
-            "error_empty_text": "Je hebt nog niemand geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
         }
     },
     {
         "question_id": 47,
         "order": 29,
+        "enabled": false,
         "form_type": "display",
         "question_type": "text",
         "question_title": "Info",
@@ -572,7 +574,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "plezierig",
-        "question_content": "Hoe plezierig vond u het om de vragen over uw vrienden en kennissen in te vullen?",
+        "question_content": "Dit was de laatste vraag over uw vrienden en kennissen. <br><br> Hoe plezierig vond u het om de vragen over uw vrienden en kennissen in te vullen?",
         "question_answer_options": [
             {"id": 1, "value": "Heel erg plezierig"},
             {"id": 2, "value": "Erg plezierig"},
@@ -716,7 +718,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "grenzen",
-        "question_content": "We moeten de Nederlandse grenzen voor nieuwe immigranten sluiten",
+        "question_content": "We moeten de Nederlandse grenzen voor nieuwe immigranten sluiten.",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee eens"},
             {"id": 2, "value": "Mee eens"},
@@ -752,7 +754,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "attNL",
-        "question_content": "Hoe positief of negatief zijn uw gevoelens tegenover verschillende groepen in Nederland? Kies een nummer tussen de 0 (heel negatief) en 10 (heel positief)<br><br>Hoe is uw gevoel over Nederlanders in het algemeen?",
+        "question_content": "Hoe positief of negatief zijn uw gevoelens tegenover verschillende groepen in Nederland? Kies een nummer tussen de 0 (heel negatief) en 10 (heel positief)<br><br>Hoe is uw gevoel over <strong>Nederlanders</strong> in het algemeen?",
         "question_answer_options": [
             {"id": 1, "value": "0 (heel negatief)"},
             {"id": 2, "value": "1"},
@@ -776,7 +778,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "attTurk",
-        "question_content": "Hoe is uw gevoel over Turken in Nederland?",
+        "question_content": "Hoe is uw gevoel over <strong>Turken</strong> in Nederland?",
         "question_answer_options": [
             {"id": 1, "value": "0 (heel negatief)"},
             {"id": 2, "value": "1"},
@@ -800,7 +802,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "attMarok",
-        "question_content": "Hoe is uw gevoel over Marokkanen in Nederland?",
+        "question_content": "Hoe is uw gevoel over <strong>Marokkanen</strong> in Nederland?",
         "question_answer_options": [
             {"id": 1, "value": "0 (heel negatief)"},
             {"id": 2, "value": "1"},
@@ -824,7 +826,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "attSuri",
-        "question_content": "Hoe is uw gevoel over Surinamers in Nederland?",
+        "question_content": "Hoe is uw gevoel over <strong>Surinamers</strong> in Nederland?",
         "question_answer_options": [
             {"id": 1, "value": "0 (heel negatief)"},
             {"id": 2, "value": "1"},
@@ -848,7 +850,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "attMig",
-        "question_content": "Hoe is uw gevoel over mensen met een migratieachtergrond in het algemeen?",
+        "question_content": "Hoe is uw gevoel over <strong>mensen met een migratieachtergrond</strong> in het algemeen?",
         "question_answer_options": [
             {"id": 1, "value": "0 (heel negatief)"},
             {"id": 2, "value": "1"},
@@ -876,7 +878,7 @@
         "question_content": "Wie van deze personen is ouder dan jij?",
         "question_options": {
             "extra_text": "Je mag zo veel namen aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },

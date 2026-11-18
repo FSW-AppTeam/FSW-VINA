@@ -9,6 +9,6 @@ class SettingSeeder extends Seeder
 {
     public function run(): void
     {
-        Setting::create(['key' => 'locale', 'value' => 'en']);
+        Setting::create(['key' => 'locale', 'value' => 'nl']);
     }
 }

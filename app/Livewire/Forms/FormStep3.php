@@ -36,7 +36,7 @@ class FormStep3 extends Component
                     if ($this->firstRequired && empty($value)) {
                         $this->firstRequired = false;
                         $this->dispatch('set-loading-false');
-                        $fail($this->messages['age.required']);
+                        $fail($this->jsonQuestion->question_options['error_empty_text']);
                     }
                 },
             ],
@@ -56,7 +56,6 @@ class FormStep3 extends Component
     public function messages()
     {
         return [
-            'age.required' => $this->jsonQuestion->question_options['error_empty_text'],
             'age.integer' => __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]),
             'age.min' => __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]),
             'age.max' => __('validation.between.numeric', ['Attribute' => 'Je geboortejaar', 'min' => 1950, 'max' => 2020]),

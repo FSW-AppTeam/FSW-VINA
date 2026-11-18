@@ -52,20 +52,22 @@ class FormStepMultiText extends Component
                         $fail($this->messages['input.required']);
                     }
 
-                    // Check for duplicate names
-                    $normalizedNames = array_map(
-                        fn ($name) => mb_strtolower(trim((string) $name)),
-                        $filledValues
-                    );
-
-                    if (count($normalizedNames) !== count(array_unique($normalizedNames))) {
-                        $fail($this->messages['input.unique']);
+                    $duplicateName = null;
+                    $seenNames = [];
+                    foreach ($filledValues as $name) {
+                        $normalizedName = mb_strtolower(trim((string) $name));
+                        if (isset($seenNames[$normalizedName])) {
+                            $duplicateName = trim((string) $name);
+                            break;
+                        }
+                        $seenNames[$normalizedName] = true;
                     }
 
-                    if (
+                    $checksOtherFriendNames =
                         data_get($this->jsonQuestion, 'question_options.friend_source')
-                        || data_get($this->jsonQuestion, 'question_options.friend_source_migratory_background')
-                    ) {
+                        || data_get($this->jsonQuestion, 'question_options.friend_source_migratory_background');
+
+                    if ($duplicateName === null && $checksOtherFriendNames) {
                         $friendQuestionIds = SurveyQuestion::query()
                             ->get(['id', 'question_options'])
                             ->filter(fn (SurveyQuestion $question) =>
@@ -83,9 +85,16 @@ class FormStepMultiText extends Component
                             ->map(fn ($name) => mb_strtolower(trim((string) $name)))
                             ->all();
 
-                        if (array_intersect($normalizedNames, $otherFriendNames)) {
-                            $fail($this->messages['input.unique']);
+                        foreach ($filledValues as $name) {
+                            if (in_array(mb_strtolower(trim((string) $name)), $otherFriendNames, true)) {
+                                $duplicateName = trim((string) $name);
+                                break;
+                            }
                         }
+                    }
+
+                    if ($duplicateName !== null) {
+                        $fail($this->duplicateNameMessage($duplicateName));
                     }
                 },
             ],
@@ -185,5 +194,12 @@ class FormStepMultiText extends Component
                 $this->input
             )
         ));
+    }
+
+    private function duplicateNameMessage(string $name): string
+    {
+        $message = rtrim($this->messages['input.unique'], ". \t\n\r\0\x0B");
+
+        return $message.': '.$name.'.';
     }
 }

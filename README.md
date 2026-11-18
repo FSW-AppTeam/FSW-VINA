@@ -67,7 +67,8 @@ url: {your url}/install-questions. Only one questionnaire can be installed at a 
 questionnaire you can switch, but you have to remove all existing surveys, participant and results before you switch.
 
 For the questionnaire to work properly you need to define a setting on the page {your url}/settingtable. Add a new 
-setting with key: 'locale' and value: 'nl' or 'en', depending on the questionnaire you chose.
+setting with key: 'locale' and value: 'nl' or 'en', depending on the questionnaire you chose. The default database
+seeder sets this to 'nl' to match the default Dutch questionnaire; change it to 'en' when using the English questionnaire.
 
 ### Modify the questionnaire
 At the url {your url}/beheer you can manage the questions and answers of the questionnaire.
