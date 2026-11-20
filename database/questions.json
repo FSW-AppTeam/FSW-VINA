@@ -149,7 +149,7 @@
         "question_title": "bornparents",
         "question_content": "Zijn uw ouders in Nederland geboren?",
         "question_answer_options": [
-            {"id": 1, "value": "Ja, allebai"},
+            {"id": 1, "value": "Ja, allebei"},
             {"id": 2, "value": "Ja, een van mijn ouders"},
             {"id": 3, "value": "Nee, geen van beiden"},
             {"id": 4, "value": "Weet ik niet"}
@@ -353,7 +353,7 @@
         "question_content": "Wie van deze personen zijn mannen? Klik op de namen van alle mannen in uw netwerk.",
         "question_options": {
             "extra_text": "U mag zo veel namen aanklikken als u wil.",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "U heeft geen persoon aangeklikt, u mag zo veel personen aanklikken als u wilt. Weet u zeker dat u door wilt gaan?",
             "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
             }
     },
@@ -517,7 +517,7 @@
         "question_content": "Voor zover u weet, welke van de volgende personen denken dat immigratie een belangrijke oorzaak is voor de toenemende ongelijkheid?",
         "question_options": {
             "extra_text": "U mag zo veel namen aanklikken als u wil.",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "U heeft geen persoon aangeklikt, u mag zo veel personen aanklikken als u wilt. Weet u zeker dat u door wilt gaan?",
             "error_one_text": "Je hebt slechts één persoon geselecteerd; je kunt zoveel mensen selecteren als je wilt. Weet je zeker dat je door wilt gaan?"
             }
     },
@@ -592,7 +592,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "interessant",
-        "question_content": "Hoe interessant vond u het om de vragen over uw vrienden en kennissen?",
+        "question_content": "Hoe interessant vond u de vragen over uw vrienden en kennissen?",
         "question_answer_options": [
             {"id": 1, "value": "Heel erg interessant"},
             {"id": 2, "value": "Erg interessant"},
@@ -600,6 +600,7 @@
             {"id": 4, "value": "Een beetje interessant"},
             {"id": 5, "value": "Helemaal niet interessant"}
         ],
+        
         "question_options": {
             "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
@@ -628,7 +629,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "ISPP inkom",
-        "question_content": "In hoeverre bent u het eens of oneens met de volgende stellingen? <br><br>De inkomensverschillen zijn in Nederland te groot.",
+        "question_content": "In hoeverre bent u het eens of oneens met de volgende stellingen? <br><br>De inkomensverschillen in Nederland zijn te groot.",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee eens"},
             {"id": 2, "value": "Mee eens"},
@@ -646,7 +647,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "ISPP vermogen",
-        "question_content": "De vermogensverschillen zijn in Nederland te groot.",
+        "question_content": "De vermogensverschillen in Nederland zijn te groot.",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee eens"},
             {"id": 2, "value": "Mee eens"},
@@ -664,7 +665,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "ISPP redi",
-        "question_content": "Het is een taak van de overheid om de verschillen tussen den hoge en de lage inkomens te verkleinen.",
+        "question_content": "Het is een taak van de overheid om de verschillen tussen de hoge en de lage inkomens te verkleinen.",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee eens"},
             {"id": 2, "value": "Mee eens"},
@@ -682,7 +683,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "ESS redi",
-        "question_content": "De overheid zou maatregelen moeten nemen om vermogensverschillen te verminderen.",
+        "question_content": "De overheid zou maatregelen moeten nemen om vermogensverschillen te verkleinen.",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee eens"},
             {"id": 2, "value": "Mee eens"},
@@ -736,7 +737,7 @@
         "form_type": "select",
         "question_type": "int",
         "question_title": "minderen",
-        "question_content": "Er moet meer worden gedaan om immigratie naar Nederland te verminderen.",
+        "question_content": "Er moet meer worden gedaan om de immigratie naar Nederland te verminderen.",
         "question_answer_options": [
             {"id": 1, "value": "Helemaal mee eens"},
             {"id": 2, "value": "Mee eens"},
@@ -878,7 +879,7 @@
         "question_content": "Wie van deze personen is ouder dan jij?",
         "question_options": {
             "extra_text": "Je mag zo veel namen aanklikken als je wil.",
-            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?",
+            "error_empty_text": "U heeft geen persoon aangeklikt, u mag zo veel personen aanklikken als u wilt. Weet u zeker dat u door wilt gaan?",
             "error_one_text": "Je hebt maar één klasgenoot aangeklikt, je mag zo veel klasgenoten aanklikken als je wil. Weet je zeker dat je door wil gaan?"
         }
     },
@@ -920,9 +921,10 @@
         "form_type": "text",
         "question_type": "string",
         "question_title": "Comments",
-        "question_content": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor je deelname! <br><br>Heeft u nog opmerkingen over de vragenlijst?",
+        "question_content": "Dit is het einde van de vragenlijst. Hartelijk bedankt voor uw deelname! <br><br>Heeft u nog opmerkingen over de vragenlijst?",
         "question_options": {
-            "validation_max": 300
+            "validation_max": 300,
+            "error_empty_text": "Je hebt geen antwoord aangeklikt. Weet je zeker dat je door wil gaan?"
         }
     },
     {
